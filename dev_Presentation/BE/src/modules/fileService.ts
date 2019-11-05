@@ -12,15 +12,22 @@ export class File {
             const size = stat.size;
             if (!start && !end) {
                 res.status(206);
+                res.setHeader('Content-Type', 'text/html');
                 const stream = fs.createReadStream(url);
-                stream.on("data", chunk => {
-                    const head = JSON.stringify({
-                        'Content-Length': "TEST",
-                        'Content-Type': 'text/plain',
-                    })
-                    // res.writeHead(206, head)
-                    stream.pipe(res)
+                // stream.on("data", chunk => {
+                //     const head = JSON.stringify({
+                //         'Content-Length': "TEST",
+                //         'Content-Type': 'text/plain',
+                //     })
+                //     // res.writeHead(206, head)
+                stream.on("data",chunk =>{
+                    console.log(chunk)
+                    res.write(chunk)
+                }).on("end", ()=>{
+                    res.send()
                 })
+                    // stream.pipe(res)
+                // })
             }
             // const range = req.headers.range;
             // if (range) {

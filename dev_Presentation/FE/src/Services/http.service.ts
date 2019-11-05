@@ -13,7 +13,7 @@ export class HttpService {
   getRequest(url:string, body:any) : Promise<any> {
     return new Promise ((res,rej)=>{
       console.log(url)
-      this.http.get<any>(`http://localhost:8080/api${url}`,{ params:{ a: "2"}}).subscribe(value =>{
+      this.http.get<any>(`http://localhost:8080/api${url}`,{ params:{ a: "2"},responseType : "text"}).subscribe(value =>{
         res(value);
       });
     });
