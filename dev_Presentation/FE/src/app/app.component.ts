@@ -23,4 +23,8 @@ export class AppComponent implements OnInit {
       console.log(result)
     });
   }
+
+  testvideo(e) {
+    console.log(e);
+  }
 }
