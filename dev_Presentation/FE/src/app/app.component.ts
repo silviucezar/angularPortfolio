@@ -8,6 +8,7 @@ import { fileStream } from 'src/Interfaces/fileStream';
 })
 export class AppComponent implements OnInit {
   title = 'FE';
+  src = null;
 
   constructor
     (
@@ -15,13 +16,15 @@ export class AppComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    const fileStream: fileStream = {
-      Range: false,
-      Sequential: true
-    }
-    this.http.getRequest("", { params: fileStream }).then(result => {
-      console.log(result)
-    });
+    // const fileStream: fileStream = {
+    //   Range: "bytes=0-1023",
+    //   Sequential: true
+    // }
+    // this.http.getRequest("", fileStream).then(result => {
+    //   let blob = new Blob(result)
+    //   this.src = URL.createObjectURL(blob);
+    //   console.log(this.src)
+    // });
   }
 
   testvideo(e) {

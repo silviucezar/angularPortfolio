@@ -11,12 +11,15 @@ export class HttpService {
 
   getRequest(url: string, body: any): Promise<any> {
     return new Promise((res, rej) => {
-      const header = new HttpHeaders()
-      header.set("Content-Type", "text/plain")
-      header.set("Accept", "text/plain")
-      this.http.get<any>(`http://localhost:8080/api${url}`, body).subscribe(value => {
-        res(value);
-      });
+      this.http.get<any>(`http://localhost:8080/api${url}`,{
+        params : body,
+        headers: new HttpHeaders({
+          "Accept" : "video/mp4"
+        }),
+        responseType : "arraybuffer" as any
+      }).subscribe(value =>{
+        console.log(value)
+      })
     });
   }
 }
