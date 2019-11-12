@@ -1,14 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from 'src/Services/http.service';
-import { fileStream } from 'src/Interfaces/fileStream';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'FE';
-  src = null;
+
+  @ViewChild("scrollCanvas", { static: true }) scrollCanvas: ElementRef;
+  private scrollCanvasContext: CanvasRenderingContext2D;
+  private rendering: object = {
+    orientation: null,
+    window: window,
+    sizes: {
+      width: null,
+      height: null
+    }
+  }
 
   constructor
     (
@@ -16,15 +26,15 @@ export class AppComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    // const fileStream: fileStream = {
-    //   Range: "bytes=0-1023",
-    //   Sequential: true
-    // }
-    // this.http.getRequest("", fileStream).then(result => {
-    //   let blob = new Blob(result)
-    //   this.src = URL.createObjectURL(blob);
-    //   console.log(this.src)
-    // });
+    console.log(navigator)
+    console.log(window)
+
+  }
+
+  ngAfterViewInit() {
+    this.scrollCanvasContext = (<HTMLCanvasElement>this.scrollCanvas.nativeElement).getContext("2d");
+    const ctx = this.scrollCanvasContext;
+    ctx
   }
 
   testvideo(e) {
