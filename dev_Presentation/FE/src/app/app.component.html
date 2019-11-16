@@ -1,7 +1,11 @@
-<div>
-  <video id="background" autoplay>
-    <source src='http://localhost:8080/api/video' type="video/mp4">
-  </video>
+<div id="App_Global_Grid">
+    <div class="App_Global_Margin" #GlobalLeftMargin>left margin</div>
+    <div class="App_Global_Content">
+      ffadsfasd
+      <router-outlet></router-outlet>
+    </div>
+    <canvas #GlobalScrollCanvas class="App_Global_Margin">right margin</canvas>
 </div>
-<canvas #scrollCanvas></canvas>
-<router-outlet></router-outlet>
+<video id="App_Background" autoplay>
+  <source src='http://localhost:8080/api/video' type="video/mp4">
+</video>

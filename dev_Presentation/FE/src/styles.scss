@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    margin:0;
+    overflow:hidden
+}
+
+#App_Background {
+    z-index: -1;
+    pointer-events: none;
+    top:0;
+    left:0;
+    position:fixed;
+    width:100vw;
+    display:flex
+}
+
+#App_Global_Grid {
+    display : grid;
+    grid-template-columns : calc(1vw + 10px)  auto calc(1vw + 10px);
+    grid-template-rows:100vh;
+    grid-template-areas : 'App_Global_Margin App_Global_Content App_Global_Margin';
+    box-sizing: border-box
+}
+
+.App_Global_Margin {
+    grid-area : 'App_Global_Margin'
+}
+
+.App_Global_Content {
+    grid-area : 'App_Global-Content'
+}
