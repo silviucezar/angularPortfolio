@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { HttpService } from 'src/Services/http.service';
 import { RenderingService } from "src/Services/rendering.service";
 import { RenderDetails } from "src/Classes/renderDetails";
-import { CanvasDetails} from "src/Interfaces/CanvasDetails";
+import { CanvasDetails } from "src/Interfaces/CanvasDetails";
 
 
 @Component({
