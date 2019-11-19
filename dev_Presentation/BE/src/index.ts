@@ -1,11 +1,21 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
-import { Pool }from "pg";
+import { Pool, ClientConfig } from "pg";
 import { File } from "./modules/fileService"
 import { CommunicationParams } from "./interfaces/communicationParams";
-const app: Application = Express();
 
+const QueryPool: Pool = new Pool({
+    user: "postgres",
+    host: "http://localhost",
+    password: "HvJHTsQm9KteBLfKMytCYBkW",
+    database: "postgres",
+    port: 5432
+});
+
+console.log(QueryPool)
+
+const app: Application = Express();
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Headers", "Accept-Ranges");
@@ -22,8 +32,8 @@ app.get("/api/video", (req: Request, res: Response) => {
     File.stream(params)
 });
 
-app.get("/api/",(req:Request,res:Response) =>{
-    setTimeout(()=>{
-        res.end(JSON.stringify({ data: "TEST"}))
-    },5000)
+app.get("/api/", (req: Request, res: Response) => {
+    setTimeout(() => {
+        res.end(JSON.stringify({ data: "TEST" }))
+    }, 5000)
 });
