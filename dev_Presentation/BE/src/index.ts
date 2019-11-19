@@ -1,6 +1,7 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
+import { Pool }from "pg";
 import { File } from "./modules/fileService"
 import { CommunicationParams } from "./interfaces/communicationParams";
 const app: Application = Express();
@@ -19,4 +20,10 @@ app.get("/api/video", (req: Request, res: Response) => {
         Source: "src/assets/video/Particle.mp4"
     }
     File.stream(params)
+});
+
+app.get("/api/",(req:Request,res:Response) =>{
+    setTimeout(()=>{
+        res.end(JSON.stringify({ data: "TEST"}))
+    },5000)
 });
