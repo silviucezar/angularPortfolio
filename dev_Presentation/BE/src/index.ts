@@ -1,19 +1,8 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
-import { Pool, ClientConfig } from "pg";
 import { File } from "./modules/fileService"
 import { CommunicationParams } from "./interfaces/communicationParams";
-
-const QueryPool: Pool = new Pool({
-    user: "postgres",
-    host: "http://localhost",
-    password: "HvJHTsQm9KteBLfKMytCYBkW",
-    database: "postgres",
-    port: 5432
-});
-
-console.log(QueryPool)
 
 const app: Application = Express();
 app.use((req: Request, res: Response, next: NextFunction) => {
