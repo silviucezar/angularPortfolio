@@ -1,8 +1,8 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
-import { File } from "./modules/fileService"
-import { CommunicationParams } from "./interfaces/communicationParams";
+import { File } from "./_Modules/fileService"
+import { CommunicationParams } from "./_Interfaces/communicationParams";
 
 const app: Application = Express();
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +16,7 @@ app.get("/api/video", (req: Request, res: Response) => {
     const params: CommunicationParams = {
         Request: req,
         Response: res,
-        Source: "src/assets/video/Particle.mp4"
+        Source: "src/_Assets/_Video/Particle.mp4"
     }
     File.stream(params)
 });
