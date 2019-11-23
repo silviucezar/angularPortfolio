@@ -1,10 +1,12 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
-import { File } from "./_Modules/fileService"
+import { File } from "./_Modules/fileService";
+import { DBCreation } from "./_Database/db_Creation";
 import { CommunicationParams } from "./_Interfaces/communicationParams";
 
 const app: Application = Express();
+const _DBCreation = new DBCreation();
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Headers", "Accept-Ranges");
@@ -22,6 +24,7 @@ app.get("/api/video", (req: Request, res: Response) => {
 });
 
 app.get("/api/", (req: Request, res: Response) => {
+    _DBCreation.createTables();
     setTimeout(() => {
         res.end(JSON.stringify({ data: "TEST" }))
     }, 5000)

@@ -1,11 +1,11 @@
 import { Pool } from "pg";
 
-export class QueryPoolModel {
+export class QueryModel {
 
-    private QueryPoolModel: Pool;
+    public readonly Pool: Pool;
 
     constructor() {
-        this.QueryPoolModel = new Pool({
+        this.Pool = new Pool({
             user: "postgres",
             host: "localhost",
             password: "HvJHTsQm9KteBLfKMytCYBkW",
