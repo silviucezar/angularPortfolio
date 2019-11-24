@@ -24,7 +24,7 @@ app.get("/api/video", (req: Request, res: Response) => {
 });
 
 app.get("/api/", (req: Request, res: Response) => {
-    _DBCreation.createTables();
+    _DBCreation.createTables(0);
     setTimeout(() => {
         res.end(JSON.stringify({ data: "TEST" }))
     }, 5000)
