@@ -7,7 +7,8 @@ export class DBCreation {
 
     private QueryModel: QueryModel;
     private PGQuery: PGQuery;
-    private promiseArr: any[] = [];
+    private PromiseArr: any[] = [];
+    private QueryCounter: number = 1;
     private DoTransactions: (
         _Error: Error,
         _Client: PoolClient,
@@ -25,11 +26,23 @@ export class DBCreation {
             {
                 IsTransaction: false,
                 DbActionSingle: `SELECT * from params`
-            }, {
+            },
+            {
+                IsTransaction: true,
+                DbActionTransaction: [
+                    `CREATE TABLE params (
+                        params JSONB
+                    )`,
+                    `INSERT INTO params(params) VALUES ('{
+                        "isParamsTableCreated": "0"
+                    }')`
+                ]
+            },
+            {
                 IsTransaction: true,
                 DbActionTransaction: [
                     `CREATE TABLE IF NOT EXISTS mainprofiledetails (
-                        id SERIAL,
+                        id SERIAL NOT NULL PRIMARY KEY,
                         firstname VARCHAR(20),
                         midlename VARCHAR(20),
                         lastname VARCHAR(50),
@@ -51,7 +64,7 @@ export class DBCreation {
                         birthdate TEXT,
                         gender VARCHAR(10),
                         phoneno SMALLINT
-                        )`,
+                        )`
                 ]
             }
         ];
@@ -59,9 +72,9 @@ export class DBCreation {
         this.DoTransactions = (_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, Query: PGQueryInterface, QueryIndex: number, resolve: any, reject: any) => {
             _Client.query(Query.DbActionTransaction[TransactionIndex], (_TransactionError, _TransactionData) => {
                 if (_TransactionError) { reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done)); return; }
-                if (QueryIndex + 1 === this.PGQuery.QueryArrays.length && TransactionIndex + 1 === Query.DbActionTransaction.length) {
+                if (TransactionIndex + 1 === Query.DbActionTransaction.length) {
                     resolve(this.PGQuery.Commit(_Client, _Done, _TransactionData));
-                    this.createTables(QueryIndex + 1);
+                    if (QueryIndex + 1 < this.PGQuery.QueryArrays.length) this.createTables(QueryIndex + 1);
                 } else {
                     this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, this.PGQuery.QueryArrays[TransactionIndex + 1], QueryIndex, resolve, reject);
                 }
@@ -69,46 +82,44 @@ export class DBCreation {
         }
     }
 
-    createTables(QueryIndex: number, overwrite?: boolean): Promise<any> {
-        console.log(QueryIndex, this.PGQuery.QueryArrays.length)
+    createTables(QueryIndex: number, AdditionalFuctionality?: boolean, _AdditionalFuctionality?: () => void): Promise<any> {
+        if (AdditionalFuctionality) _AdditionalFuctionality();
         if (QueryIndex === this.PGQuery.QueryArrays.length) {
-            return Promise.all(this.promiseArr).then(result => {
+            return Promise.all(this.PromiseArr).then(result => {
                 console.log("done");
             });
         } else {
             const Query = this.PGQuery.QueryArrays[QueryIndex];
-            console.log(Query)
-            this.promiseArr.push(
+            this.PromiseArr.push(
                 new Promise((resolve: any, reject: any) => {
-                    if (!overwrite) {
-                        if (Query.IsTransaction) {
-                            this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
-                                if (_Error) { reject(this.PGQuery.Rollback(_Error, _Client, _Done)); return; }
-                                _Client.query("BEGIN", _BeginErr => {
-                                    if (_BeginErr) { reject(this.PGQuery.Rollback(_BeginErr, _Client, _Done)); return; }
-                                    this.DoTransactions(_Error, _Client, _Done, 0, Query, QueryIndex, resolve, reject);
-                                });
+                    if (Query.IsTransaction) {
+                        this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
+                            if (_Error) { reject(this.PGQuery.Rollback(_Error, _Client, _Done)); return; }
+                            _Client.query("BEGIN", _BeginErr => {
+                                if (_BeginErr) { reject(this.PGQuery.Rollback(_BeginErr, _Client, _Done)); return; }
+                                this.DoTransactions(_Error, _Client, _Done, 0, Query, QueryIndex, resolve, reject);
                             });
-                        } else {
-                            this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
-                                if (_Error) { reject(this.PGQuery.Rollback(_Error, _Client, _Done)); return; }
-                                _Client.query(Query.DbActionSingle, (_TransactionError: any, _TransactionData) => {
-                                    if (_TransactionError) {
-                                        if (_TransactionError.code === "42P01") {
-                                            reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done));
-                                            return;
-                                        }
-                                    } else {
-                                        resolve(_TransactionData);
-                                        _Done();
-                                        this.createTables(QueryIndex + 1);
-                                    }
-
-                                });
-                            });
-                        }
+                        });
                     } else {
-                        console.log("noooooooope");
+                        this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
+                            if (_Error) { reject(this.PGQuery.Rollback(_Error, _Client, _Done)); return; }
+                            _Client.query(Query.DbActionSingle, (_TransactionError: any, _TransactionData) => {
+                                if (_TransactionError && _TransactionError.code === "42P01") {
+                                    this.createTables(1, true, _Done);
+                                    // reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done));
+                                    // return;
+                                } else if (_TransactionError && _TransactionError.code === "42P07") {
+                                    // resolve(_TransactionData);
+                                    _Done();
+                                    this.createTables(2, true, _Done);
+                                } else {
+                                    resolve(_TransactionData);
+                                    _Done();
+                                    this.createTables(QueryIndex + 1);
+
+                                }
+                            });
+                        });
                     }
                 }));
         }
