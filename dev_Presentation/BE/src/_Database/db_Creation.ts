@@ -31,18 +31,18 @@ export class DBCreation {
                 IsTransaction: true,
                 DbActionTransaction: [
                     `CREATE TABLE params (
-                        params JSONB
+                        params TEXT,
+                        id int NOT NULL PRIMARY KEY
                     )`,
-                    `INSERT INTO params(params) VALUES ('{
-                        "isParamsTableCreated": "0"
-                    }')`
+                    `INSERT INTO params(params,id) VALUES ('{
+                        "isParamsTableCreated": "1"
+                    }',1)`
                 ]
             },
             {
                 IsTransaction: true,
                 DbActionTransaction: [
                     `CREATE TABLE IF NOT EXISTS mainprofiledetails (
-                        id SERIAL NOT NULL PRIMARY KEY,
                         firstname VARCHAR(20),
                         midlename VARCHAR(20),
                         lastname VARCHAR(50),
@@ -51,7 +51,8 @@ export class DBCreation {
                         age SMALLINT,
                         birthdate TEXT,
                         gender VARCHAR(10),
-                        phoneno SMALLINT
+                        phoneno SMALLINT,
+                        id SERIAL NOT NULL PRIMARY KEY,
                         )`,
                     `CREATE TABLE IF NOT EXISTS mainprofiledetails2 (
                         id SERIAL,
@@ -70,8 +71,13 @@ export class DBCreation {
         ];
 
         this.DoTransactions = (_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, Query: PGQueryInterface, QueryIndex: number, resolve: any, reject: any) => {
-            _Client.query(Query.DbActionTransaction[TransactionIndex], (_TransactionError, _TransactionData) => {
-                if (_TransactionError) { reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done)); return; }
+            _Client.query(Query.DbActionTransaction[TransactionIndex], (_TransactionError: any, _TransactionData) => {
+                if (_TransactionError) {
+                    reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done));
+                    if (_TransactionError && _TransactionError.code.match(/42P01|42P07/)) {
+                        this.createTables(QueryIndex + 1);
+                    }
+                }
                 if (TransactionIndex + 1 === Query.DbActionTransaction.length) {
                     resolve(this.PGQuery.Commit(_Client, _Done, _TransactionData));
                     if (QueryIndex + 1 < this.PGQuery.QueryArrays.length) this.createTables(QueryIndex + 1);
@@ -104,19 +110,14 @@ export class DBCreation {
                         this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
                             if (_Error) { reject(this.PGQuery.Rollback(_Error, _Client, _Done)); return; }
                             _Client.query(Query.DbActionSingle, (_TransactionError: any, _TransactionData) => {
-                                if (_TransactionError && _TransactionError.code === "42P01") {
-                                    this.createTables(1, true, _Done);
+                                if (_TransactionError && _TransactionError.code.match(/42P01|42P07/)) {
                                     // reject(this.PGQuery.Rollback(_TransactionError, _Client, _Done));
-                                    // return;
-                                } else if (_TransactionError && _TransactionError.code === "42P07") {
-                                    // resolve(_TransactionData);
-                                    _Done();
-                                    this.createTables(2, true, _Done);
+                                    reject(this.PGQuery.End(_TransactionError, _Client, _Done))
+                                    this.createTables(QueryIndex + 1);
                                 } else {
                                     resolve(_TransactionData);
                                     _Done();
                                     this.createTables(QueryIndex + 1);
-
                                 }
                             });
                         });
