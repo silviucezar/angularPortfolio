@@ -29,3 +29,5 @@ app.get("/api/", (req: Request, res: Response) => {
         res.end(JSON.stringify({ data: "TEST" }))
     }, 5000)
 });
+
+_DBCreation.createTables(0);

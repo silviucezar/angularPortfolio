@@ -1,36 +1,26 @@
 import { QueryConfig, PoolClient } from "pg";
 
-export interface PGQueryInterface {
-    IsTransaction: boolean,
-    DbActionSingle?: string | QueryConfig;
-    DbActionTransaction?: string[];
-}
-
 export class PGQuery {
-    public QueryArrays: PGQueryInterface[];
-    public readonly Rollback: (_Error: Error, _Client: PoolClient, _Done: () => void) => void;
-    public readonly End: (_Error: Error, _Client: PoolClient, _Done: () => void) => void;
-    public readonly Commit: (_Client: PoolClient, _Done: () => void, _TransactionData: any) => void;
+    public QueryArrays: string[][];
+    public readonly Release: (_Error: any, _Client: PoolClient, _Done: () => void, reject: any) => void;
+    public readonly Commit: (_Client: PoolClient, _Done: () => void, _TransactionData: any, reject: any, resolve: any) => void;
 
     constructor() {
-        this.Rollback = (_Error: Error, _Client: PoolClient, _Done: () => void) => {
-            console.log(_Error);
-            return _Client.query("ROLLBACK", err => {
-                if (err) {
-                    console.log(err);
-                    return err;
-                }
+        this.Release = (_Error: any, _Client: PoolClient, _Done: () => void, reject: any) => {
+            if (_Error.code.match(/42P01|42P07/)) {
+                // _Done();
+                // _retry();
+            } else {
+                reject(_Client.query("ROLLBACK", err => { _Done(); return err ? err : _Error; }));
+            }
+
+        };
+        this.Commit = (_Client: PoolClient, _Done: () => void, _TransactionData: any, reject: any, resolve: any) => {
+            _Client.query("COMMIT", err => {
+                if (err) { this.Release(err, _Client, _Done, reject); return; }
                 _Done();
-                return _Error;
+                resolve(_TransactionData);
             });
         };
-        this.Commit = (_Client: PoolClient, _Done: () => void, _TransactionData: any) => {
-            return _Client.query("COMMIT", err => {
-                if (err) this.Rollback(err, _Client, _Done);
-                _Done();
-                return _TransactionData;
-            });
-        };
-        this.End = (_Error: Error, _Client: PoolClient, _Done: () => void) => { _Done(); return _Error; };
     }
 }
