@@ -12,7 +12,7 @@ export class InitialDataService implements Resolve<any> {
     // private activatedRoute : ActivatedRoute,
   ) { }
    resolve() : Observable<any> | any {
-    return this.http.getRequest("/","")
+    return this.http.doGetRequest("/","")
     .then(result =>{
       return result
     })

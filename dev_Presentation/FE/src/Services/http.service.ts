@@ -16,7 +16,6 @@ export class HttpService {
       return new Promise((res, rej) => {
         this.http.get<any>(`http://localhost:8080/api${url}`, {
           params: body
-          // responseType : "arraybuffer" as any
         }).subscribe(value => {
           res(value);
         })
