@@ -24,10 +24,18 @@ app.get("/api/video", (req: Request, res: Response) => {
 });
 
 app.get("/api/", (req: Request, res: Response) => {
-    _DBCreation.createTables(0);
+    console.log(process.env)
+    // new Promise((resolve,reject) =>{
+    //     if (_DBCreation.createTables(0)) {
+    //         process.env
+    //     };
+    // })
+    // .then(result =>{
+
+    // })
+    // .catch()
     setTimeout(() => {
         res.end(JSON.stringify({ data: "TEST" }))
     }, 5000)
 });
 
-_DBCreation.createTables(0);

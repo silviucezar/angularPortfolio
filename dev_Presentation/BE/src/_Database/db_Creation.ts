@@ -114,8 +114,7 @@ export class DBCreation {
             console.log(MainQueryIndex === this.PGQuery.QueryArrays.length, MainQueryIndex, this.PGQuery.QueryArrays.length)
             return Promise.all(this.PromiseArr)
                 .then(result => {
-                    console.log(result);
-                    console.log("done");
+                    return result;
                 })
                 .catch(e => {
                     console.log(e);

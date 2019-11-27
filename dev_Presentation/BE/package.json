@@ -7,7 +7,6 @@
     "@types/express": "^4.17.2",
     "@types/pg": "^7.11.2",
     "express": "^4.17.1",
-    "nodemon": "^1.19.4",
     "pg": "^7.12.1",
     "tslint": "^6.0.0-beta0",
     "typescript": "^3.6.4"
@@ -16,7 +15,7 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "prestart": "npm run build",
-    "start": "nodemon .",
+    "start": "node . NODE_ENV=dev",
     "start:watch": "",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
