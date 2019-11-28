@@ -9,8 +9,8 @@ const app: Application = Express();
 const _DBCreation = new DBCreation();
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    res.header("Access-Control-Allow-Headers", "Accept-Ranges");
-    res.header("Accept-Ranges", "bytes");
+    // res.header("Access-Control-Allow-Headers", "Accept-Ranges");
+    // res.header("Accept-Ranges", "bytes");
     next();
 }).listen(8080, () => { console.log("Server running...") });
 
@@ -24,18 +24,18 @@ app.get("/api/video", (req: Request, res: Response) => {
 });
 
 app.get("/api/", (req: Request, res: Response) => {
-    console.log(process.env)
-    // new Promise((resolve,reject) =>{
-    //     if (_DBCreation.createTables(0)) {
-    //         process.env
-    //     };
-    // })
-    // .then(result =>{
 
-    // })
-    // .catch()
-    setTimeout(() => {
-        res.end(JSON.stringify({ data: "TEST" }))
-    }, 5000)
+    if (process.env.NODE_ENV === 'dev') {
+        _DBCreation.createTables(-1)
+            .then(result => {
+                console.log(result);
+                res.status(200).end(JSON.stringify(result));
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    } else {
+        console.log("prod logic here")
+    }
 });
 

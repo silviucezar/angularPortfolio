@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-
+import { InitialDataService } from "../Resolvers/initial-data.service";
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'FE';
 
-  constructor() { }
+  constructor(
+    private data: InitialDataService,
+  ) {
 
-  ngOnInit() { }
+  }
 
+  ngOnInit() {
+    // this.data.getInitialData().subscribe(value => {
+    //   console.log(value);
+    // })
+  }
 }

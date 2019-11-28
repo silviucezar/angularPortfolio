@@ -99,7 +99,7 @@ export class DBCreation {
                 } else {
                     if (TransactionIndex + 1 === TransactionQuery.length) {
                         this.PGQuery.Commit(_Client, _Done, _TransactionData, reject, resolve);
-                        if (MainQueryIndex < this.PGQuery.QueryArrays.length) this.createTables(MainQueryIndex + 1);
+                        if (MainQueryIndex + 1 < this.PGQuery.QueryArrays.length) this.createTables(MainQueryIndex + 1);
                     } else {
                         this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, TransactionQuery, MainQueryIndex, resolve, reject);
                     }
@@ -110,15 +110,9 @@ export class DBCreation {
 
     createTables(MainQueryIndex: number, AdditionalFuctionality?: boolean, _AdditionalFuctionality?: () => void): Promise<any> {
         if (AdditionalFuctionality) _AdditionalFuctionality();
-        if (MainQueryIndex === this.PGQuery.QueryArrays.length) {
-            console.log(MainQueryIndex === this.PGQuery.QueryArrays.length, MainQueryIndex, this.PGQuery.QueryArrays.length)
-            return Promise.all(this.PromiseArr)
-                .then(result => {
-                    return result;
-                })
-                .catch(e => {
-                    console.log(e);
-                })
+        if (MainQueryIndex === - 1) {
+            this.createTables(0);
+            return Promise.all(this.PromiseArr);
         } else {
             const TransactionQuery = this.PGQuery.QueryArrays[MainQueryIndex];
             this.PromiseArr.push(

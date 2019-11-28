@@ -15,7 +15,7 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "prestart": "npm run build",
-    "start": "node . NODE_ENV=dev",
+    "start": "node .",
     "start:watch": "",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
