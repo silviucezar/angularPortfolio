@@ -26,14 +26,15 @@ app.get("/api/video", (req: Request, res: Response) => {
 app.get("/api/", (req: Request, res: Response) => {
 
     if (process.env.NODE_ENV === 'dev') {
-        _DBCreation.createTables(-1)
-            .then(result => {
-                console.log(result);
-                res.status(200).end(JSON.stringify(result));
-            })
-            .catch(e => {
-                console.log(e);
-            })
+        _DBCreation.createTables(0)
+        // Promise.all(_DBCreation.createTables(0) as [])
+        //     .then(result => {
+        //         console.log(result);
+        //         res.status(200).end(JSON.stringify(result));
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     })
     } else {
         console.log("prod logic here")
     }

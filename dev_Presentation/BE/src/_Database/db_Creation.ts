@@ -13,7 +13,6 @@ export class DBCreation {
         _Client: PoolClient,
         _Done: () => void,
         TransactionIndex: number,
-        TransactionQuery: string[],
         MainQueryIndex: number,
         resolve: any,
         reject: any
@@ -89,42 +88,41 @@ export class DBCreation {
             ]
         ];
 
-        this.DoTransactions = (_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, TransactionQuery: [], MainQueryIndex: number, resolve: any, reject: any) => {
-            _Client.query(TransactionQuery[TransactionIndex], (_TransactionError: any, _TransactionData) => {
+        this.DoTransactions = (_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, MainQueryIndex: number, resolve: any, reject: any) => {
+            _Client.query(this.PGQuery.QueryArrays[MainQueryIndex][TransactionIndex], (_TransactionError: any, _TransactionData: any) => {
                 if (_TransactionError) {
                     this.PGQuery.Release(_TransactionError, _Client, _Done, reject);
-                    if (_TransactionError && _TransactionError.code.match(/42P01|42P07/)) {
+                    if (_TransactionError && _TransactionError.code.match(/42P01|42P07/) && TransactionIndex + 1 === this.PGQuery.QueryArrays[MainQueryIndex].length) {
                         this.createTables(MainQueryIndex + 1);
                     }
                 } else {
-                    if (TransactionIndex + 1 === TransactionQuery.length) {
+                    if (TransactionIndex + 1 === this.PGQuery.QueryArrays[MainQueryIndex].length) {
                         this.PGQuery.Commit(_Client, _Done, _TransactionData, reject, resolve);
                         if (MainQueryIndex + 1 < this.PGQuery.QueryArrays.length) this.createTables(MainQueryIndex + 1);
                     } else {
-                        this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, TransactionQuery, MainQueryIndex, resolve, reject);
+                        this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, MainQueryIndex, resolve, reject);
                     }
                 }
             });
         }
     }
 
-    createTables(MainQueryIndex: number, AdditionalFuctionality?: boolean, _AdditionalFuctionality?: () => void): Promise<any> {
+    createTables(MainQueryIndex: number, AdditionalFuctionality?: boolean, _AdditionalFuctionality?: () => void): string[] {
         if (AdditionalFuctionality) _AdditionalFuctionality();
-        if (MainQueryIndex === - 1) {
-            this.createTables(0);
-            return Promise.all(this.PromiseArr);
-        } else {
-            const TransactionQuery = this.PGQuery.QueryArrays[MainQueryIndex];
+        if (MainQueryIndex < this.PGQuery.QueryArrays.length) {
             this.PromiseArr.push(
                 new Promise((resolve: any, reject: any) => {
                     this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
                         if (_Error) { this.PGQuery.Release(_Error, _Client, _Done, reject); return; }
                         _Client.query("BEGIN", _BeginErr => {
                             if (_BeginErr) { this.PGQuery.Release(_BeginErr, _Client, _Done, reject); return; }
-                            this.DoTransactions(_Error, _Client, _Done, 0, TransactionQuery, MainQueryIndex, resolve, reject);
+                            this.DoTransactions(_Error, _Client, _Done, 0, MainQueryIndex, resolve, reject);
                         });
                     });
                 }));
+        } else {
+            return this.PromiseArr;
         }
     }
+
 }
