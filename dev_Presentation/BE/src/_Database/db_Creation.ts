@@ -1,14 +1,11 @@
-import { QueryModel } from "../_Models/db_QueryModel";
 import { PGQuery } from "../_Services/PGQuery";
 import { PoolClient } from "pg";
 
 export class DBCreation {
 
-    private QueryModel: QueryModel;
     private PGQuery: PGQuery;
     private PromiseArr: any[] = [];
     constructor() {
-        this.QueryModel = new QueryModel();
         this.PGQuery = new PGQuery();
         this.PGQuery.QueryArrays = [
             [
@@ -96,13 +93,16 @@ export class DBCreation {
         for (const Query of this.PGQuery.QueryArrays) {
             this.PromiseArr.push(
                 new Promise((resolve: any, reject: any) => {
-                    this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
-                        if (_Error) { this.PGQuery.Release(_Error, _Client, _Done, reject); return; }
-                        _Client.query("BEGIN", _BeginErr => {
-                            if (_BeginErr) { this.PGQuery.Release(_BeginErr, _Client, _Done, reject); return; }
-                            this.DoTransactions(_Error, _Client, _Done, 0, Query, resolve, reject);
+                    this.PGQuery.Start()
+                    .then(ConnectionResult =>{
+                        const ConnectionResultClient:PoolClient = ConnectionResult._Client;
+                        ConnectionResultClient.query("BEGIN", _BeginErr => {
+                            this.DoTransactions(ConnectionResult._Error, ConnectionResult._Client, ConnectionResult._Done, 0, Query, resolve, reject);
                         });
-                    });
+                    })
+                    .catch(ConnectionResult =>{
+                        this.PGQuery.Release(ConnectionResult._Error, ConnectionResult._Client, ConnectionResult._Done, reject); return;
+                    })
                 }));
         }
         return this.PromiseArr;
