@@ -1,5 +1,5 @@
-import { QueryModel } from "../_Classes/db_QueryModel";
-import { PGQuery } from "../_Interfaces/PGQuery";
+import { QueryModel } from "../_Models/db_QueryModel";
+import { PGQuery } from "../_Services/PGQuery";
 import { PoolClient } from "pg";
 
 export class DBCreation {
@@ -107,5 +107,4 @@ export class DBCreation {
         }
         return this.PromiseArr;
     }
-
 }

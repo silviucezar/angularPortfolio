@@ -1,4 +1,4 @@
-import { QueryConfig, PoolClient } from "pg";
+import { PoolClient } from "pg";
 
 export class PGQuery {
     public QueryArrays: string[][];

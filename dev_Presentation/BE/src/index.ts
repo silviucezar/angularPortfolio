@@ -1,5 +1,5 @@
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
-import { File } from "./_Modules/fileService";
+import { File } from "./_Services/fileService";
 import { DBCreation } from "./_Database/db_Creation";
 import { CommunicationParams } from "./_Interfaces/communicationParams";
 
