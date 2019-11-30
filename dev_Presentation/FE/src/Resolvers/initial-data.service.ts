@@ -18,7 +18,10 @@ export class InitialDataService implements Resolve<any> {
     // this.InitialData$ = this.InitialData.asObservable();
   }
   resolve(): Observable<any> | any {
-    return this.http.doGetRequest("/", "")
+    return this.http.doGetRequest("/",{
+      locale : "ro_ro",
+      prefix : "intro_"
+    })
       .then(result => {
         return result;
       })

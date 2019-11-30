@@ -17,7 +17,7 @@ export class DBMain {
             this.PGQuery.Start()
                 .then(ConnectionResult => {
                     const ConnectionResultClient: PoolClient = ConnectionResult._Client;
-                    ConnectionResultClient.query(`SELECT ${Query.Columns} FROM ${Query.Table} ${Query.Where}`, (_SelectError, _SelectData) => {
+                    ConnectionResultClient.query(`SELECT ${Query.Columns} FROM ${Query.Table} ${Query.Where ? Query.Where :""}`, (_SelectError, _SelectData) => {
                         if (_SelectError) { reject(_SelectError); ConnectionResult._Done(); return };
                         ConnectionResult._Done();
                         resolve(_SelectData.rows);
