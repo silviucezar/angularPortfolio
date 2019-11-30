@@ -7,9 +7,8 @@ export class PGQuery {
 
     constructor() {
         this.Release = (_Error: any, _Client: PoolClient, _Done: () => void, reject: any) => {
-            if (_Error.code.match(/42P01|42P07/)) {
-                // _Done();
-                // _retry();
+            if (!_Error.code.match(/42P01|42P07/)) {
+                console.log("retry logic here")
             } else {
                 reject(_Client.query("ROLLBACK", err => { _Done(); return err ? err : _Error; }));
             }

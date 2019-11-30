@@ -7,17 +7,15 @@ export class DBCreation {
     private QueryModel: QueryModel;
     private PGQuery: PGQuery;
     private PromiseArr: any[] = [];
-    private QueryCounter: number = 1;
-    private DoTransactions: (
-        _Error: Error,
-        _Client: PoolClient,
-        _Done: () => void,
-        TransactionIndex: number,
-        TransactionQuery: string[],
-        MainQueryIndex: number,
-        resolve: any,
-        reject: any
-    ) => void;
+    // private DoTransactions: (
+    //     _Error: Error,
+    //     _Client: PoolClient,
+    //     _Done: () => void,
+    //     TransactionIndex: number,
+    //     TransactionQuery: string[],
+    //     resolve: any,
+    //     reject: any
+    // ) => void;
     constructor() {
         this.QueryModel = new QueryModel();
         this.PGQuery = new PGQuery();
@@ -88,43 +86,35 @@ export class DBCreation {
                 `
             ]
         ];
-
-        this.DoTransactions = (_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, TransactionQuery: [], MainQueryIndex: number, resolve: any, reject: any) => {
-            _Client.query(TransactionQuery[TransactionIndex], (_TransactionError: any, _TransactionData) => {
-                if (_TransactionError) {
-                    this.PGQuery.Release(_TransactionError, _Client, _Done, reject);
-                    if (_TransactionError && _TransactionError.code.match(/42P01|42P07/)) {
-                        this.createTables(MainQueryIndex + 1);
-                    }
-                } else {
-                    if (TransactionIndex + 1 === TransactionQuery.length) {
-                        this.PGQuery.Commit(_Client, _Done, _TransactionData, reject, resolve);
-                        if (MainQueryIndex + 1 < this.PGQuery.QueryArrays.length) this.createTables(MainQueryIndex + 1);
-                    } else {
-                        this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, TransactionQuery, MainQueryIndex, resolve, reject);
-                    }
-                }
-            });
-        }
     }
 
-    createTables(MainQueryIndex: number, AdditionalFuctionality?: boolean, _AdditionalFuctionality?: () => void): Promise<any> {
-        if (AdditionalFuctionality) _AdditionalFuctionality();
-        if (MainQueryIndex === - 1) {
-            this.createTables(0);
-            return Promise.all(this.PromiseArr);
-        } else {
-            const TransactionQuery = this.PGQuery.QueryArrays[MainQueryIndex];
+    DoTransactions(_Error: Error, _Client: PoolClient, _Done: () => void, TransactionIndex: number, TransactionQuery: string[], resolve: any, reject: any):void{
+        _Client.query(TransactionQuery[TransactionIndex], (_TransactionError: any, _TransactionData) => {
+            if (_TransactionError) {
+                this.PGQuery.Release(_TransactionError, _Client, _Done, reject);
+            } else if (TransactionIndex + 1 === TransactionQuery.length) {
+                this.PGQuery.Commit(_Client, _Done, _TransactionData, reject, resolve);
+            } else {
+                this.DoTransactions(_Error, _Client, _Done, TransactionIndex + 1, TransactionQuery, resolve, reject);
+            }
+
+        });
+    }
+
+    createTables(): any {
+        for (const Query of this.PGQuery.QueryArrays) {
             this.PromiseArr.push(
                 new Promise((resolve: any, reject: any) => {
                     this.QueryModel.Pool.connect((_Error, _Client, _Done) => {
                         if (_Error) { this.PGQuery.Release(_Error, _Client, _Done, reject); return; }
                         _Client.query("BEGIN", _BeginErr => {
                             if (_BeginErr) { this.PGQuery.Release(_BeginErr, _Client, _Done, reject); return; }
-                            this.DoTransactions(_Error, _Client, _Done, 0, TransactionQuery, MainQueryIndex, resolve, reject);
+                            this.DoTransactions(_Error, _Client, _Done, 0, Query, resolve, reject);
                         });
                     });
                 }));
         }
+        return this.PromiseArr;
+
     }
 }

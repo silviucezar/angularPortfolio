@@ -1,5 +1,3 @@
-/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
-
 import Express, { Application, Request, Response, NextFunction, response } from 'express';
 import { File } from "./_Modules/fileService";
 import { DBCreation } from "./_Database/db_Creation";
@@ -24,16 +22,15 @@ app.get("/api/video", (req: Request, res: Response) => {
 });
 
 app.get("/api/", (req: Request, res: Response) => {
-
-    if (process.env.NODE_ENV === 'dev') {
-        _DBCreation.createTables(-1)
-            .then(result => {
-                console.log(result);
-                res.status(200).end(JSON.stringify(result));
-            })
-            .catch(e => {
-                console.log(e);
-            })
+    process.env.NODE_ENV = "dev";
+    if (process.env.NODE_ENV === "dev") {
+        Promise.all(_DBCreation.createTables())
+        .then(() => {
+                res.status(200).end(JSON.stringify({data:"TET"}));
+        })
+        .catch(()=>{
+            res.status(200).end(JSON.stringify({data:"TET"}));
+        })
     } else {
         console.log("prod logic here")
     }
