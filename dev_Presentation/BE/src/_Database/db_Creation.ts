@@ -7,15 +7,6 @@ export class DBCreation {
     private QueryModel: QueryModel;
     private PGQuery: PGQuery;
     private PromiseArr: any[] = [];
-    // private DoTransactions: (
-    //     _Error: Error,
-    //     _Client: PoolClient,
-    //     _Done: () => void,
-    //     TransactionIndex: number,
-    //     TransactionQuery: string[],
-    //     resolve: any,
-    //     reject: any
-    // ) => void;
     constructor() {
         this.QueryModel = new QueryModel();
         this.PGQuery = new PGQuery();
@@ -115,6 +106,6 @@ export class DBCreation {
                 }));
         }
         return this.PromiseArr;
-
     }
+
 }
