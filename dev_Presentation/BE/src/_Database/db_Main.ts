@@ -5,14 +5,12 @@ import { SelectQuery } from "../_Interfaces/MainDBInterface"
 export class DBMain {
 
     private PGQuery: PGQuery;
-    private PromiseArr: any[] = [];
-    private QueryArrays: string[][];
 
     constructor() {
         this.PGQuery = new PGQuery();
     }
 
-    select(Query: SelectQuery): Promise<any> {
+    select(Query: SelectQuery): Promise<object[][]> {
         return new Promise((resolve, reject) => {
             this.PGQuery.Start()
                 .then(ConnectionResult => {
