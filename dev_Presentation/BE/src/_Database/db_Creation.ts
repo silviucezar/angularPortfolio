@@ -31,7 +31,7 @@ export class DBCreation {
                     id INT NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO mainprofiledetails VALUES (
-                    'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png',
+                    'https://misfitinteractive.com/wp-content/uploads/2018/01/banner-portfolio.jpg',
                     'Silviu-Cezar',
                     'Cimpoeru',
                     'Front End Developer - REI Development Services',

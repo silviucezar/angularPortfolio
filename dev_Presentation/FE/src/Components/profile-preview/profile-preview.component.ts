@@ -10,20 +10,25 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './profile-preview.component.html',
   styleUrls: ['./profile-preview.component.scss']
 })
-export class ProfilePreviewComponent implements OnInit,AfterViewInit {
+export class ProfilePreviewComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  private DataSnapshost = <object>this.activeteRoute.snapshot.data;
+  private DataSnapshot = <object>this.activeRoute.snapshot.data.initialData;
+  private locale: string = this.DataSnapshot.hasOwnProperty("ro_ro") ? "ro_ro" : "en_en";
 
   constructor
     (
-      private activeteRoute: ActivatedRoute
+      private activeRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
-    console.log(this.DataSnapshost["initialData"])
+    console.log(this.DataSnapshot)
   }
 
-  ngAfterViewInit () { }
+  ngAfterViewInit() { }
+
+  ObjectKeys(obj: object): any {
+    return Object.keys(obj);
+  }
 
 }
