@@ -10,24 +10,24 @@ const App: Application = Express();
 const _DBCreation = new DBCreation();
 const _DBMain = new DBMain();
 
-function sendTables(res: Response,locale:string, ...QueryParams: SelectQuery[]) {
+function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]) {
     const TABLE_QUERIES = [];
     for (const QueryParam of QueryParams) {
         TABLE_QUERIES.push(_DBMain.select(QueryParam))
     }
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
-            const IntroData:InitialData | any = {[locale]: {}};
+            const IntroData: InitialData | any = { [locale]: {} };
             const IntroTranslationObjects: object[] | object | any = result[0];
             const IntroDataObject: object[] | object | any = result[1][0];
             console.log(IntroDataObject)
-            for (const [Index,TranslationObject] of IntroTranslationObjects.entries()) {
-                if (Index === 0) {
-                    IntroData[TranslationObject.text] = IntroDataObject.image;
+            for (const [Index, TranslationObject] of IntroTranslationObjects.entries()) {
+                if (Index === 9) {
+                    IntroData.componentData = IntroDataObject.aboutme;
                 } else {
                     IntroData[locale][TranslationObject.prefix] = {
-                        title : TranslationObject.text,
-                        details : IntroDataObject[Object.keys(IntroDataObject)[Index]]
+                        title: TranslationObject.text,
+                        details: IntroDataObject[Object.keys(IntroDataObject)[Index]]
                     }
                 }
             }
@@ -62,17 +62,17 @@ App.get("/api/", (req: Request, res: Response) => {
     if (process.env.NODE_ENV === "dev") {
         Promise.all(_DBCreation.createTables())
             .then(() => {
-                sendTables(res,req.query.locale,
+                sendTables(res, req.query.locale,
                     { Table: "text_translations", Columns: "*", Where: `WHERE (locale='all' OR locale='${req.query.locale}') AND (prefix LIKE '${req.query.prefix}%')` },
                     { Table: "mainprofiledetails", Columns: "*" });
             })
             .catch((e) => {
-                sendTables(res,req.query.locale,
+                sendTables(res, req.query.locale,
                     { Table: "text_translations", Columns: "*", Where: `WHERE (locale='all' OR locale='${req.query.locale}') AND (prefix LIKE '${req.query.prefix}%')` },
                     { Table: "mainprofiledetails", Columns: "*" });
             });
     } else {
-        sendTables(res,req.query.locale,
+        sendTables(res, req.query.locale,
             { Table: "text_translations", Columns: "*", Where: `WHERE (locale='all' OR locale='${req.query.locale}') AND prefix LIKE ('${req.query.prefix}%')` },
             { Table: "mainprofiledetails", Columns: "*" });
     }

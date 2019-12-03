@@ -1,9 +1,0 @@
-<div id="InitialDataContent">
-    test
-    <img [src]="DataSnapshot.image" class="Profile_Picture" />
-    <div>
-        <div *ngFor="let DataKey of ObjectKeys(DataSnapshot[locale])">
-            {{DataSnapshot[locale][DataKey].title}} : {{DataSnapshot[locale][DataKey].details}}
-        </div>
-    </div>
-</div>

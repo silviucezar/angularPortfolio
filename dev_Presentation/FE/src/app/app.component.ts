@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CanvasDetails } from 'src/Interfaces/CanvasDetails';
-import { RenderDetails } from 'src/Classes/renderDetails';
 
 @Component({
   selector: 'app-root',
@@ -17,23 +16,9 @@ export class AppComponent implements OnInit {
   // private GlobalLeftMarginElement: HTMLDivElement;
   // private GlobalScrollCanvasElementContext: CanvasRenderingContext2D;
   // private CanvasRenderDependencies: CanvasDetails;
-  private RenderDetails = new RenderDetails();
-  private ResizeTimeout = null;
-  private DeviceOrientation: string;
-
-
-  constructor() { }
 
   ngOnInit() {
-    // console.log(this.RenderDetails.WindowDetails.DeviceOrientation);
-    this.DeviceOrientation = this.RenderDetails.WindowDetails.getDeviceOrientation();
-    window.onresize = e => {
-      clearTimeout(this.ResizeTimeout);
-      this.ResizeTimeout = setTimeout(() => {
-        this.DeviceOrientation = this.RenderDetails.WindowDetails.getDeviceOrientation();
-        // this.drawCanvas();
-      }, 100);
-    }
+
   }
 
 
@@ -57,4 +42,10 @@ export class AppComponent implements OnInit {
   //   this.GlobalScrollCanvasElementContext.closePath();
   // }
 
+  // onRouteActivate(event) {
+  //   if (event.activeRoute.snapshot.routeConfig.path === "profile-preview") {
+  //     this.HeaderData = event.activeRoute.snapshot.data.initialData
+  //     console.log(this.HeaderData);
+  //   }
+  // }
 }

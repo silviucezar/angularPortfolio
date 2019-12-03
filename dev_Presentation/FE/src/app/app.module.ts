@@ -5,27 +5,38 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InitialDataService } from 'src/Resolvers/initial-data.service';
-import { ProfilePreviewComponent } from '../Components/profile-preview/profile-preview.component';
+import { AboutMeComponent } from '../Components/_Content/about-me/about-me.component';
+import { BaseHtmlComponent } from '../Components/base/base-html.component';
+import { HeaderComponent } from 'src/Components/header/header.component';
 
 const AppRoutes: Routes = [
   {
     path: "",
-    redirectTo: "profile-preview",
+    redirectTo: "portfolio/about-me",
     pathMatch: "full"
   },
   {
-    path: "profile-preview",
-    component: ProfilePreviewComponent,
+    path: "portfolio",
+    component: BaseHtmlComponent,
+    children: [{
+      path: 'about-me',
+      children: []
+    }
+    ],
     resolve: {
       initialData: InitialDataService
-    },
-    outlet: "header"
+    }
   }
 ]
 @NgModule({
   declarations: [
     AppComponent,
-    ProfilePreviewComponent
+    AboutMeComponent,
+    BaseHtmlComponent,
+    HeaderComponent
+  ],
+  entryComponents: [
+    AboutMeComponent
   ],
   imports: [
     BrowserModule,

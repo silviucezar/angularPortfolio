@@ -7,11 +7,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 export class HttpService {
 
-  public readonly doGetRequest:(url:string,body:any) => Promise<any>;
+  public readonly doGetRequest: (url: string, body: any) => Promise<any>;
 
   constructor(
     private http: HttpClient
-  ) { 
+  ) {
     this.doGetRequest = (url: string, body: any) => {
       return new Promise((res, rej) => {
         this.http.get<any>(`http://localhost:8080/api${url}`, {

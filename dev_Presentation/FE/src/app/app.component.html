@@ -1,14 +1,4 @@
 <!-- <video id="App_Background" autoplay>
   <source src='http://localhost:8080/api/video' type="video/mp4">
 </video> -->
-<div id="App_Global_Grid" [class]="DeviceOrientation">
-  <h1 class="App_Global_Header">
-    header
-    <router-outlet name="header"></router-outlet>
-  </h1>
-  <div class="App_Global_Content">
-    <router-outlet name="content"></router-outlet>
-  </div>
-  <div class="App_Global_Margin" #GlobalLeftMargin>left margin</div>
-  <!-- <canvas #GlobalScrollCanvas class="App_Global_Margin">right margin</canvas> -->
-</div>
+<router-outlet></router-outlet>
