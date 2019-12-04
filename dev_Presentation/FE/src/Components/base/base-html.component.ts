@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, ViewChild, ElementRef, Directive } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RenderDetails } from 'src/Classes/renderDetails';
 import { AboutMeComponent } from "src/Components/_Content/about-me/about-me.component";
+import { InitialDataService } from "src/Resolvers/initial-data.service";
 
 @Component({
   selector: 'app-base-html',
@@ -10,17 +11,18 @@ import { AboutMeComponent } from "src/Components/_Content/about-me/about-me.comp
 })
 export class BaseHtmlComponent implements OnInit, AfterViewInit {
 
-  @ViewChild("App_Global_Header", { read: true, static: true }) App_Global_Header: ElementRef;
   private RenderDetails = new RenderDetails();
   private DataSnapshot = <object>this.activeRoute.snapshot.data.initialData;
-
-  private Locale: string = this.DataSnapshot.hasOwnProperty("ro_ro") ? "ro_ro" : "en_en";
+  // private Locale: string = this.DataSnapshot.hasOwnProperty("ro_ro") ? "ro_ro" : "en_en";
   private DeviceOrientation: string = this.RenderDetails.WindowDetails.getDeviceOrientation();
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) { }
+    private BaseElement: ElementRef,
+    private InitialData: InitialDataService
+  ) {
+    // this.BaseElementRef = element;
+  }
 
   private ResizeTimeout = null;
 
@@ -35,17 +37,11 @@ export class BaseHtmlComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AboutMeComponent);
-    const containerRef = this.App_Global_Header;
-    console.log(containerRef)
-    // console.log(containerRef)
-
-    // console.log(containerRef)
-    // containerRef.clear();
-    // containerRef.createComponent(componentFactory);
+    this.InitialData.setBaseComponentRef(this.BaseElement);
   }
 
   ObjectKeys(obj: object): any {
     return Object.keys(obj);
   }
+
 }

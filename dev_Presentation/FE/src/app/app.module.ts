@@ -8,6 +8,7 @@ import { InitialDataService } from 'src/Resolvers/initial-data.service';
 import { AboutMeComponent } from '../Components/_Content/about-me/about-me.component';
 import { BaseHtmlComponent } from '../Components/base/base-html.component';
 import { HeaderComponent } from 'src/Components/header/header.component';
+import { WorkExperienceComponent } from '../Components/_Content/work-experience/work-experience.component';
 
 const AppRoutes: Routes = [
   {
@@ -21,8 +22,10 @@ const AppRoutes: Routes = [
     children: [{
       path: 'about-me',
       children: []
-    }
-    ],
+    }, {
+      path: "work-experience",
+      children: []
+    }],
     resolve: {
       initialData: InitialDataService
     }
@@ -33,10 +36,12 @@ const AppRoutes: Routes = [
     AppComponent,
     AboutMeComponent,
     BaseHtmlComponent,
-    HeaderComponent
+    HeaderComponent,
+    WorkExperienceComponent
   ],
   entryComponents: [
-    AboutMeComponent
+    AboutMeComponent,
+    WorkExperienceComponent
   ],
   imports: [
     BrowserModule,
