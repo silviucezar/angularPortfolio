@@ -25,9 +25,9 @@ export class InitialDataService implements Resolve<any> {
   resolve(): Observable<any> | any {
 
     return this.http.doGetRequest("/", {
-      locale: "ro_ro",
-      prefix: "intro_",
-      data: this.DataUrl
+      locale: "ro_RO",
+      headerPrefix: "intro_",
+      dataPrefix: this.DataUrl
     })
       .then(result => {
         // const COMPONENT_LOADER_DATA = this.ComponentLoader$.value;

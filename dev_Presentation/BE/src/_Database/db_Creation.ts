@@ -17,7 +17,7 @@ export class DBCreation {
                 `INSERT INTO params(params,id) VALUES ('{}',1)`
             ],
             [
-                `CREATE TABLE mainprofiledetails (
+                `CREATE TABLE main_profile_details (
                     image TEXT NOT NULL,
                     firstname VARCHAR(20) NOT NULL,
                     lastname VARCHAR(50) NOT NULL,
@@ -27,10 +27,9 @@ export class DBCreation {
                     birthdate TEXT NOT NULL,
                     gender VARCHAR(10) NOT NULL,
                     phoneno VARCHAR(20) NOT NULL,
-                    aboutme TEXT NOT NULL,
                     id INT NOT NULL PRIMARY KEY
                 )`,
-                `INSERT INTO mainprofiledetails VALUES (
+                `INSERT INTO main_profile_details VALUES (
                     'https://misfitinteractive.com/wp-content/uploads/2018/01/banner-portfolio.jpg',
                     'Silviu-Cezar',
                     'Cimpoeru',
@@ -40,9 +39,21 @@ export class DBCreation {
                     '19-Dec-1991',
                     'M',
                     '+40766 516 510',
-                    'dummy_placeholder_about_me',
                     1
                 )`
+            ],
+            [
+                `CREATE TABLE component_data (
+                    text TEXT NOT NULL,
+                    locale VARCHAR(10) NOT NULL,
+                    prefix TEXT NOT NULL PRIMARY KEY
+                )`,
+                `INSERT INTO component_data VALUES
+                ('dummy_placeholder_about_me_ro','ro_RO','AboutMe_RO'),
+                ('dummy_placeholder_about_me_en','en_US','AboutMe_EN'),
+                ('dummy_placeholder_work_experience_ro','ro_RO','WorkExperience_RO'),
+                ('dummy_placeholder_work_experience_en','en_US','WorkExperience_EN')
+                `
             ],
             [
                 `CREATE TABLE text_translations (
@@ -52,23 +63,23 @@ export class DBCreation {
                 )`,
                 `INSERT INTO text_translations (text,locale,prefix) VALUES
                     ('image','all','intro_image_all'),
-                    ('Prenume','ro_ro','intro_first_name_ro'),
-                    ('First Name','en_US','intro_first_name_en'),
-                    ('Nume','ro_ro','intro_last_name_ro'),
+                    ('Prenume','ro_RO','intro_first_name_RO'),
+                    ('First Name','en_US','intro_first_name_EN'),
+                    ('Nume','ro_RO','intro_last_name_RO'),
                     ('Last Name','en_US','intro_last_name_en'),
-                    ('Rolul Actual','ro_ro','intro_current_role_ro'),
+                    ('Rolul Actual','ro_RO','intro_current_role_RO'),
                     ('Current Role','en_US','intro_current_role_en'),
-                    ('Email','ro_ro','intro_email_ro'),
+                    ('Email','ro_RO','intro_email_RO'),
                     ('Email','en_US','intro_email_en'),
-                    ('Vârsta','ro_ro','intro_age_ro'),
+                    ('Vârsta','ro_RO','intro_age_RO'),
                     ('Age','en_US','intro_age_en'),
-                    ('Data Nașterii','ro_ro','intro_birth_date_ro'),
+                    ('Data Nașterii','ro_RO','intro_birth_date_RO'),
                     ('Birth Date','en_US','intro_birth_date_en'),
-                    ('Genul','ro_ro','intro_gender_ro'),
+                    ('Genul','ro_RO','intro_gender_RO'),
                     ('Gender','en_US','intro_gender_en'),
-                    ('Telefon','ro_ro','intro_phone_no_ro'),
+                    ('Telefon','ro_RO','intro_phone_no_RO'),
                     ('Phone No.','en_US','intro_phone_no_en'),
-                    ('Despre Mine','ro_ro','intro_about_me_ro'),
+                    ('Despre Mine','ro_RO','intro_about_me_RO'),
                     ('About Me','en_US','intro_about_me_en')
                 `
             ]
