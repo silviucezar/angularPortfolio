@@ -20,7 +20,6 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
             const IntroData: InitialData | any = { [locale]: {} };
             const IntroTranslationObjects: object[] | object | any = result[0];
             const IntroDataObject: object[] | object | any = result[1][0];
-            console.log(IntroDataObject)
             for (const [Index, TranslationObject] of IntroTranslationObjects.entries()) {
                 if (Index === 9) {
                     IntroData.componentData = IntroDataObject.aboutme;
@@ -34,7 +33,6 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
             res.status(200).end(JSON.stringify(IntroData));;
         })
         .catch(e => {
-            console.log(e);
             res.status(200).end(JSON.stringify({ data: "result" }));;
         });
 }

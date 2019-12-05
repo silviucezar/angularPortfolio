@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ElementRef, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +10,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() DataSnapshot;
   @Input() Locale;
 
-  constructor() { }
 
+  constructor(public ViewContainerRef: ViewContainerRef) {
+  }
+
+  public _ViewContainerRef = this.ViewContainerRef;
 
 
   ngOnInit() { }

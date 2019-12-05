@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CanvasDetails } from 'src/Interfaces/CanvasDetails';
-
+import { Router, NavigationStart } from '@angular/router';
+import { filter } from "rxjs/operators";
+import { InitialDataService } from "src/Resolvers/initial-data.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,10 +18,21 @@ export class AppComponent implements OnInit {
   // private GlobalLeftMarginElement: HTMLDivElement;
   // private GlobalScrollCanvasElementContext: CanvasRenderingContext2D;
   // private CanvasRenderDependencies: CanvasDetails;
-
-  ngOnInit() {
-
+  constructor(
+    private router: Router,
+    private InitialData: InitialDataService
+  ) {
   }
+  ngOnInit() {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
+      let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
+      EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
+      EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
+      this.InitialData.setNavigationURL(EVENT_URL_ARR.join().replace(",", ""));
+    });
+  }
+
+
 
 
   ngAfterViewInit() {

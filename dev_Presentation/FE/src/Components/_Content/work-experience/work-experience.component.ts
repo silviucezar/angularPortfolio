@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'app-work-experience',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkExperienceComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _ViewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
   }
