@@ -1,5 +1,3 @@
-import { ViewContainerRef } from '@angular/core';
-
 export interface ComponentLoaderInterface {
     Header: ComponentData,
     Components: Components;
@@ -12,8 +10,7 @@ interface Components {
 }
 
 interface ComponentData {
-    _Data: any;
-    _ElementRef: any;
-    _Component: any;
-    _ViewContainerRef: any;
+    data: any;
+    viewContainerRef: any;
+    component: object;
 }

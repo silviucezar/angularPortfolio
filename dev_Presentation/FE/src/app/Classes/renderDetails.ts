@@ -6,7 +6,6 @@ export interface windowDetails {
 }
 
 export class RenderDetails {
-
     public readonly Browser: object = {
         Name: navigator.userAgent.match(/edge/i) ? navigator.userAgent.match(/edge/i) : navigator.userAgent.match(/firefox|chrome|opera|safari/i).toString(),
         Version: navigator.userAgent.replace(navigator.userAgent.substring(0, (navigator.userAgent.match(/edge/i) ? navigator.userAgent.search(/edge/i) : navigator.userAgent.search(/firefox|chrome|edge|opera|safari/i))), "").match(/([0-9]+\.?)+/)[0]

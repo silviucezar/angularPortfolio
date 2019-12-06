@@ -18,7 +18,7 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
             const IntroData: InitialData | any = { [locale]: {} };
-            IntroData.component_data = result[2];
+            IntroData.details = result[2];
             const IntroTranslationObjects: object[] | object | any = result[0];
             const IntroDataObject: object[] | object | any = result[1][0];
             for (const [Index, TranslationObject] of IntroTranslationObjects.entries()) {
@@ -28,7 +28,9 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
                 }
             }
             console.log(IntroData)
-            res.status(200).end(JSON.stringify(IntroData));;
+            setTimeout(() => {
+                res.status(200).end(JSON.stringify(IntroData));
+            }, 1000)
         })
         .catch(e => {
             res.status(200).end(JSON.stringify({ data: "result" }));;
@@ -60,7 +62,6 @@ App.get("/api/", (req: Request, res: Response) => {
         console.log(req.query.dataPrefix)
         Promise.all(_DBCreation.createTables())
             .then(() => {
-
                 sendTables(res, req.query.locale,
                     { Table: "text_translations", Columns: "*", Where: `WHERE (locale='all' OR locale='${req.query.locale}') AND (prefix LIKE '${req.query.headerPrefix}%')` },
                     { Table: "main_profile_details", Columns: "*" },

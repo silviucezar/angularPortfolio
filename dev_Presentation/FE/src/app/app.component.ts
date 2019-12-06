@@ -1,12 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CanvasDetails } from 'src/Interfaces/CanvasDetails';
-import { Router, NavigationStart } from '@angular/router';
-import { filter } from "rxjs/operators";
-import { InitialDataService } from "src/Resolvers/initial-data.service";
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
+import { CanvasDetails } from 'src/app/Interfaces/CanvasDetails';
+import { RenderDetails } from './Classes/renderDetails';
+
+
+/**
+ * @title Determinate progress-bar
+ */
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  host: {
+    "id": "App_Global_Grid",
+    "[class]": "DeviceOrientation"
+  }
 })
 export class AppComponent implements OnInit {
   title = 'FE';
@@ -14,22 +22,23 @@ export class AppComponent implements OnInit {
   @ViewChild("GlobalScrollCanvas", { static: true }) GlobalScrollCanvas: ElementRef;
   @ViewChild("GlobalLeftMargin", { static: true }) GlobalLeftMargin: ElementRef;
 
+  private RenderDetails = new RenderDetails();
+  private DeviceOrientation: string = this.RenderDetails.WindowDetails.getDeviceOrientation();
   // private GlobalScrollCanvasElement: HTMLCanvasElement;
   // private GlobalLeftMarginElement: HTMLDivElement;
   // private GlobalScrollCanvasElementContext: CanvasRenderingContext2D;
   // private CanvasRenderDependencies: CanvasDetails;
-  constructor(
-    private router: Router,
-    private InitialData: InitialDataService
-  ) {
-  }
+  constructor() { }
   ngOnInit() {
-    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
-      let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
-      EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
-      EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
-      this.InitialData.setNavigationURL(EVENT_URL_ARR.join().replace(",", ""));
-    });
+
+    // this.router.events.subscribe((val) => {
+    //   if (val instanceof ActivationEnd) {
+    //     console.log(val.snapshot)
+    //     // if (!$.isEmptyObject(val.snapshot.params)) {
+    //     //   this.routeData = val.snapshot.params;
+    //     // }
+    //   }
+    // });
   }
 
 
