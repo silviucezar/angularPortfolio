@@ -1,0 +1,40 @@
+.Rect_Loading {
+  background:linear-gradient(90deg, deepskyblue ,#0091cf 10% ,#0091cf 10% ,deepskyblue );
+  background-position: 0% 0%;
+  border-radius: 30px;
+  animation: barberpole 5s linear infinite
+}
+
+@keyframes barberpole {
+    0% {
+        background-position: -50vw 0%;
+    }
+    100% {
+        background-position: 50vw 0;
+    }
+}
+
+.Pulsate_Loading {
+    // border: 1px solid lightgrey;
+    border-radius: 2px;
+    animation: barberpole 2s linear infinite;
+    height: 25px;
+    animation: 2s pulsate infinite ease-in
+}
+
+@keyframes pulsate {
+    0% {
+        background:white;
+
+    }
+
+    50% {
+        background:lightgrey;
+
+    }
+
+    100% {
+        background:white;
+
+    }
+}

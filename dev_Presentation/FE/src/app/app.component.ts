@@ -18,7 +18,7 @@ import { RenderDetails } from './Classes/renderDetails';
 })
 export class AppComponent implements OnInit {
   title = 'FE';
-
+  private resizeTimeout:any = null;
   @ViewChild("GlobalScrollCanvas", { static: true }) GlobalScrollCanvas: ElementRef;
   @ViewChild("GlobalLeftMargin", { static: true }) GlobalLeftMargin: ElementRef;
 
@@ -31,14 +31,13 @@ export class AppComponent implements OnInit {
   constructor() { }
   ngOnInit() {
 
-    // this.router.events.subscribe((val) => {
-    //   if (val instanceof ActivationEnd) {
-    //     console.log(val.snapshot)
-    //     // if (!$.isEmptyObject(val.snapshot.params)) {
-    //     //   this.routeData = val.snapshot.params;
-    //     // }
-    //   }
-    // });
+    window.onresize = e => {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = setTimeout(() => {
+        this.DeviceOrientation = this.RenderDetails.WindowDetails.getDeviceOrientation();
+        // this.drawCanvas();
+      }, 100);
+    }
   }
 
 

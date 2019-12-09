@@ -1,14 +1,38 @@
-<div>
-    <mat-progress-bar *ngIf="loadingHeader" [@slideInOut]="loadingHeader ? true : false" mode="indeterminate"
-        value="50"></mat-progress-bar>
-    <a routerLink="portfolio/about-me">Link 1</a>
-    <a routerLink="portfolio/work-experience">Link 2</a>
+<h1 class="App_Global_Header_Container common">
+    <div class="App_Global_Header_Container_Image">
+        <div></div>
+    </div>
+    <div class="App_Global_Header_Container_Main">
+        <div style="font-size:3vw" class="App_Global_Header_Container_Main_Text"
+            [ngClass]="{'Rect_Loading' : loadingHeader}" [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_first_name_RO.details + ' ' + pageTemplate.Header.data[locale].intro_last_name_RO.details}}
+        </div>
+        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+            [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_current_role_RO.details}}
+        </div>
+        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+            [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_phone_no_RO.details }}
+        </div>
+        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+            [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_email_RO.details}}
+        </div>
+        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+            [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_birth_date_RO.title + ': ' + pageTemplate.Header.data[locale].intro_birth_date_RO.details}}
+        </div>
+        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+            [@fadeIn]="loadingHeader ? true : false">
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_age_RO.title + ': ' + pageTemplate.Header.data[locale].intro_age_RO.details}}
+        </div>
+    </div>
     <!-- <img [src]=" DataSnapshot.image" class="Profile_Picture" /> -->
     <!-- <div>
         <div *ngFor="let DataKey of ObjectKeys(DataSnapshot[Locale])">
             {{DataSnapshot[Locale][DataKey].title}} : {{DataSnapshot[Locale][DataKey].details}}
         </div>
     </div> -->
-</div>
-
-[@state]="state" (@state.done)="animationDone($event)"
+</h1>
+<canvas class="App_Global_Header_Container common canvas"></canvas>
