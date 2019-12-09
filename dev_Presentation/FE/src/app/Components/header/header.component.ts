@@ -10,7 +10,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./header.component.scss'],
   animations: [
     trigger('fadeIn', [
-      state('true', style({ opacity: 0})),
+      state('true', style({ opacity: 0 })),
       state('false', style({ opacity: 1 })),
       transition('true <=> false', animate('1s'))
     ])
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private dataService: DataService,
   ) {
-    this.router.events.pipe(filter(event=> event instanceof NavigationStart)).subscribe(event => {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
       if (event["url"] !== "/") {
         let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
         EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
       this.dataService.getRoutesData(this)
         .then(result => {
-          this.loadingHeader = false;
+          // this.loadingHeader = false;
           this.pageTemplate = result;
           console.log(this.pageTemplate);
         })

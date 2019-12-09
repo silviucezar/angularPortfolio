@@ -21,7 +21,7 @@ export class RenderDetails {
         AspectRatio: window.innerWidth / window.innerHeight,
         getDeviceOrientation: (): string => {
             switch (true) {
-                case window.innerWidth > window.innerHeight && window.innerWidth / window.innerHeight > 1.4:
+                case window.innerWidth > window.innerHeight && window.innerWidth / window.innerHeight > 1.44:
                     console.log("Landscape");
                     return "Landscape";
                 case ~~(window.innerWidth / window.innerHeight) === 1:

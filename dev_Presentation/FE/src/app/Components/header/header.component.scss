@@ -7,68 +7,45 @@
 
 .App_Global_Header_Container {
   z-index: 1;
-  grid-template-columns: 82fr 17fr;
-  grid-template-rows: 55fr 45fr;
+  // grid-template-columns: 83vw 17vw;
+  // grid-template-rows: 55fr 45fr;
   grid-template-areas:
     "App_Global_Header_Container_Main App_Global_Header_Container_Image"
     "App_Global_Header_Container_Main App_Global_Header_Container_Image";
-    font-weight: normal;
-    border-bottom: 2px solid dodgerblue;
+  font-weight: normal;
+  border-bottom: 2px solid dodgerblue;
 }
 
 .App_Global_Header_Container_Image {
   grid-area: App_Global_Header_Container_Image;
-}
-
-.App_Global_Header_Container_Image:after {
-    content:'';
-    position:absolute;
-    content: "";
-    position: relative;
-    width: 80%;
-    height: 67%;
-    top: -52%;
-    display: block;
-    left: 10%;
-    border-radius: 50%;
-    background: linear-gradient(deepskyblue, #0091cf, #0091cf,#0091cf,deepskyblue);
-    animation:2s spiiiin linear infinite
-}
-
-
-@keyframes spiiiin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+  display: block;
+  position: relative;
 }
 
 .App_Global_Header_Container_Image div {
-    width: 76%;
-    top: 14%;
-    display: block;
-    position: relative;
-    left: 12%;
-    border-radius: 50%;
-    box-sizing: border-box;
-    display: block;
-    z-index: 1;
-    background:#0091cf;
-    height:65%
+  width: 76%;
+  top: 14%;
+  display: block;
+  position: relative;
+  left: 12%;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  z-index: 1;
+  background: #0091cf;
+  height: 65%;
+  visibility: hidden;
 }
 
 .App_Global_Header_Container_Main {
   grid-area: App_Global_Header_Container_Main;
   display: grid;
-  grid-template-rows: 30% repeat(5,14%);
-  grid-template-columns: 60% 40%;
+  // grid-template-rows: 30% repeat(5, 14%);
+  // grid-template-columns: 60% 40%;
   text-align: right;
   font-family: "open sans";
   align-items: center;
-  font-size:3vw
+  font-size: 3vw;
 }
 
 .App_Global_Header_Container_Main_Text {

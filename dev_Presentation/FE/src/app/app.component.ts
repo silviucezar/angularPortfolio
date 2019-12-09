@@ -13,12 +13,12 @@ import { RenderDetails } from './Classes/renderDetails';
   styleUrls: ['./app.component.scss'],
   host: {
     "id": "App_Global_Grid",
-    "[class]": "DeviceOrientation"
+    // "[class]": "DeviceOrientation"
   }
 })
 export class AppComponent implements OnInit {
   title = 'FE';
-  private resizeTimeout:any = null;
+  private resizeTimeout: any = null;
   @ViewChild("GlobalScrollCanvas", { static: true }) GlobalScrollCanvas: ElementRef;
   @ViewChild("GlobalLeftMargin", { static: true }) GlobalLeftMargin: ElementRef;
 
@@ -31,13 +31,13 @@ export class AppComponent implements OnInit {
   constructor() { }
   ngOnInit() {
 
-    window.onresize = e => {
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = setTimeout(() => {
-        this.DeviceOrientation = this.RenderDetails.WindowDetails.getDeviceOrientation();
-        // this.drawCanvas();
-      }, 100);
-    }
+    // window.onresize = e => {
+    //   clearTimeout(this.resizeTimeout);
+    //   this.resizeTimeout = setTimeout(() => {
+    //     this.DeviceOrientation = this.RenderDetails.WindowDetails.getDeviceOrientation();
+    //     // this.drawCanvas();
+    //   }, 100);
+    // }
   }
 
 
