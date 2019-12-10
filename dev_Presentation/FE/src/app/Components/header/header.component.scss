@@ -7,17 +7,11 @@
 
 .App_Global_Header_Container {
   z-index: 1;
-  // grid-template-columns: 83vw 17vw;
-  // grid-template-rows: 55fr 45fr;
-  grid-template-areas:
-    "App_Global_Header_Container_Main App_Global_Header_Container_Image"
-    "App_Global_Header_Container_Main App_Global_Header_Container_Image";
   font-weight: normal;
   border-bottom: 2px solid dodgerblue;
 }
 
 .App_Global_Header_Container_Image {
-  grid-area: App_Global_Header_Container_Image;
   display: block;
   position: relative;
 }
@@ -38,10 +32,7 @@
 }
 
 .App_Global_Header_Container_Main {
-  grid-area: App_Global_Header_Container_Main;
   display: grid;
-  // grid-template-rows: 30% repeat(5, 14%);
-  // grid-template-columns: 60% 40%;
   text-align: right;
   font-family: "open sans";
   align-items: center;
