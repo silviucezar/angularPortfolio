@@ -17,18 +17,12 @@
 }
 
 .App_Global_Header_Container_Image div {
-  width: 76%;
-  top: 14%;
-  display: block;
-  position: relative;
-  left: 12%;
   border-radius: 50%;
-  box-sizing: border-box;
-  display: block;
-  z-index: 1;
-  background: #0091cf;
-  height: 65%;
-  visibility: hidden;
+  background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
+  -webkit-animation: 2s spiiiin linear infinite;
+  animation: 2s spiiiin linear infinite;
+  width: 115px;
+  height: 115px;
 }
 
 .App_Global_Header_Container_Main {

@@ -1,83 +1,115 @@
-//Approximate aspect ratio for square devices
-@media only screen and (max-aspect-ratio: 3/2),
-  only screen and (max-aspect-ratio: 4/3),
-  only screen and (max-aspect-ratio: 5/4) {
-  #App_Global_Grid {
-    grid-template-columns: 75fr 25fr;
-    grid-template-rows: 35fr 58fr 7fr;
+/* PHONE LANDSCAPE VERSION */
+// @media only screen and (min-width: 320px) and (orientation: landscape) {
+//   h3:after {
+//     content: " - PHONE LANDSCAPE";
+//     display: inline;
+//   }
+// }
+/* PHONE PORTRAIT VERSION */
+@media only screen and (min-width: 320px) {
+  @media only screen and (orientation: portrait) {
+    #App_Global_Grid {
+      grid-template-columns: 70fr 30fr;
+      grid-template-rows: 83fr 10fr 7fr;
+    }
+
+    .App_Global_Header_Container {
+      grid-template-columns: 10fr 80fr 10fr;
+      grid-template-rows: 50% 50%;
+    }
+    .App_Global_Header_Container_Main {
+      grid-template-columns: 1px 100fr;
+      grid-column: 2;
+      grid-row: 2;
+      grid-template-rows: 25fr repeat(4, 20fr);
+    }
+
+    .App_Global_Header_Container_Image {
+      grid-column: 2;
+      grid-row: 1;
+    }
   }
-  .App_Global_Header_Container {
-    grid-template-columns: 75fr 25fr;
-    grid-template-areas: "App_Global_Header_Container_Main App_Global_Header_Container_Image" "App_Global_Header_Container_Main App_Global_Header_Container_Image";
-  }
-  .App_Global_Header_Container_Main {
-    grid-template-columns: 75fr 25fr;
-    grid-area: App_Global_Header_Container_Main;
-  }
-  .App_Global_Header_Container_Image {
-    grid-area: App_Global_Header_Container_Image;
+  @media only screen and (orientation: landscape) {
+    .App_Global_Header_Container_Image {
+      grid-area: App_Global_Header_Container_Image;
+      grid-template: 10fr 80fr 10fr / 10fr 80fr 17fr;
+      display: grid !important;
+    }
+
+    .App_Global_Header_Container_Image div {
+      grid-column: 2;
+      grid-row: 2;
+      width: 105px;
+      height: 105px;
+    }
+
+    #App_Global_Grid {
+      grid-template-rows: 25fr 60fr 15fr;
+    }
+    .App_Global_Header_Container {
+      grid-template-areas:
+        "App_Global_Header_Container_Main App_Global_Header_Container_Image"
+        "App_Global_Header_Container_Main App_Global_Header_Container_Image";
+    }
+    .App_Global_Header_Container_Main {
+      grid-area: App_Global_Header_Container_Main;
+    }
+    .App_Global_Header_Container_Image {
+      grid-area: App_Global_Header_Container_Image;
+    }
+
+    @media only screen and (max-width: 1399px) {
+      #App_Global_Grid,
+      .App_Global_Header_Container,
+      .App_Global_Header_Container_Main {
+        grid-template-columns: 80fr 20fr;
+      }
+    }
   }
 }
 
-@media only screen and (max-width: 1023px) and (max-aspect-ratio: 13/9) and (max-height: 1000px) {
+/* DESKTOP VERSION */
+/* TABLET VERSION */
+@media only screen and (min-width: 824px) {
+  .App_Global_Header_Container_Image div {
+    width: 200px;
+    height: 200px;
+  }
   #App_Global_Grid {
-    grid-template-columns: 70fr 30fr;
-    grid-template-rows: 83fr 10fr 7fr;
-  }
-
-  .App_Global_Header_Container {
-    grid-template-columns: 10fr 80fr 10fr;
-    grid-template-rows: 50% 50%;
-  }
-  .App_Global_Header_Container_Main {
-    grid-template-columns: 1px 100fr;
-    grid-column: 2;
-    grid-row: 2;
-    grid-template-rows: 25fr repeat(4,20fr);
-  }
-
-  .App_Global_Header_Container_Image {
-    grid-column: 2;
-    grid-row: 1;
-  }
-}
-
-@media only screen and (max-width: 850px) and (min-aspect-ratio: 13/9) {
-  #App_Global_Grid {
-    grid-template-columns: 75fr 25fr;
-    grid-template-rows: 60fr 40fr 10fr;
+    grid-template-rows: 30fr 63fr 7fr;
   }
   .App_Global_Header_Container {
-    grid-template-columns: 75fr 25fr;
-    grid-template-areas: "App_Global_Header_Container_Main App_Global_Header_Container_Image" "App_Global_Header_Container_Main App_Global_Header_Container_Image";
-  }
-  .App_Global_Header_Container_Main {
-    grid-template-columns: 75fr 25fr;
-    grid-area: App_Global_Header_Container_Main;
-  }
-  .App_Global_Header_Container_Image {
-    grid-area: App_Global_Header_Container_Image;
-  }
-}
-
-@media only screen and (min-width: 950px) and (orientation:landscape) {
-  #App_Global_Grid {
-    grid-template-columns: 80fr 20fr;
-    grid-template-rows: 40fr 50fr 10fr;
-  }
-  .App_Global_Header_Container {
-    grid-template-columns: 80fr 20fr;
     grid-template-areas:
       "App_Global_Header_Container_Main App_Global_Header_Container_Image"
       "App_Global_Header_Container_Main App_Global_Header_Container_Image";
   }
   .App_Global_Header_Container_Main {
-    grid-template-columns: 70fr 30fr;
     grid-area: App_Global_Header_Container_Main;
   }
-  .App_Global_Header_Container_Image {
-    grid-area: App_Global_Header_Container_Image;
+
+  @media only screen and (max-width: 1399px) {
+    #App_Global_Grid,
+    .App_Global_Header_Container,
+    .App_Global_Header_Container_Main {
+      grid-template-columns: 75fr 25fr;
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    #App_Global_Grid,
+    .App_Global_Header_Container,
+    .App_Global_Header_Container_Main {
+      grid-template-columns: 84fr 16fr;
+    }
+  }
+  @media only screen and (orientation: portrait) {
+    #App_Global_Grid {
+      grid-template-rows: 25fr 58fr 7fr;
+    }
+    #App_Global_Grid,
+    .App_Global_Header_Container,
+    .App_Global_Header_Container_Main .App_Global_Header_Container {
+      grid-template-columns: 65fr 35fr;
+    }
   }
 }
-
-// @media only screen and ()

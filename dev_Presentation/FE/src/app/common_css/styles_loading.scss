@@ -36,18 +36,18 @@
   }
 }
 
-.App_Global_Header_Container_Image:after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
-  -webkit-animation: 2s spiiiin linear infinite;
-  animation: 2s spiiiin linear infinite;
-  top: 10vh;
-  left: 5vh;
-  width: 13vw;
-  height: 13vw;
-}
+// .App_Global_Header_Container_Image:after {
+//   content: "";
+//   position: absolute;
+//   border-radius: 50%;
+//   background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
+//   -webkit-animation: 2s spiiiin linear infinite;
+//   animation: 2s spiiiin linear infinite;
+//   top: 10vh;
+//   left: 5vh;
+//   width: 13vw;
+//   height: 13vw;
+// }
 
 @keyframes spiiiin {
   from {
