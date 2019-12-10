@@ -11,18 +11,11 @@
   border-bottom: 2px solid dodgerblue;
 }
 
-.App_Global_Header_Container_Image {
-  display: block;
-  position: relative;
-}
-
 .App_Global_Header_Container_Image div {
   border-radius: 50%;
   background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
   -webkit-animation: 2s spiiiin linear infinite;
   animation: 2s spiiiin linear infinite;
-  width: 115px;
-  height: 115px;
 }
 
 .App_Global_Header_Container_Main {

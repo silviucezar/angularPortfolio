@@ -32,19 +32,15 @@
   @media only screen and (orientation: landscape) {
     .App_Global_Header_Container_Image {
       grid-area: App_Global_Header_Container_Image;
-      grid-template: 10fr 80fr 10fr / 10fr 80fr 17fr;
+      grid-template: auto 100px auto / auto 100px auto;
       display: grid !important;
     }
-
     .App_Global_Header_Container_Image div {
       grid-column: 2;
       grid-row: 2;
-      width: 105px;
-      height: 105px;
     }
-
     #App_Global_Grid {
-      grid-template-rows: 25fr 60fr 15fr;
+      grid-template-rows: 35fr 50fr 15fr;
     }
     .App_Global_Header_Container {
       grid-template-areas:
@@ -71,9 +67,12 @@
 /* DESKTOP VERSION */
 /* TABLET VERSION */
 @media only screen and (min-width: 824px) {
+  .App_Global_Header_Container_Image {
+    grid-template: auto 170px auto / auto 170px auto;
+  }
   .App_Global_Header_Container_Image div {
-    width: 200px;
-    height: 200px;
+    grid-column: 2;
+    grid-row: 2;
   }
   #App_Global_Grid {
     grid-template-rows: 30fr 63fr 7fr;
@@ -96,6 +95,10 @@
   }
 
   @media only screen and (min-width: 1440px) {
+    .App_Global_Header_Container_Image {
+      grid-template: auto 210px auto/auto 210px auto;
+    }
+
     #App_Global_Grid,
     .App_Global_Header_Container,
     .App_Global_Header_Container_Main {

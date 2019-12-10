@@ -5,6 +5,10 @@ body {
   overflow: hidden;
 }
 
+* {
+  overflow: hidden;
+  box-sizing: border-box;
+}
 #App_Background {
   z-index: -1;
   pointer-events: none;
