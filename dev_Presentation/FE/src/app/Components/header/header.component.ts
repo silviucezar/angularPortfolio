@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ElementRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ElementRef, ViewContainerRef } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { DataService } from '../../Services/data.service';
@@ -58,9 +58,5 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ObjectKeys(obj: object): any {
     return Object.keys(obj);
-  }
-
-  animationDone(event) {
-    console.log(event)
   }
 }

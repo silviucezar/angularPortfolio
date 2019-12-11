@@ -18,11 +18,8 @@ export class HttpService {
           params: body
         }).subscribe(value => {
           res(value);
-        })
+        });
       });
     }
   }
-  //postrequest
-
-  //query
 }
