@@ -12,10 +12,23 @@
 }
 
 .App_Global_Header_Container_Image div {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.App_Global_Header_Container_Image div:nth-child(1) {
   border-radius: 50%;
   background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
   -webkit-animation: 2s spiiiin linear infinite;
   animation: 2s spiiiin linear infinite;
+}
+
+.App_Global_Header_Container_Image div:nth-child(2) span {
+  background: deepskyblue;
+  grid-row: 2;
+  grid-column: 2;
+  z-index: 1;
+  border-radius: 50%;
 }
 
 .App_Global_Header_Container_Main {

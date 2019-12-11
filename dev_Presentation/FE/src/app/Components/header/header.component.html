@@ -1,6 +1,7 @@
 <h1 class="App_Global_Header_Container common">
     <div class="App_Global_Header_Container_Image">
         <div></div>
+        <div><span></span></div>
     </div>
     <div class="App_Global_Header_Container_Main">
         <div style="font-size:3vw" class="App_Global_Header_Container_Main_Text"
@@ -28,11 +29,5 @@
             {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_age_RO.title + ': ' + pageTemplate.Header.data[locale].intro_age_RO.details}}
         </div>
     </div>
-    <!-- <img [src]=" DataSnapshot.image" class="Profile_Picture" /> -->
-    <!-- <div>
-        <div *ngFor="let DataKey of ObjectKeys(DataSnapshot[Locale])">
-            {{DataSnapshot[Locale][DataKey].title}} : {{DataSnapshot[Locale][DataKey].details}}
-        </div>
-    </div> -->
 </h1>
 <canvas class="App_Global_Header_Container common canvas"></canvas>

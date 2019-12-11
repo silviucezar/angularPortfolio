@@ -1,16 +1,23 @@
 .Rect_Loading {
-  background: linear-gradient(90deg, deepskyblue, deepskyblue 50%, #0091cf 55%, #0091cf 60%, deepskyblue);
-  background-position: 0% 0%;
+  background: linear-gradient(
+    90deg,
+    deepskyblue,
+    #0091cf 50%,
+    #0091cf 55%,
+    deepskyblue 60%,
+    #0091cf 60%,
+    deepskyblue 60%
+  );
   border-radius: 30px;
-  animation: barberpole 5s linear infinite;
+  animation: barberpole 20s linear infinite;
 }
 
 @keyframes barberpole {
   0% {
-    background-position: -50vw 0%;
+    background-position: -1500px 0;
   }
   100% {
-    background-position: 50vw 0;
+    background-position: 1500px 0;
   }
 }
 

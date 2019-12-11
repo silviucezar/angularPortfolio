@@ -27,6 +27,13 @@
     .App_Global_Header_Container_Image {
       grid-column: 2;
       grid-row: 1;
+      grid-template: auto 210px auto / auto 210px auto;
+      display: grid;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 190px auto / auto 190px auto;
+      display: grid;
     }
   }
   @media only screen and (orientation: landscape) {
@@ -35,9 +42,9 @@
       grid-template: auto 100px auto / auto 100px auto;
       display: grid !important;
     }
-    .App_Global_Header_Container_Image div {
-      grid-column: 2;
-      grid-row: 2;
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 80px auto / auto 80px auto;
+      display: grid;
     }
     #App_Global_Grid {
       grid-template-rows: 35fr 50fr 15fr;
@@ -54,7 +61,7 @@
       grid-area: App_Global_Header_Container_Image;
     }
 
-    @media only screen and (max-width: 1399px) {
+    @media only screen and (min-width: 1200px) {
       #App_Global_Grid,
       .App_Global_Header_Container,
       .App_Global_Header_Container_Main {
@@ -70,10 +77,12 @@
   .App_Global_Header_Container_Image {
     grid-template: auto 170px auto / auto 170px auto;
   }
-  .App_Global_Header_Container_Image div {
-    grid-column: 2;
-    grid-row: 2;
+
+  .App_Global_Header_Container_Image div:nth-child(2) {
+    grid-template: auto 150px auto / auto 150px auto;
+    display: grid;
   }
+
   #App_Global_Grid {
     grid-template-rows: 30fr 63fr 7fr;
   }
@@ -86,7 +95,7 @@
     grid-area: App_Global_Header_Container_Main;
   }
 
-  @media only screen and (max-width: 1399px) {
+  @media only screen and (max-width: 1199px) {
     #App_Global_Grid,
     .App_Global_Header_Container,
     .App_Global_Header_Container_Main {
@@ -94,15 +103,19 @@
     }
   }
 
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1200px) {
     .App_Global_Header_Container_Image {
       grid-template: auto 210px auto/auto 210px auto;
     }
 
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 190px auto / auto 190px auto;
+      display: grid;
+    }
     #App_Global_Grid,
     .App_Global_Header_Container,
     .App_Global_Header_Container_Main {
-      grid-template-columns: 84fr 16fr;
+      grid-template-columns: 80fr 20fr;
     }
   }
   @media only screen and (orientation: portrait) {
