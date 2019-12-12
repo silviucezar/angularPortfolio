@@ -1,6 +1,7 @@
 import { Injectable, ComponentFactoryResolver } from '@angular/core';
 import { HttpService } from 'src/app/Services/http.service';
 import { PageTemplate } from 'src/app/Classes/pageTemplate';
+import { LoadersService } from './loaders.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,13 @@ import { PageTemplate } from 'src/app/Classes/pageTemplate';
 export class DataService {
 
   private pageTemplate = new PageTemplate();
+  private pageTemplateComponentsKeys = Object.keys(this.pageTemplate.Components);
 
   constructor
     (
       private http: HttpService,
-      private componentFactoryResolver: ComponentFactoryResolver
+      private componentFactoryResolver: ComponentFactoryResolver,
+      private load: LoadersService
     ) { }
 
   getRoutesData(componentData: object) {
@@ -28,25 +31,21 @@ export class DataService {
         loadHeader: componentData["loadingHeader"]
       })
         .then(result => {
-          console.log(this.pageTemplate)
           if (componentData["loadingHeader"] === true) {
             this.pageTemplate.Header.data = result;
           } else {
-            const TEMPLATE_COMPONENT_KEYS = Object.keys(this.pageTemplate.Components);
-            console.log(TEMPLATE_COMPONENT_KEYS)
+
           }
-          this.lazyAppendComponent(this.pageTemplate.Components[componentData["url"]],resolve);
+          this.lazyAppendComponent(this.pageTemplate.Components[componentData["url"]], resolve);
           resolve(this.pageTemplate);
         })
         .catch(e => {
           reject(e);
-        })
+        });
     })
   }
 
-  
-
-  lazyAppendComponent(neighbouringComponent:any,resolve) {
+  lazyAppendComponent(neighbouringComponent: any, resolve) {
     const COMPONENT_TO_LOAD = this.componentFactoryResolver.resolveComponentFactory(neighbouringComponent.component);
     neighbouringComponent.viewContainerRef = this.pageTemplate.Header.viewContainerRef.createComponent(COMPONENT_TO_LOAD);
   }

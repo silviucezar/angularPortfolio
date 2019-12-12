@@ -44,15 +44,25 @@ export class DBCreation {
             ],
             [
                 `CREATE TABLE component_data (
+                    string_key VARCHAR(20) NOT NULL,
                     text TEXT NOT NULL,
                     locale VARCHAR(10) NOT NULL,
-                    prefix TEXT NOT NULL PRIMARY KEY
+                    prefix TEXT NOT NULL PRIMARY KEY,
+
                 )`,
                 `INSERT INTO component_data VALUES
-                ('dummy_placeholder_about_me_ro','ro_RO','AboutMe_RO'),
-                ('dummy_placeholder_about_me_en','en_US','AboutMe_EN'),
-                ('dummy_placeholder_work_experience_ro','ro_RO','WorkExperience_RO'),
-                ('dummy_placeholder_work_experience_en','en_US','WorkExperience_EN')
+                ('AboutMe','dummy_placeholder_about_me','AboutMe_ro_RO'),
+                ('AboutMe','dummy_placeholder_about_me','AboutMe_en_US'),
+                ('Skills','dummy_placeholder_skills','Skills_ro_RO'),
+                ('Skills','dummy_placeholder_skills','Skills_en_US'),
+                ('WorkExperience','dummy_placeholder_work_experience','WorkExperience_ro_RO'),
+                ('WorkExperience','dummy_placeholder_work_experience','WorkExperience_en_US'),
+                ('Education','dummy_placeholder_education','Education_ro_RO'),
+                ('Education','dummy_placeholder_education','Education_en_US'),
+                ('References','dummy_placeholder_references','References_ro_RO'),
+                ('References','dummy_placeholder_references','References_en_US'),
+                ('LeaveMessage','dummy_placeholder_Leave_Message','LeaveMessage_ro_RO'),
+                ('LeaveMessage','dummy_placeholder_Leave_Message','LeaveMessage_en_US')
                 `
             ],
             [

@@ -40,8 +40,6 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
 
 App.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    // res.header("Access-Control-Allow-Headers", "Accept-Ranges");
-    // res.header("Accept-Ranges", "bytes");
     next();
 }).listen(8080, () => { console.log("Server running...") });
 
