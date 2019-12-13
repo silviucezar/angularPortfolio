@@ -4,7 +4,7 @@ import { DBCreation } from "./_Database/db_Creation";
 import { CommunicationParams } from "./_Interfaces/communicationParams";
 import { DBMain } from "./_Database/db_Main"
 import { SelectQuery } from "./_Interfaces/MainDBInterface";
-import { InitialData } from "./_Interfaces/FrontEndData";
+import { FrontEndDataTemplate } from "./_Interfaces/FrontEndData";
 
 const App: Application = Express();
 const _DBCreation = new DBCreation();
@@ -17,20 +17,32 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
     }
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
-            console.log(result)
-            const IntroData: InitialData | any = { [locale]: {} };
-            IntroData.details = result[2];
-            const IntroTranslationObjects: object[] | object | any = result[0];
-            const IntroDataObject: object[] | object | any = result[1][0];
-            for (const [Index, TranslationObject] of IntroTranslationObjects.entries()) {
-                IntroData[locale][TranslationObject.prefix] = {
-                    title: TranslationObject.text,
-                    details: IntroDataObject[Object.keys(IntroDataObject)[Index]]
+            const data: FrontEndDataTemplate = {
+                [locale]: {
+                    headerData: {},
+                    componentsData: {
+
+                    },
+                    footerData: {}
                 }
+            };
+
+            for (const [INDEX, TRANSLATION_DATA] of result.entries()) {
+                // data[locale as "ro_RO" | "en_US"][]
+                console.log(TRANSLATION_DATA)
             }
-            setTimeout(() => {
-                res.status(200).end(JSON.stringify(IntroData));
-            }, 1000)
+            // IntroData.details = result[2];
+            // const IntroTranslationObjects: object[] | object | any = result[0];
+            // const IntroDataObject: object[] | object | any = result[1][0];
+            // for (const [Index, TranslationObject] of IntroTranslationObjects.entries()) {
+            //     IntroData[locale][TranslationObject.prefix] = {
+            //         title: TranslationObject.text,
+            //         details: IntroDataObject[Object.keys(IntroDataObject)[Index]]
+            //     }
+            // }
+            // setTimeout(() => {
+            //     res.status(200).end(JSON.stringify(IntroData));
+            // }, 1000)
         })
         .catch(e => {
             res.status(200).end(JSON.stringify({ data: "result" }));;
