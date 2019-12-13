@@ -31,6 +31,7 @@ export class DataService {
         loadHeader: componentData["loadingHeader"]
       })
         .then(result => {
+          console.log(result)
           if (componentData["loadingHeader"] === true) {
             this.pageTemplate.Header.data = result;
           } else {

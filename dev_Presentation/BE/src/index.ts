@@ -17,6 +17,7 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
     }
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
+            console.log(result)
             const IntroData: InitialData | any = { [locale]: {} };
             IntroData.details = result[2];
             const IntroTranslationObjects: object[] | object | any = result[0];
@@ -27,7 +28,6 @@ function sendTables(res: Response, locale: string, ...QueryParams: SelectQuery[]
                     details: IntroDataObject[Object.keys(IntroDataObject)[Index]]
                 }
             }
-            console.log(IntroData)
             setTimeout(() => {
                 res.status(200).end(JSON.stringify(IntroData));
             }, 1000)

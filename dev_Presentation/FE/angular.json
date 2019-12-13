@@ -31,7 +31,7 @@
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/app/Common_CSS/styles.scss",
               "src/app/Common_CSS/styles_loading.scss",
-              "src/app/Commmon_CSS/styles_media_queries.scss"
+              "src/app/Common_CSS/styles_media_queries.scss"
             ],
             "scripts": []
           },
