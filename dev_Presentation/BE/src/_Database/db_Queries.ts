@@ -76,18 +76,18 @@ export class DBQuries {
                     prefix TEXT NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('AboutMe','dummy_placeholder_about_me','ro_RO','AboutMe_ro_RO'),
-                    ('AboutMe','dummy_placeholder_about_me','en_US','AboutMe_en_US'),
-                    ('Skills','dummy_placeholder_skills','ro_RO','Skills_ro_RO'),
-                    ('Skills','dummy_placeholder_skills','en_US','Skills_en_US'),
-                    ('WorkExperience','dummy_placeholder_work_experience','ro_RO','WorkExperience_ro_RO'),
-                    ('WorkExperience','dummy_placeholder_work_experience','en_US','WorkExperience_en_US'),
-                    ('Education','dummy_placeholder_education','ro_RO','Education_ro_RO'),
-                    ('Education','dummy_placeholder_education','en_US','Education_en_US'),
-                    ('References','dummy_placeholder_references','ro_RO','References_ro_RO'),
-                    ('References','dummy_placeholder_references','en_US','References_en_US'),
-                    ('LeaveMessage','dummy_placeholder_Leave_Message','ro_RO','LeaveMessage_ro_RO'),
-                    ('LeaveMessage','dummy_placeholder_Leave_Message','en_US','LeaveMessage_en_US')
+                    ('AboutMe_Skills','dummy_placeholder_about_me','ro_RO','AboutMe_ro_RO'),
+                    ('AboutMe_Skills','dummy_placeholder_about_me','en_US','AboutMe_en_US'),
+                    ('AboutMe_Skills_WorkExperience','dummy_placeholder_skills','ro_RO','Skills_ro_RO'),
+                    ('AboutMe_Skills_WorkExperience','dummy_placeholder_skills','en_US','Skills_en_US'),
+                    ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','ro_RO','WorkExperience_ro_RO'),
+                    ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','en_US','WorkExperience_en_US'),
+                    ('WorkExperience_Education_References','dummy_placeholder_education','ro_RO','Education_ro_RO'),
+                    ('WorkExperience_Education_References','dummy_placeholder_education','en_US','Education_en_US'),
+                    ('Education_References_LeaveMessage','dummy_placeholder_references','ro_RO','References_ro_RO'),
+                    ('Education_References_LeaveMessage','dummy_placeholder_references','en_US','References_en_US'),
+                    ('References_LeaveMessage','dummy_placeholder_Leave_Message','ro_RO','LeaveMessage_ro_RO'),
+                    ('References_LeaveMessage','dummy_placeholder_Leave_Message','en_US','LeaveMessage_en_US')
                 `
             ]
         ];

@@ -10,20 +10,22 @@ export class DBMain {
         this.PGQuery = new PGQuery();
     }
 
-    select(Query: SelectQuery): Promise<object[][]> {
+    select(QueryConfig: SelectQuery): Promise<object[][]> {
         return new Promise((resolve, reject) => {
             this.PGQuery.Start()
-                .then(ConnectionResult => {
-                    const ConnectionResultClient: PoolClient = ConnectionResult._Client;
-                    ConnectionResultClient.query(`SELECT ${Query.Columns} FROM ${Query.Table} ${Query.Where ? Query.Where :""}`, (_SelectError, _SelectData) => {
-                        if (_SelectError) { reject(_SelectError); ConnectionResult._Done(); return };
-                        ConnectionResult._Done();
-                        resolve(_SelectData.rows);
+                .then(startResponse => {
+                    const CONNECTION_RESULT_CLIENT: PoolClient = startResponse._Client;
+                    const PARAMS = QueryConfig.Params ? QueryConfig.Params : null;
+                    CONNECTION_RESULT_CLIENT.query(`SELECT ${QueryConfig.Columns} FROM ${QueryConfig.Table} ${QueryConfig.Where ? QueryConfig.Where : ""}`, PARAMS, (err, data) => {
+                        if (err) { reject(err); startResponse._Done(); return };
+                        startResponse._Done();
+                        resolve(data.rows);
                     })
                 })
-                .catch(ConnectionResult => {
-                    ConnectionResult._Done();
-                    reject(ConnectionResult._Error);
+                .catch(startResponse => {
+                    console.log(startResponse)
+                    startResponse._Done();
+                    reject(startResponse._Error);
                 });
         });
     }
