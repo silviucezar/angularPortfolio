@@ -9,9 +9,9 @@ import { FrontEndDataTemplate, DBDataTemplate } from "./_Interfaces/FrontEndData
 const App: Application = Express();
 const _DBCreation = new DBCreation();
 const _DBMain = new DBMain();
-const COMPONENTS_FE_ORDER = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'];
 
 function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
+
     const TABLE_QUERIES = [];
     for (const QueryParam of QueryParams) {
         TABLE_QUERIES.push(_DBMain.select(QueryParam))
@@ -39,15 +39,15 @@ function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
             }
 
             for (const [INDEX, RAW_CONTENT_DATA] of RAW_CONTENT_DATA_ARRAY.entries()) {
-                console.log(RAW_CONTENT_DATA)
                 const COOKED_DATA = {
-                    [RAW_CONTENT_DATA.string_key.split('_')[INDEX]]: RAW_CONTENT_DATA.text
+                    [RAW_CONTENT_DATA.string_key.split('_')[INDEX]]: JSON.parse(RAW_CONTENT_DATA.text)
                 }
-                console.log(COOKED_DATA)
                 Object.assign(FE_DATA[localeKey()].componentsData, COOKED_DATA);
             }
+            console.log('Locale', locale);
 
             console.log(FE_DATA)
+
             function localeKey() { return locale as 'ro_RO' | 'en_US'; }
 
             function headerFooterKey(translation: DBDataTemplate) { return `${translation.prefix.match(/header|footer/)[0]}Data` as 'headerData' | 'footerData'; }

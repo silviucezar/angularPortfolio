@@ -1,5 +1,5 @@
 export interface DBDataTemplate {
-    text?: string | number;
+    text?: string;
     prefix?: string;
     string_key?: string;
     info?: any

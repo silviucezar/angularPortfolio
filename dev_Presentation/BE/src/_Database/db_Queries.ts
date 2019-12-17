@@ -1,3 +1,5 @@
+import { AboutMeRo, AboutMeEn } from '../Enums/aboutMe.enum';
+import { SkillsRo, SkillsEn } from '../Enums/skills.enum';
 
 export class DBQuries {
 
@@ -76,10 +78,10 @@ export class DBQuries {
                     prefix TEXT NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('AboutMe_Skills','dummy_placeholder_about_me','ro_RO','AboutMe_ro_RO'),
-                    ('AboutMe_Skills','dummy_placeholder_about_me','en_US','AboutMe_en_US'),
-                    ('AboutMe_Skills_WorkExperience','dummy_placeholder_skills','ro_RO','Skills_ro_RO'),
-                    ('AboutMe_Skills_WorkExperience','dummy_placeholder_skills','en_US','Skills_en_US'),
+                    ('AboutMe_Skills','${JSON.stringify(AboutMeRo)}','ro_RO','AboutMe_ro_RO'),
+                    ('AboutMe_Skills','${JSON.stringify(AboutMeEn)}','en_US','AboutMe_en_US'),
+                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SkillsRo)}','ro_RO','Skills_ro_RO'),
+                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SkillsEn)}','en_US','Skills_en_US'),
                     ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','ro_RO','WorkExperience_ro_RO'),
                     ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','en_US','WorkExperience_en_US'),
                     ('WorkExperience_Education_References','dummy_placeholder_education','ro_RO','Education_ro_RO'),
