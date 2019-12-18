@@ -4,45 +4,96 @@ import { WorkExperienceComponent } from '../Components/Content/work-experience/w
 import { EducationComponent } from '../Components/Content/education/education.component';
 import { ReferencesComponent } from '../Components/Content/references/references.component';
 import { LeaveMessageComponent } from '../Components/Content/leave-message/leave-message.component';
-
 import { ComponentLoaderInterface } from '../Interfaces/ComponentLoaderInterface';
+import { HeaderComponent } from '../Components/Header/header.component';
+import { FooterComponent } from '../Components/Footer/footer.component';
 
 export class PageTemplate implements ComponentLoaderInterface {
+    constructor() {
+
+    }
     public readonly Header = {
-        data: null,
+        data: {
+            ro_RO: null,
+            en_US: null
+        },
         viewContainerRef: null,
-        component: {}
+        component: null
     };
     public readonly Components = {
         AboutMe: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: AboutMeComponent
         },
         Skills: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: SkillsComponent
         },
         WorkExperience: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: WorkExperienceComponent
         },
         Education: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: EducationComponent
         },
         References: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: ReferencesComponent
         },
         LeaveMessage: {
-            data: null,
-            viewContainerRef: null,
+            data: {
+                ro_RO: null,
+                en_US: null
+            },
+            viewContainerRef: {
+                ro_RO: null,
+                en_US: null
+            },
             component: LeaveMessageComponent
         }
     }
+    public readonly Footer = {
+        data: {
+            ro_RO: null,
+            en_US: null
+        },
+        viewContainerRef: null,
+        component: null
+    };
 }

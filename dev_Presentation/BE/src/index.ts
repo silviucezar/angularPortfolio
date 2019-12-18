@@ -18,6 +18,7 @@ function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
     }
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
+            console.log(result)
             const HEADER_FOOTER_TRANSLATIONS: DBDataTemplate[] = result[0];
             const RAW_HEADER_DATA_ARRAY: any = result[1][0];
             const RAW_CONTENT_DATA_ARRAY: DBDataTemplate[] = result[2];
@@ -44,9 +45,6 @@ function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
                 }
                 Object.assign(FE_DATA[localeKey()].componentsData, COOKED_DATA);
             }
-            console.log('Locale', locale);
-
-            console.log(FE_DATA)
 
             function localeKey() { return locale as 'ro_RO' | 'en_US'; }
 
@@ -77,11 +75,16 @@ App.get("/api/video", (req: Request, res: Response) => {
 
 App.get("/api/", (req: Request, res: Response) => {
     process.env.NODE_ENV = "dev";
-    const TABLES = [
-        { Table: 'text_translations', Columns: 'text,prefix', Where: `WHERE (locale='all' OR locale=$1) AND (prefix LIKE $2)`, Params: [req.query.locale, req.query.headerPrefix + "%"] },
-        { Table: "main_profile_details", Columns: "*" },
-        { Table: "component_data", Columns: "string_key,text,prefix", Where: `WHERE (locale='all' OR locale=$1) AND (string_key LIKE $2)`, Params: [req.query.locale, req.query.dataPrefix + "%"] }
-    ]
+    const dataToFetch = req.query.dataToFetch;
+    const TABLES = dataToFetch[0] === 'InitialData' ?
+        [
+            { Table: 'text_translations', Columns: 'text,prefix', Where: `WHERE (locale='all' OR locale=$1) AND (prefix LIKE $2)`, Params: [req.query.locale, "intro_%"] },
+            { Table: "main_profile_details", Columns: "*" },
+            { Table: "component_data", Columns: "string_key,text,prefix", Where: `WHERE (locale='all' OR locale=$1) AND (string_key LIKE $2)`, Params: [req.query.locale, `%${dataToFetch[1]}%`] }
+        ] :
+        [
+            { Table: "component_data", Columns: "string_key,text,prefix", Where: `WHERE (locale='all' OR locale=$1) AND (string_key LIKE $2)`, Params: [req.query.locale, `%${dataToFetch[0]}%`] }
+        ];
     if (process.env.NODE_ENV === "dev") {
         Promise.all(_DBCreation.createTables())
             .then(() => {

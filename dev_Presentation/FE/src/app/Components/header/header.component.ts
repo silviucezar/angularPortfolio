@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private locale = "ro_RO"
 
   constructor(
-    private viewContainerRef: ViewContainerRef,
+    public viewContainerRef: ViewContainerRef,
     private router: Router,
     private dataService: DataService,
   ) {
@@ -39,7 +39,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       } else {
         this.url = "AboutMe";
       }
-      this.dataService.getRoutesData(this)
+      dataService.setComponentContainerRef('Header', this.viewContainerRef, this);
+      this.dataService.getRoutesData(['InitialData', this.url])
         .then(result => {
           // this.loadingHeader = false;
           this.pageTemplate = result;

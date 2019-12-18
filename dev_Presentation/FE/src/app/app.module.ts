@@ -12,6 +12,7 @@ import { SkillsComponent } from './Components/Content/skills/skills.component';
 import { EducationComponent } from './Components/Content/education/education.component';
 import { ReferencesComponent } from './Components/Content/references/references.component';
 import { LeaveMessageComponent } from './Components/Content/leave-message/leave-message.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 const AppRoutes: Routes = [
   {
@@ -49,7 +50,8 @@ const AppRoutes: Routes = [
     SkillsComponent,
     EducationComponent,
     ReferencesComponent,
-    LeaveMessageComponent
+    LeaveMessageComponent,
+    FooterComponent
   ],
   entryComponents: [
     HeaderComponent,

@@ -1,16 +1,23 @@
-import { Injectable, ComponentFactoryResolver } from '@angular/core';
+import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { HttpService } from 'src/app/Services/http.service';
 import { PageTemplate } from 'src/app/Classes/pageTemplate';
 import { LoadersService } from './loaders.service';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private pageTemplate = new PageTemplate();
-  private pageTemplateComponentsKeys = Object.keys(this.pageTemplate.Components);
-
+  private pageTemplate$ = new BehaviorSubject(new PageTemplate());
+  private currPageTemplate = this.pageTemplate$.value;
+  private isInitialLoad = {
+    ro_RO: true,
+    en_US: true
+  };
+  private dataToFetch: string = null;
+  private locale: string = 'ro_RO';
   constructor
     (
       private http: HttpService,
@@ -18,27 +25,36 @@ export class DataService {
       private load: LoadersService
     ) { }
 
-  getRoutesData(componentData: object) {
+  getRoutesData(dataToFetch) {
+    this.dataToFetch = dataToFetch[0] !== 'InitialData' ? dataToFetch[0] : dataToFetch;
+    console.log(this.dataToFetch)
     return new Promise((resolve, reject) => {
-      if (!this.pageTemplate.Header.component.hasOwnProperty("viewContainerRef")) {
-        this.pageTemplate.Header.component = componentData;
-        this.pageTemplate.Header.viewContainerRef = componentData["viewContainerRef"];
-      }
       this.http.doGetRequest("/", {
-        locale: "ro_RO",
-        headerPrefix: "intro_",
-        dataPrefix: componentData["url"],
-        loadHeader: componentData["loadingHeader"]
+        locale: this.locale,
+        dataToFetch: this.dataToFetch
       })
-        .then(result => {
-          console.log(result)
-          if (componentData["loadingHeader"] === true) {
-            this.pageTemplate.Header.data = result;
-          } else {
-
+        .then(FE_DATA => {
+          console.log(FE_DATA);
+          if (this.isInitialLoad[this.locale]) {
+            this.currPageTemplate.Header.data[this.locale] = FE_DATA[this.locale].headerData;
+            this.currPageTemplate.Footer.data[this.locale] = FE_DATA[this.locale].footerData;
+            this.isInitialLoad[this.locale] = false;
           }
-          this.lazyAppendComponent(this.pageTemplate.Components[componentData["url"]], resolve);
-          resolve(this.pageTemplate);
+
+          for (const COMPONENT_DATA_KEY in FE_DATA[this.locale].componentsData) {
+            console.log(COMPONENT_DATA_KEY)
+            this.currPageTemplate.Components[COMPONENT_DATA_KEY].data[this.locale] = FE_DATA[this.locale].componentsData[COMPONENT_DATA_KEY];
+          }
+          // this.currPageTemplate[this.componentToBindData].data[this.locale] = result.componentsData
+          this.pageTemplate$.next(this.currPageTemplate);
+          console.log(this.pageTemplate$.value)
+          // if (componentData["loadingHeader"] === true) {
+          //   this.pageTemplate.Header.data = result;
+          // } else {
+
+          // }
+          // this.lazyAppendComponent(this.pageTemplate.Components[componentData["url"]], resolve);
+          // resolve(this.pageTemplate);
         })
         .catch(e => {
           reject(e);
@@ -46,8 +62,14 @@ export class DataService {
     })
   }
 
-  lazyAppendComponent(neighbouringComponent: any, resolve) {
-    const COMPONENT_TO_LOAD = this.componentFactoryResolver.resolveComponentFactory(neighbouringComponent.component);
-    neighbouringComponent.viewContainerRef = this.pageTemplate.Header.viewContainerRef.createComponent(COMPONENT_TO_LOAD);
+  // lazyAppendComponent(neighbouringComponent: any, resolve) {
+  //   const COMPONENT_TO_LOAD = this.componentFactoryResolver.resolveComponentFactory(neighbouringComponent.component);
+  //   neighbouringComponent.viewContainerRef = this.pageTemplate.Header.viewContainerRef.createComponent(COMPONENT_TO_LOAD);
+  // }
+
+  setComponentContainerRef(componentName: string, componentContainerRef: ViewContainerRef, component: object) {
+    this.currPageTemplate[componentName].viewContainerRef = componentContainerRef;
+    this.currPageTemplate[componentName].component = component;
+    this.pageTemplate$.next(this.currPageTemplate)
   }
 }
