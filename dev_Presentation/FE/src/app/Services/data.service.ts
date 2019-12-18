@@ -12,11 +12,12 @@ export class DataService {
 
   private pageTemplate$ = new BehaviorSubject(new PageTemplate());
   private currPageTemplate = this.pageTemplate$.value;
+  private currPageTemplateKeys = Object.keys(this.currPageTemplate.Components);
   private isInitialLoad = {
     ro_RO: true,
     en_US: true
   };
-  private dataToFetch: string = null;
+  private dataToFetch: string | string[] = null;
   private locale: string = 'ro_RO';
   constructor
     (
@@ -25,16 +26,26 @@ export class DataService {
       private load: LoadersService
     ) { }
 
-  getRoutesData(dataToFetch) {
+  getRoutesData(dataToFetch: string[], currentComponent: string) {
+    console.clear();
+    const CURRENT_COMPONENT_INDEX = this.currPageTemplateKeys.indexOf(currentComponent)
+    this.currPageTemplateKeys.filter((componentKey, componentIndex) => {
+      if (
+        componentIndex === CURRENT_COMPONENT_INDEX - 1 ||
+        componentIndex === CURRENT_COMPONENT_INDEX ||
+        componentIndex === CURRENT_COMPONENT_INDEX + 1
+      ) return componentKey;
+    }).forEach(filteredComponentKey => {
+      if (this.currPageTemplate.Components[filteredComponentKey].data[this.locale]) return;
+    })
     this.dataToFetch = dataToFetch[0] !== 'InitialData' ? dataToFetch[0] : dataToFetch;
-    console.log(this.dataToFetch)
+
     return new Promise((resolve, reject) => {
       this.http.doGetRequest("/", {
         locale: this.locale,
         dataToFetch: this.dataToFetch
       })
         .then(FE_DATA => {
-          console.log(FE_DATA);
           if (this.isInitialLoad[this.locale]) {
             this.currPageTemplate.Header.data[this.locale] = FE_DATA[this.locale].headerData;
             this.currPageTemplate.Footer.data[this.locale] = FE_DATA[this.locale].footerData;
@@ -42,12 +53,11 @@ export class DataService {
           }
 
           for (const COMPONENT_DATA_KEY in FE_DATA[this.locale].componentsData) {
-            console.log(COMPONENT_DATA_KEY)
             this.currPageTemplate.Components[COMPONENT_DATA_KEY].data[this.locale] = FE_DATA[this.locale].componentsData[COMPONENT_DATA_KEY];
           }
           // this.currPageTemplate[this.componentToBindData].data[this.locale] = result.componentsData
-          this.pageTemplate$.next(this.currPageTemplate);
-          console.log(this.pageTemplate$.value)
+          // this.pageTemplate$.next(this.currPageTemplate);
+          console.log(this.currPageTemplate)
           // if (componentData["loadingHeader"] === true) {
           //   this.pageTemplate.Header.data = result;
           // } else {

@@ -31,7 +31,19 @@ const AppRoutes: Routes = [
       path: 'about-me',
       children: []
     }, {
+      path: "skills",
+      children: []
+    }, {
       path: "work-experience",
+      children: []
+    }, {
+      path: "education",
+      children: []
+    }, {
+      path: "references",
+      children: []
+    }, {
+      path: "leave-message",
       children: []
     }]
   },

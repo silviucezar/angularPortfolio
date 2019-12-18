@@ -1,5 +1,9 @@
-import { AboutMeRo, AboutMeEn } from '../Enums/aboutMe.enum';
-import { SkillsRo, SkillsEn } from '../Enums/skills.enum';
+import { ABOUT_ME_RO, ABOUT_ME_EN } from '../FE_Data_Objects/aboutMe';
+import { SKILLS_RO, SKILLS_EN } from '../FE_Data_Objects/skills';
+import { WORK_EXPERIENCE_RO,WORK_EXPERIENCE_EN } from '../FE_Data_Objects/workExperience';
+import { EDUCATION_RO,EDUCATION_EN } from '../FE_Data_Objects/education';
+import { REFERENCES_RO,REFERENCES_EN } from '../FE_Data_Objects/references';
+import { LEAVE_MESSAGE_RO,LEAVE_MESSAGE_EN } from '../FE_Data_Objects/LeaveMessage';
 
 export class DBQuries {
 
@@ -7,13 +11,6 @@ export class DBQuries {
 
     constructor() {
         this.createAndInsert = [
-            // [
-            //     `CREATE TABLE params (
-            //             params TEXT NOT NULL,
-            //             id int NOT NULL PRIMARY KEY
-            //         )`,
-            //     `INSERT INTO params(params,id) VALUES ('{}',1)`
-            // ],
             [
                 `CREATE TABLE main_profile_details (
                     image TEXT NOT NULL,
@@ -78,18 +75,18 @@ export class DBQuries {
                     prefix TEXT NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('AboutMe_Skills','${JSON.stringify(AboutMeRo)}','ro_RO','AboutMe_ro_RO'),
-                    ('AboutMe_Skills','${JSON.stringify(AboutMeEn)}','en_US','AboutMe_en_US'),
-                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SkillsRo)}','ro_RO','Skills_ro_RO'),
-                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SkillsEn)}','en_US','Skills_en_US'),
-                    ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','ro_RO','WorkExperience_ro_RO'),
-                    ('Skills_WorkExperience_Education','dummy_placeholder_work_experience','en_US','WorkExperience_en_US'),
-                    ('WorkExperience_Education_References','dummy_placeholder_education','ro_RO','Education_ro_RO'),
-                    ('WorkExperience_Education_References','dummy_placeholder_education','en_US','Education_en_US'),
-                    ('Education_References_LeaveMessage','dummy_placeholder_references','ro_RO','References_ro_RO'),
-                    ('Education_References_LeaveMessage','dummy_placeholder_references','en_US','References_en_US'),
-                    ('References_LeaveMessage','dummy_placeholder_Leave_Message','ro_RO','LeaveMessage_ro_RO'),
-                    ('References_LeaveMessage','dummy_placeholder_Leave_Message','en_US','LeaveMessage_en_US')
+                    ('AboutMe_Skills','${JSON.stringify(ABOUT_ME_RO)}','ro_RO','AboutMe_ro_RO'),
+                    ('AboutMe_Skills','${JSON.stringify(ABOUT_ME_EN)}','en_US','AboutMe_en_US'),
+                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SKILLS_RO)}','ro_RO','Skills_ro_RO'),
+                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SKILLS_EN)}','en_US','Skills_en_US'),
+                    ('Skills_WorkExperience_Education','${JSON.stringify(WORK_EXPERIENCE_RO)}','ro_RO','WorkExperience_ro_RO'),
+                    ('Skills_WorkExperience_Education','${JSON.stringify(WORK_EXPERIENCE_EN)}','en_US','WorkExperience_en_US'),
+                    ('WorkExperience_Education_References','${JSON.stringify(EDUCATION_RO)}','ro_RO','Education_ro_RO'),
+                    ('WorkExperience_Education_References','${JSON.stringify(EDUCATION_EN)}','en_US','Education_en_US'),
+                    ('Education_References_LeaveMessage','${JSON.stringify(REFERENCES_RO)}','ro_RO','References_ro_RO'),
+                    ('Education_References_LeaveMessage','${JSON.stringify(REFERENCES_EN)}','en_US','References_en_US'),
+                    ('References_LeaveMessage','${JSON.stringify(LEAVE_MESSAGE_RO)}','ro_RO','LeaveMessage_ro_RO'),
+                    ('References_LeaveMessage','${JSON.stringify(LEAVE_MESSAGE_EN)}','en_US','LeaveMessage_en_US')
                 `
             ]
         ];

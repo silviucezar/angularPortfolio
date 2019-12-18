@@ -26,10 +26,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: AboutMeComponent
         },
         Skills: {
@@ -37,10 +34,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: SkillsComponent
         },
         WorkExperience: {
@@ -48,10 +42,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: WorkExperienceComponent
         },
         Education: {
@@ -59,10 +50,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: EducationComponent
         },
         References: {
@@ -70,10 +58,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: ReferencesComponent
         },
         LeaveMessage: {
@@ -81,10 +66,7 @@ export class PageTemplate implements ComponentLoaderInterface {
                 ro_RO: null,
                 en_US: null
             },
-            viewContainerRef: {
-                ro_RO: null,
-                en_US: null
-            },
+            viewContainerRef: null,
             component: LeaveMessageComponent
         }
     }

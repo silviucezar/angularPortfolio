@@ -17,7 +17,6 @@ export class DBMain {
                     const CONNECTION_RESULT_CLIENT: PoolClient = startResponse._Client;
                     const PARAMS = QueryConfig.Params ? QueryConfig.Params : null;
                     CONNECTION_RESULT_CLIENT.query(`SELECT ${QueryConfig.Columns} FROM ${QueryConfig.Table} ${QueryConfig.Where ? QueryConfig.Where : ""}`, PARAMS, (err, data) => {
-                        console.log(data)
                         if (err) { reject(err); startResponse._Done(); return };
                         startResponse._Done();
                         resolve(data.rows);

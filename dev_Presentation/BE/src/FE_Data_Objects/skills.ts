@@ -1,4 +1,4 @@
-export const SkillsRo = {
+export const SKILLS_RO = {
     sectionTitle: 'Aptitudini',
     SkillsCategory: {
         Typescript: {
@@ -24,7 +24,7 @@ export const SkillsRo = {
     }
 }
 
-export const SkillsEn = {
+export const SKILLS_EN = {
     sectionTitle: 'Aptitudini',
     SkillsCategory: {
         Typescript: {

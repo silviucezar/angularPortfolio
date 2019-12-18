@@ -38,10 +38,10 @@ function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
                 };
                 Object.assign(FE_DATA[localeKey()][headerFooterKey(RAW_TRANSLATIONS)], COOKED_TRANSLATIONS);
             }
-
+            console.log(RAW_CONTENT_DATA_ARRAY)
             for (const [INDEX, RAW_CONTENT_DATA] of RAW_CONTENT_DATA_ARRAY.entries()) {
                 const COOKED_DATA = {
-                    [RAW_CONTENT_DATA.string_key.split('_')[INDEX]]: JSON.parse(RAW_CONTENT_DATA.text)
+                    [RAW_CONTENT_DATA.prefix.replace(/_(ro_RO|en_US)/gi,'')]: JSON.parse(RAW_CONTENT_DATA.text.toString())
                 }
                 Object.assign(FE_DATA[localeKey()].componentsData, COOKED_DATA);
             }

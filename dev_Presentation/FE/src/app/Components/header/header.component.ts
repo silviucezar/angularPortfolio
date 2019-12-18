@@ -32,15 +32,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
       if (event["url"] !== "/") {
-        let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
-        EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
-        EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
-        this.url = EVENT_URL_ARR.join().replace(",", "");
+        if (event['url'].match('-')) {
+          let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
+          EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
+          EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
+          this.url = EVENT_URL_ARR.join().replace(",", "");
+        } else {
+          let EVENT_URL = event["url"].replace("/portfolio/", "");
+          this.url = EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase());
+          console.log(this.url)
+        }
       } else {
         this.url = "AboutMe";
       }
       dataService.setComponentContainerRef('Header', this.viewContainerRef, this);
-      this.dataService.getRoutesData(['InitialData', this.url])
+      try {
+        this.dataService.getRoutesData(['InitialData', this.url],this.url)
         .then(result => {
           // this.loadingHeader = false;
           this.pageTemplate = result;
@@ -49,6 +56,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         .catch(e => {
           console.log(e);
         });
+      } catch (e) {
+        console.log('do nothing')
+      }
     });
   }
 
