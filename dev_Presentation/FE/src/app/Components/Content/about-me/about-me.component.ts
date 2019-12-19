@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  constructor(private activeRoute: ActivatedRoute, public _ViewContainerRef: ViewContainerRef) { }
+  constructor(private activeRoute: ActivatedRoute, public viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     console.log("about me", this.activeRoute.snapshot)

@@ -20,7 +20,7 @@ export class DBMain {
                         if (err) { reject(err); startResponse._Done(); return };
                         startResponse._Done();
                         resolve(data.rows);
-                    })
+                    });
                 })
                 .catch(startResponse => {
                     console.log(startResponse)

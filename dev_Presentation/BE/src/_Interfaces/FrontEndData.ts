@@ -12,9 +12,9 @@ export interface FrontEndDataTemplate {
 }
 
 interface ComponentsDataStructure {
-    headerData: HeaderTemplate,
-    componentsData: ComponentsTemplate,
-    footerData: FooterTemplate
+    headerData?: HeaderTemplate,
+    componentsData: ComponentsTemplate | {},
+    footerData?: FooterTemplate
 }
 
 interface HeaderTemplate {
