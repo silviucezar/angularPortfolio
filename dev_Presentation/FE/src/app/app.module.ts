@@ -56,19 +56,22 @@ const AppRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AboutMeComponent,
     HeaderComponent,
-    WorkExperienceComponent,
+    AboutMeComponent,
     SkillsComponent,
+    WorkExperienceComponent,
     EducationComponent,
     ReferencesComponent,
     LeaveMessageComponent,
     FooterComponent
   ],
   entryComponents: [
-    HeaderComponent,
     AboutMeComponent,
-    WorkExperienceComponent
+    SkillsComponent,
+    WorkExperienceComponent,
+    EducationComponent,
+    ReferencesComponent,
+    LeaveMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -81,3 +84,14 @@ const AppRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export const TEMPLATE_COMPONENTS:{} = {
+  Header: HeaderComponent,
+  AboutMe: AboutMeComponent,
+  Skills: SkillsComponent,
+  WorkExperience: WorkExperienceComponent,
+  Education: EducationComponent,
+  References: ReferencesComponent,
+  LeaveMessage: LeaveMessageComponent,
+  Footer: FooterComponent
+}

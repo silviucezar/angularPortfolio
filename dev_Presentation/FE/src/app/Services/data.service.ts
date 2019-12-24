@@ -1,7 +1,6 @@
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { HttpService } from 'src/app/Services/http.service';
 import { Subject } from 'rxjs';
-import { HeaderComponent } from '../Components/header/header.component'
 
 interface pageTemplateInterface {
   Header: Lang;
@@ -52,9 +51,7 @@ export class DataService {
     (
       private http: HttpService,
       private componentFactoryResolver: ComponentFactoryResolver,
-  ) {
-    console.log(HeaderComponent)
-  }
+  ) { }
 
   setCurrentRouteData(currentComponent: string) {
     const COMPONENT_INDEX = this.templateKeys.indexOf(currentComponent);

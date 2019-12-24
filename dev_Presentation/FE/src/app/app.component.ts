@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
       }
     });
     this.dataService.getPageTemplate().subscribe(pageTemplate => {
-      this.load.lazyComponentLoad(pageTemplate.Components[this.url], this.url);
+      this.load.lazyComponentLoad(pageTemplate.Components[this.url],this.url);
     });
   }
 
