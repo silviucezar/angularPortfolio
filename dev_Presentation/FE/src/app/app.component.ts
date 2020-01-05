@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
-import { CanvasDetails } from 'src/app/Interfaces/CanvasDetails';
-import { RenderDetails } from './Classes/renderDetails';
-import { Router, NavigationStart } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { filter, take } from 'rxjs/operators';
 import { DataService } from './Services/data.service';
 import { LoadersService } from './Services/loaders.service';
+import { LocaleService } from './Services/locale.service';
+import { LocaleDetails } from './Interfaces/locale.interface';
+import { CanvasService } from './Services/canvas.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,68 +16,89 @@ import { LoadersService } from './Services/loaders.service';
     "id": "App_Global_Grid"
   }
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'FE';
   @ViewChild("GlobalScrollCanvas", { static: true }) GlobalScrollCanvas: ElementRef;
-  @ViewChild("GlobalLeftMargin", { static: true }) GlobalLeftMargin: ElementRef;
+  @ViewChild("AboutMe", { read: ViewContainerRef, static: true }) AboutMe: ViewContainerRef;
+  @ViewChild("Skills", { read: ViewContainerRef, static: true }) Skills: ViewContainerRef;
+  @ViewChild("WorkExperience", { read: ViewContainerRef, static: true }) WorkExperience: ViewContainerRef;
+  @ViewChild("Education", { read: ViewContainerRef, static: true }) Education: ViewContainerRef;
+  @ViewChild("References", { read: ViewContainerRef, static: true }) References: ViewContainerRef;
+  @ViewChild("LeaveMessage", { read: ViewContainerRef, static: true }) LeaveMessage: ViewContainerRef;
+  @ViewChild('Nav_Bar_Canvas', { static: true }) Nav_Bar_Canvas: ElementRef;
+  private url = new BehaviorSubject<string>(null);
+  private asd = null;
+  private currentLocale = null;
+  private categoriesTitle: string[] = [];
+  private HeaderMetadata: {} = null;
+  private AboutMeMetadata: {} = null;
+  private SkillsMetadata: {} = null;
+  private WorkExperienceMetadata: {} = null;
+  private EducationMetadata: {} = null;
+  private ReferencesMetadata: {} = null;
+  private LeaveMessageMetadata: {} = null;
+  private FooterMetadata: {} = null;
 
-  private RenderDetails = new RenderDetails();
-  private pageTemplate: any = null;
-  private url: string = null;
-  // private GlobalScrollCanvasElement: HTMLCanvasElement;
-  // private GlobalLeftMarginElement: HTMLDivElement;
-  // private GlobalScrollCanvasElementContext: CanvasRenderingContext2D;
-  // private CanvasRenderDependencies: CanvasDetails;
-  constructor(private router: Router, private dataService: DataService, private load: LoadersService) {
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private lazy: LoadersService,
+    private locale: LocaleService,
+    private canvasService: CanvasService
+  ) {
+    this.locale.getCurrentLocale().subscribe(localeValue => {
+      const LOCALE_VALUE: LocaleDetails = localeValue;
+      this.currentLocale = localeValue['locale'];
+      if (this.categoriesTitle.length === 0) {
+        for (const LOCALE_VALUE_PROPS in LOCALE_VALUE.categoriesTitle) {
+          this.categoriesTitle.push(LOCALE_VALUE.categoriesTitle[LOCALE_VALUE_PROPS])
+        }
+      }
+    });
+    
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
-      if (event["url"] !== "/") {
+      if (event['url'] !== "/") {
         if (event['url'].match('-')) {
           let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
           EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
           EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
-          this.url = EVENT_URL_ARR.join().replace(",", "");
-          this.dataService.setCurrentRouteData(this.url);
+          this.url.next(EVENT_URL_ARR.join().replace(",", ""));
         } else {
           let EVENT_URL = event["url"].replace("/portfolio/", "");
-          this.url = EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase());
-          this.dataService.setCurrentRouteData(this.url);
+          this.url.next(EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase()));
         }
       } else {
-        this.url = 'AboutMe';
-        this.dataService.setCurrentRouteData(this.url);
+        this.url.next('AboutMe');
       }
-    });
-    this.dataService.getPageTemplate().subscribe(pageTemplate => {
-      this.load.lazyComponentLoad(pageTemplate.Components[this.url],this.url);
+        this.dataService.setCurrentRouteData(this.url.value);
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.lazy.setComponentContainerRef({
+      AboutMe: this.AboutMe,
+      Skills: this.Skills,
+      WorkExperience: this.WorkExperience,
+      Education: this.Education,
+      References: this.References,
+      LeaveMessage: this.LeaveMessage
+    });
+    
+    this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
+      for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
+        if (TRANSLATION_CATEGORY.match(/Header|Footer/)) {
+          this[`${TRANSLATION_CATEGORY}Metadata`] = pageTemplateTranslations.translationCategory
+        } else {
+          for (const COMPONENT_CATEGORY in pageTemplateTranslations.Components) {
+            this[`${COMPONENT_CATEGORY}Metadata`] = pageTemplateTranslations.Components[COMPONENT_CATEGORY][this.currentLocale];
+          }
+        }
+      }
+      this.url.pipe(take(2)).subscribe(url=>{if(url) this.lazy.componentLoad(url);});
+    });
+  }
 
   ngAfterViewInit() {
-    // this.GlobalScrollCanvasElement = this.GlobalScrollCanvas.nativeElement;
-    // this.GlobalScrollCanvasElementContext = this.GlobalScrollCanvasElement.getContext("2d");
-    // this.GlobalLeftMarginElement = this.GlobalLeftMargin.nativeElement;
-    // this.drawCanvas();
+    this.url.subscribe(url=>{if(url) this.canvasService.setCanvas('NavBar', this.Nav_Bar_Canvas, url);})
   }
-  // drawCanvas() {
-  //   this.CanvasRenderDependencies = {
-  //     CanvasTotalWidth: this.GlobalLeftMarginElement.getBoundingClientRect().width,
-  //     CanvasTotalHeight: this.GlobalLeftMarginElement.getBoundingClientRect().height
-  //   };
-  //   this.GlobalScrollCanvasElement.width = this.CanvasRenderDependencies.CanvasTotalWidth;
-  //   this.GlobalScrollCanvasElement.height = this.CanvasRenderDependencies.CanvasTotalHeight;
-  //   this.GlobalScrollCanvasElementContext.beginPath();
-  //   this.GlobalScrollCanvasElementContext.rect(this.CanvasRenderDependencies.CanvasTotalWidth / 1.15 - 5, 0, this.CanvasRenderDependencies.CanvasTotalWidth + 199, this.CanvasRenderDependencies.CanvasTotalHeight);
-  //   this.GlobalScrollCanvasElementContext.fillStyle = "#add8e6";
-  //   this.GlobalScrollCanvasElementContext.fill();
-  //   this.GlobalScrollCanvasElementContext.closePath();
-  // }
-
-  // onRouteActivate(event) {
-  //   if (event.activeRoute.snapshot.routeConfig.path === "profile-preview") {
-  //     this.HeaderData = event.activeRoute.snapshot.data.initialData
-  //     console.log(this.HeaderData);
-  //   }
-  // }
 }

@@ -7,7 +7,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 })
 export class WorkExperienceComponent implements OnInit {
 
-  constructor(public _ViewContainerRef: ViewContainerRef) { }
+  constructor(public viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
   }

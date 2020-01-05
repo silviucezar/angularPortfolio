@@ -13,6 +13,7 @@ import { EducationComponent } from './Components/Content/education/education.com
 import { ReferencesComponent } from './Components/Content/references/references.component';
 import { LeaveMessageComponent } from './Components/Content/leave-message/leave-message.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { DynamicComponentLoaderComponent } from './Components/component-loader/dynamic-component-loader.component';
 
 const AppRoutes: Routes = [
   {
@@ -63,9 +64,11 @@ const AppRoutes: Routes = [
     EducationComponent,
     ReferencesComponent,
     LeaveMessageComponent,
-    FooterComponent
+    FooterComponent,
+    DynamicComponentLoaderComponent
   ],
   entryComponents: [
+    HeaderComponent,
     AboutMeComponent,
     SkillsComponent,
     WorkExperienceComponent,

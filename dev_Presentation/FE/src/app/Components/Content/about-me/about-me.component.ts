@@ -1,5 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, ElementRef, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-about-me',
@@ -10,14 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  constructor(private activeRoute: ActivatedRoute, public viewContainerRef: ViewContainerRef) { }
+  constructor() { }
 
-  ngOnInit() {
-    console.log("about me", this.activeRoute.snapshot)
-  }
-
-
-
+  ngOnInit() { }
 
   ngAfterViewInit() { }
 

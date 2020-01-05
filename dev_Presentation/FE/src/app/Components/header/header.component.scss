@@ -8,7 +8,6 @@
 .App_Global_Header_Container {
   z-index: 1;
   font-weight: normal;
-  border-bottom: 2px solid dodgerblue;
 }
 
 .App_Global_Header_Container_Image div {
@@ -18,13 +17,12 @@
 
 .App_Global_Header_Container_Image div:nth-child(1) {
   border-radius: 50%;
-  background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
-  -webkit-animation: 2s spiiiin linear infinite;
+  background: linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);  -webkit-animation: 2s spiiiin linear infinite;
   animation: 2s spiiiin linear infinite;
 }
 
 .App_Global_Header_Container_Image div:nth-child(2) span {
-  background: #0091cf;
+  background: deepskyblue;
   grid-row: 2;
   grid-column: 2;
   z-index: 1;

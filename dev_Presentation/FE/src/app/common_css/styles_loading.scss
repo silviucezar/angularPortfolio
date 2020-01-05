@@ -2,10 +2,10 @@
   background: linear-gradient(
     90deg,
     deepskyblue,
-    #0091cf 50%,
-    #0091cf 55%,
+    transparent 50%,
+    transparent 55%,
     deepskyblue 60%,
-    #0091cf 60%,
+    transparent 60%,
     deepskyblue 60%
   );
   border-radius: 30px;
@@ -29,33 +29,6 @@
   animation: 2s pulsate infinite ease-in;
 }
 
-@keyframes pulsate {
-  0% {
-    background: white;
-  }
-
-  50% {
-    background: lightgrey;
-  }
-
-  100% {
-    background: white;
-  }
-}
-
-// .App_Global_Header_Container_Image:after {
-//   content: "";
-//   position: absolute;
-//   border-radius: 50%;
-//   background: linear-gradient(deepskyblue, #0091cf, #0091cf, #0091cf, deepskyblue);
-//   -webkit-animation: 2s spiiiin linear infinite;
-//   animation: 2s spiiiin linear infinite;
-//   top: 10vh;
-//   left: 5vh;
-//   width: 13vw;
-//   height: 13vw;
-// }
-
 @keyframes spiiiin {
   from {
     transform: rotate(0deg);
@@ -63,5 +36,33 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+.App_Global_Content_Loader {
+  display:block;
+  width:100%;
+  height:10.4vh;
+  padding:4px
+}
+
+.App_Global_Content_Loader_Animation {
+  width:100%;
+  height:100%;
+  animation:1.5s pulsate infinite ease-in-out;
+  border-radius:5px;
+}
+
+@keyframes pulsate {
+  0% {
+    background: transparent;
+  }
+
+  50% {
+    background: lightblue;
+  }
+
+  100% {
+    background: transparent;
   }
 }

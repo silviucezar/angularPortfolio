@@ -1,3 +1,14 @@
-<app-header class="App_Global_Header" #App_Global_Header></app-header>
-<div class="App_Global_Margin" #GlobalLeftMargin>NavBar</div>
-<div class="App_Global_Footer"></div>
+<app-header (headerCanvas)='onCanvasEmit($event)' class="App_Global_Header" #App_Global_Header [headerMetadata]='headerMetadata'></app-header>
+<div class="App_Global_Content" #GlobalContainer>
+    <ng-container #AboutMe><app-dynamic-component-loader *ngIf='AboutMeMetadata === null'></app-dynamic-component-loader></ng-container>
+    <ng-container #Skills><app-dynamic-component-loader *ngIf='SkillsMetadata === null'></app-dynamic-component-loader></ng-container>
+    <ng-container #WorkExperience><app-dynamic-component-loader *ngIf='WorkExperienceMetadata === null'></app-dynamic-component-loader></ng-container>
+    <ng-container #Education><app-dynamic-component-loader *ngIf='EducationMetadata === null'></app-dynamic-component-loader></ng-container>
+    <ng-container #References><app-dynamic-component-loader *ngIf='ReferencesMetadata === null'></app-dynamic-component-loader></ng-container>
+    <ng-container #LeaveMessage><app-dynamic-component-loader *ngIf='LeaveMessageMetadata === null'></app-dynamic-component-loader></ng-container>
+</div>
+<div class="App_Global_Margin" #GlobalLeftMargin>
+    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas></canvas>
+    <a class='Categories_Url' *ngFor='let CATEGORY of categoriesTitle' routerLink="{{'portfolio/' + CATEGORY.url}}">{{CATEGORY[this.currentLocale + '_Title']}}<br></a>
+</div>
+<app-footer class="App_Global_Footer"></app-footer>

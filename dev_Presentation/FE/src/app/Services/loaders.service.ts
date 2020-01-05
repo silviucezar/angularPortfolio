@@ -1,43 +1,51 @@
-import { Injectable, Component, NgModule } from '@angular/core';
-import { TEMPLATE_COMPONENTS } from '../app.module';
-import { HeaderComponent } from '../Components/header/header.component';
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { AboutMeComponent } from '../Components/Content/about-me/about-me.component';
 import { SkillsComponent } from '../Components/Content/skills/skills.component';
 import { WorkExperienceComponent } from '../Components/Content/work-experience/work-experience.component';
 import { EducationComponent } from '../Components/Content/education/education.component';
 import { ReferencesComponent } from '../Components/Content/references/references.component';
 import { LeaveMessageComponent } from '../Components/Content/leave-message/leave-message.component';
-import { FooterComponent } from '../Components/footer/footer.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoadersService {
+
   private COMPONENTS_TEMPLATE = {
-    HeaderComponent,
-    AboutMeComponent,
-    SkillsComponent,
-    WorkExperienceComponent,
-    EducationComponent,
-    ReferencesComponent,
-    LeaveMessageComponent,
-    FooterComponent
+    AboutMe: { component: AboutMeComponent, containerRef: null, isLoaded: false },
+    Skills: { component: SkillsComponent, containerRef: null, isLoaded: false },
+    WorkExperience: { component: WorkExperienceComponent, containerRef: null, isLoaded: false },
+    Education: { component: EducationComponent, containerRef: null, isLoaded: false },
+    References: { component: ReferencesComponent, containerRef: null, isLoaded: false },
+    LeaveMessage: { component: LeaveMessageComponent, containerRef: null, isLoaded: false }
   }
 
-  constructor() { }
+  private COMPONENTS_NAMES_TEMPLATE = Object.keys(this.COMPONENTS_TEMPLATE);
 
-  lazyComponentLoad(componentToLoad: string, component: string) {
-    console.log(this.COMPONENTS_TEMPLATE)
-    console.log(this.COMPONENTS_TEMPLATE[`${'Header' + 'Component'}`])
-    console.log(this.COMPONENTS_TEMPLATE.AboutMeComponent)
-    console.log(this.COMPONENTS_TEMPLATE.SkillsComponent)
-    console.log(this.COMPONENTS_TEMPLATE.WorkExperienceComponent)
-    console.log(this.COMPONENTS_TEMPLATE.EducationComponent)
-    console.log(this.COMPONENTS_TEMPLATE.ReferencesComponent)
-    console.log(this.COMPONENTS_TEMPLATE.LeaveMessageComponent)
-    console.log(this.COMPONENTS_TEMPLATE.FooterComponent)
-    // console.log(templates)
-    // console.log(TEMPLATE_COMPONENTS[component]);
+  constructor(private r: ComponentFactoryResolver) { }
+
+  componentLoad(componentName: string) {
+    const CURRENT_COMPONENTS_TO_LOAD = this.componentsToLoad(componentName);
+    for (const COMPONENT_NAME of CURRENT_COMPONENTS_TO_LOAD) {
+      const FACTORY_COMPONENT = this.r.resolveComponentFactory(this.COMPONENTS_TEMPLATE[COMPONENT_NAME].component)
+      this.COMPONENTS_TEMPLATE[COMPONENT_NAME].containerRef.createComponent(FACTORY_COMPONENT);
+      this.COMPONENTS_TEMPLATE[COMPONENT_NAME].isLoaded = true;
+    }
+  }
+
+  componentsToLoad(middleComponent: string): string[] {
+    return this.COMPONENTS_NAMES_TEMPLATE.filter((componentName, index) => {
+      if (
+        (componentName === middleComponent ||
+          this.COMPONENTS_NAMES_TEMPLATE.indexOf(middleComponent) === index - 1 ||
+          this.COMPONENTS_NAMES_TEMPLATE.indexOf(middleComponent) === index + 1) &&
+        this.COMPONENTS_TEMPLATE[componentName].isLoaded === false
+      ) return componentName
+    });
+  }
+
+  setComponentContainerRef(containerRefs: {}) {
+    for (const CONTAINER_REF_NAME in containerRefs) { this.COMPONENTS_TEMPLATE[CONTAINER_REF_NAME].containerRef = containerRefs[CONTAINER_REF_NAME]; }
   }
 }

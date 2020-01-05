@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {LocaleService} from '../../Services/locale.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,11 +8,12 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor(
-    public viewContainerRef: ViewContainerRef
-  ) { }
+  constructor(private locale:LocaleService) { }
 
   ngOnInit() {
   }
 
+  toggleLanguage() {
+    this.locale.setCurrentLocale();
+  }
 }

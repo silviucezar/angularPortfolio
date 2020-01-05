@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef } from '@angular/core';
-import { DataService } from '../../Services/data.service';
+import { Component, OnInit, AfterViewInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CanvasService } from '../../Services/canvas.service'
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,16 +13,33 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ])
   ]
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
 
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  @Input() headerMetadata: {} = null;
+  @ViewChild('App_Global_Header_Canvas', { static: true }) App_Global_Header_Canvas: ElementRef;
+
+  private loadingHeader: boolean = true;
+  private currentLocale: string = null;
+
+  constructor(private canvasService: CanvasService) { }
 
   ngOnInit() { }
 
   ngAfterViewInit() {
-    // this.dataService.setComponentContainerRef('Header', this.viewContainerRef, this);
+    this.canvasService.setCanvas('Header',this.App_Global_Header_Canvas);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes.hasOwnProperty('headerMetadata') &&
+      changes.headerMetadata.previousValue !== undefined &&
+      changes.headerMetadata.isFirstChange
+    ) {
+      this.loadingHeader = false;
+      console.log(this.loadingHeader)
+      console.log(this.headerMetadata)
+    }
+  }
 
   ObjectKeys(obj: object): any {
     return Object.keys(obj);

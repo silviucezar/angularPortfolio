@@ -27,25 +27,30 @@ body {
   box-sizing: border-box;
 }
 
+.App_Global_Header_Container_Main {
+  grid-template-rows: 25fr repeat(4, 20fr);
+}
+
 .App_Global_Header {
   grid-area: App_Global_Header;
   margin: 0;
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 100%;
-  background: #0091cf;
-  // background:lightskyblue;
   color: white;
 }
 
 .App_Global_Margin {
   grid-area: App_Global_Margin;
-  background: linear-gradient(90deg, dodgerblue -0%, deepskyblue);
 }
 
 .App_Global_Content {
   grid-area: App_Global_Content;
-  background: blue;
+  overflow: hidden;
+}
+
+.App_Global_Footer {
+  grid-area: App_Global_Footer;
 }
 
 html,
@@ -56,4 +61,5 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow: hidden;
+  background:linear-gradient(90deg, dodgerblue 45%, deepskyblue);
 }
