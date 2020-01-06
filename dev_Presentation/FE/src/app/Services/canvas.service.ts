@@ -1,35 +1,32 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Canvas } from '../Classes/canvasObject';
+import { BehaviorSubject } from 'rxjs';
 
+interface CanvasObject {
+  NavBar: {};
+  Header: {};
+}
 @Injectable({
   providedIn: 'root'
 })
 export class CanvasService {
 
   private canvasObj = new Canvas();
+  private canvasBehaviorSubject$ = new BehaviorSubject<CanvasObject>(this.canvasObj);
   constructor() {
     this.canvasObj.NavBar.functionality.drawMenuCanvas = () => {
-      const PREVIOUS_MENU_INDEX = this.canvasObj.NavBar.settings.previousIndex;
-      this.canvasObj.NavBar.settings.previousIndex
-      const CANVAS = this.canvasObj.NavBar.element;
-      const NAV_BAR_CTX = CANVAS.getContext('2d');
-      if (this.canvasObj.NavBar.settings.pointsConfig.length === 0) {
-        this.setNavBarSettings(CANVAS);
-      }
-      console.clear();
-      (async () => {
-        console.log('PREVIOUS_MENU_INDEX', PREVIOUS_MENU_INDEX)
-        if (this.canvasObj.NavBar.settings.previousIndex !== null) this.deletePreviousMenuSelection(NAV_BAR_CTX, this.canvasObj.NavBar.settings.previousIndex);
-      })();
-      (async () => { this.drawCurrentMenuSelection(NAV_BAR_CTX, this.canvasObj.NavBar.settings.currentIndex); })();
+      if (this.canvasObj.NavBar.settings.pointsConfig.length === 0) this.setNavBarSettings();
+      if (this.canvasObj.NavBar.settings.previousIndex !== null) this.deletePreviousMenuSelection(this.canvasObj.NavBar.ctx, this.canvasObj.NavBar.settings.previousIndex);
+      this.drawCurrentMenuSelection(this.canvasObj.NavBar.ctx, this.canvasObj.NavBar.settings.currentIndex);
     };
     this.canvasObj.Header.functionality.drawInitialCanvas = () => {
-      console.log(this.canvasObj.Header.element)
+      console.log('header animation draw')
     };
   }
 
   setCanvas(canvasPropertyName: string, canvas: ElementRef, currentUrlName?: string) {
-    this.canvasObj[canvasPropertyName].element = canvas.nativeElement;
+    if (this.canvasObj[canvasPropertyName].element === null) this.canvasObj[canvasPropertyName].element = canvas.nativeElement;
+    if (this.canvasObj[canvasPropertyName].ctx === null) this.canvasObj[canvasPropertyName].ctx = canvas.nativeElement.getContext('2d');
     if (currentUrlName) {
       this.canvasObj.NavBar.settings.previousIndex = this.canvasObj.NavBar.settings.currentIndex;
       this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
@@ -37,12 +34,13 @@ export class CanvasService {
     } else {
       this.canvasObj[canvasPropertyName].functionality.drawInitialCanvas();
     }
+    this.canvasBehaviorSubject$.next(this.canvasObj);
   }
 
-  setNavBarSettings(canvas: HTMLCanvasElement) {
+  setNavBarSettings() {
     this.canvasObj.NavBar.settings.heightRef = document.querySelector('.Categories_Url').getBoundingClientRect().height;
-    this.canvasObj.NavBar.width = canvas.width = canvas.getBoundingClientRect().width;
-    this.canvasObj.NavBar.height = canvas.height = canvas.getBoundingClientRect().height;
+    this.canvasObj.NavBar.width = this.canvasObj.NavBar.element.width = this.canvasObj.NavBar.element.getBoundingClientRect().width;
+    this.canvasObj.NavBar.height = this.canvasObj.NavBar.element.height = this.canvasObj.NavBar.element.getBoundingClientRect().height;
     this.canvasObj.NavBar.settings.pointsConfig = [];
     for (let i = 1; i <= 6; i++) {
       const CURRENT_TOP_REF = Math.floor((this.canvasObj.NavBar.settings.heightRef * i) - this.canvasObj.NavBar.settings.heightRef + (this.canvasObj.NavBar.settings.heightRef * 0.25));
@@ -71,18 +69,17 @@ export class CanvasService {
           if (currentYCoord >= DRAW_PATH[1][0][1]) {
             clearInterval(intervalTwo)
             let intervalThree = setInterval(() => {
-              console.log(previousMenuIndex % 2 !== 0 ? 'currentXCoord <= DRAW_PATH[1][1][0]' : 'currentXCoord >= DRAW_PATH[1][1][0]')
               if (previousMenuIndex % 2 !== 0 ? currentXCoord + 14 <= DRAW_PATH[1][1][0] : currentXCoord >= DRAW_PATH[1][1][0]) {
                 clearInterval(intervalThree);
                 return;
               }
-              ctx.clearRect(currentXCoord, currentYCoord - 7, 14, 10)
+              ctx.clearRect(currentXCoord, currentYCoord - 9, 14, 10)
               currentXCoord = currentXCoord + (previousMenuIndex % 2 !== 0 ? -14 : 14);
               ctx.closePath();
             })
           } else {
             ctx.clearRect(currentXCoord + (previousMenuIndex % 2 !== 0 ? -14 : 0), currentYCoord - 14, 14, 10)
-            currentYCoord = currentYCoord + 3;
+            currentYCoord = currentYCoord + 5;
             ctx.stroke();
           };
         });
@@ -94,10 +91,12 @@ export class CanvasService {
   }
 
   drawCurrentMenuSelection(ctx: CanvasRenderingContext2D, currentMenuIndex: number) {
+    console.log(ctx)
     const DRAW_PATH = this.canvasObj.NavBar.settings.pointsConfig[currentMenuIndex];
     let currentXCoord = DRAW_PATH[0][0][0];
     let currentYCoord = DRAW_PATH[0][0][1];
     ctx.beginPath();
+    ctx.strokeStyle = "powderblue";
     let intervalOne = setInterval(() => {
       if (currentMenuIndex % 2 !== 0 ? currentXCoord >= DRAW_PATH[0][1][0] : currentXCoord <= DRAW_PATH[0][1][0]) {
         clearInterval(intervalOne);
@@ -117,7 +116,7 @@ export class CanvasService {
             })
           } else {
             ctx.moveTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? -1 : 1), currentYCoord);
-            currentYCoord = currentYCoord + 3;
+            currentYCoord = currentYCoord + 5;
             ctx.lineTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? -1 : 1), currentYCoord);
             ctx.stroke();
           };
@@ -129,5 +128,9 @@ export class CanvasService {
         ctx.stroke();
       }
     });
+  }
+
+  getCanvas(): BehaviorSubject<CanvasObject> {
+    return this.canvasBehaviorSubject$;
   }
 }

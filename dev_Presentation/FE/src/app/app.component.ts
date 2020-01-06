@@ -6,6 +6,7 @@ import { LoadersService } from './Services/loaders.service';
 import { LocaleService } from './Services/locale.service';
 import { LocaleDetails } from './Interfaces/locale.interface';
 import { CanvasService } from './Services/canvas.service';
+import { WindowEventsService } from './Services/window-events.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -44,7 +45,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private dataService: DataService,
     private lazy: LoadersService,
     private locale: LocaleService,
-    private canvasService: CanvasService
+    private canvasService: CanvasService,
+    private windowEventsService: WindowEventsService
   ) {
     this.locale.getCurrentLocale().subscribe(localeValue => {
       const LOCALE_VALUE: LocaleDetails = localeValue;
@@ -55,7 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    
+
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
       if (event['url'] !== "/") {
         if (event['url'].match('-')) {
@@ -70,7 +72,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       } else {
         this.url.next('AboutMe');
       }
-        this.dataService.setCurrentRouteData(this.url.value);
+      this.dataService.setCurrentRouteData(this.url.value);
     });
   }
 
@@ -83,7 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       References: this.References,
       LeaveMessage: this.LeaveMessage
     });
-    
+
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
       for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
         if (TRANSLATION_CATEGORY.match(/Header|Footer/)) {
@@ -94,11 +96,13 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      this.url.pipe(take(2)).subscribe(url=>{if(url) this.lazy.componentLoad(url);});
+      this.url.pipe(take(2)).subscribe(url => { if (url) this.lazy.componentLoad(url); });
     });
   }
 
   ngAfterViewInit() {
-    this.url.subscribe(url=>{if(url) this.canvasService.setCanvas('NavBar', this.Nav_Bar_Canvas, url);})
+    this.windowEventsService.setScrollEvent();
+    this.windowEventsService.setResizeEvent();
+    this.url.subscribe(url => { if (url) this.canvasService.setCanvas('NavBar', this.Nav_Bar_Canvas, url); })
   }
 }
