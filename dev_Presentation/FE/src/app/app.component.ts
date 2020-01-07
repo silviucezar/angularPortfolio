@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("LeaveMessage", { read: ViewContainerRef, static: true }) LeaveMessage: ViewContainerRef;
   @ViewChild('Nav_Bar_Canvas', { static: true }) Nav_Bar_Canvas: ElementRef;
   private url = new BehaviorSubject<string>(null);
-  private asd = null;
   private currentLocale = null;
   private categoriesTitle: string[] = [];
   private HeaderMetadata: {} = null;

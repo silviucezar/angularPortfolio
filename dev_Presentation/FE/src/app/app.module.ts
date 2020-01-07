@@ -68,7 +68,6 @@ const AppRoutes: Routes = [
     DynamicComponentLoaderComponent
   ],
   entryComponents: [
-    HeaderComponent,
     AboutMeComponent,
     SkillsComponent,
     WorkExperienceComponent,
@@ -88,7 +87,7 @@ const AppRoutes: Routes = [
 })
 export class AppModule { }
 
-export const TEMPLATE_COMPONENTS:{} = {
+export const TEMPLATE_COMPONENTS: {} = {
   Header: HeaderComponent,
   AboutMe: AboutMeComponent,
   Skills: SkillsComponent,

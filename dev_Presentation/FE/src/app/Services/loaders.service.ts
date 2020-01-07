@@ -1,4 +1,4 @@
-import { Injectable, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import { Injectable, ComponentFactoryResolver } from '@angular/core';
 import { AboutMeComponent } from '../Components/Content/about-me/about-me.component';
 import { SkillsComponent } from '../Components/Content/skills/skills.component';
 import { WorkExperienceComponent } from '../Components/Content/work-experience/work-experience.component';
@@ -41,7 +41,7 @@ export class LoadersService {
           this.COMPONENTS_NAMES_TEMPLATE.indexOf(middleComponent) === index - 1 ||
           this.COMPONENTS_NAMES_TEMPLATE.indexOf(middleComponent) === index + 1) &&
         this.COMPONENTS_TEMPLATE[componentName].isLoaded === false
-      ) return componentName
+      ) return componentName;
     });
   }
 
