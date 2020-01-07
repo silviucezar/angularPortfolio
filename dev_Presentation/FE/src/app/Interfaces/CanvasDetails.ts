@@ -16,7 +16,7 @@ interface NavBarCanvasSettings {
     previousIndex: number;
     currentIndex: number;
     heightRef: number;
-    pointsConfig: number[][][][]
+    pointsConfig: number[][][]
 }
 
 interface NavBarCanvasFunctionality {
