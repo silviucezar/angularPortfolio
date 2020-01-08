@@ -53,38 +53,6 @@ export class CanvasService {
     }
   }
 
-  // deletePreviousMenuSelection(ctx: CanvasRenderingContext2D, previousMenuIndex) {
-  //   const DRAW_PATH = this.canvasObj.NavBar.settings.pointsConfig[previousMenuIndex];
-  //   let currentXCoord = DRAW_PATH[0][0][0];
-  //   let currentYCoord = DRAW_PATH[0][0][1];
-  //   let intervalOne = setInterval(() => {
-  //     if (previousMenuIndex % 2 !== 0 ? currentXCoord >= DRAW_PATH[0][1][0] : currentXCoord <= DRAW_PATH[0][1][0]) {
-  //       clearInterval(intervalOne);
-  //       let intervalTwo = setInterval(() => {
-  //         if (currentYCoord >= DRAW_PATH[1][0][1]) {
-  //           clearInterval(intervalTwo)
-  //           let intervalThree = setInterval(() => {
-  //             if (previousMenuIndex % 2 !== 0 ? currentXCoord + 14 <= DRAW_PATH[1][1][0] : currentXCoord >= DRAW_PATH[1][1][0]) {
-  //               clearInterval(intervalThree);
-  //               return;
-  //             }
-  //             ctx.clearRect(currentXCoord, currentYCoord - 9, 14, 10)
-  //             currentXCoord = currentXCoord + (previousMenuIndex % 2 !== 0 ? -14 : 14);
-  //             ctx.closePath();
-  //           });
-  //         } else {
-  //           ctx.clearRect(currentXCoord + (previousMenuIndex % 2 !== 0 ? -14 : 0), currentYCoord - 14, 14, 10)
-  //           currentYCoord = currentYCoord + 5;
-  //           ctx.stroke();
-  //         };
-  //       });
-  //     } else {
-  //       ctx.clearRect(currentXCoord, currentYCoord - 7, 14, 10)
-  //       currentXCoord = currentXCoord + (previousMenuIndex % 2 !== 0 ? 14 : -14);
-  //     }
-  //   });
-  // }
-
   drawMenuSelection(ctx: CanvasRenderingContext2D, currentMenuIndex: number, previousMenuIndex?: number) {
     const CURRENT_DRAW_PATH: number[][] = this.canvasObj.NavBar.settings.pointsConfig[currentMenuIndex];
     const PREVIOUS_DRAW_PATH: number[][] = previousMenuIndex ? this.canvasObj.NavBar.settings.pointsConfig[previousMenuIndex] : null;
@@ -94,11 +62,8 @@ export class CanvasService {
     let previousYCoord = previousMenuIndex !== null ? this.canvasObj.NavBar.settings.pointsConfig[previousMenuIndex][0][2] : null;
     ctx.strokeStyle = "powderblue";
     (function drawTop() {
-      // console.log(currentXCoord);
-      // console.log(CURRENT_DRAW_PATH[0][1])
       if (currentMenuIndex % 2 !== 0 ? currentXCoord <= CURRENT_DRAW_PATH[0][1] + 2 : currentXCoord >= CURRENT_DRAW_PATH[0][1]) {
         (function drawMiddle() {
-          console.log('drawing middle')
           if (currentYCoord - 14 >= CURRENT_DRAW_PATH[1][1]) {
             (function drawBottom() {
               if (currentMenuIndex % 2 !== 0 ? currentXCoord >= CURRENT_DRAW_PATH[2][1] : currentXCoord <= CURRENT_DRAW_PATH[2][1]) {
@@ -119,17 +84,16 @@ export class CanvasService {
           } else {
             window.requestAnimationFrame(drawTop);
             ctx.beginPath();
-            ctx.clearRect(previousXCoord + (currentMenuIndex % 2 !== 0 ? -1: 0), previousYCoord - 5, 15, 15);
-            ctx.moveTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? 1: 0), currentYCoord);
+            ctx.clearRect(previousXCoord + (currentMenuIndex % 2 !== 0 ? -1 : 0), previousYCoord - 5, 15, 15);
+            ctx.moveTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? 1 : 0), currentYCoord);
             previousYCoord += 14;
             currentYCoord += 14;
-            ctx.lineTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? 1: 0), currentYCoord);
+            ctx.lineTo(currentXCoord + (currentMenuIndex % 2 !== 0 ? 1 : 0), currentYCoord);
             ctx.stroke();
             ctx.closePath();
           }
         })();
       } else {
-        console.log('drawing top')
         window.requestAnimationFrame(drawTop);
         ctx.beginPath();
         ctx.clearRect(previousXCoord, previousYCoord - 5, 15, 15);

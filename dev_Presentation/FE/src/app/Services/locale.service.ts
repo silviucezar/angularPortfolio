@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleDetails} from '../Interfaces/locale.interface';
+import { LocaleDetails } from '../Interfaces/locale.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { LocaleDetails} from '../Interfaces/locale.interface';
 export class LocaleService {
 
   private currentLocale$ = new BehaviorSubject<LocaleDetails>({
-    locale: 'ro_RO',
+    locale: 'en_US',
     categoriesTitle: {
       AboutMe: {
         ro_RO_Title: 'Despre Mine',
@@ -42,14 +42,14 @@ export class LocaleService {
       }
     }
   });
-  
+
   constructor() { }
 
   getCurrentLocale(): BehaviorSubject<{}> { return this.currentLocale$ };
 
-  setCurrentLocale() { 
+  setCurrentLocale() {
     const CURRENT_LOCALE_VALUE = this.currentLocale$.value;
     CURRENT_LOCALE_VALUE.locale = CURRENT_LOCALE_VALUE.locale === 'ro_RO' ? 'en_US' : 'ro_RO';
-    this.currentLocale$.next(CURRENT_LOCALE_VALUE) 
+    this.currentLocale$.next(CURRENT_LOCALE_VALUE)
   };
 }

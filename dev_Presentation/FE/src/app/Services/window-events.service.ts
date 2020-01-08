@@ -11,13 +11,11 @@ export class WindowEventsService {
   constructor(private canvasService: CanvasService) { }
 
   setScrollEvent() {
-    console.clear();
     this.canvasService.getCanvas().subscribe(canvasObj => {
       this.canvasObj = canvasObj;
       this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef
     });
     window.onwheel = e => {
-      console.clear();
       console.log('Scroll Event:', this.currentYScrollRef);
       this.canvasObj.NavBar.ctx.beginPath();
       this.canvasObj.NavBar.ctx.rect(this.canvasObj.NavBar.width * 0.98, this.currentYScrollRef, this.canvasObj.NavBar.width * 0.02, this.canvasObj.NavBar.settings.heightRef);

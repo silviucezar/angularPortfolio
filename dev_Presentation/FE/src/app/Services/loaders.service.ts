@@ -25,11 +25,12 @@ export class LoadersService {
 
   constructor(private r: ComponentFactoryResolver) { }
 
-  componentLoad(componentName: string) {
+  componentLoad(componentName: string, metadata: {}) {
     const CURRENT_COMPONENTS_TO_LOAD = this.componentsToLoad(componentName);
     for (const COMPONENT_NAME of CURRENT_COMPONENTS_TO_LOAD) {
       const FACTORY_COMPONENT = this.r.resolveComponentFactory(this.COMPONENTS_TEMPLATE[COMPONENT_NAME].component)
-      this.COMPONENTS_TEMPLATE[COMPONENT_NAME].containerRef.createComponent(FACTORY_COMPONENT);
+      this.COMPONENTS_TEMPLATE[COMPONENT_NAME].containerRef.createComponent(FACTORY_COMPONENT).instance.metadata = metadata[COMPONENT_NAME];
+      // COMPONENT_INSTANCE.metadata = metadata[COMPONENT_NAME];
       this.COMPONENTS_TEMPLATE[COMPONENT_NAME].isLoaded = true;
     }
   }

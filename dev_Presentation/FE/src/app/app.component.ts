@@ -86,16 +86,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
+      const CURRENT_METADATA: {} = {};
       for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
         if (TRANSLATION_CATEGORY.match(/Header|Footer/)) {
           this[`${TRANSLATION_CATEGORY}Metadata`] = pageTemplateTranslations.translationCategory
         } else {
           for (const COMPONENT_CATEGORY in pageTemplateTranslations.Components) {
-            this[`${COMPONENT_CATEGORY}Metadata`] = pageTemplateTranslations.Components[COMPONENT_CATEGORY][this.currentLocale];
+            CURRENT_METADATA[COMPONENT_CATEGORY] = this[`${COMPONENT_CATEGORY}Metadata`] = pageTemplateTranslations.Components[COMPONENT_CATEGORY][this.currentLocale];
           }
         }
       }
-      this.url.pipe(take(2)).subscribe(url => { if (url) this.lazy.componentLoad(url); });
+      this.url.pipe(take(2)).subscribe(url => { if (url) this.lazy.componentLoad(url, CURRENT_METADATA); });
     });
   }
 

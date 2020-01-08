@@ -9,9 +9,12 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // console.log(this.metadata)
+  }
 
   ngAfterViewInit() { }
 
