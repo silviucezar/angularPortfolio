@@ -5,10 +5,8 @@ import { DataService } from './Services/data.service';
 import { LoadersService } from './Services/loaders.service';
 import { LocaleService } from './Services/locale.service';
 import { LocaleDetails } from './Interfaces/locale.interface';
-import { CanvasService } from './Services/canvas.service';
 import { WindowEventsService } from './Services/window-events.service';
 import { BehaviorSubject } from 'rxjs';
-import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +18,14 @@ import { Meta } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'FE';
-  @ViewChild("GlobalScrollCanvas", { static: true }) GlobalScrollCanvas: ElementRef;
+  @ViewChild('Nav_Bar_Canvas', { static: true }) Nav_Bar_Canvas: ElementRef;
+  @ViewChild("Header_Canvas", { static: true }) Header_Canvas: ElementRef;
   @ViewChild("AboutMe", { read: ViewContainerRef, static: true }) AboutMe: ViewContainerRef;
   @ViewChild("Skills", { read: ViewContainerRef, static: true }) Skills: ViewContainerRef;
   @ViewChild("WorkExperience", { read: ViewContainerRef, static: true }) WorkExperience: ViewContainerRef;
   @ViewChild("Education", { read: ViewContainerRef, static: true }) Education: ViewContainerRef;
   @ViewChild("References", { read: ViewContainerRef, static: true }) References: ViewContainerRef;
   @ViewChild("LeaveMessage", { read: ViewContainerRef, static: true }) LeaveMessage: ViewContainerRef;
-  @ViewChild('Nav_Bar_Canvas', { static: true }) Nav_Bar_Canvas: ElementRef;
   private url = new BehaviorSubject<string>(null);
   private currentLocale = null;
   private categoriesTitle: string[] = [];
@@ -39,15 +37,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   private ReferencesMetadata: {} = null;
   private LeaveMessageMetadata: {} = null;
   private FooterMetadata: {} = null;
-
   constructor(
     private router: Router,
     private dataService: DataService,
     private lazy: LoadersService,
     private locale: LocaleService,
-    private canvasService: CanvasService,
-    private windowEventsService: WindowEventsService,
-    private metaService: Meta
+    private windowEventsService: WindowEventsService
   ) {
     this.locale.getCurrentLocale().subscribe(localeValue => {
       const LOCALE_VALUE: LocaleDetails = localeValue;
@@ -78,18 +73,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-    this.metaService.updateTag({
-      name: 'viewport',
-      content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
-    });
-    window.onorientationchange = () => {
-      this.metaService.updateTag({
-        name: 'viewport',
-        content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
-      });
-    }
-
     this.lazy.setComponentContainerRef({
       AboutMe: this.AboutMe,
       Skills: this.Skills,
@@ -115,8 +98,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.windowEventsService.setScrollEvent();
-    this.windowEventsService.setResizeEvent();
-    this.url.subscribe(url => { if (url) this.canvasService.setCanvas('NavBar', this.Nav_Bar_Canvas, url); })
+    this.windowEventsService.init({
+      urlSubscription: this.url,
+      NavBarCanvas: {
+        name: 'NavBar',
+        canvas: this.Nav_Bar_Canvas
+      },
+      HeaderCanvas: {
+        name: 'Header',
+        canvas: this.Header_Canvas
+      }
+    });
   }
 }

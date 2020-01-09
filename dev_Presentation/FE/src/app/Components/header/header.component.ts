@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { CanvasService } from '../../Services/canvas.service'
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,13 +21,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
   private loadingHeader: boolean = true;
   private currentLocale: string = null;
 
-  constructor(private canvasService: CanvasService) { }
+  constructor() { }
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
-    this.canvasService.setCanvas('Header',this.App_Global_Header_Canvas);
-  }
+  ngAfterViewInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (

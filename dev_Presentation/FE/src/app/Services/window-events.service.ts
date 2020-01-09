@@ -1,7 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { CanvasService } from './canvas.service';
 import { CanvasProps } from '../Interfaces/CanvasDetails';
+import { Meta } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
+interface InitialSetup {
+  urlSubscription: BehaviorSubject<string>;
+  NavBarCanvas: CanvasSetup;
+  HeaderCanvas: CanvasSetup;
+}
+
+interface CanvasSetup {
+  name: string;
+  canvas: ElementRef
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +23,16 @@ export class WindowEventsService {
   private currentYScrollRef: number;
   constructor(
     private canvasService: CanvasService,
-
+    private metaService: Meta
   ) { }
+
+  init(initialSetup: InitialSetup) {
+    initialSetup.urlSubscription.subscribe(url => { if (url) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url); })
+    this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas)
+    this.setScrollEvent();
+    this.setResizeEvent();
+    this.attachOrientationChangeEvent();
+  }
 
   setScrollEvent() {
     this.canvasService.getCanvas().subscribe(canvasObj => {
@@ -31,5 +51,30 @@ export class WindowEventsService {
 
   setResizeEvent() {
     console.log('Resize Event', window);
+  }
+
+  attachOrientationChangeEvent() {
+    console.log()
+    if (window.onorientationchange === null) {
+      if (this.metaService.getTag('name="viewport"').content === '') {
+        this.metaService.updateTag({
+          name: 'viewport',
+          content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
+        });
+      }
+      window.onorientationchange = () => {
+        this.metaService.updateTag({
+          name: 'viewport',
+          content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
+        });
+      }
+    } else {
+      if (this.metaService.getTag('name="viewport"').content === '') {
+        this.metaService.updateTag({
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1'
+        });
+      }
+    }
   }
 }

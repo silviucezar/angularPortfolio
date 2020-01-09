@@ -14,6 +14,7 @@ export class CanvasService {
 
   private canvasObj = new Canvas();
   private canvasBehaviorSubject$ = new BehaviorSubject<CanvasObject>(this.canvasObj);
+  private initialHeaderCanvasSetup = false;
   constructor() {
     this.canvasObj.NavBar.functionality.drawMenuCanvas = () => {
       if (this.canvasObj.NavBar.settings.pointsConfig.length === 0) this.setNavBarSettings();
@@ -32,6 +33,8 @@ export class CanvasService {
       this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
       this.canvasObj[canvasPropertyName].functionality.drawMenuCanvas();
     } else {
+      this.canvasObj[canvasPropertyName].element.width = document.querySelector("#App_Global_Header").getBoundingClientRect().width;
+      this.canvasObj[canvasPropertyName].element.height = document.querySelector("#App_Global_Header").getBoundingClientRect().height;
       this.canvasObj[canvasPropertyName].functionality.drawInitialCanvas();
     }
     this.canvasBehaviorSubject$.next(this.canvasObj);
