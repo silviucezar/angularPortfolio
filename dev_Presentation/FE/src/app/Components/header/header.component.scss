@@ -1,53 +1,53 @@
 .common {
-  display: grid;
-  grid-row: 1;
+  display    : grid;
+  grid-row   : 1;
   grid-column: 1;
-  margin: 0;
+  margin     : 0;
 }
 
 .App_Global_Header_Container {
-  z-index: 1;
+  z-index    : 1;
   font-weight: normal;
 }
 
 .App_Global_Header_Container_Image div {
   grid-column: 2;
-  grid-row: 2;
+  grid-row   : 2;
 }
 
 .App_Global_Header_Container_Image div:nth-child(1) {
-  border-radius: 50%;
-  background: linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);  -webkit-animation: 2s spiiiin linear infinite;
-  animation: 2s spiiiin linear infinite;
+  border-radius    : 50%;
+  background       : linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);
+  -webkit-animation: 2s spiiiin linear infinite;
+  animation        : 2s spiiiin linear infinite;
 }
 
 .App_Global_Header_Container_Image div:nth-child(2) span {
-  background: deepskyblue;
-  grid-row: 2;
-  grid-column: 2;
-  z-index: 1;
+  background   : deepskyblue;
+  grid-row     : 2;
+  grid-column  : 2;
+  z-index      : 1;
   border-radius: 50%;
 }
 
 .App_Global_Header_Container_Main {
-  display: grid;
-  text-align: right;
+  display    : grid;
+  text-align : right;
   font-family: "open sans";
   align-items: center;
-  font-size: 3vw;
+  font-size  : 3vw;
 }
 
 .App_Global_Header_Container_Main_Text {
-  font-size: 1.5vw;
+  font-size  : 1.5vw;
   grid-column: 2;
-  opacity: 1 !important;
-  display: block;
-  width: 100%;
-  height: 50%;
+  opacity    : 1 !important;
+  display    : block;
+  width      : 100%;
+  height     : 50%;
 }
 
 .canvas {
-  background: gold;
-  z-index: -1;
+  z-index       : -1;
   pointer-events: none;
 }

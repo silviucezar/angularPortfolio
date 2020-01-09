@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about-me',
@@ -9,11 +10,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
-    // console.log(this.metadata)
+
   }
 
   ngAfterViewInit() { }

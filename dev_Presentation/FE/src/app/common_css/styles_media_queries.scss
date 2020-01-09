@@ -1,45 +1,58 @@
-/* PHONE PORTRAIT VERSION */
-@media only screen and (min-width: 320px) {
-  @media only screen and (orientation: portrait) {
+@media only screen and (orientation:portrait) {
+  @media(max-width:767px) {
     #App_Global_Grid {
       grid-template-columns: 70fr 30fr;
-      grid-template-rows: 83fr 10fr 7fr;
+      grid-template-rows   : 83fr 10fr 7fr;
     }
 
     .App_Global_Header_Container {
       grid-template-columns: 10fr 80fr 10fr;
-      grid-template-rows: 50% 50%;
+      grid-template-rows   : 50% 50%;
     }
 
     .App_Global_Header_Container_Main {
       grid-template-columns: 1px 100fr;
-      grid-column: 2;
-      grid-row: 2
+      grid-column          : 2;
+      grid-row             : 2
     }
 
     .App_Global_Header_Container_Image {
-      grid-column: 2;
-      grid-row: 1;
+      grid-column  : 2;
+      grid-row     : 1;
       grid-template: auto 210px auto / auto 210px auto;
-      display: grid;
+      display      : grid;
     }
 
     .App_Global_Header_Container_Image div:nth-child(2) {
       grid-template: auto 190px auto / auto 190px auto;
-      display: grid;
+      display      : grid;
     }
 
+    @media (max-width:450px) {
+      .canvas {
+        background: yellow
+      }
+
+      @media (max-width:361px) {
+        .canvas {
+          background: white
+        }
+      }
+    }
   }
-  @media only screen and (orientation: landscape) {
+}
+
+@media only screen and (orientation:landscape) {
+  @media(max-width:961px) {
     .App_Global_Header_Container_Image {
-      grid-area: App_Global_Header_Container_Image;
+      grid-area    : App_Global_Header_Container_Image;
       grid-template: auto 100px auto / auto 100px auto;
-      display: grid !important;
+      display      : grid !important;
     }
 
     .App_Global_Header_Container_Image div:nth-child(2) {
       grid-template: auto 80px auto / auto 80px auto;
-      display: grid;
+      display      : grid;
     }
 
     #App_Global_Grid {
@@ -61,6 +74,7 @@
     }
 
     @media only screen and (min-width: 1200px) {
+
       #App_Global_Grid,
       .App_Global_Header_Container,
       .App_Global_Header_Container_Main {
@@ -68,18 +82,32 @@
       }
     }
   }
+
+  @media (max-width:750px) {
+    .canvas {
+      background: blue
+    }
+
+    @media (max-width:640px) {
+      .canvas {
+        background: red
+      }
+    }
+  }
 }
+
+/* PHONE PORTRAIT VERSION */
 
 /* DESKTOP VERSION */
 /* TABLET VERSION */
-@media only screen and (min-width: 824px) {
+@media only screen and (min-width: 768px) {
   .App_Global_Header_Container_Image {
     grid-template: auto 170px auto / auto 170px auto;
   }
 
   .App_Global_Header_Container_Image div:nth-child(2) {
     grid-template: auto 150px auto / auto 150px auto;
-    display: grid;
+    display      : grid;
   }
 
   #App_Global_Grid {
@@ -91,11 +119,13 @@
       "App_Global_Header_Container_Main App_Global_Header_Container_Image"
       "App_Global_Header_Container_Main App_Global_Header_Container_Image";
   }
+
   .App_Global_Header_Container_Main {
     grid-area: App_Global_Header_Container_Main;
   }
 
   @media only screen and (max-width: 1199px) {
+
     #App_Global_Grid,
     .App_Global_Header_Container,
     .App_Global_Header_Container_Main {
@@ -110,7 +140,7 @@
 
     .App_Global_Header_Container_Image div:nth-child(2) {
       grid-template: auto 190px auto / auto 190px auto;
-      display: grid;
+      display      : grid;
     }
 
     #App_Global_Grid,
@@ -120,6 +150,7 @@
     }
 
   }
+
   @media only screen and (orientation: portrait) {
     #App_Global_Grid {
       grid-template-rows: 25fr 58fr 7fr;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanvasService } from './canvas.service';
 import { CanvasProps } from '../Interfaces/CanvasDetails';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +9,10 @@ export class WindowEventsService {
 
   private canvasObj: CanvasProps;
   private currentYScrollRef: number;
-  constructor(private canvasService: CanvasService) { }
+  constructor(
+    private canvasService: CanvasService,
+
+  ) { }
 
   setScrollEvent() {
     this.canvasService.getCanvas().subscribe(canvasObj => {

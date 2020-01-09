@@ -8,6 +8,7 @@ import { LocaleDetails } from './Interfaces/locale.interface';
 import { CanvasService } from './Services/canvas.service';
 import { WindowEventsService } from './Services/window-events.service';
 import { BehaviorSubject } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private lazy: LoadersService,
     private locale: LocaleService,
     private canvasService: CanvasService,
-    private windowEventsService: WindowEventsService
+    private windowEventsService: WindowEventsService,
+    private metaService: Meta
   ) {
     this.locale.getCurrentLocale().subscribe(localeValue => {
       const LOCALE_VALUE: LocaleDetails = localeValue;
@@ -76,6 +78,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
+    this.metaService.updateTag({
+      name: 'viewport',
+      content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
+    });
+    window.onorientationchange = () => {
+      this.metaService.updateTag({
+        name: 'viewport',
+        content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
+      });
+    }
+
     this.lazy.setComponentContainerRef({
       AboutMe: this.AboutMe,
       Skills: this.Skills,

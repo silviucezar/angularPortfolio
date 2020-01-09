@@ -1,3 +1,10 @@
+<div [ngStyle]="{
+    'position': 'fixed',
+    'display' : 'none',
+    '--screenWidth' : 'screenWidth',
+    '--screenHeight' : 'screenHeight'
+}" [attr.data-width]='screenWidth' [attr.data-height]='screenHeight'></div>
+
 <app-header (headerCanvas)='onCanvasEmit($event)' class="App_Global_Header" #App_Global_Header
     [headerMetadata]='headerMetadata'></app-header>
 <div class="App_Global_Content" #GlobalContainer>
