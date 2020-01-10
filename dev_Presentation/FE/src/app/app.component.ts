@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private ReferencesMetadata: {} = null;
   private LeaveMessageMetadata: {} = null;
   private FooterMetadata: {} = null;
+  private as: HTMLElement = null;
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private locale: LocaleService,
     private windowEventsService: WindowEventsService
   ) {
+    console.log(this.as)
     this.locale.getCurrentLocale().subscribe(localeValue => {
       const LOCALE_VALUE: LocaleDetails = localeValue;
       this.currentLocale = localeValue['locale'];
@@ -82,6 +84,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       LeaveMessage: this.LeaveMessage
     });
 
+    this.windowEventsService.init({
+      urlSubscription: this.url,
+      NavBarCanvas: {
+        name: 'NavBar',
+        canvas: this.Nav_Bar_Canvas
+      },
+      HeaderCanvas: {
+        name: 'Header',
+        canvas: this.Header_Canvas
+      }
+    });
+
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
       const CURRENT_METADATA: {} = {};
       for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
@@ -97,17 +111,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.windowEventsService.init({
-      urlSubscription: this.url,
-      NavBarCanvas: {
-        name: 'NavBar',
-        canvas: this.Nav_Bar_Canvas
-      },
-      HeaderCanvas: {
-        name: 'Header',
-        canvas: this.Header_Canvas
-      }
-    });
+  ngAfterViewInit() { }
+
+
+  headerCanvasSize(): ClientRect {
+    return document.querySelector('#Header_Canvas').getBoundingClientRect();
+  }
+
+  navBarCanvasSize(): ClientRect {
+    return document.querySelector('#App_Global_Margin').getBoundingClientRect()
   }
 }

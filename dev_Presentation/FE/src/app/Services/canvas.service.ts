@@ -33,8 +33,7 @@ export class CanvasService {
       this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
       this.canvasObj[canvasPropertyName].functionality.drawMenuCanvas();
     } else {
-      this.canvasObj[canvasPropertyName].element.width = document.querySelector("#App_Global_Header").getBoundingClientRect().width;
-      this.canvasObj[canvasPropertyName].element.height = document.querySelector("#App_Global_Header").getBoundingClientRect().height;
+
       this.canvasObj[canvasPropertyName].functionality.drawInitialCanvas();
     }
     this.canvasBehaviorSubject$.next(this.canvasObj);
@@ -42,8 +41,6 @@ export class CanvasService {
 
   setNavBarSettings() {
     this.canvasObj.NavBar.settings.heightRef = document.querySelector('.Categories_Url').getBoundingClientRect().height;
-    this.canvasObj.NavBar.width = this.canvasObj.NavBar.element.width = this.canvasObj.NavBar.element.getBoundingClientRect().width;
-    this.canvasObj.NavBar.height = this.canvasObj.NavBar.element.height = this.canvasObj.NavBar.element.getBoundingClientRect().height;
     this.canvasObj.NavBar.settings.pointsConfig = [];
     for (let i = 1; i <= 6; i++) {
       const CURRENT_TOP_REF = Math.floor((this.canvasObj.NavBar.settings.heightRef * i) - this.canvasObj.NavBar.settings.heightRef + (this.canvasObj.NavBar.settings.heightRef * 0.25));

@@ -1,19 +1,21 @@
 .Categories_Url {
-  display:block;
-  width:100%;
-  height: 10.4vh;
-  padding:4px;
-  line-height: 10.4vh;
-  text-align: center;
+  display        : block;
+  width          : 100%;
+  height         : 10.4vh;
+  padding        : 4px;
+  line-height    : 10.4vh;
+  text-align     : center;
   text-decoration: none;
-  position: relative;
-  top: -100%;
+  position       : relative;
+  top            : -100%;
 }
 
-.Nav_Bar_Canvas {
-    // background: white;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: -1;
+.App_Global_Header {
+  grid-column          : 1;
+  grid-row             : 1;
+  margin               : 0;
+  display              : grid;
+  grid-template-rows   : 100%;
+  grid-template-columns: 100%;
+  color                : white;
 }

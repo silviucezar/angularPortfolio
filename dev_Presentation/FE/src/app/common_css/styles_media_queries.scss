@@ -1,119 +1,102 @@
-.Header_Canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: black;
-}
-
-* {
-  border:1px solid grey
-}
 @media only screen and (orientation: portrait) {
-  @media (max-width: 767px) {
+
+  @media only screen and (max-width: 767px) {
+
     #App_Global_Grid {
       grid-template-columns: 70fr 30fr;
-      grid-template-rows: 68fr 20fr 12fr;
-      grid-template-areas:
-       "App_Global_Header_Main_Container App_Global_Header_Main_Container",
-       "App_Global_Content App_Global_Margin",
-       "App_Global_Footer App_Global_Footer";
-      background: red;
+      grid-template-rows   : 80fr 7.5fr 7.5fr;
     }
 
-    .App_Global_Header_Main_Container {
-      background:blue;
-      grid-template-areas: 'App_Global_Header_Container';
+    .App_Global_Header_Container {
+      grid-template-columns: 10fr 80fr 10fr;
+      grid-template-rows   : 50% 50%;
     }
 
-//     // .App_Global_Header_Container {
-//     //   grid-template-columns: 10fr 80fr 10fr;
-//     //   grid-template-rows: 50% 50%;
-//     // }
+    .App_Global_Header_Container_Data {
+      grid-template-columns: 1px 100fr;
+      grid-column          : 2;
+      grid-row             : 2;
+    }
 
-//     // .App_Global_Header_Container_Main {
-//     //   grid-template-columns: 1px 100fr;
-//     //   grid-column: 2;
-//     //   grid-row: 2;
-//     // }
+    .App_Global_Header_Container_Image {
+      grid-column  : 2;
+      grid-row     : 1;
+      grid-template: auto 210px auto / auto 210px auto;
+      display      : grid;
+    }
 
-//     // .App_Global_Header_Container_Image {
-//     //   grid-column: 2;
-//     //   grid-row: 1;
-//     //   grid-template: auto 210px auto / auto 210px auto;
-//     //   display: grid;
-//     // }
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 190px auto / auto 190px auto;
+      display      : grid;
+    }
 
-//     // .App_Global_Header_Container_Image div:nth-child(2) {
-//     //   grid-template: auto 190px auto / auto 190px auto;
-//     //   display: grid;
-//     // }
+    @media (max-width: 450px) {
 
-//     @media (max-width: 450px) {
-//       .Header_Canvas {
-//         background: yellow;
-//       }
-
-//       @media (max-width: 361px) {
-//         .Header_Canvas {
-//           background: white;
-//         }
-//       }
-//     }
+      @media (max-width: 361px) {}
+    }
   }
 }
 
-// @media only screen and (orientation: landscape) {
-//   @media (max-width: 961px) {
-//     .App_Global_Header_Container_Image {
-//       grid-area: App_Global_Header_Container_Image;
-//       grid-template: auto 100px auto / auto 100px auto;
-//       display: grid !important;
-//     }
+@media only screen and (orientation: landscape) {
+  @media (max-width: 961px) {
+    #App_Global_Grid {
+      grid-template-rows: 70fr 15fr 15fr;
+    }
 
-//     .App_Global_Header_Container_Image div:nth-child(2) {
-//       grid-template: auto 80px auto / auto 80px auto;
-//       display: grid;
-//     }
+    .App_Global_Header_Container_Image {
+      grid-area    : App_Global_Header_Container_Image;
+      grid-template: auto 125px auto / auto 125px auto;
+      display      : grid !important;
+    }
 
-//     #App_Global_Grid {
-//       grid-template-rows: 35fr 50fr 15fr;
-//     }
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 115px auto / auto 115px auto;
+      display      : grid;
+    }
 
-//     .App_Global_Header_Container {
-//       grid-template-areas:
-//         "App_Global_Header_Container_Main App_Global_Header_Container_Image"
-//         "App_Global_Header_Container_Main App_Global_Header_Container_Image";
-//     }
 
-//     .App_Global_Header_Container_Main {
-//       grid-area: App_Global_Header_Container_Main;
-//     }
+    .App_Global_Header_Container {
+      grid-template-areas:
+        "App_Global_Header_Container_Data App_Global_Header_Container_Image"
+        "App_Global_Header_Container_Data App_Global_Header_Container_Image";
+    }
 
-//     .App_Global_Header_Container_Image {
-//       grid-area: App_Global_Header_Container_Image;
-//     }
+    .App_Global_Header_Container_Data {
+      grid-area            : App_Global_Header_Container_Data;
+      grid-template-columns: 35fr 65fr;
+    }
 
-//     @media only screen and (min-width: 1200px) {
-//       #App_Global_Grid,
-//       .App_Global_Header_Container,
-//       .App_Global_Header_Container_Main {
-//         grid-template-columns: 80fr 20fr;
-//       }
-//     }
-//   }
+    .App_Global_Header_Container_Image {
+      grid-area: App_Global_Header_Container_Image;
+    }
 
-//   @media (max-width: 750px) {
-//     .canvas {
-//       background: blue;
-//     }
+    #App_Global_Grid,
+    .App_Global_Header_Container {
+      grid-template-columns: 60fr 30fr;
+    }
+  }
+}
 
-//     @media (max-width: 640px) {
-//       .canvas {
-//         background: red;
-//       }
-//     }
-//   }
-// }
+@media (max-width: 750px) {
+
+  .App_Global_Header_Container_Image {
+    grid-template: auto 175px auto / auto 175px auto;
+  }
+
+  .App_Global_Header_Container_Image div:nth-child(2) {
+    grid-template: auto 165px auto / auto 165px auto;
+  }
+
+  @media (max-width: 640px) {
+    .App_Global_Header_Container_Image {
+      grid-template: auto 145px auto / auto 145px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+      grid-template: auto 135px auto / auto 135px auto;
+    }
+  }
+}
 
 // /* PHONE PORTRAIT VERSION */
 
@@ -126,7 +109,7 @@
 
 //   .App_Global_Header_Container_Image div:nth-child(2) {
 //     grid-template: auto 150px auto / auto 150px auto;
-//     display: grid;
+//     display      : grid;
 //   }
 
 //   #App_Global_Grid {
@@ -158,7 +141,7 @@
 
 //     .App_Global_Header_Container_Image div:nth-child(2) {
 //       grid-template: auto 190px auto / auto 190px auto;
-//       display: grid;
+//       display      : grid;
 //     }
 
 //     #App_Global_Grid,

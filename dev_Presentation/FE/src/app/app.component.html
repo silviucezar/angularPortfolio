@@ -1,8 +1,9 @@
-<div class="App_Global_Header_Main_Container" style="grid-area:App_Global_Header_Main_Container">
-    <app-header class="App_Global_Header" #App_Global_Header [headerMetadata]='headerMetadata' id="App_Global_Header"></app-header>
-    <canvas class="Header_Canvas" #Header_Canvas></canvas>
+<div class='App_Global_Header_Main_Container' style='grid-area:App_Global_Header_Main_Container'>
+    <app-header class='App_Global_Header' #App_Global_Header [headerMetadata]='headerMetadata'></app-header>
+    <canvas class="Header_Canvas" #Header_Canvas [attr.width]='headerCanvasSize().width'
+        [attr.height]='headerCanvasSize().height' id='Header_Canvas'></canvas>
 </div>
-<div class="App_Global_Content" #GlobalContainer>
+<div class="App_Global_Content" #GlobalContainer style='grid-area:App_Global_Content'>
     <ng-container #AboutMe>
         <app-dynamic-component-loader *ngIf='AboutMeMetadata === null'></app-dynamic-component-loader>
     </ng-container>
@@ -22,9 +23,10 @@
         <app-dynamic-component-loader *ngIf='LeaveMessageMetadata === null'></app-dynamic-component-loader>
     </ng-container>
 </div>
-<div class="App_Global_Margin" #GlobalLeftMargin>
-    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas></canvas>
+<div class="App_Global_Margin" #GlobalLeftMargin style='grid-area:App_Global_Margin' id='App_Global_Margin'>
+    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas [attr.width]='navBarCanvasSize().width'
+        [attr.height]='navBarCanvasSize().height'></canvas>
     <a class='Categories_Url' *ngFor='let CATEGORY of categoriesTitle'
         routerLink="{{'portfolio/' + CATEGORY.url}}">{{CATEGORY[this.currentLocale + '_Title']}}<br></a>
 </div>
-<app-footer class="App_Global_Footer"></app-footer>
+<app-footer class="App_Global_Footer" style='grid-area:App_Global_Footer'></app-footer>

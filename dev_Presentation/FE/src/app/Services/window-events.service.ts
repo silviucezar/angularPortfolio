@@ -54,25 +54,25 @@ export class WindowEventsService {
   }
 
   attachOrientationChangeEvent() {
-    console.log()
+    const SIZE_REF_ONE = window.outerHeight;
+    const SIZE_REF_TWO = window.outerWidth
+
     if (window.onorientationchange === null) {
-      if (this.metaService.getTag('name="viewport"').content === '') {
+      console.log(screen.orientation.type)
+      console.log(`width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`)
+      if (this.metaService.getTag('name="viewport"').content === 'width=device-width, initial-scale=1') {
         this.metaService.updateTag({
           name: 'viewport',
-          content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
+          content: `width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
         });
       }
-      window.onorientationchange = () => {
+      window.onorientationchange = (e) => {
+        console.log(screen.orientation.type)
+        console.log(`width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
+        )
         this.metaService.updateTag({
           name: 'viewport',
-          content: `height=${screen.height}, width=${screen.width}, initial-scale=1.0`
-        });
-      }
-    } else {
-      if (this.metaService.getTag('name="viewport"').content === '') {
-        this.metaService.updateTag({
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1'
+          content: `width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
         });
       }
     }

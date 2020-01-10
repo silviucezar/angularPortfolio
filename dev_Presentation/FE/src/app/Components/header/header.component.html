@@ -1,32 +1,32 @@
-<h1 class="App_Global_Header_Container common" id="App_Global_Header">
+<h1 class="App_Global_Header_Container" id="App_Global_Header">
     <div class="App_Global_Header_Container_Image">
         <div></div>
         <div><span></span></div>
     </div>
-    <div class="App_Global_Header_Container_Main">
-        <div style="font-size:3vw" class="App_Global_Header_Container_Main_Text"
+    <div class="App_Global_Header_Container_Data">
+        <div style="font-size:3vw" class="App_Global_Header_Container_Data_Text"
             [ngClass]="{'Rect_Loading' : loadingHeader}" [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_first_name_RO.details + ' ' + pageTemplate.Header.data[locale].intro_last_name_RO.details}} -->
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_first_name_RO.details + ' ' + pageTemplate.Header.data[locale].intro_last_name_RO.details}}
         </div>
         <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
             [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_current_role_RO.details}} -->
+            {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_current_role_RO.details}}
         </div>
-        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+        <div class="App_Global_Header_Container_Data_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
             [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_phone_no_RO.details }} -->
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_phone_no_RO.details }}
         </div>
-        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+        <div class="App_Global_Header_Container_Data_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
             [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_email_RO.details}} -->
+            {{loadingHeader ? '' :  pageTemplate.Header.data[locale].intro_email_RO.details}}
         </div>
-        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+        <div class="App_Global_Header_Container_Data_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
             [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_birth_date_RO.title + ': ' + pageTemplate.Header.data[locale].intro_birth_date_RO.details}} -->
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_birth_date_RO.title + ': ' + pageTemplate.Header.data[locale].intro_birth_date_RO.details}}
         </div>
-        <div class="App_Global_Header_Container_Main_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
+        <div class="App_Global_Header_Container_Data_Text" [ngClass]="{'Rect_Loading' : loadingHeader}"
             [@fadeIn]="loadingHeader ? true : false">
-            <!-- {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_age_RO.title + ': ' + pageTemplate.Header.data[locale].intro_age_RO.details}} -->
+            {{loadingHeader ? '' : pageTemplate.Header.data[locale].intro_age_RO.title + ': ' + pageTemplate.Header.data[locale].intro_age_RO.details}}
         </div>
     </div>
 </h1>
