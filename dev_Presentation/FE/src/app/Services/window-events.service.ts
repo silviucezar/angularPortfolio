@@ -1,11 +1,12 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Inject } from '@angular/core';
 import { CanvasService } from './canvas.service';
 import { CanvasProps } from '../Interfaces/CanvasDetails';
-import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 interface InitialSetup {
   urlSubscription: BehaviorSubject<string>;
+  root: ElementRef;
   NavBarCanvas: CanvasSetup;
   HeaderCanvas: CanvasSetup;
 }
@@ -14,6 +15,12 @@ interface CanvasSetup {
   name: string;
   canvas: ElementRef
 }
+
+interface AppRootDimensionsConfig {
+  initialLoad?: Boolean;
+  isOrientationChange?: Boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,17 +28,35 @@ export class WindowEventsService {
 
   private canvasObj: CanvasProps;
   private currentYScrollRef: number;
+  private currentOrientation: string;
   constructor(
     private canvasService: CanvasService,
-    private metaService: Meta
+    @Inject(DOCUMENT) private _document: Document
   ) { }
-
   init(initialSetup: InitialSetup) {
     initialSetup.urlSubscription.subscribe(url => { if (url) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url); })
+    this.setAppRootDimensions(initialSetup.root);
     this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas)
     this.setScrollEvent();
-    this.setResizeEvent();
-    this.attachOrientationChangeEvent();
+    this.setResizeEvent(initialSetup.root);
+  }
+
+  setAppRootDimensions(root: ElementRef, config?: AppRootDimensionsConfig) {
+    root.nativeElement.style.width = window.innerWidth + 'px';
+    root.nativeElement.style.height = window.innerHeight + 'px';
+    console.log(window.innerWidth, window.innerHeight, this.currentOrientation, screen.orientation.type)
+    console.log(window.innerWidth > window.innerHeight && this.currentOrientation !== screen.orientation.type)
+    if (window.innerWidth > window.innerHeight && this.currentOrientation !== screen.orientation.type) {
+      this.currentOrientation = screen.orientation.type;
+      this.loadCurrentOrientationCSS();
+    } else if (window.innerWidth < window.innerHeight && this.currentOrientation !== screen.orientation.type) {
+      this.currentOrientation = screen.orientation.type;
+      this.loadCurrentOrientationCSS();
+    }
+  }
+
+  loadCurrentOrientationCSS() {
+    console.log(this.currentOrientation);
   }
 
   setScrollEvent() {
@@ -49,32 +74,12 @@ export class WindowEventsService {
     console.log('Scroll event set');
   }
 
-  setResizeEvent() {
-    console.log('Resize Event', window);
-  }
-
-  attachOrientationChangeEvent() {
-    const SIZE_REF_ONE = window.outerHeight;
-    const SIZE_REF_TWO = window.outerWidth
-
-    if (window.onorientationchange === null) {
-      console.log(screen.orientation.type)
-      console.log(`width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`)
-      if (this.metaService.getTag('name="viewport"').content === 'width=device-width, initial-scale=1') {
-        this.metaService.updateTag({
-          name: 'viewport',
-          content: `width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
-        });
-      }
-      window.onorientationchange = (e) => {
-        console.log(screen.orientation.type)
-        console.log(`width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
-        )
-        this.metaService.updateTag({
-          name: 'viewport',
-          content: `width=${Boolean(screen.orientation.type.match('portrait')) ? SIZE_REF_TWO : SIZE_REF_ONE},height=${screen.orientation.type.match('portrait') ? SIZE_REF_ONE : SIZE_REF_TWO}, initial-scale=1.0`
-        });
-      }
-    }
+  setResizeEvent(root: ElementRef) {
+    window.onresize = (e) => {
+      setTimeout(() => { this.setAppRootDimensions(root) }, 100);
+    };
   }
 }
+
+
+//https://juristr.com/blog/2019/08/dynamically-load-css-angular-cli/

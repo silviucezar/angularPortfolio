@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 import { DataService } from './Services/data.service';
 import { LoadersService } from './Services/loaders.service';
@@ -43,9 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private dataService: DataService,
     private lazy: LoadersService,
     private locale: LocaleService,
-    private windowEventsService: WindowEventsService
+    private windowEventsService: WindowEventsService,
+    private rootElementRef: ElementRef
   ) {
-    console.log(this.as)
     this.locale.getCurrentLocale().subscribe(localeValue => {
       const LOCALE_VALUE: LocaleDetails = localeValue;
       this.currentLocale = localeValue['locale'];
@@ -85,6 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     this.windowEventsService.init({
+      root: this.rootElementRef,
       urlSubscription: this.url,
       NavBarCanvas: {
         name: 'NavBar',
@@ -95,12 +96,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         canvas: this.Header_Canvas
       }
     });
-
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
       const CURRENT_METADATA: {} = {};
       for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
         if (TRANSLATION_CATEGORY.match(/Header|Footer/)) {
-          this[`${TRANSLATION_CATEGORY}Metadata`] = pageTemplateTranslations.translationCategory
+          this[`${TRANSLATION_CATEGORY}Metadata`] = pageTemplateTranslations.translationCategory;
         } else {
           for (const COMPONENT_CATEGORY in pageTemplateTranslations.Components) {
             CURRENT_METADATA[COMPONENT_CATEGORY] = this[`${COMPONENT_CATEGORY}Metadata`] = pageTemplateTranslations.Components[COMPONENT_CATEGORY][this.currentLocale];
@@ -112,7 +112,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() { }
-
 
   headerCanvasSize(): ClientRect {
     return document.querySelector('#Header_Canvas').getBoundingClientRect();

@@ -4,9 +4,10 @@
 }
 
 #App_Global_Grid {
-  display: grid;
-  height : 100vh;
-  width  : 100vw;
+  display : grid;
+  position: fixed;
+  top     : 0;
+  left    : 0;
   grid-template-areas:
     "App_Global_Header_Main_Container App_Global_Header_Main_Container"
     "App_Global_Content App_Global_Margin"
