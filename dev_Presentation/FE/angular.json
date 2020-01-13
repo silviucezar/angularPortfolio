@@ -27,11 +27,24 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "extractCss": true,
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/app/Common_CSS/styles.scss",
               "src/app/Common_CSS/styles_loading.scss",
-              "src/app/Common_CSS/styles_media_queries.scss"
+              {
+                "input": "src/app/Common_CSS/styles_media_queries.scss",
+                "bundleName": "desktop-css",
+                "inject": false
+              },
+              {
+                "input": "src/app/Common_CSS/styles_mobile_portrait.scss",
+                "bundleName": "mobile-portrait-css",
+                "inject": false
+              },              {
+                "input": "src/app/Common_CSS/styles_mobile_landscape.scss",
+                "bundleName": "mobile-landscape-css",
+                "inject": false
+              }
             ],
             "scripts": []
           },
@@ -96,8 +109,22 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.scss"
+              "src/app/Common_CSS/styles.scss",
+              "src/app/Common_CSS/styles_loading.scss",
+              {
+                "input": "src/app/Common_CSS/styles_media_queries.scss",
+                "bundleName": "desktop-css",
+                "inject": false
+              },
+              {
+                "input": "src/app/Common_CSS/styles_mobile_portrait.scss",
+                "bundleName": "mobile-portrait-css",
+                "inject": false
+              },              {
+                "input": "src/app/Common_CSS/styles_mobile_landscape.scss",
+                "bundleName": "mobile-landscape-css",
+                "inject": false
+              }
             ],
             "scripts": []
           }

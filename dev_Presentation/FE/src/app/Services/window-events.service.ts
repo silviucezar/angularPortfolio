@@ -29,6 +29,8 @@ export class WindowEventsService {
   private canvasObj: CanvasProps;
   private currentYScrollRef: number;
   private currentOrientation: string;
+  private mobileAvailSizeRefOne: number = window.innerWidth;
+  private mobileAvailSizeRefTwo: number = window.innerHeight;
   constructor(
     private canvasService: CanvasService,
     @Inject(DOCUMENT) private _document: Document
@@ -42,21 +44,18 @@ export class WindowEventsService {
   }
 
   setAppRootDimensions(root: ElementRef, config?: AppRootDimensionsConfig) {
-    root.nativeElement.style.width = window.innerWidth + 'px';
-    root.nativeElement.style.height = window.innerHeight + 'px';
-    console.log(window.innerWidth, window.innerHeight, this.currentOrientation, screen.orientation.type)
-    console.log(window.innerWidth > window.innerHeight && this.currentOrientation !== screen.orientation.type)
-    if (window.innerWidth > window.innerHeight && this.currentOrientation !== screen.orientation.type) {
-      this.currentOrientation = screen.orientation.type;
-      this.loadCurrentOrientationCSS();
-    } else if (window.innerWidth < window.innerHeight && this.currentOrientation !== screen.orientation.type) {
-      this.currentOrientation = screen.orientation.type;
-      this.loadCurrentOrientationCSS();
-    }
+    this.loadCurrentOrientationCSS();
   }
 
   loadCurrentOrientationCSS() {
-    console.log(this.currentOrientation);
+    this.currentOrientation = screen.orientation.type;
+      this.mobileAvailSizeRefOne = window.innerWidth;
+      this.mobileAvailSizeRefTwo = window.innerHeight;
+      if (screen.orientation.type.match(/portrait/)) {
+        (this._document.querySelector("#current-css") as HTMLLinkElement).href = 'mobile-portrait-css.css';
+      } else {
+        (this._document.querySelector("#current-css") as HTMLLinkElement).href = 'mobile-landscape-css.css';
+      }
   }
 
   setScrollEvent() {
