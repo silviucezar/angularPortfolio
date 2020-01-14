@@ -89,21 +89,33 @@ export class WindowEventsService {
       this.canvasObj = canvasObj;
       this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef
     });
-    window.onwheel = window.ontouchmove = e => {
+    window.onwheel = (e:WheelEvent)=> {
       console.log('Scroll Event:', this.currentYScrollRef);
-      console.log(e)
       this._document.querySelector("#App_Global_Grid").className = e.deltaY > 0 ? 'contracted' : "extended";
       // this.canvasObj.NavBar.ctx.beginPath();
       // this.canvasObj.NavBar.ctx.rect(this.canvasObj.NavBar.width * 0.98, this.currentYScrollRef, this.canvasObj.NavBar.width * 0.02, this.canvasObj.NavBar.settings.heightRef);
       // this.canvasObj.NavBar.ctx.stroke();
       // this.canvasObj.NavBar.ctx.closePath();
     }
+    
+    if (window.ontouchmove === null) {
+      let touchStartY:number;
+      window.ontouchstart = (e:TouchEvent) => {
+        touchStartY = e.touches[0].clientY;
+      };
+      window.ontouchend = (e:TouchEvent) => {
+        console.log(e)
+        this._document.querySelector("#App_Global_Grid").className = touchStartY > e.changedTouches[0].clientY ? 'contracted' : "extended";
+      }
+    }
     console.log('Scroll event set');
   }
 
   setResizeEvent(root: ElementRef) {
     window.onresize = (e) => {
-      setTimeout(() => { this.setAppStyle(root, { initialInit: false }) }, 200);
+      setTimeout(() => { 
+        this.setAppStyle(root, { initialInit: false }) 
+      }, 200);
     };
   }
 }
