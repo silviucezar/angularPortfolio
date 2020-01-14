@@ -1,3 +1,86 @@
-body {
-    background:red!important
+#App_Global_Grid {
+    grid-template-columns: 70fr 30fr;
+    grid-template-rows   : auto auto 50px;
+}
+
+#App_Global_Grid.contracted .App_Global_Header_Main_Container {
+    height: 50px
+}
+
+.App_Global_Header_Container {
+    grid-template-columns: 10fr 80fr 10fr;
+    grid-template-rows   : 50% 50%;
+}
+
+.App_Global_Header_Container_Data {
+    grid-template-columns: 1px 100fr;
+    grid-column          : 2;
+    grid-row             : 2;
+}
+
+.App_Global_Header_Container_Image {
+    grid-column  : 2;
+    grid-row     : 1;
+    grid-template: auto 190px auto / auto 190px auto;
+    display      : grid;
+}
+
+.App_Global_Header_Container_Image div:nth-child(2) {
+    grid-template: auto 180px auto / auto 180px auto;
+    display      : grid;
+}
+
+@media only screen and (min-width: 400px) {
+
+    #App_Global_Grid.contracted .App_Global_Header_Main_Container {
+        height: 50px;
+    }
+
+    .App_Global_Header_Container_Image {
+        grid-template: auto 220px auto / auto 220px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+        grid-template: auto 205px auto / auto 205px auto;
+    }
+}
+
+@media only screen and (min-width:450px) {
+    .App_Global_Header_Container_Image {
+        grid-template: auto 240px auto / auto 240px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+        grid-template: auto 230px auto / auto 230px auto;
+    }
+}
+
+@media only screen and (min-width:550px) {
+    .App_Global_Header_Container_Image {
+        grid-template: auto 270px auto / auto 270px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+        grid-template: auto 250px auto / auto 250px auto;
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .App_Global_Header_Container_Image {
+        grid-template: auto 300px auto / auto 300px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+        grid-template: auto 290px auto / auto 290px auto;
+    }
+}
+
+@media only screen and (min-width:1000px) {
+    .App_Global_Header_Container_Image {
+        grid-template: auto 400px auto / auto 400px auto;
+    }
+
+    .App_Global_Header_Container_Image div:nth-child(2) {
+        grid-template: auto 390px auto / auto 390px auto;
+    }
 }

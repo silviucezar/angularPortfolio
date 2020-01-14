@@ -17,10 +17,22 @@
 
 .App_Global_Header_Main_Container {
   display              : grid;
-  height               : 100%;
   width                : 100%;
   grid-template-columns: 100fr;
   grid-template-rows   : 100fr;
+  transition           : .4s
+}
+
+@media only screen and (min-height:1px) {
+  #App_Global_Grid.extended .App_Global_Header_Main_Container {
+    height: 400px
+  }
+}
+
+@media only screen and (min-height:650px) {
+  #App_Global_Grid.extended .App_Global_Header_Main_Container {
+    height: 550px
+  }
 }
 
 canvas {

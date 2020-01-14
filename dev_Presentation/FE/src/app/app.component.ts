@@ -13,7 +13,8 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
-    "id": "App_Global_Grid"
+    "id": "App_Global_Grid",
+    'class': 'extended'
   }
 })
 export class AppComponent implements OnInit, AfterViewInit {
