@@ -1,35 +1,31 @@
 $circle_border: calc(43vw + 35px);
-$circle_img: calc(43vw + 20px);
+$circle_img   : calc(43vw + 20px);
 
 #App_Global_Grid {
   grid-template-columns: 70fr 30fr;
-  grid-template-rows: auto auto 50px;
-}
-
-#App_Global_Grid.contracted .App_Global_Header_Main_Container {
-  height: 50px;
+  grid-template-rows   : auto auto 50px;
 }
 
 .App_Global_Header_Container {
   grid-template-columns: 10fr 80fr 10fr;
-  grid-template-rows: 50% 50%;
+  grid-template-rows   : 50% 50%;
 }
 
 .App_Global_Header_Container_Data {
   grid-template-columns: 1px 100fr;
-  grid-column: 2;
-  grid-row: 2;
+  grid-column          : 2;
+  grid-row             : 2;
 }
 
 .App_Global_Header_Container_Image {
-  grid-area: App_Global_Header_Container_Image;
-  grid-column: 2;
-  grid-row: 1;
-  display: grid;
+  grid-area    : App_Global_Header_Container_Image;
+  grid-column  : 2;
+  grid-row     : 1;
+  display      : grid;
   grid-template: auto $circle_border auto / auto $circle_border auto;
 }
 
 .App_Global_Header_Container_Image div:nth-child(2) {
-  display: grid;
+  display      : grid;
   grid-template: auto $circle_img auto / auto $circle_img auto;
 }

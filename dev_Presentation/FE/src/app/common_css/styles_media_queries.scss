@@ -1,23 +1,23 @@
-@media (max-width: 750px) {
+// @media (max-width: 750px) {
 
-  .App_Global_Header_Container_Image {
-    grid-template: auto 175px auto / auto 175px auto;
-  }
+//   .App_Global_Header_Container_Image {
+//     grid-template: auto 175px auto / auto 175px auto;
+//   }
 
-  .App_Global_Header_Container_Image div:nth-child(2) {
-    grid-template: auto 165px auto / auto 165px auto;
-  }
+//   .App_Global_Header_Container_Image div:nth-child(2) {
+//     grid-template: auto 165px auto / auto 165px auto;
+//   }
 
-  @media (max-width: 640px) {
-    .App_Global_Header_Container_Image {
-      grid-template: auto 145px auto / auto 145px auto;
-    }
+//   @media (max-width: 640px) {
+//     .App_Global_Header_Container_Image {
+//       grid-template: auto 145px auto / auto 145px auto;
+//     }
 
-    .App_Global_Header_Container_Image div:nth-child(2) {
-      grid-template: auto 135px auto / auto 135px auto;
-    }
-  }
-}
+//     .App_Global_Header_Container_Image div:nth-child(2) {
+//       grid-template: auto 135px auto / auto 135px auto;
+//     }
+//   }
+// }
 
 // /* PHONE PORTRAIT VERSION */
 

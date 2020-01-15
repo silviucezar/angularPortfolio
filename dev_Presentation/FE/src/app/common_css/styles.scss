@@ -1,13 +1,33 @@
 * {
-  overflow: hidden;
+  overflow  : hidden;
   box-sizing: border-box;
 }
 
+canvas {
+  grid-column: 1;
+  grid-row   : 1;
+  width      : 100%;
+  height     : 100%;
+  display    : block;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin     : 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow   : hidden;
+  background : linear-gradient(90deg, dodgerblue 45%, deepskyblue);
+}
+
 #App_Global_Grid {
-  display: grid;
+  display : grid;
   position: fixed;
-  top: 0;
-  left: 0;
+  top     : 0;
+  left    : 0;
   grid-template-areas:
     "App_Global_Header_Main_Container App_Global_Header_Main_Container"
     "App_Global_Content App_Global_Margin"
@@ -16,11 +36,15 @@
 }
 
 .App_Global_Header_Main_Container {
-  display: grid;
-  width: 100%;
+  display              : grid;
+  width                : 100%;
   grid-template-columns: 100fr;
-  grid-template-rows: 100fr;
-  transition: 0.4s;
+  grid-template-rows   : 100fr;
+  transition           : 0.4s;
+}
+
+#App_Global_Grid.contracted .Contracted_Header_Hidden_Data {
+  display: none
 }
 
 @media only screen and (max-height: 1400px) {
@@ -65,22 +89,45 @@
   }
 }
 
-canvas {
-  grid-column: 1;
-  grid-row: 1;
-  width: 100%;
-  height: 100%;
-  display: block;
+#App_Global_Grid.contracted .App_Global_Header_Main_Container {
+  height: 75px;
 }
 
-html,
-body {
-  height: 100%;
+#App_Global_Grid.contracted .App_Global_Header_Container_Data {
+  grid-template-rows: 100fr
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  overflow: hidden;
-  background: linear-gradient(90deg, dodgerblue 45%, deepskyblue);
+#App_Global_Grid.contracted .App_Global_Header_Container {
+  grid-template-columns: auto 75px 85px;
+  grid-template-rows   : 100%;
+  grid-template-areas  : 'App_Global_Header_Container_Image App_Global_Header_Container_Data';
+}
+
+#App_Global_Grid.contracted .App_Global_Header_Container_Image {
+  grid-area    : 1/3/1/3;
+  grid-template: auto 60px auto / auto 60px auto;
+}
+
+#App_Global_Grid.contracted .App_Global_Header_Container_Image div:nth-child(2) {
+  display      : grid;
+  grid-template: auto 50px auto / auto 50px auto;
+}
+
+#App_Global_Grid.contracted .App_Global_Header_Container_Data {
+  grid-area: 1/1
+}
+
+#App_Global_Grid.contracted .App_Global_Phone_Details {
+  display   : block !important;
+  font-size : 50px;
+  text-align: center;
+  position  : relative;
+}
+
+#App_Global_Grid.contracted .fa-phone {
+  line-height: 75px;
+  bottom     : 0;
+  position   : absolute;
+  display    : block;
+  width      : 100%;
 }
