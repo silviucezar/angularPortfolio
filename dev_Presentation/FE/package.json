@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "shome": "ng serve --proxy-config proxy.conf.json --host 192.168.0.181",
-    "swork": "ng serve --proxy-config proxy.conf.json --host 192.168.37.65",
+    "starthome": "ng serve --proxy-config proxy.conf.json --host 192.168.0.181",
+    "startwork": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
