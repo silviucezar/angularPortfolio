@@ -1,7 +1,6 @@
 <div class='App_Global_Header_Main_Container' style='grid-area:App_Global_Header_Main_Container'>
     <app-header class='App_Global_Header' #App_Global_Header [headerMetadata]='headerMetadata'></app-header>
-    <canvas class="Header_Canvas" #Header_Canvas [attr.width]='headerCanvasSize().width'
-        [attr.height]='headerCanvasSize().height' id='Header_Canvas'></canvas>
+    <canvas class="Header_Canvas" #Header_Canvas></canvas>
 </div>
 <div class="App_Global_Content" #GlobalContainer style='grid-area:App_Global_Content'>
     <ng-container #AboutMe>
@@ -24,8 +23,7 @@
     </ng-container>
 </div>
 <div class="App_Global_Margin" #GlobalLeftMargin style='grid-area:App_Global_Margin' id='App_Global_Margin'>
-    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas [attr.width]='navBarCanvasSize().width'
-        [attr.height]='navBarCanvasSize().height'></canvas>
+    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas></canvas>
     <a class='Categories_Url' *ngFor='let CATEGORY of categoriesTitle'
         routerLink="{{'portfolio/' + CATEGORY.url}}">{{CATEGORY[this.currentLocale + '_Title']}}<br></a>
 </div>

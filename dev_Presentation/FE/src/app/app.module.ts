@@ -4,16 +4,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AboutMeComponent } from './Components/Content/about-me/about-me.component';
-import { WorkExperienceComponent } from './Components/Content/work-experience/work-experience.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SkillsComponent } from './Components/Content/skills/skills.component';
-import { EducationComponent } from './Components/Content/education/education.component';
-import { ReferencesComponent } from './Components/Content/references/references.component';
-import { LeaveMessageComponent } from './Components/Content/leave-message/leave-message.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { DynamicComponentLoaderComponent } from './Components/component-loader/dynamic-component-loader.component';
+import { AboutMeModule } from './Components/Content/about-me/about-me.module'
+import { SkillsModule } from './Components/Content/skills/skills.module';
+import { EducationModule } from './Components/Content/education/education.module';
+import { WorkExperienceComponent } from './Components/Content/work-experience/work-experience.component';
+import { WorkExperienceModule } from './Components/Content/work-experience/work-experience.module';
+import { ReferencesModule } from './Components/Content/references/references.module';
+import { LeaveMessageModule } from './Components/Content/leave-message/leave-message.module';
 
 const AppRoutes: Routes = [
   {
@@ -58,24 +59,16 @@ const AppRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    AboutMeComponent,
-    SkillsComponent,
-    WorkExperienceComponent,
-    EducationComponent,
-    ReferencesComponent,
-    LeaveMessageComponent,
     FooterComponent,
     DynamicComponentLoaderComponent
   ],
-  entryComponents: [
-    AboutMeComponent,
-    SkillsComponent,
-    WorkExperienceComponent,
-    EducationComponent,
-    ReferencesComponent,
-    LeaveMessageComponent
-  ],
   imports: [
+    AboutMeModule,
+    SkillsModule,
+    EducationModule,
+    WorkExperienceModule,
+    ReferencesModule,
+    LeaveMessageModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -86,14 +79,3 @@ const AppRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export const TEMPLATE_COMPONENTS: {} = {
-  Header: HeaderComponent,
-  AboutMe: AboutMeComponent,
-  Skills: SkillsComponent,
-  WorkExperience: WorkExperienceComponent,
-  Education: EducationComponent,
-  References: ReferencesComponent,
-  LeaveMessage: LeaveMessageComponent,
-  Footer: FooterComponent
-}

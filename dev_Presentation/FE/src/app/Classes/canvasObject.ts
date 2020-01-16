@@ -4,7 +4,7 @@ export class Canvas {
   public Header: HeaderCanvasProps;
   constructor() {
     this.NavBar = {
-      element: null,
+      element: HTMLCanvasElement,
       ctx: null,
       settings: {
         previousIndex: null,

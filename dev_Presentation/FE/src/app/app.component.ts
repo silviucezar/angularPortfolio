@@ -7,6 +7,7 @@ import { LocaleService } from './Services/locale.service';
 import { LocaleDetails } from './Interfaces/locale.interface';
 import { WindowEventsService } from './Services/window-events.service';
 import { BehaviorSubject } from 'rxjs';
+import { UrlSubscriptionFormat } from './Interfaces/UrlSubscription';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("Education", { read: ViewContainerRef, static: true }) Education: ViewContainerRef;
   @ViewChild("References", { read: ViewContainerRef, static: true }) References: ViewContainerRef;
   @ViewChild("LeaveMessage", { read: ViewContainerRef, static: true }) LeaveMessage: ViewContainerRef;
-  private url = new BehaviorSubject<string>(null);
+  private urlSubscription = new BehaviorSubject<UrlSubscriptionFormat>({
+    dataToFetch: null,
+    path: null
+  });
   private currentLocale = null;
   private categoriesTitle: string[] = [];
   private HeaderMetadata: {} = null;
@@ -38,7 +42,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   private ReferencesMetadata: {} = null;
   private LeaveMessageMetadata: {} = null;
   private FooterMetadata: {} = null;
-  private as: HTMLElement = null;
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -63,31 +66,31 @@ export class AppComponent implements OnInit, AfterViewInit {
           let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
           EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
           EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
-          this.url.next(EVENT_URL_ARR.join().replace(",", ""));
+          this.urlSubscription.next({
+            dataToFetch: EVENT_URL_ARR.join().replace(",", ""),
+            path: event["url"].replace("/portfolio/", "")
+          });
         } else {
           let EVENT_URL = event["url"].replace("/portfolio/", "");
-          this.url.next(EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase()));
+          this.urlSubscription.next({
+            dataToFetch: EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase()),
+            path: event["url"].replace("/portfolio/", "")
+          });
         }
       } else {
-        this.url.next('AboutMe');
+        this.urlSubscription.next({
+          dataToFetch: 'AboutMe',
+          path: 'about-me'
+        });
       }
-      this.dataService.setCurrentRouteData(this.url.value);
+      this.dataService.setCurrentRouteData(this.urlSubscription.value);
     });
   }
 
   ngOnInit() {
-    this.lazy.setComponentContainerRef({
-      AboutMe: this.AboutMe,
-      Skills: this.Skills,
-      WorkExperience: this.WorkExperience,
-      Education: this.Education,
-      References: this.References,
-      LeaveMessage: this.LeaveMessage
-    });
-
     this.windowEventsService.init({
       root: this.rootElementRef,
-      urlSubscription: this.url,
+      urlSubscription: this.urlSubscription,
       NavBarCanvas: {
         name: 'NavBar',
         canvas: this.Nav_Bar_Canvas
@@ -97,6 +100,16 @@ export class AppComponent implements OnInit, AfterViewInit {
         canvas: this.Header_Canvas
       }
     });
+
+    this.lazy.setComponentContainerRef({
+      AboutMe: this.AboutMe,
+      Skills: this.Skills,
+      WorkExperience: this.WorkExperience,
+      Education: this.Education,
+      References: this.References,
+      LeaveMessage: this.LeaveMessage
+    });
+
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
       const CURRENT_METADATA: {} = {};
       for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
@@ -108,7 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      this.url.pipe(take(2)).subscribe(url => { if (url) this.lazy.componentLoad(url, CURRENT_METADATA); });
+      this.urlSubscription.pipe(take(2)).subscribe(url => { if (url.dataToFetch !== null) this.lazy.componentLoad(url, CURRENT_METADATA); });
     });
   }
 
@@ -119,6 +132,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   navBarCanvasSize(): ClientRect {
-    return document.querySelector('#App_Global_Margin').getBoundingClientRect()
+    return document.querySelector('#App_Global_Margin').getBoundingClientRect();
   }
 }

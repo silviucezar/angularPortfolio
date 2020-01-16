@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/Services/http.service';
 import { Subject } from 'rxjs';
 import { LocaleService } from 'src/app/Services/locale.service';
+import { UrlSubscriptionFormat } from '../Interfaces/UrlSubscription';
+
 interface pageTemplateInterface {
   Header: Lang;
   Components: ComponentsData;
@@ -56,8 +58,9 @@ export class DataService {
     this.locale.getCurrentLocale().subscribe(localeValue => this.currentLocale = localeValue['locale']);
   }
 
-  setCurrentRouteData(currentComponent: string) {
-    const COMPONENT_INDEX = this.templateKeys.indexOf(currentComponent);
+  setCurrentRouteData(urlSubscription: UrlSubscriptionFormat) {
+    const DATA_TO_FETCH = urlSubscription.dataToFetch;
+    const COMPONENT_INDEX = this.templateKeys.indexOf(DATA_TO_FETCH);
     if (
       this.pTemplate.Components[this.templateKeys[COMPONENT_INDEX - 1 === -1 ? 0 : COMPONENT_INDEX - 1]][this.currentLocale] !== null &&
       this.pTemplate.Components[this.templateKeys[COMPONENT_INDEX]][this.currentLocale] !== null &&
@@ -66,7 +69,7 @@ export class DataService {
 
     this.http.doGetRequest("/", {
       locale: this.currentLocale,
-      dataToFetch: currentComponent,
+      dataToFetch: DATA_TO_FETCH,
       isInitialLoad: this.isInitialLoad[this.currentLocale]
     })
       .then(FE_DATA => {

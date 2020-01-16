@@ -1,6 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Canvas } from '../Classes/canvasObject';
-import { BehaviorSubject } from 'rxjs';
 import { NavBarCanvasProps, HeaderCanvasProps } from '../Interfaces/CanvasDetails';
 
 interface CanvasObject {
@@ -13,7 +12,6 @@ interface CanvasObject {
 export class CanvasService {
 
   private canvasObj = new Canvas();
-  private canvasBehaviorSubject$ = new BehaviorSubject<CanvasObject>(this.canvasObj);
   private initialHeaderCanvasSetup = false;
   constructor() {
     this.canvasObj.NavBar.functionality.drawMenuCanvas = () => {
@@ -26,17 +24,18 @@ export class CanvasService {
   }
 
   setCanvas(canvasPropertyName: string, canvas: ElementRef, currentUrlName?: string) {
+    console.log(canvasPropertyName)
     if (this.canvasObj[canvasPropertyName].element === null) this.canvasObj[canvasPropertyName].element = canvas.nativeElement;
+
     if (this.canvasObj[canvasPropertyName].ctx === null) this.canvasObj[canvasPropertyName].ctx = canvas.nativeElement.getContext('2d');
     if (currentUrlName) {
       this.canvasObj.NavBar.settings.previousIndex = this.canvasObj.NavBar.settings.currentIndex;
       this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
       this.canvasObj[canvasPropertyName].functionality.drawMenuCanvas();
     } else {
-
+      console.log('her')
       this.canvasObj[canvasPropertyName].functionality.drawInitialCanvas();
     }
-    this.canvasBehaviorSubject$.next(this.canvasObj);
   }
 
   setNavBarSettings() {
@@ -107,7 +106,7 @@ export class CanvasService {
     })();
   }
 
-  getCanvas(): BehaviorSubject<CanvasObject> {
-    return this.canvasBehaviorSubject$;
+  getCanvas(): CanvasObject {
+    return this.canvasObj;
   }
 }
