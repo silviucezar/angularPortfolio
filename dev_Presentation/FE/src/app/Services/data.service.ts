@@ -2,12 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/Services/http.service';
 import { Subject } from 'rxjs';
 import { LocaleService } from 'src/app/Services/locale.service';
-import { UrlSubscriptionFormat } from '../Interfaces/UrlSubscription';
+import { UrlSubscription } from '../Interfaces/UrlSubscription';
 
-interface pageTemplateInterface {
-  Header: Lang;
-  Components: ComponentsData;
-  Footer: Lang;
+interface pageTemplateTranslationsInterface {
+  header: Lang;
+  components: ComponentsData;
+  footer: Lang;
+}
+
+interface ComponentsData {
+  about_me: Lang;
+  skills: Lang;
+  work_experience: Lang;
+  education: Lang;
+  references: Lang;
+  leave_message: Lang;
 }
 
 interface Lang {
@@ -15,76 +24,70 @@ interface Lang {
   en_US: null;
 }
 
-interface ComponentsData {
-  AboutMe: Lang;
-  Skills: Lang;
-  WorkExperience: Lang;
-  Education: Lang;
-  References: Lang;
-  LeaveMessage: Lang;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private pTemplate: pageTemplateInterface = {
-    Header: { ro_RO: null, en_US: null },
-    Components: {
-      AboutMe: { ro_RO: null, en_US: null },
-      Skills: { ro_RO: null, en_US: null },
-      WorkExperience: { ro_RO: null, en_US: null },
-      Education: { ro_RO: null, en_US: null },
-      References: { ro_RO: null, en_US: null },
-      LeaveMessage: { ro_RO: null, en_US: null }
+  private pTemplateTranslations: pageTemplateTranslationsInterface = {
+    header: { ro_RO: null, en_US: null },
+    components: {
+      about_me: { ro_RO: null, en_US: null },
+      skills: { ro_RO: null, en_US: null },
+      work_experience: { ro_RO: null, en_US: null },
+      education: { ro_RO: null, en_US: null },
+      references: { ro_RO: null, en_US: null },
+      leave_message: { ro_RO: null, en_US: null }
     },
-    Footer: { ro_RO: null, en_US: null }
+    footer: { ro_RO: null, en_US: null }
   };
 
   private pageTemplateTranslations$ = new Subject<any>();
-  private templateKeys = Object.keys(this.pTemplate.Components);
   private isInitialLoad = {
     ro_RO: true,
     en_US: true
   };
-  private currentLocale: string = null;
+
+  private currentLocale!: string;
 
   constructor
     (
-      private http: HttpService,
-      private locale: LocaleService
+      private httpService: HttpService,
+      private localeService: LocaleService
     ) {
-    this.locale.getCurrentLocale().subscribe(localeValue => this.currentLocale = localeValue['locale']);
+    this.localeService.getCurrentLocale().subscribe(localeValue => this.currentLocale = localeValue['locale']);
   }
 
-  setCurrentRouteData(urlSubscription: UrlSubscriptionFormat) {
-    const DATA_TO_FETCH = urlSubscription.dataToFetch;
-    const COMPONENT_INDEX = this.templateKeys.indexOf(DATA_TO_FETCH);
+  setCurrentRouteData(urlSubscription: UrlSubscription) {
+    const templateKeys:string[] = Object.keys(this.pTemplateTranslations.components);
+    const dataToFetch = urlSubscription.dataToFetch;
+    const componentIndex = templateKeys.indexOf(dataToFetch);
+    const currentLoadStatusIsInitial = this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US'];
+
     if (
-      this.pTemplate.Components[this.templateKeys[COMPONENT_INDEX - 1 === -1 ? 0 : COMPONENT_INDEX - 1]][this.currentLocale] !== null &&
-      this.pTemplate.Components[this.templateKeys[COMPONENT_INDEX]][this.currentLocale] !== null &&
-      this.pTemplate.Components[this.templateKeys[COMPONENT_INDEX + 1 === this.templateKeys.length ? COMPONENT_INDEX : COMPONENT_INDEX + 1]][this.currentLocale] !== null
+      this.pTemplateTranslations.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null &&
+      this.pTemplateTranslations.components[templateKeys[componentIndex] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null &&
+      this.pTemplateTranslations.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null
     ) return;
 
-    this.http.doGetRequest("/", {
+    this.httpService.doGetRequest("/", {
       locale: this.currentLocale,
-      dataToFetch: DATA_TO_FETCH,
-      isInitialLoad: this.isInitialLoad[this.currentLocale]
+      dataToFetch: dataToFetch,
+      isInitialLoad: this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US']
     })
-      .then(FE_DATA => {
-        if (this.isInitialLoad[this.currentLocale]) {
-          this.pTemplate.Header[this.currentLocale] = FE_DATA[this.currentLocale].headerData;
-          this.pTemplate.Footer[this.currentLocale] = FE_DATA[this.currentLocale].footerData;
-          this.isInitialLoad[this.currentLocale] = false;
+      .then(feData => {
+        if (currentLoadStatusIsInitial) {
+          this.pTemplateTranslations.header[this.currentLocale as keyof Lang] = feData[this.currentLocale].headerData;
+          this.pTemplateTranslations.footer[this.currentLocale as keyof Lang] = feData[this.currentLocale].footerData;
+          this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US'] = false;
         }
 
-        for (const COMPONENT_KEY in FE_DATA[this.currentLocale].componentsData) {
-          if (this.pTemplate.Components[COMPONENT_KEY][this.currentLocale] === null) {
-            this.pTemplate.Components[COMPONENT_KEY][this.currentLocale] = FE_DATA[this.currentLocale].componentsData[COMPONENT_KEY];
+        for (const componentKey in feData[this.currentLocale].componentsData) {
+          if (this.pTemplateTranslations.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] === null) {
+            this.pTemplateTranslations.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] = feData[this.currentLocale].componentsData[componentKey];
           }
         }
-        this.pageTemplateTranslations$.next(this.pTemplate);
+        this.pageTemplateTranslations$.next(this.pTemplateTranslations);
       })
       .catch(e => {
         console.log(e)

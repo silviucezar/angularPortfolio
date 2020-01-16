@@ -1,21 +1,9 @@
 import { Injectable, ElementRef, Inject } from '@angular/core';
-import { CanvasService } from './canvas.service';
-import { CanvasProps } from '../Interfaces/CanvasDetails';
-import { BehaviorSubject } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { UrlSubscriptionFormat } from '../Interfaces/UrlSubscription';
-
-interface InitialSetup {
-  urlSubscription: BehaviorSubject<UrlSubscriptionFormat>;
-  root: ElementRef;
-  NavBarCanvas: CanvasSetup;
-  HeaderCanvas: CanvasSetup;
-}
-
-interface CanvasSetup {
-  name: string;
-  canvas: ElementRef
-}
+import { CanvasSetup } from '../Classes/canvasSetup';
+import { CanvasService } from './canvas.service';
+import { UrlSubscription } from '../Interfaces/UrlSubscription';
+import { CanvasProps } from '../Interfaces/CanvasDetails';
 
 interface ViewportOrientation {
   current: string;
@@ -25,13 +13,13 @@ interface ViewportOrientation {
 @Injectable({
   providedIn: 'root'
 })
-export class WindowEventsService {
+export class InitService {
 
-  private canvasObj: CanvasProps;
-  private currentYScrollRef: number;
+  private canvasSetup = new CanvasSetup(this._document);
+  private currentYScrollRef!: number;
   private viewportOrientation: ViewportOrientation = {
-    current: null,
-    opposite: null
+    current: '',
+    opposite: ''
   };
 
   constructor(
@@ -39,30 +27,30 @@ export class WindowEventsService {
     @Inject(DOCUMENT) private _document: Document
   ) { }
 
-  init(initialSetup: InitialSetup) {
-    initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
-    this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
-    this.canvasObj = this.canvasService.getCanvas();
-    this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
-    this.setAppStyle(initialSetup.root);
+  init(domRootElementRef:ElementRef) {
+    // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
+    // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
+    // this.canvasObj = this.canvasService.getCanvas();
+    // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
+    this.loadCurrentOrientationCSS(domRootElementRef)
+    .then(() => {
+      this.setScrollEvent();
+      this.setResizeEvent(domRootElementRef);
+    })
+    .catch(() => {
+      //load error here (usually most probably because internet connection)
+    });
   }
 
-  setAppStyle(root: ElementRef) {
-    this.loadCurrentOrientationCSS(root)
-      .then((root: ElementRef) => {
-        this.setScrollEvent();
-        this.setResizeEvent(root);
-      })
-      .catch(() => {
-        //load error here (usually most probably because internet connection)
-      });
+  setAppStyle(domRootElementRef: ElementRef) {
+    this.loadCurrentOrientationCSS(domRootElementRef)
   }
 
-  loadCurrentOrientationCSS(root: ElementRef, count?: number): Promise<any> {
+  loadCurrentOrientationCSS(domRootElementRef: ElementRef, count?: number): Promise<void> {
     this.viewportOrientation.current = screen.orientation.type.replace(/-([a-z]+)/gi, '');
     this.viewportOrientation.opposite = this.viewportOrientation.current === 'portrait' ? 'landscape' : 'portrait';
-    root.nativeElement.style.width = this._document.documentElement.clientWidth + 'px';
-    root.nativeElement.style.height = this._document.documentElement.clientHeight + 'px';
+    domRootElementRef.nativeElement.style.width = this._document.documentElement.clientWidth + 'px';
+    domRootElementRef.nativeElement.style.height = this._document.documentElement.clientHeight + 'px';
     return new Promise((resolve, reject) => {
       const CURRENT_CSS_TO_LOAD = this._document.querySelector(`#current-css-mobile-${this.viewportOrientation.current}`) as HTMLLinkElement;
       const OPPOSITE_CSS_TO_LOAD = this._document.querySelector(`#current-css-mobile-${this.viewportOrientation.opposite}`) as HTMLLinkElement;
@@ -71,7 +59,7 @@ export class WindowEventsService {
         CURRENT_CSS_TO_LOAD.onload = () => onSuccesfullCSSLoad();
         CURRENT_CSS_TO_LOAD.onerror = () => {
           setTimeout(() => {
-            if (count === 10) return this.loadCurrentOrientationCSS(root, count ? 0 : count++);
+            if (count === 10) return this.loadCurrentOrientationCSS(domRootElementRef, count ? 0 : count++);
             reject();
           }, 500);
         }
@@ -82,7 +70,7 @@ export class WindowEventsService {
       function onSuccesfullCSSLoad() {
         CURRENT_CSS_TO_LOAD.disabled = false;
         OPPOSITE_CSS_TO_LOAD.disabled = true;
-        resolve(root);
+        resolve();
       }
     });
   }
@@ -110,20 +98,20 @@ export class WindowEventsService {
     }
 
     function toggleHeader(event: WheelEvent | TouchEvent) {
-      SELF._document.querySelector("#App_Global_Grid").className = (() => {
-        if (event instanceof WheelEvent) {
-          return event.deltaY > 0 ? 'contracted' : "extended";
-        } else if (event instanceof TouchEvent) {
-          return touchStartY > event.changedTouches[0].clientY ? 'contracted' : "extended";
-        }
-      })();
+      // SELF._document.querySelector("#App_Global_Grid").className = (() => {
+      //   if (event instanceof WheelEvent) {
+      //     return event.deltaY > 0 ? 'contracted' : "extended";
+      //   } else if (event instanceof TouchEvent) {
+      //     return touchStartY > event.changedTouches[0].clientY ? 'contracted' : "extended";
+      //   }
+      // })();
     }
   }
 
 
   setResizeEvent(root: ElementRef) {
-    window.onresize = e => {
-      setTimeout(() => { this.setAppStyle(root) }, 50);
-    };
+    // window.onresize = e => {
+    //   setTimeout(() => { this.setAppStyle(root) }, 50);
+    // };
   }
 }

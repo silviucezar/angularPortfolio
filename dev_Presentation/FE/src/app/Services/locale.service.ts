@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleDetails } from '../Interfaces/locale.interface';
+import { Locale } from '../Interfaces/Locale';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocaleService {
 
-  private currentLocale$ = new BehaviorSubject<LocaleDetails>({
+  private currentLocale$ = new BehaviorSubject<Locale>({
     locale: 'en_US',
     categoriesTitle: {
-      AboutMe: {
+      about_me: {
         ro_RO_Title: 'Despre Mine',
         en_US_Title: 'About Me',
         url: 'about-me'
       },
-      Skills: {
+      skills: {
         ro_RO_Title: 'Aptitudini',
         en_US_Title: 'Skills',
         url: 'skills'
       },
-      WorkExperience: {
+      work_experience: {
         ro_RO_Title: 'Experienta Profesionala',
         en_US_Title: 'Work Experience',
         url: 'work-experience'
       },
-      Education: {
+      education: {
         ro_RO_Title: 'Educatie',
         en_US_Title: 'Education',
         url: 'education'
       },
-      References: {
+      references: {
         ro_RO_Title: 'Referinte',
         en_US_Title: 'References',
         url: 'references'
       },
-      LeaveMessage: {
+      leave_message: {
         ro_RO_Title: 'Lasati Un Mesaj',
         en_US_Title: 'Leave Message',
         url: 'leave-message'
@@ -45,7 +45,7 @@ export class LocaleService {
 
   constructor() { }
 
-  getCurrentLocale(): BehaviorSubject<{}> { return this.currentLocale$ };
+  getCurrentLocale(): BehaviorSubject<Locale> { return this.currentLocale$ };
 
   setCurrentLocale() {
     const CURRENT_LOCALE_VALUE = this.currentLocale$.value;

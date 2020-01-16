@@ -1,137 +1,85 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 import { DataService } from './Services/data.service';
 import { LoadersService } from './Services/loaders.service';
+import { Locale, CategoryDetails,LocaleCategory } from './Interfaces/Locale';
+import { InitService } from './Services/init.service';
 import { LocaleService } from './Services/locale.service';
-import { LocaleDetails } from './Interfaces/locale.interface';
-import { WindowEventsService } from './Services/window-events.service';
-import { BehaviorSubject } from 'rxjs';
-import { UrlSubscriptionFormat } from './Interfaces/UrlSubscription';
-
+import { UrlListenerService } from './Services/url-listener.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
-    "id": "App_Global_Grid",
+    "id": "appGlobalGrid",
     'class': 'extended'
   }
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'FE';
-  @ViewChild('Nav_Bar_Canvas', { static: true }) Nav_Bar_Canvas: ElementRef;
-  @ViewChild("Header_Canvas", { static: true }) Header_Canvas: ElementRef;
-  @ViewChild("AboutMe", { read: ViewContainerRef, static: true }) AboutMe: ViewContainerRef;
-  @ViewChild("Skills", { read: ViewContainerRef, static: true }) Skills: ViewContainerRef;
-  @ViewChild("WorkExperience", { read: ViewContainerRef, static: true }) WorkExperience: ViewContainerRef;
-  @ViewChild("Education", { read: ViewContainerRef, static: true }) Education: ViewContainerRef;
-  @ViewChild("References", { read: ViewContainerRef, static: true }) References: ViewContainerRef;
-  @ViewChild("LeaveMessage", { read: ViewContainerRef, static: true }) LeaveMessage: ViewContainerRef;
-  private urlSubscription = new BehaviorSubject<UrlSubscriptionFormat>({
-    dataToFetch: null,
-    path: null
-  });
-  private currentLocale = null;
-  private categoriesTitle: string[] = [];
-  private HeaderMetadata: {} = null;
-  private AboutMeMetadata: {} = null;
-  private SkillsMetadata: {} = null;
-  private WorkExperienceMetadata: {} = null;
-  private EducationMetadata: {} = null;
-  private ReferencesMetadata: {} = null;
-  private LeaveMessageMetadata: {} = null;
-  private FooterMetadata: {} = null;
-  constructor(
-    private router: Router,
-    private dataService: DataService,
-    private lazy: LoadersService,
-    private locale: LocaleService,
-    private windowEventsService: WindowEventsService,
-    private rootElementRef: ElementRef
-  ) {
-    this.locale.getCurrentLocale().subscribe(localeValue => {
-      const LOCALE_VALUE: LocaleDetails = localeValue;
-      this.currentLocale = localeValue['locale'];
-      if (this.categoriesTitle.length === 0) {
-        for (const LOCALE_VALUE_PROPS in LOCALE_VALUE.categoriesTitle) {
-          this.categoriesTitle.push(LOCALE_VALUE.categoriesTitle[LOCALE_VALUE_PROPS])
-        }
-      }
-    });
+  @ViewChild('about_me', { read: ViewContainerRef, static: true }) about_me!: ViewContainerRef;
+  @ViewChild('skills', { read: ViewContainerRef, static: true }) skills!: ViewContainerRef;
+  @ViewChild('work_experience', { read: ViewContainerRef, static: true }) work_experience!: ViewContainerRef;
+  @ViewChild('education', { read: ViewContainerRef, static: true }) education!: ViewContainerRef;
+  @ViewChild('references', { read: ViewContainerRef, static: true }) references!: ViewContainerRef;
+  @ViewChild('leave_message', { read: ViewContainerRef, static: true }) leave_message!: ViewContainerRef;
 
-    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
-      if (event['url'] !== "/") {
-        if (event['url'].match('-')) {
-          let EVENT_URL_ARR = event["url"].replace("/portfolio/", "").split("-");
-          EVENT_URL_ARR[0] = EVENT_URL_ARR[0].replace(EVENT_URL_ARR[0][0], EVENT_URL_ARR[0][0].toUpperCase());
-          EVENT_URL_ARR[1] = EVENT_URL_ARR[1].replace(EVENT_URL_ARR[1][0], EVENT_URL_ARR[1][0].toUpperCase());
-          this.urlSubscription.next({
-            dataToFetch: EVENT_URL_ARR.join().replace(",", ""),
-            path: event["url"].replace("/portfolio/", "")
-          });
-        } else {
-          let EVENT_URL = event["url"].replace("/portfolio/", "");
-          this.urlSubscription.next({
-            dataToFetch: EVENT_URL.replace(EVENT_URL[0], EVENT_URL[0].toUpperCase()),
-            path: event["url"].replace("/portfolio/", "")
-          });
+  private categories: CategoryDetails[] = [];
+  private header_metadata: {} = {};
+  private about_me_metadata: {} = {};
+  private skills_metadata: {} = {};
+  private work_experience_metadata: {} = {};
+  private education_metadata: {} = {};
+  private references_metadata: {} = {};
+  private leave_message_metadata: {} = {};
+  private footer_metadata: {} = {};
+
+  private currentLocale: string = 'en_US';
+  constructor(
+    private dataService: DataService,
+    private lazyService: LoadersService,
+    private localeService: LocaleService,
+    private initService: InitService,
+    private domRootElementRef: ElementRef,
+    private urlListenerService:UrlListenerService
+  ) {
+    this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
+      if (this.categories.length === 0) {
+        for (const localeValueProps in localeValue.categoriesTitle) {
+          this.categories.push(localeValue.categoriesTitle[localeValueProps as keyof LocaleCategory] as CategoryDetails)
         }
-      } else {
-        this.urlSubscription.next({
-          dataToFetch: 'AboutMe',
-          path: 'about-me'
-        });
+        this.currentLocale = localeValue.locale;
       }
-      this.dataService.setCurrentRouteData(this.urlSubscription.value);
     });
   }
 
   ngOnInit() {
-    this.windowEventsService.init({
-      root: this.rootElementRef,
-      urlSubscription: this.urlSubscription,
-      NavBarCanvas: {
-        name: 'NavBar',
-        canvas: this.Nav_Bar_Canvas
-      },
-      HeaderCanvas: {
-        name: 'Header',
-        canvas: this.Header_Canvas
-      }
-    });
+    this.initService.init(this.domRootElementRef);
 
-    this.lazy.setComponentContainerRef({
-      AboutMe: this.AboutMe,
-      Skills: this.Skills,
-      WorkExperience: this.WorkExperience,
-      Education: this.Education,
-      References: this.References,
-      LeaveMessage: this.LeaveMessage
+    this.lazyService.setComponentContainerRef({
+      AboutMe: this.about_me,
+      Skills: this.skills,
+      WorkExperience: this.work_experience,
+      Education: this.education,
+      References: this.references,
+      LeaveMessage: this.leave_message
     });
 
     this.dataService.getPageTemplate().subscribe(pageTemplateTranslations => {
-      const CURRENT_METADATA: {} = {};
-      for (const TRANSLATION_CATEGORY in pageTemplateTranslations) {
-        if (TRANSLATION_CATEGORY.match(/Header|Footer/)) {
-          this[`${TRANSLATION_CATEGORY}Metadata`] = pageTemplateTranslations.translationCategory;
+      const currentMetadata: any = {};
+      for (const translationCategory in pageTemplateTranslations) {
+        if (translationCategory.match(/header|footer/gi)) {
+          (this[`${translationCategory}_metadata` as 'about_me_metadata'])= pageTemplateTranslations.translationCategory;
         } else {
-          for (const COMPONENT_CATEGORY in pageTemplateTranslations.Components) {
-            CURRENT_METADATA[COMPONENT_CATEGORY] = this[`${COMPONENT_CATEGORY}Metadata`] = pageTemplateTranslations.Components[COMPONENT_CATEGORY][this.currentLocale];
+          for (const componentCategory in pageTemplateTranslations.Components) {
+            currentMetadata[componentCategory] = this[`${translationCategory}_metadata` as 'about_me_metadata'] = pageTemplateTranslations.Components[componentCategory][this.currentLocale];
           }
         }
       }
-      this.urlSubscription.pipe(take(2)).subscribe(url => { if (url.dataToFetch !== null) this.lazy.componentLoad(url, CURRENT_METADATA); });
+      this.urlListenerService.getUrlSubscription().pipe(take(2)).subscribe(url => { if (url.dataToFetch !== null) this.lazyService.componentLoad(url, currentMetadata); });
     });
   }
 
   ngAfterViewInit() { }
 
-  headerCanvasSize(): ClientRect {
-    return document.querySelector('#Header_Canvas').getBoundingClientRect();
-  }
-
-  navBarCanvasSize(): ClientRect {
-    return document.querySelector('#App_Global_Margin').getBoundingClientRect();
-  }
 }

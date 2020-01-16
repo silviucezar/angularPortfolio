@@ -7,15 +7,15 @@ export interface NavBarCanvasProps {
     element: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     settings: NavBarCanvasSettings;
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     functionality: NavBarCanvasFunctionality;
 }
 
 interface NavBarCanvasSettings {
-    previousIndex: number;
-    currentIndex: number;
-    heightRef: number;
+    previousIndex: number | string;
+    currentIndex: number | string;
+    heightRef: number | string;
     pointsConfig: number[][][]
 }
 
@@ -26,13 +26,7 @@ interface NavBarCanvasFunctionality {
 export interface HeaderCanvasProps {
     element: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
-    settings: HeaderCanvasSettings;
     functionality: HeaderCanvasFunctionality;
-}
-
-interface HeaderCanvasSettings {
-    previousIndex: number;
-    currentIndex: number
 }
 
 interface HeaderCanvasFunctionality {

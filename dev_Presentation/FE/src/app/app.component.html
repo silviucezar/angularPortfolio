@@ -1,30 +1,30 @@
-<div class='App_Global_Header_Main_Container' style='grid-area:App_Global_Header_Main_Container'>
-    <app-header class='App_Global_Header' #App_Global_Header [headerMetadata]='headerMetadata'></app-header>
-    <canvas class="Header_Canvas" #Header_Canvas></canvas>
+<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
+    <app-header class='appGlobalHeader' [headerMetadata]='headerMetadata' [currentLocale]='currentLocale' #appGlobalHeader></app-header>
+    <canvas class='headerCanvas' id='headerCanvas' #headerCanvas></canvas>
 </div>
-<div class="App_Global_Content" #GlobalContainer style='grid-area:App_Global_Content'>
-    <ng-container #AboutMe>
-        <app-dynamic-component-loader *ngIf='AboutMeMetadata === null'></app-dynamic-component-loader>
+<div class="appGlobalContent" #GlobalContainer style='grid-area:appGlobalContent'>
+    <ng-container #about_me>
+        <app-dynamic-component-loader *ngIf='about_me_metadata === null'></app-dynamic-component-loader>
     </ng-container>
-    <ng-container #Skills>
-        <app-dynamic-component-loader *ngIf='SkillsMetadata === null'></app-dynamic-component-loader>
+    <ng-container #skills>
+        <app-dynamic-component-loader *ngIf='skills_metadata === null'></app-dynamic-component-loader>
     </ng-container>
-    <ng-container #WorkExperience>
-        <app-dynamic-component-loader *ngIf='WorkExperienceMetadata === null'></app-dynamic-component-loader>
+    <ng-container #work_experience>
+        <app-dynamic-component-loader *ngIf='jobs_metadata === null'></app-dynamic-component-loader>
     </ng-container>
-    <ng-container #Education>
-        <app-dynamic-component-loader *ngIf='EducationMetadata === null'></app-dynamic-component-loader>
+    <ng-container #education>
+        <app-dynamic-component-loader *ngIf='education_metadata === null'></app-dynamic-component-loader>
     </ng-container>
-    <ng-container #References>
-        <app-dynamic-component-loader *ngIf='ReferencesMetadata === null'></app-dynamic-component-loader>
+    <ng-container #references>
+        <app-dynamic-component-loader *ngIf='references_metadata === null'></app-dynamic-component-loader>
     </ng-container>
-    <ng-container #LeaveMessage>
-        <app-dynamic-component-loader *ngIf='LeaveMessageMetadata === null'></app-dynamic-component-loader>
+    <ng-container #leave_message>
+        <app-dynamic-component-loader *ngIf='leave_message_metadata === null'></app-dynamic-component-loader>
     </ng-container>
 </div>
-<div class="App_Global_Margin" #GlobalLeftMargin style='grid-area:App_Global_Margin' id='App_Global_Margin'>
-    <canvas class="Nav_Bar_Canvas" #Nav_Bar_Canvas></canvas>
-    <a class='Categories_Url' *ngFor='let CATEGORY of categoriesTitle'
-        routerLink="{{'portfolio/' + CATEGORY.url}}">{{CATEGORY[this.currentLocale + '_Title']}}<br></a>
+<div class="appGlobalMargin" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>
+    <canvas class="navBarCanvas" #navBarCanvas></canvas>
+    <a class='categoriesUrl' *ngFor='let category of categoriesTitle'
+        routerLink="{{'portfolio/' + category.url}}">{{category[this.currentLocale + '_Title']}}<br></a>
 </div>
-<app-footer class="App_Global_Footer" style='grid-area:App_Global_Footer'></app-footer>
+<app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter'></app-footer>

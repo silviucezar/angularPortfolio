@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnChanges, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Locale } from 'src/app/Interfaces/Locale';
 
 @Component({
   selector: 'app-header',
@@ -15,13 +16,12 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input() headerMetadata: {} = null;
-  @ViewChild('App_Global_Header_Canvas', { static: true }) App_Global_Header_Canvas: ElementRef;
+  @Input() headerMetadata: {} = {};
+  @Input() currentLocale!: Locale;
 
   private loadingHeader: boolean = true;
-  private currentLocale: string = null;
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() { }
 
@@ -32,11 +32,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
       changes.hasOwnProperty('headerMetadata') &&
       changes.headerMetadata.previousValue !== undefined &&
       changes.headerMetadata.isFirstChange
-    ) {
-      this.loadingHeader = false;
-      console.log(this.loadingHeader)
-      console.log(this.headerMetadata)
-    }
+    ) this.loadingHeader = false;
   }
 
   ObjectKeys(obj: object): any {
