@@ -4,8 +4,8 @@ import { Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
-  styleUrls: ['./about-me.component.scss'],
-  host: { 'class': "App_Global_Content" }
+  styleUrls: ['./about-me.component.scss']
+
 })
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';

@@ -20,10 +20,10 @@ export class LocaleService {
         en_US_Title: 'Skills',
         url: 'skills'
       },
-      work_experience: {
+      jobs: {
         ro_RO_Title: 'Experienta Profesionala',
-        en_US_Title: 'Work Experience',
-        url: 'work-experience'
+        en_US_Title: 'Jobs',
+        url: 'jobs'
       },
       education: {
         ro_RO_Title: 'Educatie',

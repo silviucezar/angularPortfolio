@@ -1,4 +1,4 @@
-export interface CanvasProps {
+export interface CanvasSetup {
     NavBar?: NavBarCanvasProps;
     Header?: HeaderCanvasProps;
 }

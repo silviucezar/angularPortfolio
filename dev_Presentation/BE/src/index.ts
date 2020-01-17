@@ -17,6 +17,7 @@ function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
     }
     Promise.all(TABLE_QUERIES)
         .then((result: object[][]) => {
+            console.log(result)
             const FE_DATA: FrontEndDataTemplate = {
                 [locale]: {}
             }

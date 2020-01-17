@@ -3,7 +3,6 @@ import { DOCUMENT } from '@angular/common';
 import { CanvasSetup } from '../Classes/canvasSetup';
 import { CanvasService } from './canvas.service';
 import { UrlSubscription } from '../Interfaces/UrlSubscription';
-import { CanvasProps } from '../Interfaces/CanvasDetails';
 
 interface ViewportOrientation {
   current: string;
@@ -15,7 +14,7 @@ interface ViewportOrientation {
 })
 export class InitService {
 
-  private canvasSetup = new CanvasSetup(this._document);
+  private canvasSetup!: CanvasSetup;
   private currentYScrollRef!: number;
   private viewportOrientation: ViewportOrientation = {
     current: '',
@@ -27,19 +26,24 @@ export class InitService {
     @Inject(DOCUMENT) private _document: Document
   ) { }
 
-  init(domRootElementRef:ElementRef) {
+  init(domRootElementRef: ElementRef) {
+    this.canvasSetup = new CanvasSetup(
+      (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement),
+      (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement)
+    )
+    console.log(this.canvasSetup)
     // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
     // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
     // this.canvasObj = this.canvasService.getCanvas();
     // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
     this.loadCurrentOrientationCSS(domRootElementRef)
-    .then(() => {
-      this.setScrollEvent();
-      this.setResizeEvent(domRootElementRef);
-    })
-    .catch(() => {
-      //load error here (usually most probably because internet connection)
-    });
+      .then(() => {
+        this.setScrollEvent();
+        this.setResizeEvent(domRootElementRef);
+      })
+      .catch(() => {
+        //load error here (usually most probably because internet connection)
+      });
   }
 
   setAppStyle(domRootElementRef: ElementRef) {
@@ -98,13 +102,15 @@ export class InitService {
     }
 
     function toggleHeader(event: WheelEvent | TouchEvent) {
-      // SELF._document.querySelector("#App_Global_Grid").className = (() => {
-      //   if (event instanceof WheelEvent) {
-      //     return event.deltaY > 0 ? 'contracted' : "extended";
-      //   } else if (event instanceof TouchEvent) {
-      //     return touchStartY > event.changedTouches[0].clientY ? 'contracted' : "extended";
-      //   }
-      // })();
+      SELF._document.querySelector("#appGlobalGrid")!.className = ((): string => {
+        if (event instanceof WheelEvent) {
+          return event.deltaY > 0 ? 'contracted' : "extended";
+        } else if (event instanceof TouchEvent) {
+          return touchStartY > event.changedTouches[0].clientY ? 'contracted' : "extended";
+        } else {
+          return '';
+        }
+      })();
     }
   }
 

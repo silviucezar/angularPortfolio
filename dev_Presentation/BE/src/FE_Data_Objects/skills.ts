@@ -1,6 +1,5 @@
-export const SKILLS_RO = {
-    sectionTitle: 'Aptitudini',
-    SkillsCategory: {
+export const SkillsRo = {
+    SkillCategory: {
         Typescript: {
             img: 'dsadas',
             details: ['Angular', 'NodeJS @types']
@@ -24,8 +23,7 @@ export const SKILLS_RO = {
     }
 }
 
-export const SKILLS_EN = {
-    sectionTitle: 'Aptitudini',
+export const SkilsEn = {
     SkillsCategory: {
         Typescript: {
             img: 'dsadas',

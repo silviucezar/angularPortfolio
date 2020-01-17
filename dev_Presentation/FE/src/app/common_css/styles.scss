@@ -23,19 +23,7 @@ body {
   background : linear-gradient(90deg, dodgerblue 45%, deepskyblue);
 }
 
-#App_Global_Grid {
-  display : grid;
-  position: fixed;
-  top     : 0;
-  left    : 0;
-  grid-template-areas:
-    "App_Global_Header_Main_Container App_Global_Header_Main_Container"
-    "App_Global_Content App_Global_Margin"
-    "App_Global_Footer App_Global_Footer";
-  box-sizing: border-box;
-}
-
-.App_Global_Header_Main_Container {
+.appGlobalHeaderMainContainer {
   display              : grid;
   width                : 100%;
   grid-template-columns: 100fr;
@@ -43,91 +31,102 @@ body {
   transition           : 0.4s;
 }
 
-#App_Global_Grid.contracted .Contracted_Header_Hidden_Data {
-  display: none
-}
+#appGlobalGrid {
+  display            : grid;
+  position           : fixed;
+  top                : 0;
+  left               : 0;
+  grid-template-areas: "appGlobalHeaderMainContainer appGlobalHeaderMainContainer"
+    "appGlobalContent appGlobalMargin"
+    "appGlobalFooter appGlobalFooter";
+  box-sizing: border-box;
 
-@media only screen and (max-height: 1400px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 1100px;
-  }
-}
-
-@media only screen and (max-height: 1280px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 900px;
-  }
-}
-
-@media only screen and (max-height: 1000px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 725px;
-  }
-}
-
-@media only screen and (max-height: 800px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 550px;
-  }
-}
-
-@media only screen and (max-height: 520px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 500px;
-  }
-}
-
-@media only screen and (max-height: 640px) {
-  #App_Global_Grid.extended .App_Global_Header_Main_Container {
-    height: 475px;
+  .contracted .contractedHeaderHiddenData {
+    display: none
   }
 
-  @media only screen and(max-width:330px) {
-    #App_Global_Grid.extended .App_Global_Header_Main_Container {
-      height: 375px;
+  @media only screen and (max-height: 1400px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 1100px;
     }
   }
-}
 
-#App_Global_Grid.contracted .App_Global_Header_Main_Container {
-  height: 75px;
-}
+  @media only screen and (max-height: 1280px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 900px;
+    }
+  }
 
-#App_Global_Grid.contracted .App_Global_Header_Container_Data {
-  grid-template-rows: 100fr
-}
+  @media only screen and (max-height: 1000px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 725px;
+    }
+  }
 
-#App_Global_Grid.contracted .App_Global_Header_Container {
-  grid-template-columns: auto 75px 85px;
-  grid-template-rows   : 100%;
-  grid-template-areas  : 'App_Global_Header_Container_Image App_Global_Header_Container_Data';
-}
+  @media only screen and (max-height: 800px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 550px;
+    }
+  }
 
-#App_Global_Grid.contracted .App_Global_Header_Container_Image {
-  grid-area    : 1/3/1/3;
-  grid-template: auto 60px auto / auto 60px auto;
-}
+  @media only screen and (max-height: 520px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 500px;
+    }
+  }
 
-#App_Global_Grid.contracted .App_Global_Header_Container_Image div:nth-child(2) {
-  display      : grid;
-  grid-template: auto 50px auto / auto 50px auto;
-}
+  @media only screen and (max-height: 640px) {
+    .extended .appGlobalHeaderMainContainer {
+      height: 475px;
+    }
 
-#App_Global_Grid.contracted .App_Global_Header_Container_Data {
-  grid-area: 1/1
-}
+    @media only screen and(max-width:330px) {
+      .extended .appGlobalHeaderMainContainer {
+        height: 375px;
+      }
+    }
+  }
 
-#App_Global_Grid.contracted .App_Global_Phone_Details {
-  display   : block !important;
-  font-size : 50px;
-  text-align: center;
-  position  : relative;
-}
+  .contracted .appGlobalHeaderMainContainer {
+    height: 75px;
+  }
 
-#App_Global_Grid.contracted .fa-phone {
-  line-height: 75px;
-  bottom     : 0;
-  position   : absolute;
-  display    : block;
-  width      : 100%;
+  .contracted .appGlobalHeaderMainContainer {
+    grid-template-rows: 100fr
+  }
+
+  .contracted .appGlobalHeaderMainContainer {
+    grid-template-columns: auto 75px 85px;
+    grid-template-rows   : 100%;
+    grid-template-areas  : 'appGlobalHeaderContainerImage appGlobalHeaderContainerData';
+  }
+
+  .contracted .appGlobalHeaderContainerImage {
+    grid-area    : 1/3/1/3;
+    grid-template: auto 60px auto / auto 60px auto;
+  }
+
+  .contracted .appGlobalHeaderContainerImage div:nth-child(2) {
+    display      : grid;
+    grid-template: auto 50px auto / auto 50px auto;
+  }
+
+  .contracted .appGlobalHeaderContainerData {
+    grid-area: 1/1
+  }
+
+  .contracted .appGlobalPhoneDetails {
+    display   : block !important;
+    font-size : 50px;
+    text-align: center;
+    position  : relative;
+  }
+
+  .contracted .fa-phone {
+    line-height: 75px;
+    bottom     : 0;
+    position   : absolute;
+    display    : block;
+    width      : 100%;
+  }
 }

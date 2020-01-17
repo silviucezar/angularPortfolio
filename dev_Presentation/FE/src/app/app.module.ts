@@ -2,17 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './Components/Root/app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HeaderComponent } from './Components/header/header.component';
+import { HeaderComponent } from './Components/feader/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './Components/footer/footer.component';
 import { DynamicComponentLoaderComponent } from './Components/component-loader/dynamic-component-loader.component';
 import { AboutMeModule } from './Components/Content/about-me/about-me.module'
 import { SkillsModule } from './Components/Content/skills/skills.module';
 import { EducationModule } from './Components/Content/education/education.module';
-import { WorkExperienceComponent } from './Components/Content/work-experience/work-experience.component';
-import { WorkExperienceModule } from './Components/Content/work-experience/work-experience.module';
+import { JobsModule } from './Components/Content/jobs/jobs.module';
 import { ReferencesModule } from './Components/Content/references/references.module';
 import { LeaveMessageModule } from './Components/Content/leave-message/leave-message.module';
 
@@ -36,7 +35,7 @@ const AppRoutes: Routes = [
       path: "skills",
       children: []
     }, {
-      path: "work-experience",
+      path: "jobs",
       children: []
     }, {
       path: "education",
@@ -66,7 +65,7 @@ const AppRoutes: Routes = [
     AboutMeModule,
     SkillsModule,
     EducationModule,
-    WorkExperienceModule,
+    JobsModule,
     ReferencesModule,
     LeaveMessageModule,
     BrowserModule,

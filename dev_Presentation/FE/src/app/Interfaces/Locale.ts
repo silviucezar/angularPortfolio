@@ -1,12 +1,12 @@
 export interface Locale {
     locale: string;
-    categoriesTitle:LocaleCategory 
+    categoriesTitle: LocaleCategory
 }
 
 export interface LocaleCategory {
     about_me: CategoryDetails;
     skills: CategoryDetails;
-    work_experience: CategoryDetails;
+    jobs: CategoryDetails;
     education: CategoryDetails;
     references: CategoryDetails;
     leave_message: CategoryDetails;

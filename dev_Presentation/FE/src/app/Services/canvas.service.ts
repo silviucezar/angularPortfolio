@@ -1,5 +1,4 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { Canvas } from '../Classes/canvasSetup';
 import { NavBarCanvasProps, HeaderCanvasProps } from '../Interfaces/CanvasDetails';
 
 interface CanvasObject {
@@ -30,7 +29,7 @@ export class CanvasService {
   //   if (this.canvasObj[canvasPropertyName].ctx === null) this.canvasObj[canvasPropertyName].ctx = canvas.nativeElement.getContext('2d');
   //   if (currentUrlName) {
   //     this.canvasObj.NavBar.settings.previousIndex = this.canvasObj.NavBar.settings.currentIndex;
-  //     this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'WorkExperience', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
+  //     this.canvasObj.NavBar.settings.currentIndex = ['AboutMe', 'Skills', 'Jobs', 'Education', 'References', 'LeaveMessage'].indexOf(currentUrlName)
   //     this.canvasObj[canvasPropertyName].functionality.drawMenuCanvas();
   //   } else {
   //     console.log('her')
@@ -106,7 +105,7 @@ export class CanvasService {
   //   })();
   // }
 
-  getCanvas(): CanvasObject {
-    return this.canvasObj;
-  }
+  // getCanvas(): CanvasObject {
+  //   return this.canvasObj;
+  // }
 }

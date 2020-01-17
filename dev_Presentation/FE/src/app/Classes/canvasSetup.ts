@@ -1,18 +1,17 @@
-import { Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common'
 import { NavBarCanvasProps, HeaderCanvasProps } from '../Interfaces/CanvasDetails';
 
 export class CanvasSetup {
-  public NavBar: NavBarCanvasProps;
-  public Header: HeaderCanvasProps;
-  
+  public navBar: NavBarCanvasProps;
+  public header: HeaderCanvasProps;
+
   constructor(
-    private _document: Document
+    private navBarCanvas: HTMLCanvasElement,
+    private headerCanvas: HTMLCanvasElement
   ) {
 
-    this.NavBar = {
-      element: this._document.querySelector("#headerCanvas") as HTMLCanvasElement,
-      ctx: (this._document.querySelector("#headerCanvas") as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D,
+    this.navBar = {
+      element: this.navBarCanvas,
+      ctx: this.navBarCanvas.getContext('2d') as CanvasRenderingContext2D,
       settings: {
         previousIndex: '',
         currentIndex: '',
@@ -25,9 +24,9 @@ export class CanvasSetup {
         drawMenuCanvas: () => void {}
       }
     };
-    this.Header = {
-      element: this._document.querySelector("#headerCanvas") as HTMLCanvasElement,
-      ctx: (this._document.querySelector("#headerCanvas") as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D,
+    this.header = {
+      element: this.headerCanvas,
+      ctx: this.headerCanvas.getContext('2d') as CanvasRenderingContext2D,
       functionality: {
         drawInitialCanvas: () => void {}
       }

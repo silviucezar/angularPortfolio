@@ -3,46 +3,27 @@ import { HttpService } from 'src/app/Services/http.service';
 import { Subject } from 'rxjs';
 import { LocaleService } from 'src/app/Services/locale.service';
 import { UrlSubscription } from '../Interfaces/UrlSubscription';
-
-interface pageTemplateTranslationsInterface {
-  header: Lang;
-  components: ComponentsData;
-  footer: Lang;
-}
-
-interface ComponentsData {
-  about_me: Lang;
-  skills: Lang;
-  work_experience: Lang;
-  education: Lang;
-  references: Lang;
-  leave_message: Lang;
-}
-
-interface Lang {
-  ro_RO: null;
-  en_US: null;
-}
+import { ComponentsMetadata, ComponentsData, Lang } from '../Interfaces/ComponentsMetadata';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private pTemplateTranslations: pageTemplateTranslationsInterface = {
-    header: { ro_RO: null, en_US: null },
+  private componentsMetadata: ComponentsMetadata = {
+    header: { ro_RO: undefined, en_US: undefined },
     components: {
-      about_me: { ro_RO: null, en_US: null },
-      skills: { ro_RO: null, en_US: null },
-      work_experience: { ro_RO: null, en_US: null },
-      education: { ro_RO: null, en_US: null },
-      references: { ro_RO: null, en_US: null },
-      leave_message: { ro_RO: null, en_US: null }
+      about_me: { ro_RO: undefined, en_US: undefined },
+      skills: { ro_RO: undefined, en_US: undefined },
+      jobs: { ro_RO: undefined, en_US: undefined },
+      education: { ro_RO: undefined, en_US: undefined },
+      references: { ro_RO: undefined, en_US: undefined },
+      leave_message: { ro_RO: undefined, en_US: undefined }
     },
-    footer: { ro_RO: null, en_US: null }
+    footer: { ro_RO: undefined, en_US: undefined }
   };
 
-  private pageTemplateTranslations$ = new Subject<any>();
+  private componentsMetadata$ = new Subject<ComponentsMetadata>();
   private isInitialLoad = {
     ro_RO: true,
     en_US: true
@@ -59,15 +40,14 @@ export class DataService {
   }
 
   setCurrentRouteData(urlSubscription: UrlSubscription) {
-    const templateKeys:string[] = Object.keys(this.pTemplateTranslations.components);
+    const templateKeys: string[] = Object.keys(this.componentsMetadata.components);
     const dataToFetch = urlSubscription.dataToFetch;
     const componentIndex = templateKeys.indexOf(dataToFetch);
     const currentLoadStatusIsInitial = this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US'];
-
     if (
-      this.pTemplateTranslations.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null &&
-      this.pTemplateTranslations.components[templateKeys[componentIndex] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null &&
-      this.pTemplateTranslations.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== null
+      this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== undefined &&
+      this.componentsMetadata.components[templateKeys[componentIndex] as keyof ComponentsData][this.currentLocale as keyof Lang] !== undefined &&
+      this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== undefined
     ) return;
 
     this.httpService.doGetRequest("/", {
@@ -77,17 +57,16 @@ export class DataService {
     })
       .then(feData => {
         if (currentLoadStatusIsInitial) {
-          this.pTemplateTranslations.header[this.currentLocale as keyof Lang] = feData[this.currentLocale].headerData;
-          this.pTemplateTranslations.footer[this.currentLocale as keyof Lang] = feData[this.currentLocale].footerData;
+          this.componentsMetadata.header[this.currentLocale as keyof Lang] = feData[this.currentLocale].headerData;
+          this.componentsMetadata.footer[this.currentLocale as keyof Lang] = feData[this.currentLocale].footerData;
           this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US'] = false;
         }
-
-        for (const componentKey in feData[this.currentLocale].componentsData) {
-          if (this.pTemplateTranslations.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] === null) {
-            this.pTemplateTranslations.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] = feData[this.currentLocale].componentsData[componentKey];
+        for (const componentKey in feData[this.currentLocale as keyof Lang].componentsData) {
+          if (this.componentsMetadata.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] === undefined) {
+            this.componentsMetadata.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] = feData[this.currentLocale].componentsData[componentKey];
           }
         }
-        this.pageTemplateTranslations$.next(this.pTemplateTranslations);
+        this.componentsMetadata$.next(this.componentsMetadata);
       })
       .catch(e => {
         console.log(e)
@@ -95,6 +74,6 @@ export class DataService {
   }
 
   getPageTemplate(): Subject<any> {
-    return this.pageTemplateTranslations$;
+    return this.componentsMetadata$;
   }
 }

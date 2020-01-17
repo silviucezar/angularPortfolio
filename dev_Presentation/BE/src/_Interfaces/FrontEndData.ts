@@ -32,7 +32,7 @@ interface HeaderTemplate {
 interface ComponentsTemplate {
     AboutMe: InitialDataKey;
     Skills: InitialDataKey;
-    WorkExperience: InitialDataKey;
+    Jobs: InitialDataKey;
     Education: InitialDataKey;
     References: InitialDataKey;
     LeaveMessage: InitialDataKey;

@@ -1,9 +1,9 @@
-import { ABOUT_ME_RO, ABOUT_ME_EN } from '../FE_Data_Objects/aboutMe';
-import { SKILLS_RO, SKILLS_EN } from '../FE_Data_Objects/skills';
-import { WORK_EXPERIENCE_RO,WORK_EXPERIENCE_EN } from '../FE_Data_Objects/workExperience';
-import { EDUCATION_RO,EDUCATION_EN } from '../FE_Data_Objects/education';
-import { REFERENCES_RO,REFERENCES_EN } from '../FE_Data_Objects/references';
-import { LEAVE_MESSAGE_RO,LEAVE_MESSAGE_EN } from '../FE_Data_Objects/LeaveMessage';
+import { AboutMeRo, AboutMeEn } from '../FE_Data_Objects/aboutMe';
+import { SkillsRo, SkilsEn } from '../FE_Data_Objects/skills';
+import { JobsRo, JobsEn } from '../FE_Data_Objects/jobs';
+import { EducationRo, EducationEn } from '../FE_Data_Objects/education';
+import { ReferencesRo, ReferencesEn } from '../FE_Data_Objects/references';
+import { LeaveMessageRo, LeaveMessageEn } from '../FE_Data_Objects/leaveMessage';
 
 export class DBQuries {
 
@@ -75,18 +75,18 @@ export class DBQuries {
                     prefix TEXT NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('AboutMe_Skills','${JSON.stringify(ABOUT_ME_RO)}','ro_RO','AboutMe_ro_RO'),
-                    ('AboutMe_Skills','${JSON.stringify(ABOUT_ME_EN)}','en_US','AboutMe_en_US'),
-                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SKILLS_RO)}','ro_RO','Skills_ro_RO'),
-                    ('AboutMe_Skills_WorkExperience','${JSON.stringify(SKILLS_EN)}','en_US','Skills_en_US'),
-                    ('Skills_WorkExperience_Education','${JSON.stringify(WORK_EXPERIENCE_RO)}','ro_RO','WorkExperience_ro_RO'),
-                    ('Skills_WorkExperience_Education','${JSON.stringify(WORK_EXPERIENCE_EN)}','en_US','WorkExperience_en_US'),
-                    ('WorkExperience_Education_References','${JSON.stringify(EDUCATION_RO)}','ro_RO','Education_ro_RO'),
-                    ('WorkExperience_Education_References','${JSON.stringify(EDUCATION_EN)}','en_US','Education_en_US'),
-                    ('Education_References_LeaveMessage','${JSON.stringify(REFERENCES_RO)}','ro_RO','References_ro_RO'),
-                    ('Education_References_LeaveMessage','${JSON.stringify(REFERENCES_EN)}','en_US','References_en_US'),
-                    ('References_LeaveMessage','${JSON.stringify(LEAVE_MESSAGE_RO)}','ro_RO','LeaveMessage_ro_RO'),
-                    ('References_LeaveMessage','${JSON.stringify(LEAVE_MESSAGE_EN)}','en_US','LeaveMessage_en_US')
+                    ('about_me_skills','${JSON.stringify(AboutMeRo)}','ro_RO','about_me_ro_RO'),
+                    ('about_me_skills','${JSON.stringify(AboutMeEn)}','en_US','about_me_en_US'),
+                    ('about_me_skills_jobs','${JSON.stringify(SkillsRo)}','ro_RO','skills_ro_RO'),
+                    ('about_me_skills_jobs','${JSON.stringify(SkilsEn)}','en_US','skills_en_US'),
+                    ('skills_jobs_education','${JSON.stringify(JobsRo)}','ro_RO','jobs_ro_RO'),
+                    ('skills_jobs_education','${JSON.stringify(JobsEn)}','en_US','jobs_en_US'),
+                    ('jobs_education_references','${JSON.stringify(EducationRo)}','ro_RO','education_ro_RO'),
+                    ('jobs_education_references','${JSON.stringify(EducationEn)}','en_US','education_en_US'),
+                    ('education_references_leave_message','${JSON.stringify(ReferencesRo)}','ro_RO','references_ro_RO'),
+                    ('education_references_leave_message','${JSON.stringify(ReferencesEn)}','en_US','references_en_US'),
+                    ('references_leave_message','${JSON.stringify(LeaveMessageRo)}','ro_RO','leave_message_ro_RO'),
+                    ('references_leave_message','${JSON.stringify(LeaveMessageEn)}','en_US','leave_message_en_US')
                 `
             ]
         ];
