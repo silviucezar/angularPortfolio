@@ -17,8 +17,10 @@ export class UrlListenerService {
 
   constructor(
     private router: Router,
-    private dataService:DataService
-  ) {
+    private dataService: DataService
+  ) { }
+
+  listen() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
       this.urlSubscriptionBehaviorSubject$.next({
         dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : event.url.replace('-', '_'),
@@ -26,9 +28,5 @@ export class UrlListenerService {
       });
       this.dataService.setCurrentRouteData(this.urlSubscriptionBehaviorSubject$.value);
     });
-  }
-
-  getUrlSubscription():BehaviorSubject<UrlSubscription> {
-    return this.urlSubscriptionBehaviorSubject$;
   }
 }

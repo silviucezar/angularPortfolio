@@ -2,7 +2,9 @@ import { Injectable, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { CanvasSetup } from '../Classes/canvasSetup';
 import { CanvasService } from './canvas.service';
-import { UrlSubscription } from '../Interfaces/UrlSubscription';
+import { ContainerRefs, ComponentsMetadata } from '../Interfaces/ComponentsMetadata';
+import { DataService } from './data.service';
+import { LazyService } from './lazy.service';
 
 interface ViewportOrientation {
   current: string;
@@ -15,6 +17,7 @@ interface ViewportOrientation {
 export class InitService {
 
   private canvasSetup!: CanvasSetup;
+  private wasInit: Boolean = false;
   private currentYScrollRef!: number;
   private viewportOrientation: ViewportOrientation = {
     current: '',
@@ -23,27 +26,35 @@ export class InitService {
 
   constructor(
     private canvasService: CanvasService,
+    private dataService: DataService,
+    private lazyService: LazyService,
     @Inject(DOCUMENT) private _document: Document
   ) { }
 
-  init(domRootElementRef: ElementRef) {
-    this.canvasSetup = new CanvasSetup(
-      (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement),
-      (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement)
-    )
-    console.log(this.canvasSetup)
-    // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
-    // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
-    // this.canvasObj = this.canvasService.getCanvas();
-    // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
+  init(domRootElementRef: ElementRef, containerRefs: ContainerRefs) {
     this.loadCurrentOrientationCSS(domRootElementRef)
       .then(() => {
-        this.setScrollEvent();
-        this.setResizeEvent(domRootElementRef);
+        this.canvasSetup = new CanvasSetup(
+          (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement),
+          (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement)
+        )
+        if (!this.wasInit) {
+          this.setScrollEvent();
+          this.setResizeEvent(domRootElementRef);
+          this.wasInit = true;
+        }
+        this.lazyService.setContainerRefs(containerRefs);
+        // this.dataService.getRoutesData().subscribe((componentsMetadata:ComponentsMetadata) => {
+        //   this.lazyService.load(componentsMetadata.currentUrl);
+        // });
       })
       .catch(() => {
         //load error here (usually most probably because internet connection)
       });
+    // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
+    // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
+    // this.canvasObj = this.canvasService.getCanvas();
+    // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
   }
 
   setAppStyle(domRootElementRef: ElementRef) {

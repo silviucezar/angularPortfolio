@@ -1,7 +1,10 @@
+import { ViewContainerRef } from '@angular/core';
+
 export interface ComponentsMetadata {
     header: Lang;
     components: ComponentsData;
     footer: Lang;
+    currentUrl: string;
 }
 
 export interface ComponentsData {
@@ -44,14 +47,14 @@ interface HeaderFooterTranslationKeys {
     info: string;
 }
 
-interface AboutMeMetadata {
+export interface AboutMeMetadata {
     sectionTitle: string;
     sectionDetails: string;
     sectionGoal: string;
     sectionSpareTime: string;
 }
 
-interface SkillsMetadata {
+export interface SkillsMetadata {
     sectionTitle: string;
     SkillCategory: SkillCategory;
 
@@ -66,22 +69,22 @@ interface SkillCategory {
 }
 
 
-interface JobsMetadata {
+export interface JobsMetadata {
     sectionTitle: string;
     sectionDetails: string;
 }
 
-interface EducationMetadata {
+export interface EducationMetadata {
     sectionTitle: string;
     sectionDetails: string;
 }
 
-interface ReferencesMetadata {
+export interface ReferencesMetadata {
     sectionTitle: string;
     sectionDetails: string;
 }
 
-interface LeaveMessageMetadata {
+export interface LeaveMessageMetadata {
     sectionTitle: string;
     sectionDetails: string;
 }
@@ -89,4 +92,13 @@ interface LeaveMessageMetadata {
 interface SubCategoryDetails {
     img?: string;
     details: string | string[];
+}
+
+export interface ContainerRefs {
+    about_me: ViewContainerRef;
+    skills: ViewContainerRef;
+    jobs: ViewContainerRef;
+    education: ViewContainerRef;
+    references: ViewContainerRef;
+    leave_message: ViewContainerRef;
 }

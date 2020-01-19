@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { LocaleService } from 'src/app/Services/locale.service';
 import { UrlSubscription } from '../Interfaces/UrlSubscription';
 import { ComponentsMetadata, ComponentsData, Lang } from '../Interfaces/ComponentsMetadata';
+import { Locale } from '../Interfaces/Locale';
+import { LazyService } from './lazy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class DataService {
       references: { ro_RO: undefined, en_US: undefined },
       leave_message: { ro_RO: undefined, en_US: undefined }
     },
-    footer: { ro_RO: undefined, en_US: undefined }
+    footer: { ro_RO: undefined, en_US: undefined },
+    currentUrl: ''
   };
 
   private componentsMetadata$ = new Subject<ComponentsMetadata>();
@@ -34,15 +37,16 @@ export class DataService {
   constructor
     (
       private httpService: HttpService,
-      private localeService: LocaleService
+      private localeService: LocaleService,
+      private lazyService: LazyService
     ) {
-    this.localeService.getCurrentLocale().subscribe(localeValue => this.currentLocale = localeValue['locale']);
+    this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => this.currentLocale = localeValue.locale);
   }
 
   setCurrentRouteData(urlSubscription: UrlSubscription) {
     const templateKeys: string[] = Object.keys(this.componentsMetadata.components);
-    const dataToFetch = urlSubscription.dataToFetch;
-    const componentIndex = templateKeys.indexOf(dataToFetch);
+    const dataToFetchUrl = urlSubscription.dataToFetch;
+    const componentIndex = templateKeys.indexOf(dataToFetchUrl);
     const currentLoadStatusIsInitial = this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US'];
     if (
       this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1] as keyof ComponentsData][this.currentLocale as keyof Lang] !== undefined &&
@@ -52,10 +56,11 @@ export class DataService {
 
     this.httpService.doGetRequest("/", {
       locale: this.currentLocale,
-      dataToFetch: dataToFetch,
+      dataToFetch: dataToFetchUrl,
       isInitialLoad: this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US']
     })
       .then(feData => {
+        this.componentsMetadata.currentUrl = dataToFetchUrl;
         if (currentLoadStatusIsInitial) {
           this.componentsMetadata.header[this.currentLocale as keyof Lang] = feData[this.currentLocale].headerData;
           this.componentsMetadata.footer[this.currentLocale as keyof Lang] = feData[this.currentLocale].footerData;
@@ -66,14 +71,19 @@ export class DataService {
             this.componentsMetadata.components[componentKey as keyof ComponentsData][this.currentLocale as keyof Lang] = feData[this.currentLocale].componentsData[componentKey];
           }
         }
-        this.componentsMetadata$.next(this.componentsMetadata);
+        this.lazyService.load(dataToFetchUrl)
+          .then(() => {
+            console.log(this.componentsMetadata)
+            this.componentsMetadata$.next(this.componentsMetadata);
+          })
       })
       .catch(e => {
         console.log(e)
       });
   }
 
-  getPageTemplate(): Subject<any> {
+  getRoutesData(): Subject<ComponentsMetadata> {
+    console.log('asda')
     return this.componentsMetadata$;
   }
 }

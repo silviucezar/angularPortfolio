@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { DataService } from '../../Services/data.service';
-import { LoadersService } from '../../Services/lazy.service';
 import { Locale, CategoryDetails, LocaleCategory } from '../../Interfaces/Locale';
 import { InitService } from '../../Services/init.service';
 import { LocaleService } from '../../Services/locale.service';
-import { UrlListenerService } from '../../Services/url-listener.service';
-import { ComponentsMetadata, ComponentsData, Lang } from '../../Interfaces/ComponentsMetadata'
+import { UrlListenerService } from 'src/app/Services/url-listener.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,23 +23,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('leave_message', { read: ViewContainerRef, static: true }) leave_message!: ViewContainerRef;
 
   private categories: CategoryDetails[] = [];
-  private header_metadata = {};
-  private about_me_metadata: {} = {};
-  private skills_metadata: {} = {};
-  private jobs_metadata: {} = {};
-  private education_metadata: {} = {};
-  private references_metadata: {} = {};
-  private leave_message_metadata: {} = {};
-  private footer_metadata: {} = {};
-
   private currentLocale: string = 'en_US';
   constructor(
-    private dataService: DataService,
-    private lazyService: LoadersService,
     private localeService: LocaleService,
     private initService: InitService,
     private domRootElementRef: ElementRef,
-    private urlListenerService: UrlListenerService
+    private urlListenerService: UrlListenerService,
+
   ) {
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
       if (this.categories.length === 0) {
@@ -56,29 +43,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.initService.init(this.domRootElementRef);
-
-    this.lazyService.setComponentContainerRef({
-      AboutMe: this.about_me,
-      Skills: this.skills,
+    this.urlListenerService.listen();
+    this.initService.init(this.domRootElementRef, {
+      about_me: this.about_me,
+      skills: this.skills,
       jobs: this.jobs,
-      Education: this.education,
-      References: this.references,
-      LeaveMessage: this.leave_message
-    });
-
-    this.dataService.getPageTemplate().subscribe((pageTemplateTranslations: ComponentsMetadata) => {
-      const currentMetadata: any = {};
-      for (const translationCategory in pageTemplateTranslations) {
-        if (translationCategory.match(/header|footer/gi)) {
-          (this[`${translationCategory}_metadata` as 'about_me_metadata']) = pageTemplateTranslations[translationCategory as keyof ComponentsMetadata];
-        } else {
-          for (const componentCategory in pageTemplateTranslations.components) {
-            currentMetadata[componentCategory] = this[`${translationCategory}_metadata` as 'about_me_metadata'] = pageTemplateTranslations.components[componentCategory as keyof ComponentsData][this.currentLocale as keyof Lang];
-          }
-        }
-      }
-      this.urlListenerService.getUrlSubscription().pipe(take(2)).subscribe(url => { if (url.dataToFetch !== null) this.lazyService.componentLoad(url, currentMetadata); });
+      education: this.education,
+      references: this.references,
+      leave_message: this.leave_message
     });
   }
 
