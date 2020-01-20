@@ -84,7 +84,6 @@ App.get("/api/video", (req: Request, res: Response) => {
 App.get("/api/", (req: Request, res: Response) => {
     process.env.NODE_ENV = "dev";
     const dataToFetch = req.query.dataToFetch;
-    console.log(dataToFetch)
     const TABLES = req.query.isInitialLoad ?
         [
             { Table: 'text_translations', Columns: 'text,prefix', Where: `WHERE (locale='all' OR locale=$1) AND (prefix LIKE $2)`, Params: [req.query.locale, "intro_%"] },

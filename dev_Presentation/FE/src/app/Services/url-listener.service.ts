@@ -26,7 +26,7 @@ export class UrlListenerService {
         dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : event.url.replace('-', '_'),
         path: event["url"].replace("/portfolio/", "")
       });
-      this.dataService.setCurrentRouteData(this.urlSubscriptionBehaviorSubject$.value);
+      this.dataService.setCurrentRouteDataUsingUrl(this.urlSubscriptionBehaviorSubject$.value.dataToFetch);
     });
   }
 }

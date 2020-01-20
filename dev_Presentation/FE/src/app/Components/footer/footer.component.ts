@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {LocaleService} from '../../Services/locale.service';
+import { LocaleService } from '../../Services/locale.service';
+import { DataService } from 'src/app/Services/data.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,12 +9,15 @@ import {LocaleService} from '../../Services/locale.service';
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private locale:LocaleService) { }
+  constructor(
+    private locale: LocaleService,
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
   }
 
   toggleLanguage() {
-    this.locale.setCurrentLocale();
+    this.dataService.setCurrentRouteDataUsingLang(this.locale.setCurrentLocale());
   }
 }

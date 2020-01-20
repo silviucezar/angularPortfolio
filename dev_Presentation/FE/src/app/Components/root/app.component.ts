@@ -32,13 +32,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ) {
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
-      if (this.categories.length === 0) {
-        for (const localeValueProps in localeValue.categoriesTitle) {
-          this.categories.push(localeValue.categoriesTitle[localeValueProps as keyof LocaleCategory] as CategoryDetails)
-        }
-        this.currentLocale = localeValue.locale;
+      this.categories = [];
+      for (const localeValueProps in localeValue.categoriesTitle) {
+        this.categories.push(localeValue.categoriesTitle[localeValueProps as keyof LocaleCategory] as CategoryDetails)
       }
-      console.log(this.categories)
+      this.currentLocale = localeValue.locale;
     });
   }
 
@@ -51,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       education: this.education,
       references: this.references,
       leave_message: this.leave_message
-    });
+    }, true);
   }
 
   ngAfterViewInit() { }

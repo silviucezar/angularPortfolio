@@ -1,5 +1,5 @@
 .appGlobalHeaderContainerData {
-  grid-template-rows: 30fr repeat(4, 17fr);
+  grid-template-rows: 30fr repeat(5, 14fr);
 }
 
 .appGlobalHeaderContainer {
@@ -34,14 +34,11 @@
   text-align : right;
   font-family: "open sans";
   align-items: center;
-  font-size  : 3vw;
+  font-size  : 1rem;
 }
 
 .appGlobalHeaderContainerDataText {
-  font-size  : 1.5vw;
   grid-column: 2;
-  opacity    : 1 !important;
-  display    : block;
   width      : 100%;
   height     : 50%;
 }

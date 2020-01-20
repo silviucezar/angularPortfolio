@@ -4,7 +4,8 @@ export interface ComponentsMetadata {
     header: Lang;
     components: ComponentsData;
     footer: Lang;
-    currentUrl: string;
+    dataToFetch: string;
+    currentLocale: string;
 }
 
 export interface ComponentsData {

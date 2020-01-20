@@ -32,17 +32,13 @@
               "src/app/Common_CSS/styles.scss",
               "src/app/Common_CSS/styles_loading.scss",
               {
-                "input": "src/app/Common_CSS/styles_media_queries.scss",
-                "bundleName": "desktop-css",
+                "input": "src/app/Common_CSS/portrait-style.scss",
+                "bundleName": "portrait-css",
                 "inject": false
               },
               {
-                "input": "src/app/Common_CSS/styles_mobile_portrait.scss",
-                "bundleName": "mobile-portrait-css",
-                "inject": false
-              },              {
-                "input": "src/app/Common_CSS/styles_mobile_landscape.scss",
-                "bundleName": "mobile-landscape-css",
+                "input": "src/app/Common_CSS/landscape-style.scss",
+                "bundleName": "landscape-css",
                 "inject": false
               }
             ],
@@ -120,7 +116,8 @@
                 "input": "src/app/Common_CSS/styles_mobile_portrait.scss",
                 "bundleName": "mobile-portrait-css",
                 "inject": false
-              },              {
+              },
+              {
                 "input": "src/app/Common_CSS/styles_mobile_landscape.scss",
                 "bundleName": "mobile-landscape-css",
                 "inject": false

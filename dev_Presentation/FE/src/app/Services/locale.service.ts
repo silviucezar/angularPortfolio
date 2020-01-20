@@ -47,9 +47,10 @@ export class LocaleService {
 
   getCurrentLocale(): BehaviorSubject<Locale> { return this.currentLocale$ };
 
-  setCurrentLocale() {
-    const CURRENT_LOCALE_VALUE = this.currentLocale$.value;
-    CURRENT_LOCALE_VALUE.locale = CURRENT_LOCALE_VALUE.locale === 'ro_RO' ? 'en_US' : 'ro_RO';
-    this.currentLocale$.next(CURRENT_LOCALE_VALUE)
+  setCurrentLocale(): string {
+    const currentLocaleValue = this.currentLocale$.value;
+    currentLocaleValue.locale = currentLocaleValue.locale === 'ro_RO' ? 'en_US' : 'ro_RO';
+    this.currentLocale$.next(currentLocaleValue)
+    return currentLocaleValue.locale
   };
 }

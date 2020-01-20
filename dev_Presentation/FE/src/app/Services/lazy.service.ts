@@ -48,7 +48,6 @@ export class LazyService {
         const componentModule = `${this.componentsTemplate[componentName as keyof ComponentsData].module}Module`;
         loadedComponents.push(
           import(`../Components/Content/${componentKey}/${componentKey}.module`).then(m => {
-            console.log(componentModule)
             const factory = this.r.resolveComponentFactory(this.c.compileModuleAndAllComponentsSync(m[componentModule]).componentFactories[0].componentType);
             (this.componentsTemplate[componentName as keyof ComponentsData].containerRef as any).createComponent(factory);
             this.componentsTemplate[componentName as keyof ComponentsData].isLoaded = true;
@@ -75,6 +74,5 @@ export class LazyService {
     for (const containerRef in containerRefs) {
       this.componentsTemplate[containerRef as keyof ComponentsTemplate].containerRef = containerRefs[containerRef as keyof ComponentsTemplate]
     }
-    console.log(this.componentsTemplate)
   }
 }

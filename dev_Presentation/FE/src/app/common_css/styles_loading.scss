@@ -1,33 +1,3 @@
-.rectLoading {
-  background: linear-gradient(90deg,
-      deepskyblue,
-      transparent 50%,
-      transparent 55%,
-      deepskyblue 60%,
-      transparent 60%,
-      deepskyblue 60%);
-  border-radius: 30px;
-  animation    : barberpole 20s linear infinite;
-}
-
-@keyframes barberpole {
-  0% {
-    background-position: -1500px 0;
-  }
-
-  100% {
-    background-position: 1500px 0;
-  }
-}
-
-.Pulsate_Loading {
-  // border    : 1px solid lightgrey;
-  border-radius: 2px;
-  animation    : barberpole 2s linear infinite;
-  height       : 25px;
-  animation    : 2s pulsate infinite ease-in;
-}
-
 @keyframes spiiiin {
   from {
     transform: rotate(0deg);
@@ -35,33 +5,5 @@
 
   to {
     transform: rotate(360deg);
-  }
-}
-
-.appGlobalContentLoader {
-  display: block;
-  width  : 100%;
-  height : 10.4vh;
-  padding: 4px
-}
-
-.appGlobalContentLoaderAnimation {
-  width        : 100%;
-  height       : 100%;
-  animation    : 1.5s pulsate infinite ease-in-out;
-  border-radius: 5px;
-}
-
-@keyframes pulsate {
-  0% {
-    background: transparent;
-  }
-
-  50% {
-    background: lightblue;
-  }
-
-  100% {
-    background: transparent;
   }
 }
