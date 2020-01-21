@@ -1,4 +1,5 @@
 import { ViewContainerRef } from '@angular/core';
+import { HeaderTemplate, FooterTemplate, ComponentsTemplate } from '../Interfaces/FrontEndData';
 
 export interface ComponentsMetadata {
     header: Lang;
@@ -18,34 +19,8 @@ export interface ComponentsData {
 }
 
 export interface Lang {
-    ro_RO?: PageSectionsTranslations;
-    en_US?: PageSectionsTranslations;
-}
-
-export interface PageSectionsTranslations {
-    intro_header_image_all?: HeaderFooterTranslationKeys;
-    intro_header_first_name?: HeaderFooterTranslationKeys;
-    intro_header_last_name?: HeaderFooterTranslationKeys;
-    intro_header_current_role?: HeaderFooterTranslationKeys;
-    intro_header_email?: HeaderFooterTranslationKeys;
-    intro_header_age?: HeaderFooterTranslationKeys;
-    intro_header_birth_date?: HeaderFooterTranslationKeys;
-    intro_header_gender?: HeaderFooterTranslationKeys;
-    intro_header_phone_no?: HeaderFooterTranslationKeys;
-    intro_footer_fetching_data?: HeaderFooterTranslationKeys;
-    intro_footer_settings?: HeaderFooterTranslationKeys;
-    about_me?: AboutMeMetadata;
-    skills?: SkillsMetadata;
-    jobs?: JobsMetadata;
-    education?: EducationMetadata;
-    references?: ReferencesMetadata;
-    leave_message?: LeaveMessageMetadata;
-
-}
-
-interface HeaderFooterTranslationKeys {
-    text: string;
-    info: string;
+    ro_RO?: HeaderTemplate | ComponentsTemplate | FooterTemplate;
+    en_US?: HeaderTemplate | ComponentsTemplate | FooterTemplate;
 }
 
 export interface AboutMeMetadata {
@@ -58,10 +33,9 @@ export interface AboutMeMetadata {
 export interface SkillsMetadata {
     sectionTitle: string;
     SkillCategory: SkillCategory;
-
 }
 
-interface SkillCategory {
+export interface SkillCategory {
     Typescript: SubCategoryDetails;
     Javascript: SubCategoryDetails;
     NodeJS: SubCategoryDetails;

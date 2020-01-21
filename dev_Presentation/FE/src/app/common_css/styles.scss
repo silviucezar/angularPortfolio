@@ -79,7 +79,7 @@ body {
 }
 
 .contracted .appGlobalPhoneDetails {
-  display   : block !important;
+  display   : grid !important;
   font-size : 50px;
   text-align: center;
   position  : relative;
@@ -90,7 +90,7 @@ body {
 }
 
 .contracted .appGlobalHeaderContainerDataText.name {
-  font-size: 1.6rem
+  font-size: 1.3rem
 }
 
 .appHeaderRowContent {
@@ -103,4 +103,14 @@ body {
   position   : absolute;
   display    : block;
   width      : 100%;
+}
+
+@keyframes spiiiin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

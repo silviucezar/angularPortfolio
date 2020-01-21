@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
 
   private currentLocale!: keyof Lang;
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-
   private loadingHeader: Boolean = true;
   constructor(
     private dataService: DataService
@@ -26,7 +25,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
       this.loadingHeader = false;
       this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.currentLocale] = componentsMetadata.header[this.currentLocale];
-      console.log(this.metadata[this.currentLocale])
     });
   }
 

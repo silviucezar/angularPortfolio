@@ -24,11 +24,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private categories: CategoryDetails[] = [];
   private currentLocale: string = 'en_US';
+  private loadedCSS: Boolean = false;
+
   constructor(
     private localeService: LocaleService,
     private initService: InitService,
     private domRootElementRef: ElementRef,
-    private urlListenerService: UrlListenerService,
+    private urlListenerService: UrlListenerService
 
   ) {
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
@@ -41,15 +43,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.urlListenerService.listen();
-    this.initService.init(this.domRootElementRef, {
+    this.urlListenerService.syncLazyLoadWithUrlListening({
       about_me: this.about_me,
       skills: this.skills,
       jobs: this.jobs,
       education: this.education,
       references: this.references,
       leave_message: this.leave_message
-    }, true);
+    });
+    this.urlListenerService.listen();
+    this.initService.init(this.domRootElementRef, true);
+
   }
 
   ngAfterViewInit() { }

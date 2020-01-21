@@ -1,23 +1,17 @@
-export interface DBDataTemplate {
-    text?: string;
-    prefix?: string;
-    string_key?: string;
-    info?: any
-}
+import { AboutMeMetadata, SkillsMetadata, LeaveMessageMetadata, JobsMetadata, EducationMetadata, ReferencesMetadata } from './ComponentsMetadata';
 
-export interface FrontEndDataTemplate {
+export interface FrontEndData {
     ro_RO?: ComponentsDataStructure,
     en_US?: ComponentsDataStructure;
-
 }
 
-interface ComponentsDataStructure {
+export interface ComponentsDataStructure {
     headerData?: HeaderTemplate,
-    componentsData: ComponentsTemplate | {},
+    componentsData: ComponentsTemplate,
     footerData?: FooterTemplate
 }
 
-interface HeaderTemplate {
+export interface HeaderTemplate {
     image?: string;
     intro_header_first_name?: InitialDataKey;
     intro_header_current_role?: InitialDataKey;
@@ -29,21 +23,21 @@ interface HeaderTemplate {
     intro_header_about_me?: InitialDataKey;
 }
 
-interface ComponentsTemplate {
-    about_me: InitialDataKey;
-    skills: InitialDataKey;
-    jobs: InitialDataKey;
-    education: InitialDataKey;
-    references: InitialDataKey;
-    leave_message: InitialDataKey;
+export interface ComponentsTemplate {
+    about_me: AboutMeMetadata;
+    skills: SkillsMetadata;
+    jobs: JobsMetadata;
+    education: EducationMetadata;
+    references: ReferencesMetadata;
+    leave_message: LeaveMessageMetadata;
 }
 
-interface FooterTemplate {
+export interface FooterTemplate {
     intro_footer_fetching_data?: InitialDataKey;
     intro_footer_settings?: InitialDataKey;
 }
 
 interface InitialDataKey {
-    text: any;
-    info?: any;
+    text: string;
+    info?: {};
 }

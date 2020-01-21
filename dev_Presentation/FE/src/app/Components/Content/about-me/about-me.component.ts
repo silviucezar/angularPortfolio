@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
+import { DataService } from 'src/app/Services/data.service';
+import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 
 @Component({
   selector: 'app-about-me',
@@ -10,7 +11,20 @@ import { Meta } from '@angular/platform-browser';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  constructor() { }
+  private currentLocale!: keyof Lang;
+  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
+  private loadingAboutMe: Boolean = true;
+
+  constructor(
+    private dataService: DataService
+  ) {
+    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
+      this.loadingAboutMe = false;
+      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
+      this.metadata[this.currentLocale] = componentsMetadata.components.about_me[this.currentLocale];
+      console.log(this.metadata[this.currentLocale])
+    });
+  }
 
   ngOnInit() {
 

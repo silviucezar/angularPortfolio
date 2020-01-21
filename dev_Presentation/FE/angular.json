@@ -30,7 +30,6 @@
             "extractCss": true,
             "styles": [
               "src/app/Common_CSS/styles.scss",
-              "src/app/Common_CSS/styles_loading.scss",
               {
                 "input": "src/app/Common_CSS/portrait-style.scss",
                 "bundleName": "portrait-css",

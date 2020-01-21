@@ -4,6 +4,8 @@ import { filter } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { UrlSubscription } from '../Interfaces/UrlSubscription';
 import { DataService } from './data.service';
+import { LazyService } from './lazy.service';
+import { ContainerRefs } from '../Interfaces/ComponentsMetadata';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,13 @@ export class UrlListenerService {
 
   constructor(
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private lazyService: LazyService
   ) { }
+
+  syncLazyLoadWithUrlListening(containerRefs: ContainerRefs) {
+    this.lazyService.setContainerRefs(containerRefs);
+  }
 
   listen() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
