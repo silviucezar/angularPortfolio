@@ -1,5 +1,5 @@
 import { AboutMeRo, AboutMeEn } from '../FE_Data_Objects/aboutMe';
-import { SkillsRo, SkilsEn } from '../FE_Data_Objects/skills';
+import { SkillsRo, SkillsEn } from '../FE_Data_Objects/skills';
 import { JobsRo, JobsEn } from '../FE_Data_Objects/jobs';
 import { EducationRo, EducationEn } from '../FE_Data_Objects/education';
 import { ReferencesRo, ReferencesEn } from '../FE_Data_Objects/references';
@@ -78,7 +78,7 @@ export class DBQuries {
                     ('about_me_skills','${JSON.stringify(AboutMeRo)}','ro_RO','about_me_ro_RO'),
                     ('about_me_skills','${JSON.stringify(AboutMeEn)}','en_US','about_me_en_US'),
                     ('about_me_skills_jobs','${JSON.stringify(SkillsRo)}','ro_RO','skills_ro_RO'),
-                    ('about_me_skills_jobs','${JSON.stringify(SkilsEn)}','en_US','skills_en_US'),
+                    ('about_me_skills_jobs','${JSON.stringify(SkillsEn)}','en_US','skills_en_US'),
                     ('skills_jobs_education','${JSON.stringify(JobsRo)}','ro_RO','jobs_ro_RO'),
                     ('skills_jobs_education','${JSON.stringify(JobsEn)}','en_US','jobs_en_US'),
                     ('jobs_education_references','${JSON.stringify(EducationRo)}','ro_RO','education_ro_RO'),

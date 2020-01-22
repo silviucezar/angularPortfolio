@@ -13,23 +13,19 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
 
   private currentLocale!: keyof Lang;
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private loadingAboutMe: Boolean = true;
+  private loading: Boolean = true;
 
   constructor(
     private dataService: DataService
   ) {
     this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.loadingAboutMe = false;
+      this.loading = false;
       this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.currentLocale] = componentsMetadata.components.about_me[this.currentLocale];
-      console.log(this.metadata[this.currentLocale])
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() { }
-
 }

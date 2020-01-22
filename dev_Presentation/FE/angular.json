@@ -41,7 +41,15 @@
                 "inject": false
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "lazyModules": [
+              "src/app/Components/Content/about-me/about-me.module.ts",
+              "src/app/Components/Content/education/education.module.ts",
+              "src/app/Components/Content/jobs/jobs.module.ts",
+              "src/app/Components/Content/leave-message/leave-message.module.ts",
+              "src/app/Components/Content/skills/skills.module.ts",
+              "src/app/Components/Content/references/references.module.ts",
+            ]
           },
           "configurations": {
             "production": {

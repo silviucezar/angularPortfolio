@@ -4,7 +4,6 @@ import { ReferencesComponent } from './references.component';
 
 @NgModule({
   declarations: [ReferencesComponent],
-  entryComponents: [ReferencesComponent],
   imports: [
     CommonModule
   ]

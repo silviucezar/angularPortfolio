@@ -4,7 +4,6 @@ import { LeaveMessageComponent } from './leave-message.component';
 
 @NgModule({
   declarations: [LeaveMessageComponent],
-  entryComponents: [LeaveMessageComponent],
   imports: [
     CommonModule
   ]

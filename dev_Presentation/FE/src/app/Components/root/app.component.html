@@ -3,24 +3,15 @@
     <canvas class='headerCanvas' id='headerCanvas' #headerCanvas></canvas>
 </div>
 <div class="appGlobalContent" #GlobalContainer style='grid-area:appGlobalContent'>
-    <ng-container #about_me>
-        <app-dynamic-component-loader *ngIf='!about_me_metadata'></app-dynamic-component-loader>
-    </ng-container>
-    <ng-container #skills>
-        <app-dynamic-component-loader *ngIf='!skills_metadata'></app-dynamic-component-loader>
-    </ng-container>
-    <ng-container #jobs>
-        <app-dynamic-component-loader *ngIf='!jobs_metadata'></app-dynamic-component-loader>
-    </ng-container>
-    <ng-container #education>
-        <app-dynamic-component-loader *ngIf='!education_metadata'></app-dynamic-component-loader>
-    </ng-container>
-    <ng-container #references>
-        <app-dynamic-component-loader *ngIf='!references_metadata'></app-dynamic-component-loader>
-    </ng-container>
-    <ng-container #leave_message>
-        <app-dynamic-component-loader *ngIf='!leave_message_metadata'></app-dynamic-component-loader>
-    </ng-container>!
+    <div class='appGlobalContentMain'>
+        <ng-container #about_me></ng-container>
+        <ng-container #skills></ng-container>
+        <ng-container #jobs></ng-container>
+        <ng-container #education></ng-container>
+        <ng-container #references></ng-container>
+        <ng-container #leave_message></ng-container>
+    </div>
+    <div class='appGlobalContentLoader'></div>
 </div>
 <div class="appGlobalMargin" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>
     <canvas class="navBarCanvas" id='navBarCanvas' #navBarCanvas></canvas>

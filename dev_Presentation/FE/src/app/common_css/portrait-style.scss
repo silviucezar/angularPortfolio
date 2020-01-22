@@ -29,6 +29,10 @@ $circle_img   : calc(43vw + 20px);
   grid-template: auto $circle_img auto / auto $circle_img auto;
 }
 
+.appGlobalContentMain {
+  font-size: 14px
+}
+
 @media only screen and (max-height: 1400px) {
   .extended .appGlobalHeaderMainContainer {
     height: 1100px;

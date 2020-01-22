@@ -43,7 +43,6 @@ export class DataService {
       private lazyService: LazyService
     ) {
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
-      console.log('subscribed')
       this.componentsMetadata.currentLocale = localeValue.locale;
     })
   }

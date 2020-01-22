@@ -17,10 +17,12 @@ body {
 }
 
 body {
-  margin     : 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  overflow   : hidden;
-  background : linear-gradient(90deg, dodgerblue 45%, deepskyblue);
+  margin          : 0;
+  font-family     : Roboto, "Helvetica Neue", sans-serif;
+  overflow        : hidden;
+  background-image: url('../assets/background_11 - portrait.jpg');
+  background-size : cover;
+  color           : darkslategrey;
 }
 
 .appGlobalHeaderMainContainer {
@@ -40,7 +42,25 @@ body {
     "appGlobalContent appGlobalMargin"
     "appGlobalFooter appGlobalFooter";
   box-sizing: border-box;
+}
 
+
+.appGlobalContent {
+  display              : grid;
+  grid-template-columns: 10px 30px auto 10px;
+  grid-template-rows   : auto 30px;
+  mask-image           : linear-gradient(transparent -40%, black, transparent 130%)
+}
+
+.appGlobalContentMain {
+  grid-row   : 1/span 2;
+  grid-column: 2/span 2;
+}
+
+.appGlobalContentLoader {
+  background : beige;
+  grid-row   : 2;
+  grid-column: 2;
 }
 
 .contracted .contractedHeaderHiddenData {
@@ -52,7 +72,7 @@ body {
 }
 
 .contracted .appGlobalHeaderMainContainer {
-  height: 75px;
+  height: 75px
 }
 
 .contracted .appGlobalHeaderMainContainer {

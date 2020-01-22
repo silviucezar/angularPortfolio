@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { DataService } from 'src/app/Services/data.service';
+import { ComponentsMetadata, Lang } from 'src/app/Interfaces/ComponentsMetadata';
 
 @Component({
   selector: 'app-skills',
@@ -7,9 +9,21 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 })
 export class SkillsComponent implements OnInit {
 
-  constructor( public viewContainerRef: ViewContainerRef) { }
+  private currentLocale!: keyof Lang;
+  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
+  private loading: Boolean = true;
 
-  ngOnInit() {
+  constructor(
+    private dataService: DataService
+  ) {
+    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
+      this.loading = false;
+      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
+      this.metadata[this.currentLocale] = componentsMetadata.components.skills[this.currentLocale];
+      console.log(this.metadata[this.currentLocale])
+    });
   }
+
+  ngOnInit() { }
 
 }

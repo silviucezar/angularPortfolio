@@ -4,7 +4,6 @@ import { JobsComponent } from './jobs.component';
 
 @NgModule({
   declarations: [JobsComponent],
-  entryComponents: [JobsComponent],
   imports: [
     CommonModule
   ]

@@ -24,17 +24,16 @@ interface TemplateDetails {
 export class LazyService {
 
   private componentsTemplate: ComponentsTemplate = {
-    about_me: { path: 'about-me', module: 'AboutMe', containerRef: undefined, isLoaded: false },
-    skills: { path: 'skills', module: 'Skills', containerRef: undefined, isLoaded: false },
-    jobs: { path: 'jobs', module: 'Jobs', containerRef: undefined, isLoaded: false },
-    education: { path: 'education', module: 'Education', containerRef: undefined, isLoaded: false },
-    references: { path: 'references', module: 'References', containerRef: undefined, isLoaded: false },
-    leave_message: { path: 'leave-message', module: 'LeaveMessage', containerRef: undefined, isLoaded: false }
+    about_me: { path: 'about-me', module: 'AboutMeModule', containerRef: undefined, isLoaded: false },
+    skills: { path: 'skills', module: 'SkillsModule', containerRef: undefined, isLoaded: false },
+    jobs: { path: 'jobs', module: 'JobsModule', containerRef: undefined, isLoaded: false },
+    education: { path: 'education', module: 'EducationModule', containerRef: undefined, isLoaded: false },
+    references: { path: 'references', module: 'ReferencesModule', containerRef: undefined, isLoaded: false },
+    leave_message: { path: 'leave-message', module: 'LeaveMessageModule', containerRef: undefined, isLoaded: false }
   }
 
 
   constructor(
-    private r: ComponentFactoryResolver,
     private c: Compiler
   ) { }
 
@@ -45,11 +44,11 @@ export class LazyService {
       for (const componentName of currentComponentsToLoad) {
         const path: string = this.componentsTemplate[componentName as keyof ComponentsData].path;
         const key: keyof ComponentsData = componentName as keyof ComponentsData;
-        const module = `${this.componentsTemplate[key].module}Module`;
+        const module = this.componentsTemplate[key].module;
         loadedComponents.push(
-          import(`../Components/Content/${path}/${path}.module`).then(m => {
-            const factory = this.r.resolveComponentFactory(this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[0].componentType);
-            (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(factory);
+          import(`../Components/Content/${path}/${path}.module`).then((m) => {
+            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[0];
+            (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
             this.componentsTemplate[key].isLoaded = true;
           })
         );

@@ -4,7 +4,6 @@ import { EducationComponent } from './education.component';
 
 @NgModule({
   declarations: [EducationComponent],
-  entryComponents: [EducationComponent],
   imports: [
     CommonModule
   ]
