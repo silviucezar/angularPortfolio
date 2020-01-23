@@ -1,3 +1,10 @@
-MUCH CONTENT FOR SKILS PLACEHOLDER SUCH AAAAA LONG TEST WHATEVER
-
-<!-- <h2>sssssssssssss{{metadata.sectionTitle}}</h2> -->
+<ng-container *ngIf='finishedLoading'>
+    <div class='appContentSkills'>
+        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>
+            <div>
+                {{skill.substring(0,1)}}
+            </div>
+            <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' />
+        </div>
+    </div>
+</ng-container>

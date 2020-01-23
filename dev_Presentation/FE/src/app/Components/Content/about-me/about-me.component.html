@@ -1,4 +1,4 @@
-<p>{{loading ? '' : metadata[currentLocale].about_me_intro_part_one}}</p>
-<p>{{loading ? '' : metadata[currentLocale].about_me_intro_part_two}}</p>
-<p>{{loading ? '' : metadata[currentLocale].about_me_current_goal}}</p>
-<p>{{loading ? '' : metadata[currentLocale].about_me_hobbies}}</p>
+<p>{{finishedLoading ? metadata[locale].about_me_intro_part_one : ''}}</p>
+<p>{{finishedLoading ? metadata[locale].about_me_intro_part_two : ''}}</p>
+<p>{{finishedLoading ? metadata[locale].about_me_current_goal : ''}}</p>
+<p>{{finishedLoading ? metadata[locale].about_me_hobbies : ''}}</p>

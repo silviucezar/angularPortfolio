@@ -11,17 +11,17 @@ import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata'
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  private currentLocale!: keyof Lang;
+  private locale!: keyof Lang;
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private loading: Boolean = true;
+  private finishedLoading: Boolean = false;
 
   constructor(
     private dataService: DataService
   ) {
     this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.loading = false;
-      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.currentLocale] = componentsMetadata.components.about_me[this.currentLocale];
+      this.finishedLoading = true;
+      this.locale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
+      this.metadata[this.locale] = componentsMetadata.components.about_me[this.locale];
     });
   }
 

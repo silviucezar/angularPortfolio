@@ -70,6 +70,17 @@
     }
 }
 
+.appContentSkills {
+    width                : auto;
+    display              : grid;
+    grid-template-columns: repeat(4, 10%) 20%;
+    grid-gap             : 10px;
+}
+
+.skillContainer:nth-child(5) {
+    grid-column: 5
+}
+
 @media only screen and (min-width:850px) {
 
     #appGlobalGrid {

@@ -33,6 +33,20 @@ $circle_img   : calc(43vw + 20px);
   font-size: 14px
 }
 
+.appContentSkills {
+  width                : 60vw;
+  max-width            : 410px;
+  display              : grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows   : repeat(3, auto);
+  grid-gap             : 10px;
+}
+
+.skillContainer:nth-child(5) {
+  width      : auto !important;
+  grid-column: 1/span 2;
+}
+
 @media only screen and (max-height: 1400px) {
   .extended .appGlobalHeaderMainContainer {
     height: 1100px;
