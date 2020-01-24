@@ -1,0 +1,2 @@
+https://www.keycdn.com/blog/video-optimization
+https://stackoverflow.com/questions/37339229/node-js-express-video-streaming-http-206-partial-content

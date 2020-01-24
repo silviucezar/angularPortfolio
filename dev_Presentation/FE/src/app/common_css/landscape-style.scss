@@ -1,0 +1,108 @@
+#appGlobalGrid {
+    grid-template-rows: 70fr 15fr 15fr;
+}
+
+#App_Global_Grid,
+.App_Global_Header_Container {
+    grid-template-columns: 67fr 33fr;
+}
+
+.appGlobalHeaderContainerImage {
+    grid-area    : appGlobalHeaderContainerImage;
+    grid-template: auto 160px auto / auto 160px auto;
+    display      : grid !important;
+}
+
+.appGlobalHeaderContainerImage div:nth-child(2) {
+    grid-template: auto 150px auto / auto 150px auto;
+    display      : grid;
+}
+
+.appGlobalHeaderContainer {
+    grid-template-areas:
+        "appGlobalHeaderContainerData appGlobalHeaderContainerImage"
+        "appGlobalHeaderContainerData appGlobalHeaderContainerImage";
+}
+
+.appGlobalHeaderContainerData {
+    grid-area            : appGlobalHeaderContainerData;
+    grid-template-columns: 35fr 65fr;
+}
+
+@media only screen and (min-width:641px) {
+    #appGlobalGrid {
+        grid-template-rows: 60fr 35fr 15fr;
+    }
+
+    #appGlobalGrid,
+    .appGlobalHeaderContainer {
+        grid-template-columns: 70fr 30fr;
+    }
+
+    .appGlobalHeaderContainerData {
+        grid-template-columns: 55fr 45fr;
+    }
+}
+
+@media only screen and (min-width:720px) {
+
+    #appGlobalGrid {
+        grid-template-rows: 50fr 40fr 10fr;
+    }
+
+    #appGlobalGrid,
+    .appGlobalHeaderContainer {
+        grid-template-columns: 70fr 30fr;
+    }
+
+    .appGlobalHeaderContainerData {
+        grid-template-columns: 55fr 45fr;
+    }
+
+    .appGlobalHeaderContainerImage {
+        grid-template: auto 170px auto / auto 170px auto;
+        display      : grid !important;
+    }
+
+    .appGlobalHeaderContainerImage div:nth-child(2) {
+        grid-template: auto 160px auto / auto 160px auto;
+        display      : grid;
+    }
+}
+
+.appContentSkills {
+    width                : auto;
+    display              : grid;
+    grid-template-columns: repeat(4, 10%) 20%;
+    grid-gap             : 10px;
+}
+
+.skillContainer:nth-child(5) {
+    grid-column: 5
+}
+
+@media only screen and (min-width:850px) {
+
+    #appGlobalGrid {
+        grid-template-rows: 40fr 50fr 10fr;
+    }
+
+    #appGlobalGrid,
+    .appGlobalHeaderContainer {
+        grid-template-columns: 75fr 25fr;
+    }
+
+    .appGlobalHeaderContainerData {
+        grid-template-columns: 55fr 45fr;
+    }
+
+    .appGlobalHeaderContainerImage {
+        grid-template: auto 190px auto / auto 190px auto;
+        display      : grid !important;
+    }
+
+    .appGlobalHeaderContainerImage div:nth-child(2) {
+        grid-template: auto 180px auto / auto 180px auto;
+        display      : grid;
+    }
+}

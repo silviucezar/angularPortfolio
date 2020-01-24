@@ -1,0 +1,44 @@
+.appGlobalHeaderContainerData {
+  grid-template-rows: 30fr repeat(5, 14fr);
+}
+
+.appGlobalHeaderContainer {
+  z-index    : 1;
+  display    : grid;
+  font-weight: normal;
+  margin     : 0
+}
+
+.appGlobalHeaderContainerImage div {
+  grid-column: 2;
+  grid-row   : 2;
+}
+
+.appGlobalHeaderContainerImage div:nth-child(1) {
+  border-radius    : 50%;
+  background       : linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);
+  -webkit-animation: 2s spiiiin linear infinite;
+  animation        : 2s spiiiin linear infinite;
+}
+
+.appGlobalHeaderContainerImage div:nth-child(2) span {
+  background   : deepskyblue;
+  grid-row     : 2;
+  grid-column  : 2;
+  z-index      : 1;
+  border-radius: 50%;
+}
+
+.appGlobalHeaderContainerData {
+  display    : grid;
+  text-align : right;
+  font-family: "open sans";
+  align-items: center;
+  font-size  : 1rem;
+}
+
+.appGlobalHeaderContainerDataText {
+  grid-column: 2;
+  width      : 100%;
+  height     : 50%;
+}

@@ -1,0 +1,90 @@
+$circle_border: calc(43vw + 35px);
+$circle_img   : calc(43vw + 20px);
+
+#appGlobalGrid {
+  grid-template-columns: 70fr 30fr;
+  grid-template-rows   : auto auto 50px;
+}
+
+.appGlobalHeaderContainer {
+  grid-template-columns: 10fr 80fr 10fr;
+  grid-template-rows   : 50% 50%;
+}
+
+.appGlobalHeaderContainerData {
+  grid-template-columns: 1px 100fr;
+  grid-column          : 2;
+  grid-row             : 2;
+}
+
+.appGlobalHeaderContainerImage {
+  grid-column  : 2;
+  grid-row     : 1;
+  display      : grid;
+  grid-template: auto $circle_border auto / auto $circle_border auto;
+}
+
+.appGlobalHeaderContainerImage div:nth-child(2) {
+  display      : grid;
+  grid-template: auto $circle_img auto / auto $circle_img auto;
+}
+
+.appGlobalContentMain {
+  font-size: 14px
+}
+
+.appContentSkills {
+  width                : 60vw;
+  max-width            : 410px;
+  display              : grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows   : repeat(3, auto);
+  grid-gap             : 10px;
+}
+
+.skillContainer:nth-child(5) {
+  width      : auto !important;
+  grid-column: 1/span 2;
+}
+
+@media only screen and (max-height: 1400px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 1100px;
+  }
+}
+
+@media only screen and (max-height: 1280px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 900px;
+  }
+}
+
+@media only screen and (max-height: 1000px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 725px;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 550px;
+  }
+}
+
+@media only screen and (max-height: 520px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 500px;
+  }
+}
+
+@media only screen and (max-height: 640px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 475px;
+  }
+}
+
+@media only screen and(max-width:330px) {
+  .extended .appGlobalHeaderMainContainer {
+    height: 375px;
+  }
+}
