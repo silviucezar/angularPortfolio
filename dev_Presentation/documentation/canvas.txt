@@ -1,4 +1,0 @@
-https://www.html5canvastutorials.com/tutorials/html5-canvas-lines/
-https://books.goalkicker.com/HTML5CanvasBook/
-http://wtf.tw/ref/fulton_fulton.pdf
-https://eloquentjavascript.net/17_canvas.html

@@ -1,2 +1,0 @@
-https://neilpatel.com/blog/how-to-read-source-code/
-https://hub.packtpub.com/how-to-implement-dynamic-sql-in-postgresql-10/
