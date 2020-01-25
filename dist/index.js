@@ -17,20 +17,19 @@ class ExpressApp {
         this.app = app;
     }
     start() {
-        this.app.get('/', (req, res, next) => {
+        this.app.use((req, res, next) => {
             if (process.env.DEPLOYED) {
-                res.end('DEPLOYED');
+                res.sendFile('FE/index.html');
             }
             else {
-                if (process.env.NODE_ENV === 'development') {
-                    res.end('DEV ENV');
-                }
-                else {
-                    res.end('SOME OTHER');
-                }
+                // if (process.env.NODE_ENV === 'development') {
+                // res.end('DEV ENV')
+                // } else {
+                //     res.end('SOME OTHER')
+                // }
             }
             // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-            // next();
+            next();
         }).listen(8080, () => { console.log("Server running..."); });
     }
 }
