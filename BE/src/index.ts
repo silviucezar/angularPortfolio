@@ -29,7 +29,7 @@ class ExpressApp {
             }
             // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             next();
-        }).listen(8080, () => { console.log("Server running...") });
+        },Express.static('FE')).listen(8080, () => { console.log("Server running...") });
     }
 }
 

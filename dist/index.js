@@ -32,7 +32,7 @@ class ExpressApp {
             }
             // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             next();
-        }).listen(8080, () => { console.log("Server running..."); });
+        }, express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
     }
 }
 const expressApp = new ExpressApp(express_1.default());
