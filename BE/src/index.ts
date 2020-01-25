@@ -17,7 +17,9 @@ class ExpressApp {
     start() {
         this.app.use((req: Request, res: Response, next: NextFunction) => {
             if (process.env.DEPLOYED) {
-                res.sendFile(`${__dirname}/FE/index.html`);
+                this.app.get('/',(getReq:Request,getRes:Response)=>{
+                    res.sendFile(`${__dirname}/FE/index.html`);
+                });
             } else {
                 // if (process.env.NODE_ENV === 'development') {
                 // res.end('DEV ENV')
