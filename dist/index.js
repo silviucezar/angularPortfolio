@@ -18,11 +18,16 @@ class ExpressApp {
     }
     start() {
         this.app.get('/', (req, res, next) => {
-            if (process.env.NODE_ENV === 'development') {
-                res.writeHead(200, 'DEV ENV');
+            if (process.env.DEPLOYED) {
+                res.end('DEPLOYED');
             }
             else {
-                res.writeHead(200, 'SOME OTHER');
+                if (process.env.NODE_ENV === 'development') {
+                    res.end('DEV ENV');
+                }
+                else {
+                    res.end('SOME OTHER');
+                }
             }
             // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             // next();
