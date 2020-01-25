@@ -1,36 +1,36 @@
-import Express, { Application, Request, Response, NextFunction } from 'express';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
 // import { File } from "./_Services/fileService";
 // import { DBCreation } from "./_Database/db_Creation";
 // import { CommunicationParams } from "./_Interfaces/communicationParams";
 // import { DBMain } from "./_Database/db_Main"
 // import { SelectQuery } from "./_Interfaces/MainDBInterface";
 // import { FrontEndDataTemplate, DBDataTemplate } from "./_Interfaces/FrontEndData";
-
 // const _DBCreation = new DBCreation();
 // const _DBMain = new DBMain();
-
 class ExpressApp {
-    constructor(
-        public app: Application
-    ) { }
-
+    constructor(app) {
+        this.app = app;
+    }
     start() {
-        this.app.get('/',(req: Request, res: Response, next: NextFunction) => {
+        this.app.get('/', (req, res, next) => {
             if (process.env.NODE_ENV === 'development') {
-            res.writeHead(200,'DEV ENV')
-            } else {
-                res.writeHead(200,'SOME OTHER')
+                res.writeHead(200, 'DEV ENV');
+            }
+            else {
+                res.writeHead(200, 'SOME OTHER');
             }
             // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             // next();
-        }).listen(8080, () => { console.log("Server running...") });
+        }).listen(8080, () => { console.log("Server running..."); });
     }
 }
-
-const expressApp = new ExpressApp(Express());
-
+const expressApp = new ExpressApp(express_1.default());
 expressApp.start();
-
 // function sendTables(res: Response, locale: string, QueryParams: SelectQuery[]) {
 //     const TABLE_QUERIES = [];
 //     for (const QueryParam of QueryParams) {
@@ -67,18 +67,14 @@ expressApp.start();
 //                     Object.assign(FE_DATA[localeKey()][headerFooterKey(RAW_TRANSLATIONS)], COOKED_TRANSLATIONS);
 //                 }
 //             }
-
 //             for (const RAW_CONTENT_DATA of RAW_CONTENT_DATA_ARRAY) {
 //                 const COOKED_DATA = {
 //                     [RAW_CONTENT_DATA.prefix.replace(/_(ro_RO|en_US)/gi, '')]: JSON.parse(RAW_CONTENT_DATA.text.toString())
 //                 }
 //                 Object.assign(FE_DATA[localeKey()].componentsData, COOKED_DATA);
 //             }
-
 //             function localeKey() { return locale as 'ro_RO' | 'en_US'; }
-
 //             function headerFooterKey(translation: DBDataTemplate) { return `${translation.prefix.match(/header|footer/)[0]}Data` as 'headerData' | 'footerData'; }
-
 //             res.status(200).end(JSON.stringify(FE_DATA));
 //         })
 //         .catch(e => {
@@ -86,13 +82,10 @@ expressApp.start();
 //             res.status(200).end(JSON.stringify({ data: "result" }));;
 //         });
 // }
-
-
 // App.use((req: Request, res: Response, next: NextFunction) => {
 //     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
 //     next();
 // }).listen(8080, () => { console.log("Server running...") });
-
 // App.get("/api/", (req: Request, res: Response) => {
 //     process.env.NODE_ENV = "dev";
 //     const dataToFetch = req.query.dataToFetch;
@@ -117,3 +110,4 @@ expressApp.start();
 //         sendTables(res, req.query.locale, TABLES);
 //     }
 // });
+//# sourceMappingURL=index.js.map
