@@ -5,7 +5,7 @@ import { LocaleService } from 'src/app/Services/locale.service';
 import { ComponentsMetadata, ComponentsData, Lang } from '../Interfaces/ComponentsMetadata';
 import { Locale } from '../Interfaces/Locale';
 import { LazyService } from './lazy.service';
-import { FrontEndData, ComponentsDataStructure, HeaderTemplate, FooterTemplate, ComponentsTemplate } from '../Interfaces/FrontEndData';
+import { ComponentsDataStructure, ComponentsTemplate } from '../Interfaces/FrontEndData';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,8 +25,6 @@ export class DataService {
     dataToFetch: '',
     currentLocale: ''
   };
-
-
 
   private componentsMetadata$ = new Subject<ComponentsMetadata>();
   private isInitialLoad = {
@@ -63,14 +61,16 @@ export class DataService {
       this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined
     ) return this.componentsMetadata$.next(this.componentsMetadata);
 
+
     this.httpService.doGetRequest("/", {
       locale: locale,
       dataToFetch: dataToFetch,
-      isInitialLoad: this.isInitialLoad[this.currentLocale as 'ro_RO' | 'en_US']
+      isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale as 'ro_RO' | 'en_US']
     })
-      .then((feData: FrontEndData) => {
+      .then((feData: ComponentsDataStructure) => {
+        console.log(feData)
         this.componentsMetadata.dataToFetch = dataToFetch;
-        const currentMetadata: ComponentsDataStructure = feData[locale] as ComponentsDataStructure;
+        const currentMetadata: ComponentsDataStructure = feData;
         if (currentLoadStatusIsInitial) {
           this.componentsMetadata.header[locale] = currentMetadata.headerData;
           this.componentsMetadata.footer[locale] = currentMetadata.footerData;

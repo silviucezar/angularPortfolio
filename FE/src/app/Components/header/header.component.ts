@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
     private dataService: DataService
   ) {
     this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
+      console.log('mtd',componentsMetadata)
       this.loadingHeader = false;
       this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.currentLocale] = componentsMetadata.header[this.currentLocale];

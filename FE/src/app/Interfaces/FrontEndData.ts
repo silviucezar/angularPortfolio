@@ -1,10 +1,5 @@
 import { AboutMeMetadata, SkillsMetadata, LeaveMessageMetadata, JobsMetadata, EducationMetadata, ReferencesMetadata } from './ComponentsMetadata';
 
-export interface FrontEndData {
-    ro_RO?: ComponentsDataStructure,
-    en_US?: ComponentsDataStructure;
-}
-
 export interface ComponentsDataStructure {
     headerData?: HeaderTemplate,
     componentsData: ComponentsTemplate,
