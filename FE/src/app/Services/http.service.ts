@@ -14,7 +14,7 @@ export class HttpService {
   ) {
     this.doGetRequest = (url: string, body: any) => {
       return new Promise((res, rej) => {
-        this.http.get<any>(`http://${location.origin}/api${url}`, {
+        this.http.get<any>(`${location.origin}/api${url}`, {
           params: body
         }).subscribe(value => {
           res(value);

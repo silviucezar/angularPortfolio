@@ -890,7 +890,7 @@
                     this.http = http;
                     this.doGetRequest = function (url, body) {
                         return new Promise(function (res, rej) {
-                            _this.http.get("http://" + location.origin + "/api" + url, {
+                            _this.http.get(location.origin + "/api" + url, {
                                 params: body
                             }).subscribe(function (value) {
                                 res(value);

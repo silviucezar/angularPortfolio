@@ -884,7 +884,7 @@ let HttpService = class HttpService {
         this.http = http;
         this.doGetRequest = (url, body) => {
             return new Promise((res, rej) => {
-                this.http.get(`http://${location.origin}/api${url}`, {
+                this.http.get(`${location.origin}/api${url}`, {
                     params: body
                 }).subscribe(value => {
                     res(value);
