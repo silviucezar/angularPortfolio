@@ -10,18 +10,20 @@ class ExpressApp {
         this.app = app;
         this.db = new dbMain_1.DB();
     }
-    start() {
-        if (process.env.DEPLOYED) {
-            this.initDeployedApp();
-        }
-        else {
-            this.initServedApp();
-        }
+    start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp(); }
+    initServedApp() { this.app.listen(8080, () => { this.initDataApi(); console.log("Server running..."); }); }
+    ;
+    initDeployedApp() {
+        this.app.use(express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
+        this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
+            apiRes.header('Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/');
+            apiReq.sendFile(`${__dirname}/FE/index.html`);
+            this.initDataApi();
+        });
     }
-    initServedApp() {
-        this.app.listen(8080, () => { console.log("Server running..."); });
+    initDataApi() {
         this.app.get("/api/", (apiReq, apiRes) => {
-            apiRes.header("Access-Control-Allow-Origin", "http://localhost:4200");
+            apiRes.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200');
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;
             const tables = apiReq.query.isInitialLoad ?
@@ -40,14 +42,6 @@ class ExpressApp {
                 .catch(() => this.db.selectTables(tables)).then((result) => {
                 this.sendDataToFrontEnd(result, apiRes, locale);
             });
-        });
-    }
-    ;
-    initDeployedApp() {
-        this.app.use(express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
-        this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
-            apiRes.header("Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/");
-            apiReq.sendFile(`${__dirname}/FE/index.html`);
         });
     }
     sendDataToFrontEnd(data, apiRes, locale) {
