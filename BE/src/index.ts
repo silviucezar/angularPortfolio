@@ -44,9 +44,9 @@ class ExpressApp {
         });
     };
     initDeployedApp() {
-        this.app.get('/', (apiReq: Request, apiRes: Response) => {
-            apiRes.end('123');
-        });
+        // this.app.get('/', (apiReq: Request, apiRes: Response) => {
+        //     apiRes.end('123');
+        // });
     }
 
     sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response, locale: string) {
