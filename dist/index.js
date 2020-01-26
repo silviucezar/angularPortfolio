@@ -19,6 +19,7 @@ class ExpressApp {
         }
     }
     initServedApp() {
+        this.app.listen(8080, () => { console.log("Server running..."); });
         this.app.get("/api/", (apiReq, apiRes) => {
             apiRes.header("Access-Control-Allow-Origin", "http://localhost:4200");
             const dataToFetch = apiReq.query.dataToFetch;

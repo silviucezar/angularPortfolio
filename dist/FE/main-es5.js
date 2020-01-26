@@ -822,6 +822,7 @@
                     var templateKeys = Object.keys(this.componentsMetadata.components);
                     var componentIndex = templateKeys.indexOf(dataToFetch);
                     var currentLoadStatusIsInitial = this.isInitialLoad[locale];
+                    console.log(this.componentsMetadata, this.componentsMetadata.components, templateKeys, componentIndex, locale, dataToFetch);
                     if (this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
                         this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
                         this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined)
