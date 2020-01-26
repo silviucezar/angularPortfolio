@@ -811,7 +811,6 @@ let DataService = class DataService {
         const templateKeys = Object.keys(this.componentsMetadata.components);
         const componentIndex = templateKeys.indexOf(dataToFetch);
         const currentLoadStatusIsInitial = this.isInitialLoad[locale];
-        console.log(this.componentsMetadata, this.componentsMetadata.components, templateKeys, componentIndex, locale, dataToFetch);
         if (this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
             this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
             this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined)
@@ -1265,7 +1264,7 @@ let UrlListenerService = class UrlListenerService {
     listen() {
         this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])((event) => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"])).subscribe(event => {
             this.urlSubscriptionBehaviorSubject$.next({
-                dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : event.url.replace('-', '_'),
+                dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me',
                 path: event["url"].replace("/portfolio/", "")
             });
             this.dataService.setCurrentRouteDataUsingUrl(this.urlSubscriptionBehaviorSubject$.value.dataToFetch);

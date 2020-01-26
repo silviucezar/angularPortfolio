@@ -32,8 +32,6 @@ export class DataService {
     en_US: true
   };
 
-  private currentLocale!: string;
-
   constructor
     (
       private httpService: HttpService,
@@ -55,11 +53,6 @@ export class DataService {
     const templateKeys = Object.keys(this.componentsMetadata.components) as (keyof ComponentsData)[];
     const componentIndex = templateKeys.indexOf(dataToFetch as keyof ComponentsData);
     const currentLoadStatusIsInitial = this.isInitialLoad[locale];
-    console.log(
-      this.componentsMetadata,
-      this.componentsMetadata.components,
-      templateKeys,componentIndex,locale,dataToFetch
-    )
     if (
       this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
       this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
