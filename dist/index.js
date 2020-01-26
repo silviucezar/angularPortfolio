@@ -14,7 +14,7 @@ class ExpressApp {
         this.app.use((req, res, next) => {
             if (process.env.DEPLOYED) {
                 res.sendFile(`${__dirname}/FE/index.html`);
-                this.initDeployedApp();
+                this.initDeployedApp(res);
             }
             else {
                 this.initServedApp(res);
@@ -46,8 +46,11 @@ class ExpressApp {
         });
     }
     ;
-    initDeployedApp() {
-        console.log('deployed');
+    initDeployedApp(res) {
+        res.header('Access-Control-Allow-Origin');
+        this.app.get('/', (apiReq, apiRes) => {
+            apiRes.end('123');
+        });
     }
     sendDataToFrontEnd(data, apiRes, locale) {
         const feData = {
