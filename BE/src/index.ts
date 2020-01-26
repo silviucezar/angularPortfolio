@@ -44,7 +44,7 @@ class ExpressApp {
         });
     };
     initDeployedApp(res: Response) {
-        res.header('Access-Control-Allow-Origin','http://stage.silviucimpoeru.com/');
+        res.header('Access-Control-Allow-Origin','stage.silviucimpoeru.com');
         this.app.get('/',(apiReq:Request,apiRes:Response)=>{
             apiRes.end('123');
         });
