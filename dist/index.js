@@ -12,18 +12,18 @@ class ExpressApp {
     }
     start() {
         this.app.use((req, res, next) => {
+            res.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'stage.silviucimpoeru.com' : "http://localhost:4200");
             if (process.env.DEPLOYED) {
                 res.sendFile(`${__dirname}/FE/index.html`);
-                this.initDeployedApp(res);
+                this.initDeployedApp();
             }
             else {
-                this.initServedApp(res);
+                this.initServedApp();
             }
             next();
         }, express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
     }
-    initServedApp(res) {
-        res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    initServedApp() {
         this.app.get("/api/", (apiReq, apiRes) => {
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;
@@ -46,8 +46,7 @@ class ExpressApp {
         });
     }
     ;
-    initDeployedApp(res) {
-        res.header('Access-Control-Allow-Origin', 'stage.silviucimpoeru.com');
+    initDeployedApp() {
         this.app.get('/', (apiReq, apiRes) => {
             apiRes.end('123');
         });

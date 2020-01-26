@@ -10,18 +10,18 @@ class ExpressApp {
 
     start() {
         this.app.use((req: Request, res: Response, next: NextFunction) => {
+            res.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'stage.silviucimpoeru.com' : "http://localhost:4200");
             if (process.env.DEPLOYED) {
                 res.sendFile(`${__dirname}/FE/index.html`);
-                this.initDeployedApp(res);
+                this.initDeployedApp();
             } else {
-                this.initServedApp(res);
+                this.initServedApp();
             }
             next();
         }, Express.static('FE')).listen(8080, () => { console.log("Server running...") });
     }
 
-    initServedApp(res: Response) {
-        res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    initServedApp() {
         this.app.get("/api/", (apiReq: Request, apiRes: Response) => {
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
@@ -36,21 +36,20 @@ class ExpressApp {
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    this.sendDataToFrontEnd(result, apiRes,locale);
+                    this.sendDataToFrontEnd(result, apiRes, locale);
                 })
                 .catch(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    this.sendDataToFrontEnd(result, apiRes,locale);
+                    this.sendDataToFrontEnd(result, apiRes, locale);
                 });
         });
     };
-    initDeployedApp(res: Response) {
-        res.header('Access-Control-Allow-Origin','stage.silviucimpoeru.com');
-        this.app.get('/',(apiReq:Request,apiRes:Response)=>{
+    initDeployedApp() {
+        this.app.get('/', (apiReq: Request, apiRes: Response) => {
             apiRes.end('123');
         });
     }
 
-    sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response,locale:string) {
+    sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response, locale: string) {
         const feData: FrontEndData = {
             headerData: JSON.parse(data[0][0].text.toString()),
             componentsData: {},
@@ -58,7 +57,7 @@ class ExpressApp {
         }
 
         for (const componentData of data[1]) {
-            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`,'gi'),''))  as keyof ComponentsTemplate] = JSON.parse((componentData.text as any))
+            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`, 'gi'), '')) as keyof ComponentsTemplate] = JSON.parse((componentData.text as any))
         }
         apiRes.end(JSON.stringify(feData))
     }
