@@ -826,7 +826,7 @@
                         this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
                         this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined)
                         return this.componentsMetadata$.next(this.componentsMetadata);
-                    this.httpService.doGetRequest("/", {
+                    this.httpService.doGetRequest("getMetadata", {
                         locale: locale,
                         dataToFetch: dataToFetch,
                         isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale]
@@ -889,7 +889,7 @@
                     this.http = http;
                     this.doGetRequest = function (url, body) {
                         return new Promise(function (res, rej) {
-                            _this.http.get(location.origin + "/api" + url, {
+                            _this.http.get(location.origin + "/api/" + url, {
                                 params: body
                             }).subscribe(function (value) {
                                 res(value);

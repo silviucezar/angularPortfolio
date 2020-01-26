@@ -22,7 +22,7 @@ class ExpressApp {
         });
     }
     initDataApi() {
-        this.app.get("/api/", (apiReq, apiRes) => {
+        this.app.get("/api/getMetadata", (apiReq, apiRes) => {
             apiRes.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200');
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;

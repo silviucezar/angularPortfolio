@@ -815,7 +815,7 @@ let DataService = class DataService {
             this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
             this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined)
             return this.componentsMetadata$.next(this.componentsMetadata);
-        this.httpService.doGetRequest("/", {
+        this.httpService.doGetRequest("getMetadata", {
             locale: locale,
             dataToFetch: dataToFetch,
             isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale]
@@ -883,7 +883,7 @@ let HttpService = class HttpService {
         this.http = http;
         this.doGetRequest = (url, body) => {
             return new Promise((res, rej) => {
-                this.http.get(`${location.origin}/api${url}`, {
+                this.http.get(`${location.origin}/api/${url}`, {
                     params: body
                 }).subscribe(value => {
                     res(value);

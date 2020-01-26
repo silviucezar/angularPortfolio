@@ -60,7 +60,7 @@ export class DataService {
     ) return this.componentsMetadata$.next(this.componentsMetadata);
 
 
-    this.httpService.doGetRequest("/", {
+    this.httpService.doGetRequest("getMetadata", {
       locale: locale,
       dataToFetch: dataToFetch,
       isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale as 'ro_RO' | 'en_US']
