@@ -12,7 +12,7 @@ class ExpressApp {
         this.app.use((req: Request, res: Response, next: NextFunction) => {
             if (process.env.DEPLOYED) {
                 res.sendFile(`${__dirname}/FE/index.html`);
-                this.initDeployedApp();
+                this.initDeployedApp(res);
             } else {
                 this.initServedApp(res);
             }
@@ -43,8 +43,11 @@ class ExpressApp {
                 });
         });
     };
-    initDeployedApp() {
-        console.log('deployed')
+    initDeployedApp(res: Response) {
+        res.header("Access-Control-Allow-Origin");
+        this.app.get('/',(apiReq:Request,apiRes:Response)=>{
+            apiRes.end('123');
+        });
     }
 
     sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response,locale:string) {
