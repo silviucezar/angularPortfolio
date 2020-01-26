@@ -47,7 +47,7 @@ class ExpressApp {
     }
     ;
     initDeployedApp(res) {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', 'http://stage.silviucimpoeru.com/');
         this.app.get('/', (apiReq, apiRes) => {
             apiRes.end('123');
         });
