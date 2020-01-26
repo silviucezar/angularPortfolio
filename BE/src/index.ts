@@ -9,21 +9,17 @@ class ExpressApp {
     ) { }
 
     start() {
-        this.app.use((req: Request, res: Response, next: NextFunction) => {
-            res.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'stage.silviucimpoeru.com' : "http://localhost:4200");
-            if (process.env.DEPLOYED) {
-                res.set({'Content-Length' : 374950})
-                res.sendFile(`${__dirname}/FE/index.html`);
-                this.initDeployedApp();
-            } else {
-                this.initServedApp();
-            }
-            next();
-        }, Express.static('FE')).listen(8080, () => { console.log("Server running...") });
+        if (process.env.DEPLOYED) {
+            this.initDeployedApp();
+        } else {
+            this.initServedApp();
+        }
+
     }
 
     initServedApp() {
         this.app.get("/api/", (apiReq: Request, apiRes: Response) => {
+            apiRes.header("Access-Control-Allow-Origin", "http://localhost:4200");
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
             const tables: SelectQuery[] = apiReq.query.isInitialLoad ?
@@ -45,9 +41,11 @@ class ExpressApp {
         });
     };
     initDeployedApp() {
-        // this.app.get('/', (apiReq: Request, apiRes: Response) => {
-        //     apiRes.end('123');
-        // });
+        this.app.use(Express.static('FE')).listen(8080, () => { console.log("Server running...") });
+        this.app.get('/', (apiRes: Request, apiReq: Response) => {
+            apiRes.header("Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/");
+            apiReq.sendFile(`${__dirname}/FE/index.html`);
+        });
     }
 
     sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response, locale: string) {
