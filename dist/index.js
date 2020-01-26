@@ -14,6 +14,7 @@ class ExpressApp {
         this.app.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'stage.silviucimpoeru.com' : "http://localhost:4200");
             if (process.env.DEPLOYED) {
+                res.set({ 'Content-Length': 100000 });
                 res.sendFile(`${__dirname}/FE/index.html`);
                 this.initDeployedApp();
             }
