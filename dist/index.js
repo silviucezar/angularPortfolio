@@ -45,7 +45,7 @@ class ExpressApp {
     ;
     initDeployedApp() {
         this.app.use(express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
-        this.app.get('/', (apiRes, apiReq) => {
+        this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
             apiRes.header("Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/");
             apiReq.sendFile(`${__dirname}/FE/index.html`);
         });
