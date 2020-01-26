@@ -11,47 +11,28 @@ export interface FrontEndData {
 
 interface HeaderTemplate {
     image?: string;
-    intro_header_first_name?: InitialDataKey;
-    intro_header_current_role?: InitialDataKey;
-    intro_header_email?: InitialDataKey;
-    intro_header_age?: InitialDataKey;
-    intro_header_birth_date?: InitialDataKey;
-    intro_header_gender?: InitialDataKey;
-    intro_header_phone_no?: InitialDataKey;
-    intro_header_about_me?: InitialDataKey;
+    intro_header_first_name?: string;
+    intro_header_current_role?: string;
+    intro_header_email?: string;
+    intro_header_age?: string;
+    intro_header_birth_date?: string;
+    intro_header_gender?: string;
+    intro_header_phone_no?: string;
+    intro_header_about_me?: string;
 }
 
 export interface ComponentsTemplate {
-    about_me?: InitialDataKey;
-    skills?: InitialDataKey;
-    jobs?: InitialDataKey;
-    education?: InitialDataKey;
-    references?: InitialDataKey;
-    leave_message?: InitialDataKey;
+    about_me?: any;
+    skills?: any;
+    jobs?: any;
+    education?: any;
+    references?: any;
+    leave_message?: any;
 }
 interface FooterTemplate {
-    intro_footer_fetching_data?: InitialDataKey;
-    intro_footer_settings?: InitialDataKey;
+    intro_footer_fetching_data?: string;
+    intro_footer_settings?: string;
 }
-
-export interface InitialDataKey {
-    text: any;
-    info?: any;
-}
-
-// export interface DBDataTemplate {
-//     text?: string;
-//     prefix?: string;
-//     string_key?: string;
-//     info?: any
-// }
-
-// export interface FrontEndDataTemplate {
-//     ro_RO?: ComponentsDataStructure,
-//     en_US?: ComponentsDataStructure;
-
-// }
-
 
 
 

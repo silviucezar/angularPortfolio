@@ -1,4 +1,2 @@
-<div>
-    <button (click)='toggleLanguage()'>Toggle Language</button>
-    <input type='text'>
-</div>
+<div class='appMetadataContentLoader'></div>
+<button (click)='toggleLanguage()' [ngStyle]='{"background-image" : "url(icons/" + currentLocale + ".png)"}'></button>

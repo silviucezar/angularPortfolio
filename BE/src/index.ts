@@ -5,35 +5,37 @@ import { RowDataPacket, FrontEndData, ComponentsTemplate } from './Interfaces/Fr
 class ExpressApp {
     private db = new DB();
     constructor(
-        public app: Application
+        private app: Application
     ) { }
 
     start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp() }
 
-    initServedApp() { this.app.listen(8080, () => { this.initDataApi(); console.log("Server running...") }); };
+    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); console.log("Server running...") }); };
 
     initDeployedApp() {
         this.app.use(Express.static('FE')).listen(8080, () => { console.log("Server running...") });
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
             apiRes.header('Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/');
             apiReq.sendFile(`${__dirname}/FE/index.html`);
-            this.initDataApi();
+            this.initMetadataApi();
         });
     }
 
-    initDataApi() {
-        this.app.get("/api/getMetadata", (apiReq: Request, apiRes: Response) => {
-            apiRes.header("Access-Control-Allow-Origin", process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200');
+    initMetadataApi() {
+        console.log('init')
+        this.app.get('/api/getMetadata', (apiReq: Request, apiRes: Response) => {
+            console.log('getinitMetadataApi')
+            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200'));
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
             const tables: SelectQuery[] = apiReq.query.isInitialLoad ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
-                    { Table: "component_data", Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
+                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
                     { Table: 'footer_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] }
                 ] :
                 [
-                    { Table: "component_data", Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
+                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
@@ -50,11 +52,11 @@ class ExpressApp {
             headerData: JSON.parse(data[0][0].text.toString()),
             componentsData: {},
             footerData: JSON.parse(data[2][0].text.toString())
-        }
+        };
         for (const componentData of data[1]) {
-            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`, 'gi'), '')) as keyof ComponentsTemplate] = JSON.parse((componentData.text as any))
+            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`, 'gi'), '')) as keyof ComponentsTemplate] = JSON.parse((componentData.text as any));
         }
-        apiRes.end(JSON.stringify(feData))
+        apiRes.end(JSON.stringify(feData));
     }
 }
 

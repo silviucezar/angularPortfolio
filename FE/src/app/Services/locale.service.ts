@@ -51,6 +51,6 @@ export class LocaleService {
     const currentLocaleValue = this.currentLocale$.value;
     currentLocaleValue.locale = currentLocaleValue.locale === 'ro_RO' ? 'en_US' : 'ro_RO';
     this.currentLocale$.next(currentLocaleValue)
-    return currentLocaleValue.locale
+    return currentLocaleValue.locale;
   };
 }
