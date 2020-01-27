@@ -66,6 +66,7 @@ class ExpressApp {
         apiRes.end(JSON.stringify(feData));
     }
 }
+console.log(process.env);
 const config = {
     cert: fs.readFileSync(process.env.CERT, 'utf8'),
     key: fs.readFileSync(process.env.KEY, 'utf8')
