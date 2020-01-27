@@ -13,11 +13,8 @@ class DBFlow extends dbQueriesLogic_1.DBQueriesLogic {
         });
     }
     start(action, tables) {
-        console.log(this.pool);
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err, connection) => {
-                console.log(err);
-                console.log(connection);
                 Promise.all(this.initQuery(connection, action, tables))
                     .then((result) => {
                     this.endConnection(connection);
@@ -30,7 +27,6 @@ class DBFlow extends dbQueriesLogic_1.DBQueriesLogic {
         });
     }
     endConnection(connection) {
-        console.log(connection);
         try {
             connection.query('COMMIT', () => connection.release());
         }

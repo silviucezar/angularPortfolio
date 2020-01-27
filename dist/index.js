@@ -3,8 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const dbMain_1 = require("./Db/dbMain");
 class ExpressApp {
@@ -18,7 +16,7 @@ class ExpressApp {
     initDeployedApp() {
         this.app.use(express_1.default.static('FE')).listen(8080);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
-            apiRes.header(`Access-Control-Allow-Origin : ${process.env}`);
+            apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
             this.initMetadataApi();
         });

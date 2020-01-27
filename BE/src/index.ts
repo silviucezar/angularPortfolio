@@ -1,5 +1,3 @@
-import dotenv from 'dotenv'
-dotenv.config();
 import Express, { Application, Request, Response, NextFunction } from 'express';
 import { DB } from "./Db/dbMain";
 import { SelectQuery } from './Interfaces/MainDBInterface';
@@ -19,7 +17,7 @@ class ExpressApp {
     initDeployedApp() {
         this.app.use(Express.static('FE')).listen(8080);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
-            apiRes.header(`Access-Control-Allow-Origin : ${process.env}`);
+            apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
             this.initMetadataApi();
         });
