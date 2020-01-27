@@ -2,16 +2,26 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dbMain_1 = require("./Db/dbMain");
+const fs = __importStar(require("fs"));
+const https = __importStar(require("https"));
+const http = __importStar(require("http"));
 class ExpressApp {
     constructor(app) {
         this.app = app;
         this.db = new dbMain_1.DB();
     }
     start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp(); }
-    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); }); }
+    initServedApp() { this.app.listen((process.env.PORT || 8080), () => { this.initMetadataApi(); }); }
     ;
     initDeployedApp() {
         this.app.use(express_1.default.static('FE')).listen(8080);
@@ -56,5 +66,10 @@ class ExpressApp {
         apiRes.end(JSON.stringify(feData));
     }
 }
-new ExpressApp(express_1.default()).start();
+const expressApp = new ExpressApp(express_1.default());
+const config = {
+    cert: fs.readFileSync(process.env.CERT, 'utf8'),
+    key: fs.readFileSync(process.env.KEY, 'utf8')
+};
+process.env.PORT ? https.createServer(config, expressApp.start) : http.createServer(expressApp.start);
 //# sourceMappingURL=index.js.map

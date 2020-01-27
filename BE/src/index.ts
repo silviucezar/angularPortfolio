@@ -2,17 +2,20 @@ import Express, { Application, Request, Response, NextFunction } from 'express';
 import { DB } from "./Db/dbMain";
 import { SelectQuery } from './Interfaces/MainDBInterface';
 import { RowDataPacket, FrontEndData, ComponentsTemplate } from './Interfaces/FrontEndData';
-
+import * as fs from 'fs';
+import * as https from 'https';
+import * as http from 'http';
 
 class ExpressApp {
     private db = new DB();
+
     constructor(
         private app: Application
     ) { }
 
     start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp() }
 
-    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); }); };
+    initServedApp() { this.app.listen((process.env.PORT || 8080), () => { this.initMetadataApi(); }); };
 
     initDeployedApp() {
         this.app.use(Express.static('FE')).listen(8080);
@@ -60,4 +63,11 @@ class ExpressApp {
     }
 }
 
-new ExpressApp(Express()).start();
+const expressApp = new ExpressApp(Express());
+
+const config = {
+    cert: fs.readFileSync((process.env.CERT as string),'utf8'),
+    key: fs.readFileSync((process.env.KEY as string),'utf8')
+};
+
+process.env.PORT ? https.createServer(config, expressApp.start) : http.createServer(expressApp.start);
