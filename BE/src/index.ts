@@ -7,13 +7,16 @@ import * as https from 'https';
 import * as http from 'http';
 
 class ExpressApp {
+
     private db = new DB();
 
     constructor(
-        private app: Application
-    ) { }
+        public app: Application
+    ) {
 
-    start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp() }
+        process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp();
+    }
+
 
     initServedApp() { this.app.listen((process.env.PORT || 8080), () => { this.initMetadataApi(); }); };
 
@@ -63,11 +66,12 @@ class ExpressApp {
     }
 }
 
-const expressApp = new ExpressApp(Express());
-
 const config = {
-    cert: fs.readFileSync((process.env.CERT as string),'utf8'),
-    key: fs.readFileSync((process.env.KEY as string),'utf8')
+    cert: fs.readFileSync((process.env.CERT as string), 'utf8'),
+    key: fs.readFileSync((process.env.KEY as string), 'utf8')
 };
 
-process.env.PORT ? https.createServer(config, expressApp.start) : http.createServer(expressApp.start);
+(process.env.PORT ?
+    https.createServer(config, new ExpressApp(Express()).app) :
+    http.createServer(new ExpressApp(Express()).app)).listen(process.env.PORT || 8080);
+

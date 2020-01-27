@@ -19,8 +19,8 @@ class ExpressApp {
     constructor(app) {
         this.app = app;
         this.db = new dbMain_1.DB();
+        process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp();
     }
-    start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp(); }
     initServedApp() { this.app.listen((process.env.PORT || 8080), () => { this.initMetadataApi(); }); }
     ;
     initDeployedApp() {
@@ -66,10 +66,11 @@ class ExpressApp {
         apiRes.end(JSON.stringify(feData));
     }
 }
-const expressApp = new ExpressApp(express_1.default());
 const config = {
     cert: fs.readFileSync(process.env.CERT, 'utf8'),
     key: fs.readFileSync(process.env.KEY, 'utf8')
 };
-process.env.PORT ? https.createServer(config, expressApp.start) : http.createServer(expressApp.start);
+(process.env.PORT ?
+    https.createServer(config, new ExpressApp(express_1.default()).app) :
+    http.createServer(new ExpressApp(express_1.default()).app)).listen(process.env.PORT || 8080);
 //# sourceMappingURL=index.js.map
