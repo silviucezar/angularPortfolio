@@ -17,6 +17,7 @@ class DBQueriesLogic {
     }
     startCreatingTables(connection) {
         const promiseArr = [];
+        console.log(connection);
         for (const query of this.queryArrays) {
             promiseArr.push(new Promise((resolveTableCreation, rejectTableCreation) => {
                 connection.query('BEGIN', (beginErr) => {

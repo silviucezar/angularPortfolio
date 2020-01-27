@@ -1,2 +1,5 @@
-<div class='appMetadataContentLoader'></div>
-<button (click)='toggleLanguage()' [ngStyle]='{"background-image" : "url(icons/" + currentLocale + ".png)"}'></button>
+<app-dynamic-component-loader class='loader' [ngClass]='{"active" : currentLocale === "en_US"}'>
+</app-dynamic-component-loader>
+<button class='toggleLocaleStyle' (click)='toggleLanguage()'>
+    <div class='localeImage' [ngClass]='currentLocale'></div>
+</button>

@@ -2,36 +2,25 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-component-loader',
-  template:
-    `<div class='appGlobalContentLoader'>
-      <div class="appGlobalContentLoaderAnimation"></div>
-    </div>`,
+  template: '',
   styles: [
-    `.appGlobalContentLoader {
-        display: block;
-        width  : 100%;
-        height : 10.4vh;
-        padding: 4px
-      }
-
-    .appGlobalContentLoaderAnimation {
-        width        : 100%;
-        height       : 100%;
-        animation    : 1.5s pulsate infinite ease-in-out;
-        border-radius: 5px;
+    `:host {
+      position        : relative;
+      width           : 100%;
+      height          : 100%;
+      top             : 0;
+      left            : 0;
+      background-size : cover;
+      animation: 1s rotate linear infinite
     }
 
-    @keyframes pulsate {
-      0% {
-        background: transparent;
+    @keyframes rotate {
+      from {
+        transform:rotate(0deg);
       }
 
-      50% {
-        background: lightblue;
-      }
-
-      100% {
-        background: transparent;
+      to {
+        transform:rotate(360deg);
       }
     }
     `

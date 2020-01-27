@@ -25,7 +25,8 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/icons"
             ],
             "extractCss": true,
             "styles": [
@@ -109,7 +110,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/icons"
             ],
             "styles": [
               "src/app/Common_CSS/styles.scss",

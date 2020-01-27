@@ -23,6 +23,7 @@ export class DBQueriesLogic {
 
     startCreatingTables(connection: PoolConnection): Promise<any>[] {
         const promiseArr: Promise<any>[] = [];
+        console.log(connection)
         for (const query of this.queryArrays) {
             promiseArr.push(
                 new Promise((resolveTableCreation, rejectTableCreation) => {
