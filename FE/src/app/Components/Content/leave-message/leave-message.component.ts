@@ -20,7 +20,6 @@ export class LeaveMessageComponent implements OnInit {
       this.loading = false;
       this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.currentLocale] = componentsMetadata.components.leave_message[this.currentLocale];
-      console.log(this.metadata[this.currentLocale])
     });
   }
   ngOnInit() {

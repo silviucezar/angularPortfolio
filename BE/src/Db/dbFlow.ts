@@ -5,21 +5,18 @@ import { SelectQuery } from '../Interfaces/MainDBInterface';
 export class DBFlow extends DBQueriesLogic {
 
     private pool: Pool = createPool({
-        host: '139.162.166.31',
-        user: 'silviuci_scimpoeru',
-        password: 'HvJHTsQm9KteBLfKMytCYBkW',
-        database: 'silviuci_porfolio'
+        host: process.env.DBHOST,
+        user: process.env.DBUSER,
+        password: process.env.DBPASS,
+        database: process.env.DB
     });
 
     constructor() {
         super();
     }
     start(action: string, tables?: SelectQuery[]): Promise<any> {
-        console.log(this.pool)
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err: MysqlError, connection: PoolConnection) => {
-                console.log(err)
-                console.log(connection)
                 Promise.all(this.initQuery(connection, action, tables))
                     .then((result) => {
                         this.endConnection(connection);
@@ -33,7 +30,6 @@ export class DBFlow extends DBQueriesLogic {
     }
 
     endConnection(connection: PoolConnection) {
-        console.log(connection)
         try {
             connection.query('COMMIT', () => connection.release());
         } catch (e) {

@@ -23,7 +23,6 @@ export class SkillsComponent extends PageLogic implements OnInit {
       this.finishedLoading = true;
       this.locale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.locale] = componentsMetadata.components.skills[this.locale];
-      console.log(this.metadata[this.locale])
       if (this.skills = []) this.skills = this.objectKeys(this.metadata[this.locale]);
     });
   }

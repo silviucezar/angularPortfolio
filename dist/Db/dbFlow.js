@@ -6,10 +6,10 @@ class DBFlow extends dbQueriesLogic_1.DBQueriesLogic {
     constructor() {
         super();
         this.pool = mysql_1.createPool({
-            host: '139.162.166.31',
-            user: 'silviuci_scimpoeru',
-            password: 'HvJHTsQm9KteBLfKMytCYBkW',
-            database: 'silviuci_porfolio'
+            host: process.env.DBHOST,
+            user: process.env.DBUSER,
+            password: process.env.DBPASS,
+            database: process.env.DB
         });
     }
     start(action, tables) {

@@ -51,7 +51,6 @@ let JobsComponent = class JobsComponent {
             this.loading = false;
             this.currentLocale = componentsMetadata.currentLocale;
             this.metadata[this.currentLocale] = componentsMetadata.components.jobs[this.currentLocale];
-            console.log(this.metadata[this.currentLocale]);
         });
     }
     ngOnInit() { }

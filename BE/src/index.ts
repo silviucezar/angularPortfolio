@@ -1,7 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config();
 import Express, { Application, Request, Response, NextFunction } from 'express';
 import { DB } from "./Db/dbMain";
 import { SelectQuery } from './Interfaces/MainDBInterface';
 import { RowDataPacket, FrontEndData, ComponentsTemplate } from './Interfaces/FrontEndData';
+
+
 class ExpressApp {
     private db = new DB();
     constructor(
@@ -10,22 +14,20 @@ class ExpressApp {
 
     start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp() }
 
-    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); console.log("Server running...") }); };
+    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); }); };
 
     initDeployedApp() {
-        this.app.use(Express.static('FE')).listen(8080, () => { console.log("Server running...") });
+        this.app.use(Express.static('FE')).listen(8080);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
-            apiRes.header('Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/');
+            apiRes.header(`Access-Control-Allow-Origin : ${process.env}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
             this.initMetadataApi();
         });
     }
 
     initMetadataApi() {
-        console.log('init')
         this.app.get('/api/getMetadata', (apiReq: Request, apiRes: Response) => {
-            console.log('getinitMetadataApi')
-            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200'));
+            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
             const tables: SelectQuery[] = apiReq.query.isInitialLoad ?

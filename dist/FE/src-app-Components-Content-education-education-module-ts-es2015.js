@@ -51,7 +51,6 @@ let EducationComponent = class EducationComponent {
             this.loading = false;
             this.currentLocale = componentsMetadata.currentLocale;
             this.metadata[this.currentLocale] = componentsMetadata.components.education[this.currentLocale];
-            console.log(this.metadata[this.currentLocale]);
         });
     }
     ngOnInit() {

@@ -66,7 +66,6 @@ export class DataService {
       isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale as 'ro_RO' | 'en_US']
     })
       .then((feData: ComponentsDataStructure) => {
-        console.log(feData)
         this.componentsMetadata.dataToFetch = dataToFetch;
         const currentMetadata: ComponentsDataStructure = feData;
         if (currentLoadStatusIsInitial) {

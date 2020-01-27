@@ -3,6 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const dbMain_1 = require("./Db/dbMain");
 class ExpressApp {
@@ -11,21 +13,19 @@ class ExpressApp {
         this.db = new dbMain_1.DB();
     }
     start() { process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp(); }
-    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); console.log("Server running..."); }); }
+    initServedApp() { this.app.listen(8080, () => { this.initMetadataApi(); }); }
     ;
     initDeployedApp() {
-        this.app.use(express_1.default.static('FE')).listen(8080, () => { console.log("Server running..."); });
+        this.app.use(express_1.default.static('FE')).listen(8080);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
-            apiRes.header('Access-Control-Allow-Origin : http://stage.silviucimpoeru.com/');
+            apiRes.header(`Access-Control-Allow-Origin : ${process.env}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
             this.initMetadataApi();
         });
     }
     initMetadataApi() {
-        console.log('init');
         this.app.get('/api/getMetadata', (apiReq, apiRes) => {
-            console.log('getinitMetadataApi');
-            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED ? 'http://stage.silviucimpoeru.com/' : 'http://localhost:4200'));
+            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;
             const tables = apiReq.query.isInitialLoad ?
