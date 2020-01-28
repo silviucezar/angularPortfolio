@@ -18,7 +18,7 @@ class ExpressApp {
     }
 
 
-    initServedApp() { this.app.listen(8080), () => { this.initMetadataApi(); } };
+    initServedApp() { this.app.listen(8080, () => this.initMetadataApi()) };
 
     initDeployedApp() {
         this.app.use(Express.static('FE')).listen(process.env.PORT);
@@ -67,10 +67,11 @@ class ExpressApp {
 }
 
 
-(process.env.PORT ?
-    https.createServer({
+process.env.PORT ? (() => {
+    const config = {
         cert: fs.readFileSync((process.env.CERT as string), 'utf8'),
         key: fs.readFileSync((process.env.KEY as string), 'utf8')
-    }, new ExpressApp(Express()).app) :
-    http.createServer(new ExpressApp(Express()).app));
+    };
+    https.createServer(config, new ExpressApp(Express()).app);
+})() : http.createServer(new ExpressApp(Express()).app);
 
