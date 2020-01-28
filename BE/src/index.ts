@@ -18,10 +18,10 @@ class ExpressApp {
     }
 
 
-    initServedApp() { this.initMetadataApi(); };
+    initServedApp() { this.app.listen(8080), () => { this.initMetadataApi(); } };
 
     initDeployedApp() {
-        this.app.use(Express.static('FE'));
+        this.app.use(Express.static('FE')).listen(process.env.PORT);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
             apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
@@ -66,10 +66,11 @@ class ExpressApp {
     }
 }
 
+
 (process.env.PORT ?
     https.createServer({
         cert: fs.readFileSync((process.env.CERT as string), 'utf8'),
         key: fs.readFileSync((process.env.KEY as string), 'utf8')
     }, new ExpressApp(Express()).app) :
-    http.createServer(new ExpressApp(Express()).app)).listen(process.env.PORT || 8080);
+    http.createServer(new ExpressApp(Express()).app));
 
