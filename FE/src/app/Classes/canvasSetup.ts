@@ -1,22 +1,34 @@
-import { NavBarCanvasProps, HeaderCanvasProps } from '../Interfaces/CanvasDetails';
+import { BackgroundCanvasProps, VisionCanvasProps } from '../Interfaces/CanvasDetails';
 
 export class CanvasSetup {
-  public navBar: NavBarCanvasProps;
-  public header: HeaderCanvasProps;
+  public background: BackgroundCanvasProps;
+  public vision: VisionCanvasProps;
 
   constructor(
-    private navBarCanvas: HTMLCanvasElement,
-    private headerCanvas: HTMLCanvasElement
+    private backgroundCanvas: HTMLCanvasElement,
+    private visionCanvas: HTMLCanvasElement
   ) {
 
-    this.navBar = {
-      element: this.navBarCanvas,
-      ctx: this.navBarCanvas.getContext('2d') as CanvasRenderingContext2D,
+    this.background = {
+      element: this.backgroundCanvas,
+      ctx: undefined,
       settings: {
-        previousIndex: '',
-        currentIndex: '',
-        heightRef: '',
-        pointsConfig: []
+        menuHighlight: {
+          previousIndex: '',
+          currentIndex: '',
+          heightRef: '',
+          pointsConfig: []
+        },
+        galaxy: {
+          top: {
+            coords: [[0, 0]],
+            speed: 0
+          },
+          bottom: {
+            coords: [[0, 0]],
+            speed: 0
+          }
+        }
       },
       width: '',
       height: '',
@@ -24,9 +36,9 @@ export class CanvasSetup {
         drawMenuCanvas: () => void {}
       }
     };
-    this.header = {
-      element: this.headerCanvas,
-      ctx: this.headerCanvas.getContext('2d') as CanvasRenderingContext2D,
+    this.vision = {
+      element: this.visionCanvas,
+      ctx: undefined,
       functionality: {
         drawInitialCanvas: () => void {}
       }

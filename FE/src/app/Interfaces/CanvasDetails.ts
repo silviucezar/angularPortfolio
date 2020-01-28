@@ -1,34 +1,49 @@
 export interface CanvasSetup {
-    NavBar?: NavBarCanvasProps;
-    Header?: HeaderCanvasProps;
+    background?: BackgroundCanvasProps;
+    vision?: VisionCanvasProps;
 }
 
-export interface NavBarCanvasProps {
+export interface BackgroundCanvasProps {
     element: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    settings: NavBarCanvasSettings;
+    ctx: CanvasRenderingContext2D | undefined;
+    settings: BackgroundCanvasSettings;
     width: number | string;
     height: number | string;
-    functionality: NavBarCanvasFunctionality;
+    functionality: BackgroundCanvasFunctionality;
 }
 
-interface NavBarCanvasSettings {
+interface BackgroundCanvasSettings {
+    menuHighlight: MenuHighlightSettings;
+    galaxy: GalaxySettings;
+}
+
+interface MenuHighlightSettings {
     previousIndex: number | string;
     currentIndex: number | string;
     heightRef: number | string;
-    pointsConfig: number[][][]
+    pointsConfig: number[][][];
 }
 
-interface NavBarCanvasFunctionality {
+interface GalaxySettings {
+    top: GalaxySubSettings;
+    bottom: GalaxySubSettings;
+}
+
+interface GalaxySubSettings {
+    coords: number[][],
+    speed: number;
+}
+
+interface BackgroundCanvasFunctionality {
     drawMenuCanvas: () => void;
 }
 
-export interface HeaderCanvasProps {
+export interface VisionCanvasProps {
     element: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    functionality: HeaderCanvasFunctionality;
+    ctx: CanvasRenderingContext2D | undefined;
+    functionality: VisionCanvasFunctionality;
 }
 
-interface HeaderCanvasFunctionality {
+interface VisionCanvasFunctionality {
     drawInitialCanvas: () => void;
 }

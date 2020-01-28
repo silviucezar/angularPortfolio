@@ -53,15 +53,12 @@ export class InitService {
     this.enableCurrentOrientationCSS(domRootElementRef)
       .then(() => {
         if (isInit) {
-          this.canvasSetup = new CanvasSetup(
-            (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement),
-            (this._document.querySelector('#navBarCanvas') as HTMLCanvasElement)
-          )
+
           this.setScrollEvent();
           this.setResizeEvent(domRootElementRef);
           this.wasInit = true;
         }
-        this.canvasInit();
+        this.canvasService.init();
       })
       .catch(() => {
         //load error here (usually most probably because internet connection)
@@ -72,10 +69,6 @@ export class InitService {
     // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
   }
 
-  canvasInit() {
-
-  }
-
   setAppStyle(domRootElementRef: ElementRef) {
     if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
       this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
@@ -84,7 +77,9 @@ export class InitService {
         this.toggleGlobalLoading(true);
       }
     }
-    this.enableCurrentOrientationCSS(domRootElementRef).then(() => { this.canvasInit() });
+    this.enableCurrentOrientationCSS(domRootElementRef).then(() => {
+      this.canvasService.init();
+    });
   }
 
   enableCurrentOrientationCSS(domRootElementRef: ElementRef, count?: number): Promise<void> {
@@ -134,14 +129,14 @@ export class InitService {
 
     }
 
-    // if (window.ontouchmove === null) {
-    //   window.ontouchstart = (event: TouchEvent) => {
-    //     touchStartY = event.touches[0].clientY;
-    //   };
-    //   window.ontouchend = (event: TouchEvent) => {
-    //     toggleHeader(event);
-    //   }
-    // }
+    if (window.ontouchmove === null) {
+      window.ontouchstart = (event: TouchEvent) => {
+        touchStartY = event.touches[0].clientY;
+      };
+      window.ontouchend = (event: TouchEvent) => {
+        toggleHeader(event);
+      }
+    }
 
     function toggleHeader(event: WheelEvent | TouchEvent) {
       self._document.querySelector("#appGlobalGrid")!.className = ((): string => {

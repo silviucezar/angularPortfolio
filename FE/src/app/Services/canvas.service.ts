@@ -1,15 +1,47 @@
-import { Injectable, ElementRef } from '@angular/core';
-import { NavBarCanvasProps, HeaderCanvasProps } from '../Interfaces/CanvasDetails';
+import { Injectable, ElementRef, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { CanvasSetup } from '../Classes/canvasSetup';
 
-interface CanvasObject {
-  NavBar: NavBarCanvasProps;
-  Header: HeaderCanvasProps;
-}
 @Injectable({
   providedIn: 'root'
 })
 export class CanvasService {
 
+  private canvasSetup!: any;
+  constructor(
+    @Inject(DOCUMENT) private _document: Document
+  ) { }
+
+  init() {
+    this.canvasSetup = new CanvasSetup(
+      (this._document.querySelector('#backgroundCanvas') as HTMLCanvasElement),
+      (this._document.querySelector('#visionCanvas') as HTMLCanvasElement)
+    );
+    this.canvasSetup.background.element.style.width = this.canvasSetup.vision!.element.style.width = `${this._document.documentElement.clientWidth}px`;
+    this.canvasSetup.background.element.style.height = this.canvasSetup.vision!.element.style.height = `${this._document.documentElement.clientHeight}px`;
+    this.canvasSetup.background.ctx = this.canvasSetup.background.element.getContext('2d');
+    this.canvasSetup.vision.ctx = this.canvasSetup.vision.element.getContext('2d');
+    console.log(this.canvasSetup)
+    //   this._document = _document;
+    //   console.log('here')
+    //   this.initGalaxy('bottom');
+    //   this.initGalaxy('top');
+  }
+
+  // this.canvasSetup = new CanvasSetup(
+  //   (this._document.querySelector('#backgroundCanvas') as HTMLCanvasElement),
+  //   (this._document.querySelector('#visionCanvas') as HTMLCanvasElement)
+  // )
+
+  // initGalaxy(galaxyPlace: string) {
+  //   console.log('here')
+  //   this.canvasSetup.background!.element.style.width = this.canvasSetup.vision!.element.style.width = `${this._document.documentElement.clientWidth}px`;
+  //   this.canvasSetup.background!.element.style.height = this.canvasSetup.vision!.element.style.height = `${this._document.documentElement.clientHeight}px`;
+  //   console.log(galaxyPlace, this.canvasSetup)
+  //   // for (let i = 0; i < 7; i++) {
+
+  //   // }
+  // }
   // private canvasObj = new Canvas();
   // private initialHeaderCanvasSetup = false;
   // constructor() {

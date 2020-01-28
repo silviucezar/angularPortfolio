@@ -64,7 +64,7 @@ module.exports = webpackAsyncContext;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n    <canvas class='headerCanvas' id='headerCanvas' #headerCanvas></canvas>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>\r\n\r\n<canvas id='backgroundCanvas'></canvas>\r\n<canvas id='visionCanvas'></canvas>");
 
 /***/ }),
 
@@ -336,17 +336,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
 class CanvasSetup {
-    constructor(navBarCanvas, headerCanvas) {
-        this.navBarCanvas = navBarCanvas;
-        this.headerCanvas = headerCanvas;
-        this.navBar = {
-            element: this.navBarCanvas,
-            ctx: this.navBarCanvas.getContext('2d'),
+    constructor(backgroundCanvas, visionCanvas) {
+        this.backgroundCanvas = backgroundCanvas;
+        this.visionCanvas = visionCanvas;
+        this.background = {
+            element: this.backgroundCanvas,
+            ctx: undefined,
             settings: {
-                previousIndex: '',
-                currentIndex: '',
-                heightRef: '',
-                pointsConfig: []
+                menuHighlight: {
+                    previousIndex: '',
+                    currentIndex: '',
+                    heightRef: '',
+                    pointsConfig: []
+                },
+                galaxy: {
+                    top: {
+                        coords: [[0, 0]],
+                        speed: 0
+                    },
+                    bottom: {
+                        coords: [[0, 0]],
+                        speed: 0
+                    }
+                }
             },
             width: '',
             height: '',
@@ -354,9 +366,9 @@ class CanvasSetup {
                 drawMenuCanvas: () => void {}
             }
         };
-        this.header = {
-            element: this.headerCanvas,
-            ctx: this.headerCanvas.getContext('2d'),
+        this.vision = {
+            element: this.visionCanvas,
+            ctx: undefined,
             functionality: {
                 drawInitialCanvas: () => void {}
             }
@@ -493,7 +505,7 @@ HeaderTextLoaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".categoriesUrl {\n  display: block;\n  width: 100%;\n  height: 10.4vh;\n  padding: 4px;\n  line-height: 10.4vh;\n  text-align: center;\n  text-decoration: none;\n  position: relative;\n  top: -100%;\n}\n\n.appGlobalHeader {\n  grid-column: 1;\n  grid-row: 1;\n  margin: 0;\n  display: grid;\n  grid-template-rows: 100%;\n  grid-template-columns: 100%;\n}\n\n.appGlobalFooter {\n  display: grid;\n  padding: 5px;\n  grid-template-columns: repeat(4, 40px) auto;\n  grid-template-rows: auto;\n  grid-gap: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQ29tcG9uZW50cy9Sb290L0Q6XFxhbmd1bGFyUG9ydGZvbGlvXFxGRS9zcmNcXGFwcFxcQ29tcG9uZW50c1xcUm9vdFxcYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9Db21wb25lbnRzL1Jvb3QvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBQTtFQUNBLFdBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtFQUNBLFdBQUE7RUFDQSxTQUFBO0VBQ0EsYUFBQTtFQUNBLHdCQUFBO0VBQ0EsMkJBQUE7QUNDRjs7QURFQTtFQUNFLGFBQUE7RUFDQSxZQUFBO0VBQ0EsMkNBQUE7RUFDQSx3QkFBQTtFQUNBLGNBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvUm9vdC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2F0ZWdvcmllc1VybCB7XHJcbiAgZGlzcGxheSAgICAgICAgOiBibG9jaztcclxuICB3aWR0aCAgICAgICAgICA6IDEwMCU7XHJcbiAgaGVpZ2h0ICAgICAgICAgOiAxMC40dmg7XHJcbiAgcGFkZGluZyAgICAgICAgOiA0cHg7XHJcbiAgbGluZS1oZWlnaHQgICAgOiAxMC40dmg7XHJcbiAgdGV4dC1hbGlnbiAgICAgOiBjZW50ZXI7XHJcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xyXG4gIHBvc2l0aW9uICAgICAgIDogcmVsYXRpdmU7XHJcbiAgdG9wICAgICAgICAgICAgOiAtMTAwJTtcclxufVxyXG5cclxuLmFwcEdsb2JhbEhlYWRlciB7XHJcbiAgZ3JpZC1jb2x1bW4gICAgICAgICAgOiAxO1xyXG4gIGdyaWQtcm93ICAgICAgICAgICAgIDogMTtcclxuICBtYXJnaW4gICAgICAgICAgICAgICA6IDA7XHJcbiAgZGlzcGxheSAgICAgICAgICAgICAgOiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93cyAgIDogMTAwJTtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDEwMCU7XHJcbn1cclxuXHJcbi5hcHBHbG9iYWxGb290ZXIge1xyXG4gIGRpc3BsYXkgICAgICAgICAgICAgIDogZ3JpZDtcclxuICBwYWRkaW5nICAgICAgICAgICAgICA6IDVweDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCg0LCA0MHB4KSBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93cyAgIDogYXV0bztcclxuICBncmlkLWdhcCAgICAgICAgICAgICA6IDEwcHg7XHJcbn0iLCIuY2F0ZWdvcmllc1VybCB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMC40dmg7XG4gIHBhZGRpbmc6IDRweDtcbiAgbGluZS1oZWlnaHQ6IDEwLjR2aDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgdG9wOiAtMTAwJTtcbn1cblxuLmFwcEdsb2JhbEhlYWRlciB7XG4gIGdyaWQtY29sdW1uOiAxO1xuICBncmlkLXJvdzogMTtcbiAgbWFyZ2luOiAwO1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IDEwMCU7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMTAwJTtcbn1cblxuLmFwcEdsb2JhbEZvb3RlciB7XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIHBhZGRpbmc6IDVweDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoNCwgNDBweCkgYXV0bztcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xuICBncmlkLWdhcDogMTBweDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".categoriesUrl {\n  display: block;\n  width: 100%;\n  height: 10.4vh;\n  padding: 4px;\n  line-height: 10.4vh;\n  text-align: center;\n  text-decoration: none;\n  position: relative;\n}\n\n.appGlobalHeader {\n  grid-column: 1;\n  grid-row: 1;\n  margin: 0;\n  display: grid;\n  grid-template-rows: 100%;\n  grid-template-columns: 100%;\n}\n\n.appGlobalFooter {\n  display: grid;\n  padding: 5px;\n  grid-template-columns: repeat(4, 40px) auto;\n  grid-template-rows: auto;\n  grid-gap: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQ29tcG9uZW50cy9Sb290L0Q6XFxhbmd1bGFyUG9ydGZvbGlvXFxGRS9zcmNcXGFwcFxcQ29tcG9uZW50c1xcUm9vdFxcYXBwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9Db21wb25lbnRzL1Jvb3QvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBQTtFQUNBLFdBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0Esd0JBQUE7RUFDQSwyQkFBQTtBQ0NGOztBREVBO0VBQ0UsYUFBQTtFQUNBLFlBQUE7RUFDQSwyQ0FBQTtFQUNBLHdCQUFBO0VBQ0EsY0FBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvQ29tcG9uZW50cy9Sb290L2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jYXRlZ29yaWVzVXJsIHtcclxuICBkaXNwbGF5ICAgICAgICA6IGJsb2NrO1xyXG4gIHdpZHRoICAgICAgICAgIDogMTAwJTtcclxuICBoZWlnaHQgICAgICAgICA6IDEwLjR2aDtcclxuICBwYWRkaW5nICAgICAgICA6IDRweDtcclxuICBsaW5lLWhlaWdodCAgICA6IDEwLjR2aDtcclxuICB0ZXh0LWFsaWduICAgICA6IGNlbnRlcjtcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgcG9zaXRpb24gICAgICAgOiByZWxhdGl2ZTtcclxufVxyXG5cclxuLmFwcEdsb2JhbEhlYWRlciB7XHJcbiAgZ3JpZC1jb2x1bW4gICAgICAgICAgOiAxO1xyXG4gIGdyaWQtcm93ICAgICAgICAgICAgIDogMTtcclxuICBtYXJnaW4gICAgICAgICAgICAgICA6IDA7XHJcbiAgZGlzcGxheSAgICAgICAgICAgICAgOiBncmlkO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93cyAgIDogMTAwJTtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDEwMCU7XHJcbn1cclxuXHJcbi5hcHBHbG9iYWxGb290ZXIge1xyXG4gIGRpc3BsYXkgICAgICAgICAgICAgIDogZ3JpZDtcclxuICBwYWRkaW5nICAgICAgICAgICAgICA6IDVweDtcclxuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCg0LCA0MHB4KSBhdXRvO1xyXG4gIGdyaWQtdGVtcGxhdGUtcm93cyAgIDogYXV0bztcclxuICBncmlkLWdhcCAgICAgICAgICAgICA6IDEwcHg7XHJcbn0iLCIuY2F0ZWdvcmllc1VybCB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMC40dmg7XG4gIHBhZGRpbmc6IDRweDtcbiAgbGluZS1oZWlnaHQ6IDEwLjR2aDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cblxuLmFwcEdsb2JhbEhlYWRlciB7XG4gIGdyaWQtY29sdW1uOiAxO1xuICBncmlkLXJvdzogMTtcbiAgbWFyZ2luOiAwO1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IDEwMCU7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMTAwJTtcbn1cblxuLmFwcEdsb2JhbEZvb3RlciB7XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIHBhZGRpbmc6IDVweDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoNCwgNDBweCkgYXV0bztcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBhdXRvO1xuICBncmlkLWdhcDogMTBweDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -736,14 +748,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasService", function() { return CanvasService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Classes/canvasSetup */ "./src/app/Classes/canvasSetup.ts");
+
+
 
 
 let CanvasService = class CanvasService {
+    constructor(_document) {
+        this._document = _document;
+    }
+    init() {
+        this.canvasSetup = new _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__["CanvasSetup"](this._document.querySelector('#backgroundCanvas'), this._document.querySelector('#visionCanvas'));
+        this.canvasSetup.background.element.style.width = this.canvasSetup.vision.element.style.width = `${this._document.documentElement.clientWidth}px`;
+        this.canvasSetup.background.element.style.height = this.canvasSetup.vision.element.style.height = `${this._document.documentElement.clientHeight}px`;
+        this.canvasSetup.background.ctx = this.canvasSetup.background.element.getContext('2d');
+        this.canvasSetup.vision.ctx = this.canvasSetup.vision.element.getContext('2d');
+        console.log(this.canvasSetup);
+        //   this._document = _document;
+        //   console.log('here')
+        //   this.initGalaxy('bottom');
+        //   this.initGalaxy('top');
+    }
 };
+CanvasService.ctorParameters = () => [
+    { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"],] }] }
+];
 CanvasService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
-    })
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))
 ], CanvasService);
 
 
@@ -915,9 +950,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-/* harmony import */ var _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Classes/canvasSetup */ "./src/app/Classes/canvasSetup.ts");
-/* harmony import */ var _canvas_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./canvas.service */ "./src/app/Services/canvas.service.ts");
-
+/* harmony import */ var _canvas_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./canvas.service */ "./src/app/Services/canvas.service.ts");
 
 
 
@@ -948,12 +981,11 @@ let InitService = class InitService {
         this.enableCurrentOrientationCSS(domRootElementRef)
             .then(() => {
             if (isInit) {
-                this.canvasSetup = new _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__["CanvasSetup"](this._document.querySelector('#navBarCanvas'), this._document.querySelector('#navBarCanvas'));
                 this.setScrollEvent();
                 this.setResizeEvent(domRootElementRef);
                 this.wasInit = true;
             }
-            this.canvasInit();
+            this.canvasService.init();
         })
             .catch(() => {
             //load error here (usually most probably because internet connection)
@@ -963,8 +995,6 @@ let InitService = class InitService {
         // this.canvasObj = this.canvasService.getCanvas();
         // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
     }
-    canvasInit() {
-    }
     setAppStyle(domRootElementRef) {
         if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
             this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
@@ -973,7 +1003,9 @@ let InitService = class InitService {
                 this.toggleGlobalLoading(true);
             }
         }
-        this.enableCurrentOrientationCSS(domRootElementRef).then(() => { this.canvasInit(); });
+        this.enableCurrentOrientationCSS(domRootElementRef).then(() => {
+            this.canvasService.init();
+        });
     }
     enableCurrentOrientationCSS(domRootElementRef, count) {
         domRootElementRef.nativeElement.style.width = `${this._document.documentElement.clientWidth}px`;
@@ -1019,14 +1051,14 @@ let InitService = class InitService {
         window.onwheel = (event) => {
             toggleHeader(event);
         };
-        // if (window.ontouchmove === null) {
-        //   window.ontouchstart = (event: TouchEvent) => {
-        //     touchStartY = event.touches[0].clientY;
-        //   };
-        //   window.ontouchend = (event: TouchEvent) => {
-        //     toggleHeader(event);
-        //   }
-        // }
+        if (window.ontouchmove === null) {
+            window.ontouchstart = (event) => {
+                touchStartY = event.touches[0].clientY;
+            };
+            window.ontouchend = (event) => {
+                toggleHeader(event);
+            };
+        }
         function toggleHeader(event) {
             self._document.querySelector("#appGlobalGrid").className = (() => {
                 if (event instanceof WheelEvent) {
@@ -1061,7 +1093,7 @@ let InitService = class InitService {
     }
 };
 InitService.ctorParameters = () => [
-    { type: _canvas_service__WEBPACK_IMPORTED_MODULE_4__["CanvasService"] },
+    { type: _canvas_service__WEBPACK_IMPORTED_MODULE_3__["CanvasService"] },
     { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"],] }] }
 ];
 InitService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

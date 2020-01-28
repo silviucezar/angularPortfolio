@@ -1,6 +1,5 @@
 <div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
     <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
-    <canvas class='headerCanvas' id='headerCanvas' #headerCanvas></canvas>
 </div>
 <div class="appGlobalContent" #GlobalContainer style='grid-area:appGlobalContent'>
     <div class='appGlobalContentMain'>
@@ -18,3 +17,6 @@
         routerLink="{{'portfolio/' + category.url}}">{{category[this.currentLocale + '_Title']}}<br></a>
 </div>
 <app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter'></app-footer>
+
+<canvas id='backgroundCanvas'></canvas>
+<canvas id='visionCanvas'></canvas>
