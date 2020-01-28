@@ -41,9 +41,10 @@ body {
   grid-template-areas: "appGlobalHeaderMainContainer appGlobalHeaderMainContainer"
     "appGlobalContent appGlobalMargin"
     "appGlobalFooter appGlobalFooter";
-  box-sizing: border-box;
+  box-sizing           : border-box;
+  grid-template-columns: 70fr 30fr;
+  grid-template-rows   : minmax(auto, 50px) auto 50px;
 }
-
 
 .appGlobalContent {
   display              : grid;

@@ -1,108 +1,51 @@
-#appGlobalGrid {
-    grid-template-rows: 70fr 15fr 15fr;
-}
-
-#App_Global_Grid,
-.App_Global_Header_Container {
-    grid-template-columns: 67fr 33fr;
-}
-
-.appGlobalHeaderContainerImage {
-    grid-area    : appGlobalHeaderContainerImage;
-    grid-template: auto 160px auto / auto 160px auto;
-    display      : grid !important;
-}
-
-.appGlobalHeaderContainerImage div:nth-child(2) {
-    grid-template: auto 150px auto / auto 150px auto;
-    display      : grid;
-}
+$circle_border: calc(15vw + 35px);
+$circle_img   : calc(15vw + 20px);
 
 .appGlobalHeaderContainer {
-    grid-template-areas:
-        "appGlobalHeaderContainerData appGlobalHeaderContainerImage"
-        "appGlobalHeaderContainerData appGlobalHeaderContainerImage";
+    grid-template-columns: 70fr 30fr;
 }
 
 .appGlobalHeaderContainerData {
-    grid-area            : appGlobalHeaderContainerData;
-    grid-template-columns: 35fr 65fr;
+    grid-template-columns: 1px 100fr;
+    grid-column          : 1;
 }
 
-@media only screen and (min-width:641px) {
-    #appGlobalGrid {
-        grid-template-rows: 60fr 35fr 15fr;
-    }
-
-    #appGlobalGrid,
-    .appGlobalHeaderContainer {
-        grid-template-columns: 70fr 30fr;
-    }
-
-    .appGlobalHeaderContainerData {
-        grid-template-columns: 55fr 45fr;
-    }
+.appGlobalHeaderContainerImage {
+    grid-column  : 2;
+    grid-row     : 1;
+    display      : grid;
+    grid-template: auto $circle_border auto / auto $circle_border auto;
 }
 
-@media only screen and (min-width:720px) {
+.appGlobalHeaderContainerImage div:nth-child(2) {
+    display      : grid;
+    grid-template: auto $circle_img auto / auto $circle_img auto;
+}
 
-    #appGlobalGrid {
-        grid-template-rows: 50fr 40fr 10fr;
-    }
-
-    #appGlobalGrid,
-    .appGlobalHeaderContainer {
-        grid-template-columns: 70fr 30fr;
-    }
-
-    .appGlobalHeaderContainerData {
-        grid-template-columns: 55fr 45fr;
-    }
-
-    .appGlobalHeaderContainerImage {
-        grid-template: auto 170px auto / auto 170px auto;
-        display      : grid !important;
-    }
-
-    .appGlobalHeaderContainerImage div:nth-child(2) {
-        grid-template: auto 160px auto / auto 160px auto;
-        display      : grid;
-    }
+.appGlobalContentMain {
+    font-size: 14px
 }
 
 .appContentSkills {
-    width                : auto;
+    width                : 60vw;
+    max-width            : 410px;
     display              : grid;
-    grid-template-columns: repeat(4, 10%) 20%;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows   : repeat(3, auto);
     grid-gap             : 10px;
 }
 
 .skillContainer:nth-child(5) {
-    grid-column: 5
+    width      : auto !important;
+    grid-column: 1/span 2;
 }
 
-@media only screen and (min-width:850px) {
+.extended .appGlobalHeaderMainContainer {
+    height: 200px;
+}
 
-    #appGlobalGrid {
-        grid-template-rows: 40fr 50fr 10fr;
-    }
-
-    #appGlobalGrid,
-    .appGlobalHeaderContainer {
-        grid-template-columns: 75fr 25fr;
-    }
-
-    .appGlobalHeaderContainerData {
-        grid-template-columns: 55fr 45fr;
-    }
-
-    .appGlobalHeaderContainerImage {
-        grid-template: auto 190px auto / auto 190px auto;
-        display      : grid !important;
-    }
-
-    .appGlobalHeaderContainerImage div:nth-child(2) {
-        grid-template: auto 180px auto / auto 180px auto;
-        display      : grid;
+@media only screen and(max-width:330px) {
+    .extended .appGlobalHeaderMainContainer {
+        height: 150px;
     }
 }

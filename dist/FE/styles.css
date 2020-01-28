@@ -30,6 +30,7 @@ body {
   width: 100%;
   grid-template-columns: 100fr;
   grid-template-rows: 100fr;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -40,13 +41,17 @@ body {
   left: 0;
   grid-template-areas: "appGlobalHeaderMainContainer appGlobalHeaderMainContainer" "appGlobalContent appGlobalMargin" "appGlobalFooter appGlobalFooter";
   box-sizing: border-box;
+  grid-template-columns: 70fr 30fr;
+  grid-template-rows: minmax(auto, 50px) auto 50px;
 }
 
 .appGlobalContent {
   display: grid;
   grid-template-columns: 10px auto 10px;
   grid-template-rows: auto;
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(-40%, transparent), color-stop(black), color-stop(130%, transparent));
   -webkit-mask-image: linear-gradient(transparent -40%, black, transparent 130%);
+          mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(-40%, transparent), color-stop(black), color-stop(130%, transparent));
           mask-image: linear-gradient(transparent -40%, black, transparent 130%);
 }
 
@@ -119,20 +124,22 @@ body {
 
 @-webkit-keyframes spiiiin {
   from {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 
 @keyframes spiiiin {
   from {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
-
-/*# sourceMappingURL=styles.css.map*/

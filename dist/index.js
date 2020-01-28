@@ -21,10 +21,10 @@ class ExpressApp {
         this.db = new dbMain_1.DB();
         process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp();
     }
-    initServedApp() { this.app.listen((process.env.PORT || 8080), () => { this.initMetadataApi(); }); }
+    initServedApp() { this.initMetadataApi(); }
     ;
     initDeployedApp() {
-        this.app.use(express_1.default.static('FE')).listen(8080);
+        this.app.use(express_1.default.static('FE'));
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
             apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/FE/index.html`);
@@ -66,12 +66,10 @@ class ExpressApp {
         apiRes.end(JSON.stringify(feData));
     }
 }
-console.log(process.env);
-const config = {
-    cert: fs.readFileSync(process.env.CERT, 'utf8'),
-    key: fs.readFileSync(process.env.KEY, 'utf8')
-};
 (process.env.PORT ?
-    https.createServer(config, new ExpressApp(express_1.default()).app) :
+    https.createServer({
+        cert: fs.readFileSync(process.env.CERT, 'utf8'),
+        key: fs.readFileSync(process.env.KEY, 'utf8')
+    }, new ExpressApp(express_1.default()).app) :
     http.createServer(new ExpressApp(express_1.default()).app)).listen(process.env.PORT || 8080);
 //# sourceMappingURL=index.js.map
