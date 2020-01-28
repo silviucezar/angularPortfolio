@@ -66,7 +66,6 @@ class ExpressApp {
     }
 }
 
-console.log(process.env)
 const config = {
     cert: fs.readFileSync((process.env.CERT as string), 'utf8'),
     key: fs.readFileSync((process.env.KEY as string), 'utf8')
