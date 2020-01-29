@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading' (onExpandingEvent)=\"onExpandingEventParent($event)\">\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
@@ -51,6 +51,7 @@ let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_
         this.metadata = { ro_RO: undefined, en_US: undefined };
         this.finishedLoading = false;
         this.skills = [];
+        this.isExpanded = false;
         this.dataService.getRoutesMetadata().subscribe((componentsMetadata) => {
             this.finishedLoading = true;
             this.locale = componentsMetadata.currentLocale;
@@ -60,6 +61,9 @@ let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_
         });
     }
     ngOnInit() { }
+    toggleInfoContainer() {
+        this.isExpanded = !this.isExpanded;
+    }
 };
 SkillsComponent.ctorParameters = () => [
     { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] }
@@ -130,6 +134,7 @@ let ImageLoadDirective = class ImageLoadDirective {
         this.e = e;
         this.r = r;
         this.skill = '';
+        this.onExpandingEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.isExpanded = false;
         this.el = e;
     }
@@ -154,6 +159,7 @@ let ImageLoadDirective = class ImageLoadDirective {
     }
     skillContainerMouseEnter(container) {
         this.isExpanded = !this.isExpanded;
+        this.onExpandingEvent.emit(this.isExpanded);
         console.log('mouse over');
     }
     skillContainerMouseOut(container) {
@@ -167,6 +173,9 @@ ImageLoadDirective.ctorParameters = () => [
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], ImageLoadDirective.prototype, "skill", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
+], ImageLoadDirective.prototype, "onExpandingEvent", void 0);
 ImageLoadDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
         selector: '[appImageLoad]'

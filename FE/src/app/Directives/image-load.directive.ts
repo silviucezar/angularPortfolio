@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, Input, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 
 @Directive({
   selector: '[appImageLoad]'
@@ -6,7 +6,7 @@ import { Directive, ElementRef, Renderer2, Input, AfterViewInit } from '@angular
 export class ImageLoadDirective implements AfterViewInit {
 
   @Input() skill: string = '';
-
+  @Output() onExpandingEvent = new EventEmitter();
 
   private el!: ElementRef;
   private isExpanded: boolean = false;
@@ -40,6 +40,7 @@ export class ImageLoadDirective implements AfterViewInit {
 
   skillContainerMouseEnter(container: HTMLDivElement) {
     this.isExpanded = !this.isExpanded;
+    this.onExpandingEvent.emit(this.isExpanded);
     console.log('mouse over')
   }
 

@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading' (onExpandingEvent)=\"onExpandingEventParent($event)\">\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -117,6 +117,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         };
         _this.finishedLoading = false;
         _this.skills = [];
+        _this.isExpanded = false;
 
         _this.dataService.getRoutesMetadata().subscribe(function (componentsMetadata) {
           _this.finishedLoading = true;
@@ -131,6 +132,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       _createClass(SkillsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {}
+      }, {
+        key: "toggleInfoContainer",
+        value: function toggleInfoContainer() {
+          this.isExpanded = !this.isExpanded;
+        }
       }]);
 
       return SkillsComponent;
@@ -256,6 +262,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         this.e = e;
         this.r = r;
         this.skill = '';
+        this.onExpandingEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.isExpanded = false;
         this.el = e;
       }
@@ -294,6 +301,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         key: "skillContainerMouseEnter",
         value: function skillContainerMouseEnter(container) {
           this.isExpanded = !this.isExpanded;
+          this.onExpandingEvent.emit(this.isExpanded);
           console.log('mouse over');
         }
       }, {
@@ -315,6 +323,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], ImageLoadDirective.prototype, "skill", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()], ImageLoadDirective.prototype, "onExpandingEvent", void 0);
     ImageLoadDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
       selector: '[appImageLoad]'
     })], ImageLoadDirective);

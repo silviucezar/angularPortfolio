@@ -14,6 +14,7 @@ export class SkillsComponent extends PageLogic implements OnInit {
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
   private finishedLoading: Boolean = false;
   private skills: string[] = [];
+  private isExpanded: boolean = false;
 
   constructor(
     private dataService: DataService
@@ -28,5 +29,9 @@ export class SkillsComponent extends PageLogic implements OnInit {
   }
 
   ngOnInit() { }
+
+  toggleInfoContainer() {
+    this.isExpanded = !this.isExpanded;
+  }
 
 }

@@ -1,6 +1,6 @@
-<ng-container *ngIf='finishedLoading'>
+<ng-container *ngIf='finishedLoading' (onExpandingEvent)="onExpandingEventParent($event)">
     <div class='appContentSkills'>
-        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>
+        <div class='skillContainer' *ngFor='let skill of skills'>
             <div>
                 {{skill.substring(0,1)}}
             </div>
