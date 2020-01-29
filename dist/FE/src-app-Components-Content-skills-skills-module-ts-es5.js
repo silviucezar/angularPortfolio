@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading' (onExpandingEvent)=\"onExpandingEventParent($event)\">\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -136,6 +136,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         key: "toggleInfoContainer",
         value: function toggleInfoContainer() {
           this.isExpanded = !this.isExpanded;
+        }
+      }, {
+        key: "displayImage",
+        value: function displayImage(image) {
+          console.log(image); // const loadingImage: HTMLImageElement = this.r.selectRootElement(`.img${this.skill}`);
+          // const container: HTMLDivElement = this.el.nativeElement;
+          // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
+          // this.r.listen(loadingImage, 'load', () => {
+          //   this.r.addClass(loadingImage, 'fadeIn');
+          //   this.r.removeChild(container, container.firstElementChild);
+          // });
         }
       }]);
 
@@ -272,30 +283,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         value: function ngOnInit() {}
       }, {
         key: "ngAfterViewInit",
-        value: function ngAfterViewInit() {
-          var _this2 = this;
-
-          var loadingImage = this.r.selectRootElement(".img".concat(this.skill));
-          var container = this.el.nativeElement;
-          this.r.setAttribute(container.firstElementChild, 'style', "line-height:".concat(container.getBoundingClientRect().height, "px"));
-          this.r.listen(loadingImage, 'load', function () {
-            _this2.r.addClass(loadingImage, 'fadeIn');
-
-            _this2.r.removeChild(container, container.firstElementChild);
-          });
-
-          if (window.ontouchstart === null) {
-            if (container.ontouchend === null) this.r.listen(container, 'click', function () {
-              return _this2.skillContainerMouseEnter(container);
-            });
-          } else {
-            this.r.listen(container, 'mouseenter', function () {
-              return _this2.skillContainerMouseEnter(container);
-            });
-            this.r.listen(container, 'mouseout', function () {
-              return _this2.skillContainerMouseOut(container);
-            });
-          }
+        value: function ngAfterViewInit() {// if (window.ontouchstart === null) {
+          //   if (container.ontouchend === null) this.r.listen(container, 'click', () => this.skillContainerMouseEnter(container));
+          // } else {
+          //   this.r.listen(container, 'mouseenter', () => this.skillContainerMouseEnter(container));
+          //   this.r.listen(container, 'mouseout', () => this.skillContainerMouseOut(container));
+          // }
         }
       }, {
         key: "skillContainerMouseEnter",

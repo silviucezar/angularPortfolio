@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading' (onExpandingEvent)=\"onExpandingEventParent($event)\">\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
@@ -63,6 +63,16 @@ let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_
     ngOnInit() { }
     toggleInfoContainer() {
         this.isExpanded = !this.isExpanded;
+    }
+    displayImage(image) {
+        console.log(image);
+        // const loadingImage: HTMLImageElement = this.r.selectRootElement(`.img${this.skill}`);
+        // const container: HTMLDivElement = this.el.nativeElement;
+        // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
+        // this.r.listen(loadingImage, 'load', () => {
+        //   this.r.addClass(loadingImage, 'fadeIn');
+        //   this.r.removeChild(container, container.firstElementChild);
+        // });
     }
 };
 SkillsComponent.ctorParameters = () => [
@@ -141,21 +151,12 @@ let ImageLoadDirective = class ImageLoadDirective {
     ngOnInit() {
     }
     ngAfterViewInit() {
-        const loadingImage = this.r.selectRootElement(`.img${this.skill}`);
-        const container = this.el.nativeElement;
-        this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
-        this.r.listen(loadingImage, 'load', () => {
-            this.r.addClass(loadingImage, 'fadeIn');
-            this.r.removeChild(container, container.firstElementChild);
-        });
-        if (window.ontouchstart === null) {
-            if (container.ontouchend === null)
-                this.r.listen(container, 'click', () => this.skillContainerMouseEnter(container));
-        }
-        else {
-            this.r.listen(container, 'mouseenter', () => this.skillContainerMouseEnter(container));
-            this.r.listen(container, 'mouseout', () => this.skillContainerMouseOut(container));
-        }
+        // if (window.ontouchstart === null) {
+        //   if (container.ontouchend === null) this.r.listen(container, 'click', () => this.skillContainerMouseEnter(container));
+        // } else {
+        //   this.r.listen(container, 'mouseenter', () => this.skillContainerMouseEnter(container));
+        //   this.r.listen(container, 'mouseout', () => this.skillContainerMouseOut(container));
+        // }
     }
     skillContainerMouseEnter(container) {
         this.isExpanded = !this.isExpanded;

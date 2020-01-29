@@ -32,6 +32,18 @@ export class SkillsComponent extends PageLogic implements OnInit {
 
   toggleInfoContainer() {
     this.isExpanded = !this.isExpanded;
+
+  }
+
+  displayImage(image: any) {
+    console.log(image)
+    // const loadingImage: HTMLImageElement = this.r.selectRootElement(`.img${this.skill}`);
+    // const container: HTMLDivElement = this.el.nativeElement;
+    // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
+    // this.r.listen(loadingImage, 'load', () => {
+    //   this.r.addClass(loadingImage, 'fadeIn');
+    //   this.r.removeChild(container, container.firstElementChild);
+    // });
   }
 
 }
