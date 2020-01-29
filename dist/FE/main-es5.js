@@ -1,8 +1,8 @@
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"], {
   /***/
@@ -65,7 +65,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>\r\n\r\n<canvas id='backgroundCanvas'></canvas>\r\n<canvas id='visionCanvas'></canvas>";
+    __webpack_exports__["default"] = "<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>";
     /***/
   },
 
@@ -668,80 +668,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/Classes/canvasSetup.ts":
-  /*!****************************************!*\
-    !*** ./src/app/Classes/canvasSetup.ts ***!
-    \****************************************/
-
-  /*! exports provided: CanvasSetup */
-
-  /***/
-  function srcAppClassesCanvasSetupTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "CanvasSetup", function () {
-      return CanvasSetup;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-
-    var CanvasSetup = function CanvasSetup(backgroundCanvas, visionCanvas) {
-      _classCallCheck(this, CanvasSetup);
-
-      this.backgroundCanvas = backgroundCanvas;
-      this.visionCanvas = visionCanvas;
-      this.background = {
-        element: this.backgroundCanvas,
-        ctx: undefined,
-        settings: {
-          menuHighlight: {
-            previousIndex: '',
-            currentIndex: '',
-            heightRef: '',
-            pointsConfig: []
-          },
-          galaxy: {
-            top: {
-              coords: [[0, 0]],
-              speed: 0
-            },
-            bottom: {
-              coords: [[0, 0]],
-              speed: 0
-            }
-          }
-        },
-        width: '',
-        height: '',
-        functionality: {
-          drawMenuCanvas: function drawMenuCanvas() {
-            return void {};
-          }
-        }
-      };
-      this.vision = {
-        element: this.visionCanvas,
-        ctx: undefined,
-        functionality: {
-          drawInitialCanvas: function drawInitialCanvas() {
-            return void {};
-          }
-        }
-      };
-    };
-    /***/
-
-  },
-
-  /***/
   "./src/app/Components/Content lazy recursive ^\\.\\/.*\\/.*\\.module$":
   /*!*******************************************************************************!*\
     !*** ./src/app/Components/Content lazy ^\.\/.*\/.*\.module$ namespace object ***!
@@ -1004,11 +930,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             leave_message: this.leave_message
           });
           this.urlListenerService.listen();
-          this.initService.init(this.domRootElementRef, true);
         }
       }, {
         key: "ngAfterViewInit",
-        value: function ngAfterViewInit() {}
+        value: function ngAfterViewInit() {
+          this.initService.init(this.domRootElementRef);
+        }
       }]);
 
       return AppComponent;
@@ -1310,93 +1237,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/Services/canvas.service.ts":
-  /*!********************************************!*\
-    !*** ./src/app/Services/canvas.service.ts ***!
-    \********************************************/
-
-  /*! exports provided: CanvasService */
-
-  /***/
-  function srcAppServicesCanvasServiceTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "CanvasService", function () {
-      return CanvasService;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @angular/common */
-    "./node_modules/@angular/common/fesm2015/common.js");
-    /* harmony import */
-
-
-    var _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../Classes/canvasSetup */
-    "./src/app/Classes/canvasSetup.ts");
-
-    var CanvasService =
-    /*#__PURE__*/
-    function () {
-      function CanvasService(_document) {
-        _classCallCheck(this, CanvasService);
-
-        this._document = _document;
-      }
-
-      _createClass(CanvasService, [{
-        key: "init",
-        value: function init() {
-          this.canvasSetup = new _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__["CanvasSetup"](this._document.querySelector('#backgroundCanvas'), this._document.querySelector('#visionCanvas'));
-          this.canvasSetup.background.element.style.width = this.canvasSetup.vision.element.style.width = "".concat(this._document.documentElement.clientWidth, "px");
-          this.canvasSetup.background.element.style.height = this.canvasSetup.vision.element.style.height = "".concat(this._document.documentElement.clientHeight, "px");
-          this.canvasSetup.background.ctx = this.canvasSetup.background.element.getContext('2d');
-          this.canvasSetup.vision.ctx = this.canvasSetup.vision.element.getContext('2d');
-          console.log(this.canvasSetup); //   this._document = _document;
-          //   console.log('here')
-          //   this.initGalaxy('bottom');
-          //   this.initGalaxy('top');
-        }
-      }]);
-
-      return CanvasService;
-    }();
-
-    CanvasService.ctorParameters = function () {
-      return [{
-        type: Document,
-        decorators: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
-          args: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]]
-        }]
-      }];
-    };
-
-    CanvasService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-      providedIn: 'root'
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))], CanvasService);
-    /***/
-  },
-
-  /***/
   "./src/app/Services/data.service.ts":
   /*!******************************************!*\
     !*** ./src/app/Services/data.service.ts ***!
@@ -1687,22 +1527,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/fesm2015/common.js");
-    /* harmony import */
-
-
-    var _canvas_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ./canvas.service */
-    "./src/app/Services/canvas.service.ts");
 
     var InitService =
     /*#__PURE__*/
     function () {
-      function InitService(canvasService, _document) {
+      function InitService(_document) {
         _classCallCheck(this, InitService);
 
-        this.canvasService = canvasService;
         this._document = _document;
-        this.wasInit = false;
         this.viewport = {
           activeOrientation: '',
           inactiveOrientation: '',
@@ -1721,32 +1553,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(InitService, [{
         key: "init",
-        value: function init(domRootElementRef, isInit) {
+        value: function init(domRootElementRef) {
           var _this7 = this;
 
           this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
           this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
           this.enableCurrentOrientationCSS(domRootElementRef).then(function () {
-            if (isInit) {
-              _this7.setScrollEvent();
+            _this7.setScrollEvent();
 
-              _this7.setResizeEvent(domRootElementRef);
-
-              _this7.wasInit = true;
-            }
-
-            _this7.canvasService.init();
+            _this7.setResizeEvent(domRootElementRef);
           }).catch(function () {//load error here (usually most probably because internet connection)
-          }); // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
-          // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
-          // this.canvasObj = this.canvasService.getCanvas();
-          // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
+          });
         }
       }, {
         key: "setAppStyle",
         value: function setAppStyle(domRootElementRef) {
-          var _this8 = this;
-
           if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
             this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
             this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
@@ -1757,13 +1578,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           this.enableCurrentOrientationCSS(domRootElementRef).then(function () {
-            _this8.canvasService.init();
+            return;
           });
         }
       }, {
         key: "enableCurrentOrientationCSS",
         value: function enableCurrentOrientationCSS(domRootElementRef, count) {
-          var _this9 = this;
+          var _this8 = this;
 
           domRootElementRef.nativeElement.style.width = "".concat(this._document.documentElement.clientWidth, "px");
           domRootElementRef.nativeElement.style.height = "".concat(this._document.documentElement.clientHeight, "px");
@@ -1771,21 +1592,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var activeOrientation = this.viewport.activeOrientation;
           var inactiveOrientation = this.viewport.inactiveOrientation;
           return new Promise(function (resolve, reject) {
-            if (_this9.viewport.CSS[activeOrientation].element.href === '') {
-              _this9.viewport.CSS[activeOrientation].element.href = "".concat(_this9.viewport.activeOrientation, "-css.css");
-              _this9.viewport.CSS[activeOrientation].element.disabled = false;
+            if (_this8.viewport.CSS[activeOrientation].element.href === '') {
+              _this8.viewport.CSS[activeOrientation].element.href = "".concat(_this8.viewport.activeOrientation, "-css.css");
+              _this8.viewport.CSS[activeOrientation].element.disabled = false;
 
-              _this9.viewport.CSS[activeOrientation].element.addEventListener('load', function () {
-                _this9.viewport.CSS[activeOrientation].loaded = true;
+              _this8.viewport.CSS[activeOrientation].element.addEventListener('load', function () {
+                _this8.viewport.CSS[activeOrientation].loaded = true;
 
-                _this9.toggleGlobalLoading();
+                _this8.toggleGlobalLoading();
 
                 onSuccesfullCSSLoad(true);
               });
 
-              _this9.viewport.CSS[activeOrientation].element.addEventListener('error', function () {
+              _this8.viewport.CSS[activeOrientation].element.addEventListener('error', function () {
                 setTimeout(function () {
-                  if (count === 10) return _this9.enableCurrentOrientationCSS(domRootElementRef, count ? 0 : count++);
+                  if (count === 10) return _this8.enableCurrentOrientationCSS(domRootElementRef, count ? 0 : count++);
                   reject();
                 }, 500);
               });
@@ -1840,28 +1661,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "setResizeEvent",
         value: function setResizeEvent(root) {
-          var _this10 = this;
+          var _this9 = this;
 
           window.onresize = function () {
-            if (_this10.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
-              _this10.setAppStyle(root);
+            if (_this9.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
+              _this9.setAppStyle(root);
+            } else {
+              setTimeout(function () {
+                _this9.setAppStyle(root);
+              }, 100);
             }
-
-            setTimeout(function () {
-              _this10.setAppStyle(root);
-            }, 100);
           };
         }
       }, {
         key: "toggleGlobalLoading",
         value: function toggleGlobalLoading(displayLoading) {
-          var _this11 = this;
+          var _this10 = this;
 
           if (displayLoading) {
             this._document.querySelector("#appGlobalLoader").classList.toggle('active');
           } else {
             setTimeout(function () {
-              _this11._document.querySelector("#appGlobalLoader").classList.toggle('active');
+              _this10._document.querySelector("#appGlobalLoader").classList.toggle('active');
             }, 500);
           }
         }
@@ -1872,8 +1693,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     InitService.ctorParameters = function () {
       return [{
-        type: _canvas_service__WEBPACK_IMPORTED_MODULE_3__["CanvasService"]
-      }, {
         type: Document,
         decorators: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
@@ -1884,7 +1703,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     InitService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
       providedIn: 'root'
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))], InitService);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))], InitService);
     /***/
   },
 
@@ -1970,10 +1789,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(LazyService, [{
         key: "load",
         value: function load(currentUrl) {
-          var _this12 = this;
+          var _this11 = this;
 
           return new Promise(function (resolve) {
-            var currentComponentsToLoad = _this12.componentsToLoad(currentUrl);
+            var currentComponentsToLoad = _this11.componentsToLoad(currentUrl);
 
             var loadedComponents = [];
             var _iteratorNormalCompletion = true;
@@ -1983,15 +1802,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             try {
               var _loop = function _loop() {
                 var componentName = _step.value;
-                var path = _this12.componentsTemplate[componentName].path;
+                var path = _this11.componentsTemplate[componentName].path;
                 var key = componentName;
-                var module = _this12.componentsTemplate[key].module;
+                var module = _this11.componentsTemplate[key].module;
                 loadedComponents.push(__webpack_require__("./src/app/Components/Content lazy recursive ^\\.\\/.*\\/.*\\.module$")("./".concat(path, "/").concat(path, ".module")).then(function (m) {
-                  var moduleInstance = _this12.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[0];
+                  var moduleInstance = _this11.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[0];
 
-                  _this12.componentsTemplate[key].containerRef.createComponent(moduleInstance);
+                  _this11.componentsTemplate[key].containerRef.createComponent(moduleInstance);
 
-                  _this12.componentsTemplate[key].isLoaded = true;
+                  _this11.componentsTemplate[key].isLoaded = true;
                 }));
               };
 
@@ -2021,11 +1840,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "componentsToLoad",
         value: function componentsToLoad(middleComponent) {
-          var _this13 = this;
+          var _this12 = this;
 
           var componentsTemplateKeys = Object.keys(this.componentsTemplate);
           return componentsTemplateKeys.filter(function (componentName, index) {
-            if ((componentName === middleComponent || componentsTemplateKeys.indexOf(middleComponent) === index - 1 || componentsTemplateKeys.indexOf(middleComponent) === index + 1) && _this13.componentsTemplate[componentName].isLoaded === false) return componentName;
+            if ((componentName === middleComponent || componentsTemplateKeys.indexOf(middleComponent) === index - 1 || componentsTemplateKeys.indexOf(middleComponent) === index + 1) && _this12.componentsTemplate[componentName].isLoaded === false) return componentName;
           });
         }
       }, {
@@ -2242,17 +2061,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "listen",
         value: function listen() {
-          var _this14 = this;
+          var _this13 = this;
 
           this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
             return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"];
           })).subscribe(function (event) {
-            _this14.urlSubscriptionBehaviorSubject$.next({
+            _this13.urlSubscriptionBehaviorSubject$.next({
               dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me',
               path: event["url"].replace("/portfolio/", "")
             });
 
-            _this14.dataService.setCurrentRouteDataUsingUrl(_this14.urlSubscriptionBehaviorSubject$.value.dataToFetch);
+            _this13.dataService.setCurrentRouteDataUsingUrl(_this13.urlSubscriptionBehaviorSubject$.value.dataToFetch);
           });
         }
       }]);

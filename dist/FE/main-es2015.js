@@ -64,7 +64,7 @@ module.exports = webpackAsyncContext;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>\r\n\r\n<canvas id='backgroundCanvas'></canvas>\r\n<canvas id='visionCanvas'></canvas>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <div class='appGlobalContentMain'>\r\n        <ng-container #about_me></ng-container>\r\n        <ng-container #skills></ng-container>\r\n        <ng-container #jobs></ng-container>\r\n        <ng-container #education></ng-container>\r\n        <ng-container #references></ng-container>\r\n        <ng-container #leave_message></ng-container>\r\n    </div>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <canvas class=\"navBarCanvas\" id='navBarCanvas' #navBarCanvas></canvas>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>");
 
 /***/ }),
 
@@ -323,62 +323,6 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/app/Classes/canvasSetup.ts":
-/*!****************************************!*\
-  !*** ./src/app/Classes/canvasSetup.ts ***!
-  \****************************************/
-/*! exports provided: CanvasSetup */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasSetup", function() { return CanvasSetup; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-class CanvasSetup {
-    constructor(backgroundCanvas, visionCanvas) {
-        this.backgroundCanvas = backgroundCanvas;
-        this.visionCanvas = visionCanvas;
-        this.background = {
-            element: this.backgroundCanvas,
-            ctx: undefined,
-            settings: {
-                menuHighlight: {
-                    previousIndex: '',
-                    currentIndex: '',
-                    heightRef: '',
-                    pointsConfig: []
-                },
-                galaxy: {
-                    top: {
-                        coords: [[0, 0]],
-                        speed: 0
-                    },
-                    bottom: {
-                        coords: [[0, 0]],
-                        speed: 0
-                    }
-                }
-            },
-            width: '',
-            height: '',
-            functionality: {
-                drawMenuCanvas: () => void {}
-            }
-        };
-        this.vision = {
-            element: this.visionCanvas,
-            ctx: undefined,
-            functionality: {
-                drawInitialCanvas: () => void {}
-            }
-        };
-    }
-}
-
-
-/***/ }),
-
 /***/ "./src/app/Components/Content lazy recursive ^\\.\\/.*\\/.*\\.module$":
 /*!*******************************************************************************!*\
   !*** ./src/app/Components/Content lazy ^\.\/.*\/.*\.module$ namespace object ***!
@@ -557,9 +501,10 @@ let AppComponent = class AppComponent {
             leave_message: this.leave_message
         });
         this.urlListenerService.listen();
-        this.initService.init(this.domRootElementRef, true);
     }
-    ngAfterViewInit() { }
+    ngAfterViewInit() {
+        this.initService.init(this.domRootElementRef);
+    }
 };
 AppComponent.ctorParameters = () => [
     { type: _Services_locale_service__WEBPACK_IMPORTED_MODULE_3__["LocaleService"] },
@@ -736,55 +681,6 @@ HeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/Services/canvas.service.ts":
-/*!********************************************!*\
-  !*** ./src/app/Services/canvas.service.ts ***!
-  \********************************************/
-/*! exports provided: CanvasService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasService", function() { return CanvasService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-/* harmony import */ var _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Classes/canvasSetup */ "./src/app/Classes/canvasSetup.ts");
-
-
-
-
-let CanvasService = class CanvasService {
-    constructor(_document) {
-        this._document = _document;
-    }
-    init() {
-        this.canvasSetup = new _Classes_canvasSetup__WEBPACK_IMPORTED_MODULE_3__["CanvasSetup"](this._document.querySelector('#backgroundCanvas'), this._document.querySelector('#visionCanvas'));
-        this.canvasSetup.background.element.style.width = this.canvasSetup.vision.element.style.width = `${this._document.documentElement.clientWidth}px`;
-        this.canvasSetup.background.element.style.height = this.canvasSetup.vision.element.style.height = `${this._document.documentElement.clientHeight}px`;
-        this.canvasSetup.background.ctx = this.canvasSetup.background.element.getContext('2d');
-        this.canvasSetup.vision.ctx = this.canvasSetup.vision.element.getContext('2d');
-        console.log(this.canvasSetup);
-        //   this._document = _document;
-        //   console.log('here')
-        //   this.initGalaxy('bottom');
-        //   this.initGalaxy('top');
-    }
-};
-CanvasService.ctorParameters = () => [
-    { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"],] }] }
-];
-CanvasService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))
-], CanvasService);
-
-
-
-/***/ }),
-
 /***/ "./src/app/Services/data.service.ts":
 /*!******************************************!*\
   !*** ./src/app/Services/data.service.ts ***!
@@ -950,16 +846,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-/* harmony import */ var _canvas_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./canvas.service */ "./src/app/Services/canvas.service.ts");
-
 
 
 
 let InitService = class InitService {
-    constructor(canvasService, _document) {
-        this.canvasService = canvasService;
+    constructor(_document) {
         this._document = _document;
-        this.wasInit = false;
         this.viewport = {
             activeOrientation: '',
             inactiveOrientation: '',
@@ -975,25 +867,17 @@ let InitService = class InitService {
             }
         };
     }
-    init(domRootElementRef, isInit) {
+    init(domRootElementRef) {
         this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
         this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
         this.enableCurrentOrientationCSS(domRootElementRef)
             .then(() => {
-            if (isInit) {
-                this.setScrollEvent();
-                this.setResizeEvent(domRootElementRef);
-                this.wasInit = true;
-            }
-            this.canvasService.init();
+            this.setScrollEvent();
+            this.setResizeEvent(domRootElementRef);
         })
             .catch(() => {
             //load error here (usually most probably because internet connection)
         });
-        // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
-        // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
-        // this.canvasObj = this.canvasService.getCanvas();
-        // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
     }
     setAppStyle(domRootElementRef) {
         if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
@@ -1003,9 +887,7 @@ let InitService = class InitService {
                 this.toggleGlobalLoading(true);
             }
         }
-        this.enableCurrentOrientationCSS(domRootElementRef).then(() => {
-            this.canvasService.init();
-        });
+        this.enableCurrentOrientationCSS(domRootElementRef).then(() => { return; });
     }
     enableCurrentOrientationCSS(domRootElementRef, count) {
         domRootElementRef.nativeElement.style.width = `${this._document.documentElement.clientWidth}px`;
@@ -1078,7 +960,9 @@ let InitService = class InitService {
             if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
                 this.setAppStyle(root);
             }
-            setTimeout(() => { this.setAppStyle(root); }, 100);
+            else {
+                setTimeout(() => { this.setAppStyle(root); }, 100);
+            }
         };
     }
     toggleGlobalLoading(displayLoading) {
@@ -1093,14 +977,13 @@ let InitService = class InitService {
     }
 };
 InitService.ctorParameters = () => [
-    { type: _canvas_service__WEBPACK_IMPORTED_MODULE_3__["CanvasService"] },
     { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"],] }] }
 ];
 InitService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_2__["DOCUMENT"]))
 ], InitService);
 
 

@@ -3,15 +3,6 @@
   box-sizing: border-box;
 }
 
-canvas {
-  z-index : -1;
-  position: fixed;
-  top     : 0;
-  left    : 0;
-  display : block;
-  pointer-events: none;
-}
-
 html,
 body {
   height: 100%;

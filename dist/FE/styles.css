@@ -3,14 +3,6 @@
   box-sizing: border-box;
 }
 
-canvas {
-  z-index: -1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: block;
-}
-
 html,
 body {
   height: 100%;
@@ -20,7 +12,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow: hidden;
-  background-image: url('background_3.jpg');
+  background-image: url('background_11 - portrait.jpg');
   background-size: cover;
   color: darkslategrey;
 }
