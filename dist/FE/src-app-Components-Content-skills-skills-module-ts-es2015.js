@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n            <div class='skillsDetails'>\r\n                <button>prev</button>\r\n                <button>next</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div appImageLoad class='skillContainer' *ngFor='let skill of skills' [skill]='skill'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' />\r\n        </div>\r\n        <div class='skillsDetails'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
