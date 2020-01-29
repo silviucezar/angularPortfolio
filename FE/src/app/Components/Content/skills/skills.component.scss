@@ -21,10 +21,16 @@
 }
 
 .skillsDetails {
-    grid-row  : 1 / span 2;
-    background: white;
-    z-index   : -1;
-    transition: .5s
+    grid-row             : 1 / span 2;
+    background           : white;
+    z-index              : -1;
+    transition           : .5s;
+    grid-template-columns: 10% auto 10%;
+    display              : grid;
+}
+
+.NextSkill {
+    grid-column: 3;
 }
 
 .skillsDetails.contracted {
