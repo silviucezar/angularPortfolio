@@ -1,6 +1,14 @@
 $circle_border: calc(43vw + 35px);
 $circle_img   : calc(43vw + 20px);
 
+body {
+  font-size: 14px
+}
+
+#AppGlobalGrid {
+  grid-template-columns: 70fr 30fr;
+}
+
 .appGlobalHeaderContainer {
   grid-template-columns: 10fr 80fr 10fr;
   grid-template-rows   : 50% 50%;

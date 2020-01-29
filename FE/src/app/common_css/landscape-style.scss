@@ -1,8 +1,17 @@
 $circle_border: calc(15vw + 35px);
 $circle_img   : calc(15vw + 20px);
 
+body {
+    font-size: 14px
+}
+
 .appGlobalHeaderContainer {
     grid-template-columns: 70fr 30fr;
+}
+
+
+#AppGlobalGrid {
+    grid-template-columns: 75fr 25fr;
 }
 
 .appGlobalHeaderContainerData {

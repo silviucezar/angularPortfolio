@@ -1,3 +1,11 @@
+body {
+  font-size: 14px;
+}
+
+#AppGlobalGrid {
+  grid-template-columns: 70fr 30fr;
+}
+
 .appGlobalHeaderContainer {
   grid-template-columns: 10fr 80fr 10fr;
   grid-template-rows: 50% 50%;
