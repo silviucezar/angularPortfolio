@@ -59,7 +59,7 @@ export class DataService {
       this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined
     ) return this.componentsMetadata$.next(this.componentsMetadata);
 
-
+      return ;
     this.httpService.doGetRequest("getMetadata", {
       locale: locale,
       dataToFetch: dataToFetch,

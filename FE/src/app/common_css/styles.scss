@@ -9,6 +9,7 @@ canvas {
   top     : 0;
   left    : 0;
   display : block;
+  pointer-events: none;
 }
 
 html,
@@ -20,7 +21,7 @@ body {
   margin          : 0;
   font-family     : Roboto, "Helvetica Neue", sans-serif;
   overflow        : hidden;
-  background-image: url('../assets/background_3.jpg');
+  background-image: url('../assets/background_11 - portrait.jpg');
   background-size : cover;
   color           : darkslategrey;
 }

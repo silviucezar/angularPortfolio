@@ -1,7 +1,5 @@
 import { Injectable, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { CanvasSetup } from '../Classes/canvasSetup';
-import { CanvasService } from './canvas.service';
 
 interface ViewportOrientation {
   activeOrientation: string;
@@ -23,9 +21,6 @@ interface ViewportOrientation {
 })
 export class InitService {
 
-  private canvasSetup!: CanvasSetup;
-  private wasInit: boolean = false;
-  private currentYScrollRef!: number;
   private viewport: ViewportOrientation = {
     activeOrientation: '',
     inactiveOrientation: '',
@@ -43,30 +38,20 @@ export class InitService {
 
 
   constructor(
-    private canvasService: CanvasService,
     @Inject(DOCUMENT) private _document: Document
   ) { }
 
-  init(domRootElementRef: ElementRef, isInit?: boolean) {
+  init(domRootElementRef: ElementRef) {
     this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
     this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
     this.enableCurrentOrientationCSS(domRootElementRef)
       .then(() => {
-        if (isInit) {
-
-          this.setScrollEvent();
-          this.setResizeEvent(domRootElementRef);
-          this.wasInit = true;
-        }
-        this.canvasService.init();
+        this.setScrollEvent();
+        this.setResizeEvent(domRootElementRef);
       })
       .catch(() => {
         //load error here (usually most probably because internet connection)
       });
-    // initialSetup.urlSubscription.subscribe(url => { if (url.dataToFetch !== null) this.canvasService.setCanvas('NavBar', initialSetup.NavBarCanvas.canvas, url.dataToFetch); });
-    // this.canvasService.setCanvas('Header', initialSetup.HeaderCanvas.canvas);
-    // this.canvasObj = this.canvasService.getCanvas();
-    // this.currentYScrollRef = this.canvasObj.NavBar.settings.currentIndex * this.canvasObj.NavBar.settings.heightRef;
   }
 
   setAppStyle(domRootElementRef: ElementRef) {
@@ -77,9 +62,7 @@ export class InitService {
         this.toggleGlobalLoading(true);
       }
     }
-    this.enableCurrentOrientationCSS(domRootElementRef).then(() => {
-      this.canvasService.init();
-    });
+    this.enableCurrentOrientationCSS(domRootElementRef).then(() => { return });
   }
 
   enableCurrentOrientationCSS(domRootElementRef: ElementRef, count?: number): Promise<void> {
@@ -119,14 +102,12 @@ export class InitService {
     });
   }
 
-
   setScrollEvent() {
     const self = this;
     let touchStartY: number;
 
     window.onwheel = (event: WheelEvent) => {
       toggleHeader(event);
-
     }
 
     if (window.ontouchmove === null) {
@@ -155,8 +136,9 @@ export class InitService {
     window.onresize = () => {
       if (this.viewport.activeOrientation !== screen.orientation.type.replace(/-([a-z]+)/gi, '')) {
         this.setAppStyle(root);
+      } else {
+        setTimeout(() => { this.setAppStyle(root) }, 100);
       }
-      setTimeout(() => { this.setAppStyle(root) }, 100);
     };
   }
 

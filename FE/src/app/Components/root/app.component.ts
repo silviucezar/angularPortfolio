@@ -52,10 +52,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       leave_message: this.leave_message
     });
     this.urlListenerService.listen();
-    this.initService.init(this.domRootElementRef, true);
-
+    
   }
-
-  ngAfterViewInit() { }
-
+  
+  ngAfterViewInit() {
+    this.initService.init(this.domRootElementRef);
+   }
 }
