@@ -27,17 +27,10 @@ $circle_img   : calc(15vw + 20px);
 }
 
 .appContentSkills {
-    width                : 60vw;
-    max-width            : 410px;
     display              : grid;
-    grid-template-columns: repeat(2, auto);
-    grid-template-rows   : repeat(3, auto);
+    grid-template-columns: repeat(5, 5vmax);
+    grid-template-rows   : 5vmax;
     grid-gap             : 10px;
-}
-
-.skillContainer:nth-child(5) {
-    width      : auto !important;
-    grid-column: 1/span 2;
 }
 
 .extended .appGlobalHeaderMainContainer {
