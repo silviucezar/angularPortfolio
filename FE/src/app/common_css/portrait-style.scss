@@ -60,8 +60,8 @@ $circle_img   : calc(43vw + 20px);
   grid-column: 5
 }
 
-.skillsDetails.contracted {
-  height: 0;
+.skillsDetails {
+  grid-column: 1 / span 5;
 }
 
 .skillsDetails.expanded {

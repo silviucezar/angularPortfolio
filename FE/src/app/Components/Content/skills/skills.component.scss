@@ -26,14 +26,9 @@
     transition: .5s
 }
 
-.contracted {
+.skillsDetails.contracted {
     height: 0;
 }
-
-.expanded {
-    height: 40vmax
-}
-
 
 img.fadeIn {
     transition: .5s;
