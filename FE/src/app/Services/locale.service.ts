@@ -21,7 +21,7 @@ export class LocaleService {
         url: 'skills'
       },
       jobs: {
-        ro_RO_Title: 'Experienta Profesionala',
+        ro_RO_Title: 'Joburi',
         en_US_Title: 'Jobs',
         url: 'jobs'
       },
@@ -36,8 +36,8 @@ export class LocaleService {
         url: 'references'
       },
       leave_message: {
-        ro_RO_Title: 'Lasati Un Mesaj',
-        en_US_Title: 'Leave Message',
+        ro_RO_Title: 'Feedback',
+        en_US_Title: 'Feedback',
         url: 'leave-message'
       }
     }

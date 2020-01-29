@@ -64,7 +64,7 @@ module.exports = webpackAsyncContext;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent'>\r\n    <ng-container #about_me></ng-container>\r\n    <ng-container #skills></ng-container>\r\n    <ng-container #jobs></ng-container>\r\n    <ng-container #education></ng-container>\r\n    <ng-container #references></ng-container>\r\n    <ng-container #leave_message></ng-container>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>\r\n    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>\r\n</div>\r\n<div class=\"appGlobalContent\" #GlobalContainer style='grid-area:appGlobalContent;margin:auto'>\r\n    <ng-container #about_me></ng-container>\r\n    <ng-container #skills></ng-container>\r\n    <ng-container #jobs></ng-container>\r\n    <ng-container #education></ng-container>\r\n    <ng-container #references></ng-container>\r\n    <ng-container #leave_message></ng-container>\r\n</div>\r\n<div class=\"appGlobalMargin\" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>\r\n    <a class='categoriesUrl' *ngFor='let category of categories'\r\n        routerLink=\"{{'portfolio/' + category.url}}\">{{category[this.currentLocale + '_Title']}}<br></a>\r\n</div>\r\n<app-footer class=\"appGlobalFooter\" style='grid-area:appGlobalFooter'></app-footer>");
 
 /***/ }),
 
@@ -1094,7 +1094,7 @@ let LocaleService = class LocaleService {
                     url: 'skills'
                 },
                 jobs: {
-                    ro_RO_Title: 'Experienta Profesionala',
+                    ro_RO_Title: 'Joburi',
                     en_US_Title: 'Jobs',
                     url: 'jobs'
                 },
@@ -1109,8 +1109,8 @@ let LocaleService = class LocaleService {
                     url: 'references'
                 },
                 leave_message: {
-                    ro_RO_Title: 'Lasati Un Mesaj',
-                    en_US_Title: 'Leave Message',
+                    ro_RO_Title: 'Feedback',
+                    en_US_Title: 'Feedback',
                     url: 'leave-message'
                 }
             }
