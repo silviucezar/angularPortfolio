@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill'>prev</button>\r\n            <button class='NextSkill'>next</button class='prevSkill'>\r\n        </div>\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill'>prev</button>\r\n            <button class='NextSkill'>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
