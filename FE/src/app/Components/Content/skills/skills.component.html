@@ -4,7 +4,7 @@
             <div>
                 {{skill.substring(0,1)}}
             </div>
-            <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event)' />
+            <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
         <div class='skillsDetails' [ngClass]='isExpanded ? "expanded" : "contracted"'>
             <button>prev</button>

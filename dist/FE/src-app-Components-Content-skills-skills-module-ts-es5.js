@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button>prev</button>\r\n            <button>next</button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -140,13 +140,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       }, {
         key: "displayImage",
         value: function displayImage(image) {
-          console.log(image); // const loadingImage: HTMLImageElement = this.r.selectRootElement(`.img${this.skill}`);
-          // const container: HTMLDivElement = this.el.nativeElement;
-          // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
-          // this.r.listen(loadingImage, 'load', () => {
-          //   this.r.addClass(loadingImage, 'fadeIn');
-          //   this.r.removeChild(container, container.firstElementChild);
-          // });
+          image.classList.add('fadeIn');
+          image.previousElementSibling.remove(); // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
         }
       }]);
 
