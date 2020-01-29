@@ -933,14 +933,14 @@ let InitService = class InitService {
         window.onwheel = (event) => {
             toggleHeader(event);
         };
-        if (window.ontouchmove === null) {
-            window.ontouchstart = (event) => {
-                touchStartY = event.touches[0].clientY;
-            };
-            window.ontouchend = (event) => {
-                toggleHeader(event);
-            };
-        }
+        // if (window.ontouchmove === null) {
+        //   window.ontouchstart = (event: TouchEvent) => {
+        //     touchStartY = event.touches[0].clientY;
+        //   };
+        //   window.ontouchend = (event: TouchEvent) => {
+        //     toggleHeader(event);
+        //   }
+        // }
         function toggleHeader(event) {
             self._document.querySelector("#appGlobalGrid").className = (() => {
                 if (event instanceof WheelEvent) {

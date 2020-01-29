@@ -110,14 +110,14 @@ export class InitService {
       toggleHeader(event);
     }
 
-    if (window.ontouchmove === null) {
-      window.ontouchstart = (event: TouchEvent) => {
-        touchStartY = event.touches[0].clientY;
-      };
-      window.ontouchend = (event: TouchEvent) => {
-        toggleHeader(event);
-      }
-    }
+    // if (window.ontouchmove === null) {
+    //   window.ontouchstart = (event: TouchEvent) => {
+    //     touchStartY = event.touches[0].clientY;
+    //   };
+    //   window.ontouchend = (event: TouchEvent) => {
+    //     toggleHeader(event);
+    //   }
+    // }
 
     function toggleHeader(event: WheelEvent | TouchEvent) {
       self._document.querySelector("#appGlobalGrid")!.className = ((): string => {

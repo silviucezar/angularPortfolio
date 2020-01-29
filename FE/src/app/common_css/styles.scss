@@ -39,11 +39,10 @@ body {
 }
 
 .appGlobalContent {
-  display              : grid;
-  grid-template-columns: 10px auto 10px;
-  grid-template-rows   : auto;
-  mask-image           : linear-gradient(transparent -40%, black, transparent 130%);
-  overflow-y           : scroll
+  display   : block;
+  mask-image: linear-gradient(transparent -40%, black, transparent 130%);
+  overflow-y: scroll;
+  padding   : 0 5px 0 5px
 }
 
 .appGlobalContentMain {

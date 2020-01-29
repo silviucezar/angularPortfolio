@@ -1634,17 +1634,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           window.onwheel = function (event) {
             toggleHeader(event);
-          };
+          }; // if (window.ontouchmove === null) {
+          //   window.ontouchstart = (event: TouchEvent) => {
+          //     touchStartY = event.touches[0].clientY;
+          //   };
+          //   window.ontouchend = (event: TouchEvent) => {
+          //     toggleHeader(event);
+          //   }
+          // }
 
-          if (window.ontouchmove === null) {
-            window.ontouchstart = function (event) {
-              touchStartY = event.touches[0].clientY;
-            };
-
-            window.ontouchend = function (event) {
-              toggleHeader(event);
-            };
-          }
 
           function toggleHeader(event) {
             self._document.querySelector("#appGlobalGrid").className = function () {
