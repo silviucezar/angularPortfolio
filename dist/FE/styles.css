@@ -39,10 +39,10 @@ body {
 
 .appGlobalContent {
   display: block;
-  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(-40%, transparent), color-stop(black), color-stop(130%, transparent));
-  -webkit-mask-image: linear-gradient(transparent -40%, black, transparent 130%);
-          mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(-40%, transparent), color-stop(black), color-stop(130%, transparent));
-          mask-image: linear-gradient(transparent -40%, black, transparent 130%);
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), to(transparent));
+  -webkit-mask-image: linear-gradient(transparent, black, black, black, black, black, black, black, black, black, transparent);
+          mask-image: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), to(transparent));
+          mask-image: linear-gradient(transparent, black, black, black, black, black, black, black, black, black, transparent);
   overflow-y: scroll;
   padding: 0 5px 0 5px;
 }
