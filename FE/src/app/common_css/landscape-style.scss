@@ -5,13 +5,12 @@ body {
     font-size: 14px
 }
 
-.appGlobalHeaderContainer {
-    grid-template-columns: 70fr 30fr;
-}
-
-
 #AppGlobalGrid {
     grid-template-columns: 75fr 25fr;
+}
+
+.appGlobalHeaderContainer {
+    grid-template-columns: 70fr 30fr;
 }
 
 .appGlobalHeaderContainerData {
