@@ -20,11 +20,10 @@
 }
 
 .skillsDetails {
-    grid-column: 1 / span 5;
-    grid-row   : 1 / span 2;
-    background : white;
-    z-index    : -1;
-    transition : .5s
+    grid-row  : 1 / span 2;
+    background: white;
+    z-index   : -1;
+    transition: .5s
 }
 
 .contracted {
@@ -39,24 +38,4 @@
 img.fadeIn {
     transition: .5s;
     opacity   : 1 !important
-}
-
-.skillContainer:nth-child(1) {
-    grid-column: 1
-}
-
-.skillContainer:nth-child(2) {
-    grid-column: 2
-}
-
-.skillContainer:nth-child(3) {
-    grid-column: 3
-}
-
-.skillContainer:nth-child(4) {
-    grid-column: 4
-}
-
-.skillContainer:nth-child(5) {
-    grid-column: 5
 }
