@@ -42,7 +42,8 @@ body {
   display              : grid;
   grid-template-columns: 10px auto 10px;
   grid-template-rows   : auto;
-  mask-image           : linear-gradient(transparent -40%, black, transparent 130%)
+  mask-image           : linear-gradient(transparent -40%, black, transparent 130%);
+  overflow-y           : scroll
 }
 
 .appGlobalContentMain {

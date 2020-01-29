@@ -45,6 +45,7 @@ body {
   -webkit-mask-image: linear-gradient(transparent -40%, black, transparent 130%);
           mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(-40%, transparent), color-stop(black), color-stop(130%, transparent));
           mask-image: linear-gradient(transparent -40%, black, transparent 130%);
+  overflow-y: scroll;
 }
 
 .appGlobalContentMain {

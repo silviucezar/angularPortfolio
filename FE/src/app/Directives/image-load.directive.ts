@@ -7,7 +7,10 @@ export class ImageLoadDirective implements AfterViewInit {
 
   @Input() skill: string = '';
 
+
   private el!: ElementRef;
+  private isExpanded: boolean = false;
+
   constructor(
     private e: ElementRef,
     private r: Renderer2
@@ -36,6 +39,7 @@ export class ImageLoadDirective implements AfterViewInit {
   }
 
   skillContainerMouseEnter(container: HTMLDivElement) {
+    this.isExpanded = !this.isExpanded;
     console.log('mouse over')
   }
 

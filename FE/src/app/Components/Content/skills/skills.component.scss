@@ -19,8 +19,19 @@
 .skillsDetails {
     grid-column: 1 / span 5;
     grid-row   : 1 / span 2;
-    min-height : 0
+    background : white;
+    z-index    : -1;
+    transition : .5s
 }
+
+.contracted {
+    height: 0;
+}
+
+.expanded {
+    height: 40vmax
+}
+
 
 img.fadeIn {
     transition: .5s;

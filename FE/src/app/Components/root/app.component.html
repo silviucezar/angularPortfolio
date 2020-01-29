@@ -2,17 +2,14 @@
     <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
 </div>
 <div class="appGlobalContent" #GlobalContainer style='grid-area:appGlobalContent'>
-    <div class='appGlobalContentMain'>
-        <ng-container #about_me></ng-container>
-        <ng-container #skills></ng-container>
-        <ng-container #jobs></ng-container>
-        <ng-container #education></ng-container>
-        <ng-container #references></ng-container>
-        <ng-container #leave_message></ng-container>
-    </div>
+    <ng-container #about_me></ng-container>
+    <ng-container #skills></ng-container>
+    <ng-container #jobs></ng-container>
+    <ng-container #education></ng-container>
+    <ng-container #references></ng-container>
+    <ng-container #leave_message></ng-container>
 </div>
 <div class="appGlobalMargin" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>
-    <canvas class="navBarCanvas" id='navBarCanvas' #navBarCanvas></canvas>
     <a class='categoriesUrl' *ngFor='let category of categories'
         routerLink="{{'portfolio/' + category.url}}">{{category[this.currentLocale + '_Title']}}<br></a>
 </div>
