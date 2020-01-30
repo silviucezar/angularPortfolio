@@ -1,5 +1,5 @@
 <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>
-<div [ngStyle]='"transform:translateX(" + translateValue + ")"' #slidesContainer>
+<div [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
     <img src="https://i.ytimg.com/vi/ZQ_VjdWbIEQ/maxresdefault.jpg" alt="" class="detailedSkill">
     <img src="https://fedoramagazine.org/wp-content/uploads/2015/03/test-days-945x400.png" alt="" class="detailedSkill">
     <img src="https://www.kaptest.com/blog/prep/wp-content/uploads/sites/21/2017/10/gre-test-day-what-to-expect.png"

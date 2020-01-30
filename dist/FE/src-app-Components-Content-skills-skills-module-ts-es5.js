@@ -51,7 +51,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\n<div [ngStyle]='\"transform:translateX(\" + translateValue + \")\"' #slidesContainer>\n    <img src=\"https://i.ytimg.com/vi/ZQ_VjdWbIEQ/maxresdefault.jpg\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://fedoramagazine.org/wp-content/uploads/2015/03/test-days-945x400.png\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://www.kaptest.com/blog/prep/wp-content/uploads/sites/21/2017/10/gre-test-day-what-to-expect.png\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://lh4.googleusercontent.com/proxy/vlLwWuwx8MDqzIRyEC_8d-8HwT7zW7HmgLG2ywdHJS1c9_ub6bhT_K4VBLdyHW2uNAQ-W9gdg7wvgm9Du9T7LsLamdyboCc2R4OeAoSgHkg\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9q50KMjgzMozCk5JMP8D24RItgGB00AxSQcjlY12gXsJchEJp&s\"\n        alt=\"\" class=\"detailedSkill\">\n\n</div>\n<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\n\n<!-- detailedSkill -->";
+    __webpack_exports__["default"] = "<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\n<div [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\n    <img src=\"https://i.ytimg.com/vi/ZQ_VjdWbIEQ/maxresdefault.jpg\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://fedoramagazine.org/wp-content/uploads/2015/03/test-days-945x400.png\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://www.kaptest.com/blog/prep/wp-content/uploads/sites/21/2017/10/gre-test-day-what-to-expect.png\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://lh4.googleusercontent.com/proxy/vlLwWuwx8MDqzIRyEC_8d-8HwT7zW7HmgLG2ywdHJS1c9_ub6bhT_K4VBLdyHW2uNAQ-W9gdg7wvgm9Du9T7LsLamdyboCc2R4OeAoSgHkg\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9q50KMjgzMozCk5JMP8D24RItgGB00AxSQcjlY12gXsJchEJp&s\"\n        alt=\"\" class=\"detailedSkill\">\n\n</div>\n<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\n\n<!-- detailedSkill -->";
     /***/
   },
 
@@ -358,7 +358,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       }, {
         key: "sliiiide",
         value: function sliiiide() {
-          this.translateValue = "".concat(-(this.slidesContainer.getBoundingClientRect().width * this.carouselIndex), "px");
+          this.translateValue = "".concat(-(this.slidesContainer.nativeElement.getBoundingClientRect().width * this.carouselIndex), "px");
         }
       }]);
 

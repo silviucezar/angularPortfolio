@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { SkillsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 
 @Component({
@@ -11,7 +11,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   @Input() private content?: SkillsMetadata;
   @Input() private carouselIndex?: number;
   @Output() private onSkillIndexChange = new EventEmitter();
-  @ViewChild('slidesContainer', { static: true }) private slidesContainer?: HTMLDivElement;
+  @ViewChild('slidesContainer', { static: true }) private slidesContainer?: ElementRef;
 
   private translateValue: string = '0px';
   constructor() { }
@@ -31,6 +31,6 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   sliiiide() {
-    this.translateValue = `${-(this.slidesContainer!.getBoundingClientRect().width * this.carouselIndex!)}px`;
+    this.translateValue = `${-(this.slidesContainer!.nativeElement.getBoundingClientRect().width * this.carouselIndex!)}px`;
   }
 }
