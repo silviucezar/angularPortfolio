@@ -12,14 +12,6 @@ span {
     background: white;
 }
 
-span:nth-child(odd) {
-    background: darkgrey
-}
-
-span:nth-child(even) {
-    background: lightgrey
-}
-
 span:before {
     content   : "";
     position  : absolute;
