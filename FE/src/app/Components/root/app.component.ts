@@ -3,6 +3,7 @@ import { Locale, CategoryDetails, LocaleCategory } from '../../Interfaces/Locale
 import { InitService } from '../../Services/init.service';
 import { LocaleService } from '../../Services/locale.service';
 import { UrlListenerService } from 'src/app/Services/url-listener.service';
+import { UrlSubscription } from 'src/app/Interfaces/UrlSubscription';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private categories: CategoryDetails[] = [];
   private currentLocale: string = 'en_US';
   private loadedCSS: Boolean = false;
-
+  private currentUrlSubscription: string = '';
   constructor(
     private localeService: LocaleService,
     private initService: InitService,
@@ -40,6 +41,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       this.currentLocale = localeValue.locale;
     });
+
+    this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe((currentUrlSubscription: UrlSubscription) => {
+      this.currentUrlSubscription = currentUrlSubscription.path;
+    });
   }
 
   ngOnInit() {
@@ -52,10 +57,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       leave_message: this.leave_message
     });
     this.urlListenerService.listen();
-    
+
   }
-  
+
   ngAfterViewInit() {
     this.initService.init(this.domRootElementRef);
-   }
+  }
 }

@@ -1,14 +1,23 @@
 <ng-container *ngIf='finishedLoading'>
     <div class='appContentSkills'>
-        <div class='skillContainer' *ngFor='let skill of skills' (click)='toggleInfoContainer()'>
+        <div class='skillContainer' *ngFor='let skill of skills'
+            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>
             <div>
                 {{skill.substring(0,1)}}
             </div>
             <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
         <div class='skillsDetails' [ngClass]='isExpanded ? "expanded" : "contracted"'>
-            <button class='prevSkill'>prev</button>
-            <button class='NextSkill'>next</button>
+            <button class='prevSkill' (click)='displayCurrentSkill(-1)'></button>
+            <div class="detailedSkillContainer">
+                <div class='detailedSkill' *ngFor='let skill of skills'>
+                    <div>
+                        {{metadata[locale][skill].skill_no}}
+                    </div>
+                </div>
+            </div>
+            <button class='nextSkill' (click)='displayCurrentSkill(-1)'></button>
         </div>
+
     </div>
 </ng-container>

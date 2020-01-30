@@ -15,6 +15,7 @@ export class SkillsComponent extends PageLogic implements OnInit {
   private finishedLoading: Boolean = false;
   private skills: string[] = [];
   private isExpanded: boolean = false;
+  private currentSkillNumber: number = 0;
 
   constructor(
     private dataService: DataService
@@ -25,12 +26,14 @@ export class SkillsComponent extends PageLogic implements OnInit {
       this.locale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
       this.metadata[this.locale] = componentsMetadata.components.skills[this.locale];
       if (this.skills = []) this.skills = this.objectKeys(this.metadata[this.locale]);
+      console.log(this.metadata)
     });
   }
 
   ngOnInit() { }
 
-  toggleInfoContainer() {
+  displayCurrentSkill(currentSkillNumber: number) {
+    console.log(currentSkillNumber)
     this.isExpanded = !this.isExpanded;
 
   }
@@ -40,5 +43,4 @@ export class SkillsComponent extends PageLogic implements OnInit {
     image.previousElementSibling!.remove();
     // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
   }
-
 }

@@ -9,8 +9,9 @@
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
 </div>
-<div class="appGlobalMargin" #GlobalLeftMargin style='grid-area:appGlobalMargin' id='appGlobalMargin'>
-    <a class='categoriesUrl' *ngFor='let category of categories'
-        routerLink="{{'portfolio/' + category.url}}">{{category[this.currentLocale + '_Title']}}<br></a>
+<div class="appGlobalMargin" #GlobalLeftMargin id='appGlobalMargin'>
+    <a [ngClass]='{"current" : category.url === currentUrlSubscription}' class='categoriesUrl'
+        *ngFor='let category of categories'
+        routerLink="{{'portfolio/' + category.url}}">{{category[currentLocale + '_Title']}}<br></a>
 </div>
 <app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter'></app-footer>
