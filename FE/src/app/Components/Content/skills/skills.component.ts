@@ -38,25 +38,14 @@ export class SkillsComponent extends PageLogic implements OnInit {
     if (!slide) {
       if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded; else {
         this.currentSkillNumber = skillIndexReference;
-        this.slideToSkill();
       }
     } else {
       this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
-      this.slideToSkill();
     }
-
   }
 
   displayImage(image: HTMLImageElement) {
     image.classList.add('fadeIn');
     image.previousElementSibling!.remove();
-    // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
-  }
-
-  slideToSkill() {
-    console.log('t')
-    this._document.querySelectorAll('.detailedSkill').forEach((skillDetail, index) => {
-
-    });
   }
 }

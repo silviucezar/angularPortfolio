@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\r\n            <div class=\"detailedSkillContainer\">\r\n                <div class=\"test\">\r\n                    <div class='detailedSkill' *ngFor='let skill of skills'>\r\n                        <div>\r\n                            {{metadata[locale][skill].skill_no}}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\r\n            <app-carousel class=\"detailedSkillContainer\" [content]='metadata[locale]' [carouselIndex]='currentIndex'>\r\n            </app-carousel>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -147,25 +147,16 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
           if (!slide) {
             if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded;else {
               this.currentSkillNumber = skillIndexReference;
-              this.slideToSkill();
             }
           } else {
             this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
-            this.slideToSkill();
           }
         }
       }, {
         key: "displayImage",
         value: function displayImage(image) {
           image.classList.add('fadeIn');
-          image.previousElementSibling.remove(); // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
-        }
-      }, {
-        key: "slideToSkill",
-        value: function slideToSkill() {
-          console.log('t');
-
-          this._document.querySelectorAll('.detailedSkill').forEach(function (skillDetail, index) {});
+          image.previousElementSibling.remove();
         }
       }]);
 
