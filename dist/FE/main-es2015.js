@@ -68,19 +68,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html ***!
-  \*********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class='detailedSkill' *ngFor='let subContent of content'>\n    <div>\n        {{subContent.skill_no}}\n    </div>\n</div>");
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/footer/footer.component.html":
 /*!***********************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/Components/footer/footer.component.html ***!
@@ -558,57 +545,6 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./app.component.scss */ "./src/app/Components/Root/app.component.scss")).default]
     })
 ], AppComponent);
-
-
-
-/***/ }),
-
-/***/ "./src/app/Components/extra/carousel/carousel.component.scss":
-/*!*******************************************************************!*\
-  !*** ./src/app/Components/extra/carousel/carousel.component.scss ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvZXh0cmEvY2Fyb3VzZWwvY2Fyb3VzZWwuY29tcG9uZW50LnNjc3MifQ== */");
-
-/***/ }),
-
-/***/ "./src/app/Components/extra/carousel/carousel.component.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/Components/extra/carousel/carousel.component.ts ***!
-  \*****************************************************************/
-/*! exports provided: CarouselComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CarouselComponent", function() { return CarouselComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
-
-let CarouselComponent = class CarouselComponent {
-    constructor() { }
-    ngOnInit() {
-        console.log(this.content, this.carouselIndex);
-    }
-};
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-], CarouselComponent.prototype, "content", void 0);
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-], CarouselComponent.prototype, "carouselIndex", void 0);
-CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-carousel',
-        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./carousel.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html")).default,
-        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./carousel.component.scss */ "./src/app/Components/extra/carousel/carousel.component.scss")).default]
-    })
-], CarouselComponent);
 
 
 
@@ -1316,8 +1252,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_footer_footer_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Components/footer/footer.component */ "./src/app/Components/footer/footer.component.ts");
 /* harmony import */ var _Components_Loaders_dynamic_component_loader_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/Loaders/dynamic-component-loader.component */ "./src/app/Components/Loaders/dynamic-component-loader.component.ts");
 /* harmony import */ var _Components_Loaders_header_text_loader_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Components/Loaders/header-text-loader.component */ "./src/app/Components/Loaders/header-text-loader.component.ts");
-/* harmony import */ var _Components_extra_carousel_carousel_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/extra/carousel/carousel.component */ "./src/app/Components/extra/carousel/carousel.component.ts");
-
 
 
 
@@ -1378,8 +1312,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _Components_header_header_component__WEBPACK_IMPORTED_MODULE_7__["HeaderComponent"],
             _Components_footer_footer_component__WEBPACK_IMPORTED_MODULE_9__["FooterComponent"],
             _Components_Loaders_dynamic_component_loader_component__WEBPACK_IMPORTED_MODULE_10__["DynamicComponentLoaderComponent"],
-            _Components_Loaders_header_text_loader_component__WEBPACK_IMPORTED_MODULE_11__["HeaderTextLoaderComponent"],
-            _Components_extra_carousel_carousel_component__WEBPACK_IMPORTED_MODULE_12__["CarouselComponent"]
+            _Components_Loaders_header_text_loader_component__WEBPACK_IMPORTED_MODULE_11__["HeaderTextLoaderComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],

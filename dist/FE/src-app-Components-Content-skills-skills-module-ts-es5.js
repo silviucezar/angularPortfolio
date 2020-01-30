@@ -36,6 +36,26 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
   },
 
   /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html":
+  /*!*********************************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html ***!
+    \*********************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppComponentsExtraCarouselCarouselComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div class='detailedSkill' *ngFor='let subContent of content'>\n    <div>\n        {{subContent.skill_no}}\n    </div>\n</div>";
+    /***/
+  },
+
+  /***/
   "./src/app/Components/Content/skills/skills.component.scss":
   /*!*****************************************************************!*\
     !*** ./src/app/Components/Content/skills/skills.component.scss ***!
@@ -236,15 +256,104 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     var src_app_Directives_image_load_directive__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! src/app/Directives/image-load.directive */
     "./src/app/Directives/image-load.directive.ts");
+    /* harmony import */
+
+
+    var _extra_carousel_carousel_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./../../extra/carousel/carousel.component */
+    "./src/app/Components/extra/carousel/carousel.component.ts");
 
     var SkillsModule = function SkillsModule() {
       _classCallCheck(this, SkillsModule);
     };
 
     SkillsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-      declarations: [_skills_component__WEBPACK_IMPORTED_MODULE_3__["SkillsComponent"], src_app_Directives_image_load_directive__WEBPACK_IMPORTED_MODULE_4__["ImageLoadDirective"]],
+      declarations: [_skills_component__WEBPACK_IMPORTED_MODULE_3__["SkillsComponent"], _extra_carousel_carousel_component__WEBPACK_IMPORTED_MODULE_5__["CarouselComponent"], src_app_Directives_image_load_directive__WEBPACK_IMPORTED_MODULE_4__["ImageLoadDirective"]],
       imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]]
     })], SkillsModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/Components/extra/carousel/carousel.component.scss":
+  /*!*******************************************************************!*\
+    !*** ./src/app/Components/extra/carousel/carousel.component.scss ***!
+    \*******************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function srcAppComponentsExtraCarouselCarouselComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvZXh0cmEvY2Fyb3VzZWwvY2Fyb3VzZWwuY29tcG9uZW50LnNjc3MifQ== */";
+    /***/
+  },
+
+  /***/
+  "./src/app/Components/extra/carousel/carousel.component.ts":
+  /*!*****************************************************************!*\
+    !*** ./src/app/Components/extra/carousel/carousel.component.ts ***!
+    \*****************************************************************/
+
+  /*! exports provided: CarouselComponent */
+
+  /***/
+  function srcAppComponentsExtraCarouselCarouselComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CarouselComponent", function () {
+      return CarouselComponent;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+
+    var CarouselComponent =
+    /*#__PURE__*/
+    function () {
+      function CarouselComponent() {
+        _classCallCheck(this, CarouselComponent);
+      }
+
+      _createClass(CarouselComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          console.log(this.content, this.carouselIndex);
+        }
+      }]);
+
+      return CarouselComponent;
+    }();
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CarouselComponent.prototype, "content", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CarouselComponent.prototype, "carouselIndex", void 0);
+    CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-carousel',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./carousel.component.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/extra/carousel/carousel.component.html")).default,
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./carousel.component.scss */
+      "./src/app/Components/extra/carousel/carousel.component.scss")).default]
+    })], CarouselComponent);
     /***/
   },
 
