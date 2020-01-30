@@ -2,6 +2,9 @@
 <div class='detailedContentContainer' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
     <div *ngFor='let contentKey of contentKeys' class='detailedContent'>
         {{contentKey}}
+        <ng-template>
+
+        </ng-template>
     </div>
 </div>
 <span class='nextContent' (click)='displayCurrentContent(1,true)'></span>
