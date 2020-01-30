@@ -1,4 +1,4 @@
-button {
+span {
     border    : none;
     color     : grey;
     transition: .5s;
@@ -8,10 +8,11 @@ button {
     height    : 100%;
     background: none;
     position  : relative;
-    cursor    : pointer
+    cursor    : pointer;
+    z-index   : 1;
 }
 
-button:before {
+span:before {
     content   : "";
     position  : absolute;
     top       : 45%;
@@ -33,7 +34,7 @@ button:before {
     content: '\203A'
 }
 
-button:hover:before {
+span:hover:before {
     transform: scale(2);
 }
 

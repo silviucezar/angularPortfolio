@@ -1,7 +1,7 @@
-<button class='previousContent' (click)='displayCurrentContent(-1,true)'></button>
+<span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>
 <div class='detailedContentContainer' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
     <div *ngFor='let contentKey of contentKeys' class='detailedContent'>
         {{contentKey}}
     </div>
 </div>
-<button class='nextContent' (click)='displayCurrentContent(1,true)'></button>
+<span class='nextContent' (click)='displayCurrentContent(1,true)'></span>
