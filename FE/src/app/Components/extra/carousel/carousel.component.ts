@@ -8,8 +8,8 @@ import { SkillsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 })
 export class CarouselComponent implements OnInit {
 
-  @Input() private content?: SkillsMetadata;
-  @Input() private carouselIndex?: number;
+  @Input() content?: SkillsMetadata;
+  @Input() carouselIndex?: number;
 
   constructor() { }
 
