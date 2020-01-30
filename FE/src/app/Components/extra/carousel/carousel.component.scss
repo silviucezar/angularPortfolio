@@ -25,7 +25,7 @@ button:before {
     grid-column: 3;
 }
 
-.prevContent:before {
+.previousContent:before {
     content: '\2039'
 }
 
@@ -43,4 +43,5 @@ button:hover:before {
     display              : grid;
     color                : black;
     overflow             : initial;
+    transition           : .5s
 }
