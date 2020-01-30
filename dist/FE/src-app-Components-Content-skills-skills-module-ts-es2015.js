@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\n<div>\n    <div class='detailedSkill' *ngFor='let subContent of content'>\n        <div>\n            {{subContent.skill_no}}\n        </div>\n    </div>\n</div>\n<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>");
+/* harmony default export */ __webpack_exports__["default"] = ("<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\n<div [ngStyle]='\"transform:translateX(\" + translateValue + \")\"' #slidesContainer>\n    <img src=\"https://i.ytimg.com/vi/ZQ_VjdWbIEQ/maxresdefault.jpg\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://fedoramagazine.org/wp-content/uploads/2015/03/test-days-945x400.png\" alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://www.kaptest.com/blog/prep/wp-content/uploads/sites/21/2017/10/gre-test-day-what-to-expect.png\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://lh4.googleusercontent.com/proxy/vlLwWuwx8MDqzIRyEC_8d-8HwT7zW7HmgLG2ywdHJS1c9_ub6bhT_K4VBLdyHW2uNAQ-W9gdg7wvgm9Du9T7LsLamdyboCc2R4OeAoSgHkg\"\n        alt=\"\" class=\"detailedSkill\">\n    <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9q50KMjgzMozCk5JMP8D24RItgGB00AxSQcjlY12gXsJchEJp&s\"\n        alt=\"\" class=\"detailedSkill\">\n\n</div>\n<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\n\n<!-- detailedSkill -->");
 
 /***/ }),
 
@@ -178,6 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 let CarouselComponent = class CarouselComponent {
     constructor() {
         this.onSkillIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.translateValue = '0px';
     }
     ngOnInit() {
         console.log(this.content, this.carouselIndex);
@@ -185,11 +186,15 @@ let CarouselComponent = class CarouselComponent {
     displayCurrentSkill(indexQuantifier, slide) {
         this.carouselIndex = this.carouselIndex + indexQuantifier;
         this.onSkillIndexChange.emit(this.carouselIndex);
-        console.log(this.carouselIndex);
+        this.sliiiide();
     }
     ngOnChanges(changes) {
-        console.log(changes);
-        // if (changes.carouselIndex) this.carouselIndex! = changes.carouselIndex as number;
+        if (changes.carouselIndex)
+            this.carouselIndex = changes.carouselIndex.currentValue;
+        this.sliiiide();
+    }
+    sliiiide() {
+        this.translateValue = `${-(this.slidesContainer.getBoundingClientRect().width * this.carouselIndex)}px`;
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -201,6 +206,9 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
 ], CarouselComponent.prototype, "onSkillIndexChange", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('slidesContainer', { static: true })
+], CarouselComponent.prototype, "slidesContainer", void 0);
 CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-carousel',
