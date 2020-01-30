@@ -114,8 +114,56 @@ export const JOBS_EN_US = {
     },
 
     electronicArtsRomania: {
+        img_0: 'https://imgcdn.bestjobs.eu/cdn/eg/plain/employer_gallery/591038717dfb0.png',
         first: {
-
+            period: 'February 2019 - August 2019',
+            role: 'Compliance and Certification Analyst',
+            responsabilities: {
+                title: 'Responsabilities',
+                description: [
+                    'Continuous development of an inventory application based on external clients needs using the following technologies:',
+                    'Creation Google Sheets Scripts for company internal needs such as automated reports.'
+                ]
+            },
+            wins: {
+                title: 'Wins',
+                description: [
+                    'First official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
+                ]
+            },
+            technologies: {
+                title: 'Technologies',
+                description: [
+                    'FrontEnd - AngularJs, Bootstrap',
+                    'BackEnd - NodeJs – Express for routing, SqLite for database',
+                    'Desktop - Node’s Electron module to deploy as a desktop application'
+                ]
+            },
+            second: {
+                period: 'February 2019 - August 2019',
+                role: 'Junior Compliance Analyst',
+                responsabilities: {
+                    title: 'Responsabilities',
+                    description: [
+                        'Continuous development of an inventory application based on external clients needs using the following technologies:',
+                        'Creation Google Sheets Scripts for company internal needs such as automated reports.'
+                    ]
+                },
+                wins: {
+                    title: 'Wins',
+                    description: [
+                        'First official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
+                    ]
+                },
+                technologies: {
+                    title: 'Technologies',
+                    description: [
+                        'FrontEnd – AngularJs, Bootstrap',
+                        'BackEnd – NodeJs – Express for routing, SqLite for database',
+                        'Desktop – Node’s Electron module to deploy as a desktop application'
+                    ]
+                }
+            }
         }
     }
 }
