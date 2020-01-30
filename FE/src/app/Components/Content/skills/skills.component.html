@@ -1,15 +1,14 @@
 <ng-container *ngIf='finishedLoading'>
     <div class='appContentSkills'>
         <div class='skillContainer' *ngFor='let skill of skills'
-            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>
+            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'
+            (onSkillIndexChange)='onSkillIndexChange($event)'>
             <div>
                 {{skill.substring(0,1)}}
             </div>
             <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
-        <div class=''>
-            <app-carousel class="skillsDetails" [content]='metadata[locale]' [carouselIndex]='currentIndex'
-                [ngClass]='isExpanded ? "expanded" : "contracted"'></app-carousel>
-        </div>
+        <app-carousel class="skillsDetails" [content]='metadata[locale]' [carouselIndex]='currentIndex'
+            [ngClass]='isExpanded ? "expanded" : "contracted"'></app-carousel>
     </div>
 </ng-container>

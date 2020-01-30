@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class=''>\r\n            <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentIndex'\r\n                [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n        </div>\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'\r\n            (onSkillIndexChange)='onSkillIndexChange($event)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentIndex'\r\n            [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
@@ -79,21 +79,19 @@ let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_
         });
     }
     ngOnInit() { }
-    displayCurrentSkill(skillIndexReference, slide) {
-        if (!slide) {
-            if (skillIndexReference === this.currentSkillNumber)
-                this.isExpanded = !this.isExpanded;
-            else {
-                this.currentSkillNumber = skillIndexReference;
-            }
-        }
+    displayCurrentSkill(skillIndex, slide) {
+        if (skillIndex === this.currentSkillNumber)
+            this.isExpanded = !this.isExpanded;
         else {
-            this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+            this.currentSkillNumber = skillIndex;
         }
     }
     displayImage(image) {
         image.classList.add('fadeIn');
         image.previousElementSibling.remove();
+    }
+    onSkillIndexChange(event) {
+        this.currentSkillNumber = event;
     }
 };
 SkillsComponent.ctorParameters = () => [
@@ -178,9 +176,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CarouselComponent = class CarouselComponent {
-    constructor() { }
+    constructor() {
+        this.onSkillIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
     ngOnInit() {
         console.log(this.content, this.carouselIndex);
+    }
+    displayCurrentSkill(indexQuantifier, slide) {
+        this.carouselIndex = this.carouselIndex + indexQuantifier;
+        this.onSkillIndexChange.emit(this.carouselIndex);
+        console.log(this.carouselIndex);
+    }
+    ngOnChanges(changes) {
+        console.log(changes);
+        // if (changes.carouselIndex) this.carouselIndex! = changes.carouselIndex as number;
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -189,6 +198,9 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], CarouselComponent.prototype, "carouselIndex", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
+], CarouselComponent.prototype, "onSkillIndexChange", void 0);
 CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-carousel',

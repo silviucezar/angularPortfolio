@@ -34,18 +34,18 @@ export class SkillsComponent extends PageLogic implements OnInit {
 
   ngOnInit() { }
 
-  displayCurrentSkill(skillIndexReference: number, slide?: boolean) {
-    if (!slide) {
-      if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded; else {
-        this.currentSkillNumber = skillIndexReference;
-      }
-    } else {
-      this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+  displayCurrentSkill(skillIndex: number, slide?: boolean) {
+    if (skillIndex === this.currentSkillNumber) this.isExpanded = !this.isExpanded; else {
+      this.currentSkillNumber = skillIndex;
     }
   }
 
   displayImage(image: HTMLImageElement) {
     image.classList.add('fadeIn');
     image.previousElementSibling!.remove();
+  }
+
+  onSkillIndexChange(event: number) {
+    this.currentSkillNumber = event;
   }
 }

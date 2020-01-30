@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { SkillsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 
 @Component({
@@ -6,10 +6,11 @@ import { SkillsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnChanges {
 
-  @Input() content?: SkillsMetadata;
-  @Input() carouselIndex?: number;
+  @Input() private content?: SkillsMetadata;
+  @Input() private carouselIndex?: number;
+  @Output() private onSkillIndexChange = new EventEmitter();
 
   constructor() { }
 
@@ -17,4 +18,15 @@ export class CarouselComponent implements OnInit {
     console.log(this.content, this.carouselIndex);
   }
 
+  displayCurrentSkill(indexQuantifier: number, slide?: boolean) {
+    this.carouselIndex = this.carouselIndex! + indexQuantifier;
+    this.onSkillIndexChange.emit(this.carouselIndex);
+    console.log(this.carouselIndex)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+    // if (changes.carouselIndex) this.carouselIndex! = changes.carouselIndex as number;
+
+  }
 }

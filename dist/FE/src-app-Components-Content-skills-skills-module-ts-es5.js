@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class=''>\r\n            <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentIndex'\r\n                [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n        </div>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'\r\n            (onSkillIndexChange)='onSkillIndexChange($event)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentIndex'\r\n            [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -163,13 +163,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         value: function ngOnInit() {}
       }, {
         key: "displayCurrentSkill",
-        value: function displayCurrentSkill(skillIndexReference, slide) {
-          if (!slide) {
-            if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded;else {
-              this.currentSkillNumber = skillIndexReference;
-            }
-          } else {
-            this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+        value: function displayCurrentSkill(skillIndex, slide) {
+          if (skillIndex === this.currentSkillNumber) this.isExpanded = !this.isExpanded;else {
+            this.currentSkillNumber = skillIndex;
           }
         }
       }, {
@@ -177,6 +173,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         value: function displayImage(image) {
           image.classList.add('fadeIn');
           image.previousElementSibling.remove();
+        }
+      }, {
+        key: "onSkillIndexChange",
+        value: function onSkillIndexChange(event) {
+          this.currentSkillNumber = event;
         }
       }]);
 
@@ -331,12 +332,26 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     function () {
       function CarouselComponent() {
         _classCallCheck(this, CarouselComponent);
+
+        this.onSkillIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
       }
 
       _createClass(CarouselComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
           console.log(this.content, this.carouselIndex);
+        }
+      }, {
+        key: "displayCurrentSkill",
+        value: function displayCurrentSkill(indexQuantifier, slide) {
+          this.carouselIndex = this.carouselIndex + indexQuantifier;
+          this.onSkillIndexChange.emit(this.carouselIndex);
+          console.log(this.carouselIndex);
+        }
+      }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges(changes) {
+          console.log(changes); // if (changes.carouselIndex) this.carouselIndex! = changes.carouselIndex as number;
         }
       }]);
 
@@ -345,6 +360,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CarouselComponent.prototype, "content", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CarouselComponent.prototype, "carouselIndex", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()], CarouselComponent.prototype, "onSkillIndexChange", void 0);
     CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-carousel',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
