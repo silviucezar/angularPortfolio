@@ -358,7 +358,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       }, {
         key: "sliiiide",
         value: function sliiiide() {
-          if (this.carouselIndex === 5) this.carouselIndex = 0;else if (this.carouselIndex === 0) this.carouselIndex = 4;
+          if (this.carouselIndex === 5) this.carouselIndex = 0;else if (this.carouselIndex === -1) this.carouselIndex = 0;
           this.translateValue = "".concat(-(this.slidesContainer.nativeElement.getBoundingClientRect().width * this.carouselIndex), "px");
         }
       }]);

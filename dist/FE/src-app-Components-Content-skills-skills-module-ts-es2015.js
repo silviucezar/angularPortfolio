@@ -196,8 +196,8 @@ let CarouselComponent = class CarouselComponent {
     sliiiide() {
         if (this.carouselIndex === 5)
             this.carouselIndex = 0;
-        else if (this.carouselIndex === 0)
-            this.carouselIndex = 4;
+        else if (this.carouselIndex === -1)
+            this.carouselIndex = 0;
         this.translateValue = `${-(this.slidesContainer.nativeElement.getBoundingClientRect().width * this.carouselIndex)}px`;
     }
 };
