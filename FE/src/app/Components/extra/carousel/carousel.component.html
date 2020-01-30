@@ -1,7 +1,6 @@
 <span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>
 <div class='detailedContentContainer' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
     <div *ngFor='let contentKey of contentKeys' class='detailedContent'>
-        {{contentKey}}
         <ng-template>
 
         </ng-template>
