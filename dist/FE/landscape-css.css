@@ -2,12 +2,9 @@ body {
   font-size: 14px;
 }
 
-#appGlobalGrid {
-  grid-template-columns: 75fr 25fr;
-}
-
+#appGlobalGrid,
 .appGlobalHeaderContainer {
-  grid-template-columns: 70fr 30fr;
+  grid-template-columns: 80fr 20fr;
 }
 
 .appGlobalHeaderContainerData {
@@ -19,12 +16,12 @@ body {
   grid-column: 2;
   grid-row: 1;
   display: grid;
-  grid-template: auto calc(15vw + 35px) auto/auto calc(15vw + 35px) auto;
+  grid-template: auto calc(12vw + 30px) auto/auto calc(12vw + 30px) auto;
 }
 
 .appGlobalHeaderContainerImage div:nth-child(2) {
   display: grid;
-  grid-template: auto calc(15vw + 20px) auto/auto calc(15vw + 20px) auto;
+  grid-template: auto calc(12vw + 20px) auto/auto calc(12vw + 20px) auto;
 }
 
 .appGlobalContentMain {
@@ -41,13 +38,7 @@ body {
 }
 
 .extended .appGlobalHeaderMainContainer {
-  height: 200px;
-}
-
-@media only screen and (max-width: 330px) {
-  .extended .appGlobalHeaderMainContainer {
-    height: 150px;
-  }
+  height: calc(28vh + 125px);
 }
 
 .skillContainer:nth-child(1) {
@@ -72,8 +63,4 @@ body {
 
 .skillsDetails {
   grid-column: 1/span 11;
-}
-
-.skillsDetails.expanded {
-  height: 40vmax;
 }

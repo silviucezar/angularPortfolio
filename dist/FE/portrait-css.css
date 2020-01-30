@@ -65,7 +65,3 @@ body {
 .skillsDetails {
   grid-column: 1/span 5;
 }
-
-.skillsDetails.expanded {
-  height: 40vmax;
-}

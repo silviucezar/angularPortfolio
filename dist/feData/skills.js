@@ -17,7 +17,8 @@ exports.SKILLS_RO_RO = {
                 description_0: 'Both BackEnd and FrontEnd of this website were developed using Typescript and NodeJS.',
                 description_1: 'Go to NodeJS section'
             }
-        }
+        },
+        skill_no: 0
     },
     Javascript: {
         intro: '',
@@ -36,7 +37,8 @@ exports.SKILLS_RO_RO = {
                     description_0: 'Used throughout development cycles of project to maintain legacy code.'
                 }
             }
-        }
+        },
+        skill_no: 1
     },
     NodeJS: {
         intro: '',
@@ -62,7 +64,8 @@ exports.SKILLS_RO_RO = {
                     description_0: 'Used for personal projects'
                 }
             }
-        }
+        },
+        skill_no: 2
     },
     Databases: {
         intro: '',
@@ -82,7 +85,8 @@ exports.SKILLS_RO_RO = {
                 }
             }
         },
-        notes: 'My SQL experience is fairly unpolished compared to other fortees and I aim to fine tune it.'
+        notes: 'My SQL experience is fairly unpolished compared to other fortees and I aim to fine tune it.',
+        skill_no: 3
     },
     DevelopmentLifeCycle: {
         img_0: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/additional-skills-1511814-1281159.png',
@@ -114,7 +118,8 @@ exports.SKILLS_RO_RO = {
             php_code_igniter: {
                 img_0: 'https://66.media.tumblr.com/avatar_b9ddd324f946_128.pnj'
             }
-        }
+        },
+        skill_no: 4
     }
 };
 exports.SKILLS_EN_US = {
@@ -134,7 +139,8 @@ exports.SKILLS_EN_US = {
                 description_0: 'Both BackEnd and FrontEnd of this website were developed using Typescript and NodeJS.',
                 description_1: 'Go to NodeJS section'
             }
-        }
+        },
+        skill_no: 0
     },
     Javascript: {
         intro: '',
@@ -153,7 +159,8 @@ exports.SKILLS_EN_US = {
                     description_0: 'Used throughout development cycles of project to maintain legacy code.'
                 }
             }
-        }
+        },
+        skill_no: 1
     },
     NodeJS: {
         intro: '',
@@ -179,7 +186,8 @@ exports.SKILLS_EN_US = {
                     description_0: 'Used for personal projects'
                 }
             }
-        }
+        },
+        skill_no: 2
     },
     Databases: {
         intro: '',
@@ -199,7 +207,8 @@ exports.SKILLS_EN_US = {
                 }
             }
         },
-        notes: 'My SQL experience is fairly unpolished compared to other fortees and I aim to fine tune it.'
+        notes: 'My SQL experience is fairly unpolished compared to other fortees and I aim to fine tune it.',
+        skill_no: 3
     },
     DevelopmentLifeCycle: {
         img_0: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/additional-skills-1511814-1281159.png',
@@ -231,7 +240,8 @@ exports.SKILLS_EN_US = {
             php_code_igniter: {
                 img_0: 'https://66.media.tumblr.com/avatar_b9ddd324f946_128.pnj'
             }
-        }
+        },
+        skill_no: 4
     }
 };
 //# sourceMappingURL=skills.js.map
