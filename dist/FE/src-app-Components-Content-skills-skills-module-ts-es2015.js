@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1)'></button>\r\n            <div class=\"detailedSkillContainer\">\r\n                <div class='detailedSkill' *ngFor='let skill of skills'>\r\n                    <div>\r\n                        {{metadata[locale][skill].skill_no}}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(-1)'></button>\r\n        </div>\r\n\r\n    </div>\r\n</ng-container>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\r\n            <div class=\"detailedSkillContainer\">\r\n                <div class=\"test\">\r\n                    <div class='detailedSkill' *ngFor='let skill of skills'>\r\n                        <div>\r\n                            {{metadata[locale][skill].skill_no}}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\r\n        </div>\r\n    </div>\r\n</ng-container>");
 
 /***/ }),
 
@@ -40,14 +40,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/data.service */ "./src/app/Services/data.service.ts");
 /* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+
 
 
 
 
 let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__["PageLogic"] {
-    constructor(dataService) {
+    constructor(dataService, _document) {
         super();
         this.dataService = dataService;
+        this._document = _document;
         this.metadata = { ro_RO: undefined, en_US: undefined };
         this.finishedLoading = false;
         this.skills = [];
@@ -63,25 +66,42 @@ let SkillsComponent = class SkillsComponent extends src_app_Services_page_logic_
         });
     }
     ngOnInit() { }
-    displayCurrentSkill(currentSkillNumber) {
-        console.log(currentSkillNumber);
-        this.isExpanded = !this.isExpanded;
+    displayCurrentSkill(skillIndexReference, slide) {
+        if (!slide) {
+            if (skillIndexReference === this.currentSkillNumber)
+                this.isExpanded = !this.isExpanded;
+            else {
+                this.currentSkillNumber = skillIndexReference;
+                this.slideToSkill();
+            }
+        }
+        else {
+            this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+            this.slideToSkill();
+        }
     }
     displayImage(image) {
         image.classList.add('fadeIn');
         image.previousElementSibling.remove();
         // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
     }
+    slideToSkill() {
+        console.log('t');
+        this._document.querySelectorAll('.detailedSkill').forEach((skillDetail, index) => {
+        });
+    }
 };
 SkillsComponent.ctorParameters = () => [
-    { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] }
+    { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] },
+    { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["DOCUMENT"],] }] }
 ];
 SkillsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-skills',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./skills.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/skills/skills.component.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./skills.component.scss */ "./src/app/Components/Content/skills/skills.component.scss")).default]
-    })
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_4__["DOCUMENT"]))
 ], SkillsComponent);
 
 

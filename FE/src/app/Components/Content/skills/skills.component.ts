@@ -54,7 +54,7 @@ export class SkillsComponent extends PageLogic implements OnInit {
   }
 
   slideToSkill() {
-    console.log(t)
+    console.log('t')
     this._document.querySelectorAll('.detailedSkill').forEach((skillDetail, index) => {
 
     });

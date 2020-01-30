@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1)'></button>\r\n            <div class=\"detailedSkillContainer\">\r\n                <div class='detailedSkill' *ngFor='let skill of skills'>\r\n                    <div>\r\n                        {{metadata[locale][skill].skill_no}}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(-1)'></button>\r\n        </div>\r\n\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <div class='skillsDetails' [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'>\r\n            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>\r\n            <div class=\"detailedSkillContainer\">\r\n                <div class=\"test\">\r\n                    <div class='detailedSkill' *ngFor='let skill of skills'>\r\n                        <div>\r\n                            {{metadata[locale][skill].skill_no}}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>\r\n        </div>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
@@ -98,19 +98,26 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! src/app/Services/page.logic.service */
     "./src/app/Services/page.logic.service.ts");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
 
     var SkillsComponent =
     /*#__PURE__*/
     function (_src_app_Services_pag) {
       _inherits(SkillsComponent, _src_app_Services_pag);
 
-      function SkillsComponent(dataService) {
+      function SkillsComponent(dataService, _document) {
         var _this;
 
         _classCallCheck(this, SkillsComponent);
 
         _this = _possibleConstructorReturn(this, _getPrototypeOf(SkillsComponent).call(this));
         _this.dataService = dataService;
+        _this._document = _document;
         _this.metadata = {
           ro_RO: undefined,
           en_US: undefined
@@ -136,15 +143,29 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         value: function ngOnInit() {}
       }, {
         key: "displayCurrentSkill",
-        value: function displayCurrentSkill(currentSkillNumber) {
-          console.log(currentSkillNumber);
-          this.isExpanded = !this.isExpanded;
+        value: function displayCurrentSkill(skillIndexReference, slide) {
+          if (!slide) {
+            if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded;else {
+              this.currentSkillNumber = skillIndexReference;
+              this.slideToSkill();
+            }
+          } else {
+            this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+            this.slideToSkill();
+          }
         }
       }, {
         key: "displayImage",
         value: function displayImage(image) {
           image.classList.add('fadeIn');
           image.previousElementSibling.remove(); // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
+        }
+      }, {
+        key: "slideToSkill",
+        value: function slideToSkill() {
+          console.log('t');
+
+          this._document.querySelectorAll('.detailedSkill').forEach(function (skillDetail, index) {});
         }
       }]);
 
@@ -154,6 +175,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     SkillsComponent.ctorParameters = function () {
       return [{
         type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]
+      }, {
+        type: Document,
+        decorators: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+          args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["DOCUMENT"]]
+        }]
       }];
     };
 
@@ -165,7 +192,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./skills.component.scss */
       "./src/app/Components/Content/skills/skills.component.scss")).default]
-    })], SkillsComponent);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_4__["DOCUMENT"]))], SkillsComponent);
     /***/
   },
 
