@@ -31,7 +31,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'\r\n            (onSkillIndexChange)='onSkillIndexChange($event)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentIndex'\r\n            [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n    </div>\r\n</ng-container>";
+    __webpack_exports__["default"] = "<ng-container *ngIf='finishedLoading'>\r\n    <div class='appContentSkills'>\r\n        <div class='skillContainer' *ngFor='let skill of skills'\r\n            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'\r\n            (onSkillIndexChange)='onSkillIndexChange($event)'>\r\n            <div>\r\n                {{skill.substring(0,1)}}\r\n            </div>\r\n            <img [src]='metadata[locale][skill].img_0' [ngClass]='\"img\" + skill' (load)='displayImage($event.target)' />\r\n        </div>\r\n        <app-carousel class=\"skillsDetails\" [content]='metadata[locale]' [carouselIndex]='currentSkillNumber'\r\n            [ngClass]='isExpanded ? \"expanded\" : \"contracted\"'></app-carousel>\r\n    </div>\r\n</ng-container>";
     /***/
   },
 
