@@ -21,15 +21,15 @@ button:before {
     transition: .3s
 }
 
-.nextSkill {
+.nextContent {
     grid-column: 3;
 }
 
-.prevSkill:before {
+.prevContent:before {
     content: '\2039'
 }
 
-.nextSkill:before {
+.nextContent:before {
     content: '\203A'
 }
 
@@ -37,7 +37,7 @@ button:hover:before {
     transform: scale(2);
 }
 
-.detailedSkillContainer {
+.detailedContentContainer {
     grid-column          : 2;
     grid-template-columns: repeat(5, 100%);
     display              : grid;

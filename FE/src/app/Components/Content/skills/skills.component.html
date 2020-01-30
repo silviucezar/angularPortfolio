@@ -8,7 +8,8 @@
             </div>
             <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
-        <app-carousel class="skillsDetails" [content]='metadata[locale]' [carouselIndex]='currentSkillNumber'
-            [ngClass]='isExpanded ? "expanded" : "contracted"'></app-carousel>
+        <app-carousel class="skillsDetails" [contentKeys]='skills' [content]='metadata[locale]'
+            [carouselIndex]='currentSkillNumber' [ngClass]='isExpanded ? "expanded" : "contracted"'>
+        </app-carousel>
     </div>
 </ng-container>

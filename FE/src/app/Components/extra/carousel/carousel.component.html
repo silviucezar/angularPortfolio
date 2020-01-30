@@ -1,15 +1,7 @@
-<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>
-<div class="detailedSkillContainer" [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
-    <img src="https://i.ytimg.com/vi/ZQ_VjdWbIEQ/maxresdefault.jpg" alt="" class="detailedSkill">
-    <img src="https://fedoramagazine.org/wp-content/uploads/2015/03/test-days-945x400.png" alt="" class="detailedSkill">
-    <img src="https://www.kaptest.com/blog/prep/wp-content/uploads/sites/21/2017/10/gre-test-day-what-to-expect.png"
-        alt="" class="detailedSkill">
-    <img src="https://lh4.googleusercontent.com/proxy/vlLwWuwx8MDqzIRyEC_8d-8HwT7zW7HmgLG2ywdHJS1c9_ub6bhT_K4VBLdyHW2uNAQ-W9gdg7wvgm9Du9T7LsLamdyboCc2R4OeAoSgHkg"
-        alt="" class="detailedSkill">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9q50KMjgzMozCk5JMP8D24RItgGB00AxSQcjlY12gXsJchEJp&s"
-        alt="" class="detailedSkill">
-
+<button class='previousContent' (click)='displayCurrentContent(-1,true)'></button>
+<div class='detailedContentContainer' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
+    <div *ngFor='let contentKey of contentKeys' class='detailedContent'>
+        {{contentKey}}
+    </div>
 </div>
-<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>
-
-<!-- detailedSkill -->
+<button class='nextContent' (click)='displayCurrentContent(1,true)'></button>

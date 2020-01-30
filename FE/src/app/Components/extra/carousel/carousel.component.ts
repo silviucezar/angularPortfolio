@@ -9,8 +9,9 @@ import { SkillsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 export class CarouselComponent implements OnInit, OnChanges {
 
   @Input() private content?: SkillsMetadata;
+  @Input() private contentKeys?: number;
   @Input() private carouselIndex?: number;
-  @Output() private onSkillIndexChange = new EventEmitter();
+  @Output() private onContentIndexChange = new EventEmitter();
   @ViewChild('slidesContainer', { static: true }) private slidesContainer?: ElementRef;
 
   private translateValue: string = '0px';
@@ -20,9 +21,9 @@ export class CarouselComponent implements OnInit, OnChanges {
     console.log(this.content, this.carouselIndex);
   }
 
-  displayCurrentSkill(indexQuantifier: number, slide?: boolean) {
+  displayCurrentContent(indexQuantifier: number, slide?: boolean) {
     this.carouselIndex = this.carouselIndex! + indexQuantifier;
-    this.onSkillIndexChange.emit(this.carouselIndex);
+    this.onContentIndexChange.emit(this.carouselIndex);
     this.sliiiide();
   }
 
