@@ -1,5 +1,9 @@
-<div class='detailedSkill' *ngFor='let subContent of content'>
-    <div>
-        {{subContent.skill_no}}
+<button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>
+<div>
+    <div class='detailedSkill' *ngFor='let subContent of content'>
+        <div>
+            {{subContent.skill_no}}
+        </div>
     </div>
 </div>
+<button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>

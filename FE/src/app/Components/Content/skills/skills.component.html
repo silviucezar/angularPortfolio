@@ -7,11 +7,9 @@
             </div>
             <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
-        <div class='skillsDetails' [ngClass]='isExpanded ? "expanded" : "contracted"'>
-            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>
-            <app-carousel class="detailedSkillContainer" [content]='metadata[locale]' [carouselIndex]='currentIndex'>
-            </app-carousel>
-            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>
+        <div class=''>
+            <app-carousel class="skillsDetails" [content]='metadata[locale]' [carouselIndex]='currentIndex'
+                [ngClass]='isExpanded ? "expanded" : "contracted"'></app-carousel>
         </div>
     </div>
 </ng-container>
