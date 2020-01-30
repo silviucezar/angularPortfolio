@@ -8,16 +8,17 @@
             <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
         <div class='skillsDetails' [ngClass]='isExpanded ? "expanded" : "contracted"'>
-            <button class='prevSkill' (click)='displayCurrentSkill(-1)'></button>
+            <button class='prevSkill' (click)='displayCurrentSkill(-1,true)'></button>
             <div class="detailedSkillContainer">
-                <div class='detailedSkill' *ngFor='let skill of skills'>
-                    <div>
-                        {{metadata[locale][skill].skill_no}}
+                <div class="test">
+                    <div class='detailedSkill' *ngFor='let skill of skills'>
+                        <div>
+                            {{metadata[locale][skill].skill_no}}
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class='nextSkill' (click)='displayCurrentSkill(-1)'></button>
+            <button class='nextSkill' (click)='displayCurrentSkill(1,true)'></button>
         </div>
-
     </div>
 </ng-container>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from 'src/app/Services/data.service';
 import { ComponentsMetadata, Lang } from 'src/app/Interfaces/ComponentsMetadata';
 import { PageLogic } from 'src/app/Services/page.logic.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-skills',
@@ -18,7 +19,8 @@ export class SkillsComponent extends PageLogic implements OnInit {
   private currentSkillNumber: number = 0;
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    @Inject(DOCUMENT) private _document: Document
   ) {
     super();
     this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
@@ -32,9 +34,16 @@ export class SkillsComponent extends PageLogic implements OnInit {
 
   ngOnInit() { }
 
-  displayCurrentSkill(currentSkillNumber: number) {
-    console.log(currentSkillNumber)
-    this.isExpanded = !this.isExpanded;
+  displayCurrentSkill(skillIndexReference: number, slide?: boolean) {
+    if (!slide) {
+      if (skillIndexReference === this.currentSkillNumber) this.isExpanded = !this.isExpanded; else {
+        this.currentSkillNumber = skillIndexReference;
+        this.slideToSkill();
+      }
+    } else {
+      this.currentSkillNumber = this.currentSkillNumber + skillIndexReference;
+      this.slideToSkill();
+    }
 
   }
 
@@ -42,5 +51,12 @@ export class SkillsComponent extends PageLogic implements OnInit {
     image.classList.add('fadeIn');
     image.previousElementSibling!.remove();
     // this.r.setAttribute(container.firstElementChild, 'style', `line-height:${container.getBoundingClientRect().height}px`);
+  }
+
+  slideToSkill() {
+    console.log(t)
+    this._document.querySelectorAll('.detailedSkill').forEach((skillDetail, index) => {
+
+    });
   }
 }
