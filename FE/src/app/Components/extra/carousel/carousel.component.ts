@@ -32,7 +32,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   sliiiide() {
-    if (this.carouselIndex === 4) this.carouselIndex = 0; else if (this.carouselIndex === 0) this.carouselIndex = 4;
+    if (this.carouselIndex === 5) this.carouselIndex = 0; else if (this.carouselIndex === 0) this.carouselIndex = 4;
     this.translateValue = `${-(this.slidesContainer!.nativeElement.getBoundingClientRect().width * this.carouselIndex!)}px`;
   }
 }

@@ -194,7 +194,7 @@ let CarouselComponent = class CarouselComponent {
         this.sliiiide();
     }
     sliiiide() {
-        if (this.carouselIndex === 4)
+        if (this.carouselIndex === 5)
             this.carouselIndex = 0;
         else if (this.carouselIndex === 0)
             this.carouselIndex = 4;
