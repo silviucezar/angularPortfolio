@@ -54,3 +54,11 @@ span:hover:before {
     overflow             : initial;
     transition           : .5s
 }
+
+.detailedContent:nth-child(odd) {
+    background: darkgrey
+}
+
+.detailedContent:nth-child(even) {
+    background: lightgrey
+}
