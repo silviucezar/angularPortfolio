@@ -24,7 +24,7 @@ export class UrlListenerService {
     this.lazyService.setContainerRefs(containerRefs);
   }
 
-  listen() {
+  start() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
       const localUrlSubscription: UrlSubscription = {
         dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me',

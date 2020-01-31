@@ -27,6 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   private currentLocale: string = 'en_US';
   private loadedCSS: Boolean = false;
   private currentUrlSubscription: string = '';
+  private activeModal:boolean = true;
+
   constructor(
     private localeService: LocaleService,
     private initService: InitService,
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private urlListenerService: UrlListenerService
 
   ) {
+    this.urlListenerService.start();
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
       this.categories = [];
       for (const localeValueProps in localeValue.categoriesTitle) {
@@ -56,11 +59,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       references: this.references,
       leave_message: this.leave_message
     });
-    this.urlListenerService.listen();
-
   }
 
-  ngAfterViewInit() {
-    this.initService.init(this.domRootElementRef);
-  }
+  ngAfterViewInit() {this.initService.init(this.domRootElementRef);}
+
+  activateModal() { this.activeModal = true;}
 }

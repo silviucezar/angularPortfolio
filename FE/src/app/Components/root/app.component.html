@@ -1,14 +1,15 @@
+<div class='skillsJobsModal' [ngClass]='{"active" : activeModal}'>
+    <ng-container #skills></ng-container>
+    <ng-container #jobs></ng-container>
+</div>
 <div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
     <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
 </div>
 <div class="appGlobalContent" #GlobalContainer>
     <ng-container #about_me></ng-container>
-    <div class='modalContainer'>
-        <span>Skills</span>
-        <span>Work Experience</span>
-        <ng-container #skills></ng-container>
-        <ng-container #jobs></ng-container>
-    </div>
+    <a routerLink='portfolio/skills' class='skillsJobsToggle' (click)='activateModal()'>Skills</a>
+    <a routerLink='portfolio/jobs' class='skillsJobsToggle' (click)='activateModal()'>Jobs</a>
+
     <ng-container #education></ng-container>
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
