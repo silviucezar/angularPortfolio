@@ -3,9 +3,12 @@
 </div>
 <div class="appGlobalContent" #GlobalContainer>
     <ng-container #about_me></ng-container>
-    <button>Toggle</button>
-    <ng-container #skills></ng-container>
-    <ng-container #jobs></ng-container>
+    <div class='modalContainer'>
+        <span>Skills</span>
+        <span>Work Experience</span>
+        <ng-container #skills></ng-container>
+        <ng-container #jobs></ng-container>
+    </div>
     <ng-container #education></ng-container>
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
