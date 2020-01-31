@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>\n<div class='detailedContentContainer' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\n    <div *ngFor='let contentKey of contentKeys' class='detailedContent'>\n        {{contentKey}}\n    </div>\n</div>\n<span class='nextContent' (click)='displayCurrentContent(1,true)'></span>");
+/* harmony default export */ __webpack_exports__["default"] = ("<span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>\r\n<div class='detailedContentContainer' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\r\n    <div *ngFor='let contentKey of contentKeys' class='detailedContent'>\r\ndsa\r\n    </div>\r\n</div>\r\n<span class='nextContent' (click)='displayCurrentContent(1,true)'></span>");
 
 /***/ }),
 
@@ -194,9 +194,7 @@ let CarouselComponent = class CarouselComponent {
         this.sliiiide();
     }
     sliiiide() {
-        if (this.carouselIndex === 5)
-            this.carouselIndex = 0;
-        else if (this.carouselIndex === -1)
+        if (this.carouselIndex === 5 || this.carouselIndex === -1)
             this.carouselIndex = 0;
         this.translateValue = `${-(this.slidesContainer.nativeElement.getBoundingClientRect().width * this.carouselIndex)}px`;
     }

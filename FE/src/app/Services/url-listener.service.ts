@@ -28,7 +28,7 @@ export class UrlListenerService {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
       const localUrlSubscription: UrlSubscription = {
         dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me',
-        path: event.url !== "/" ? event["url"].replace("/portfolio/", "") : 'about-me'
+        path: event.url !== "/" ? event.url.replace("/portfolio/", "") : 'about-me'
       }
       this.urlSubscriptionBehaviorSubject$.next(localUrlSubscription);
       this.dataService.setCurrentRouteDataUsingUrl(localUrlSubscription.dataToFetch);

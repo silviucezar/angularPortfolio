@@ -51,7 +51,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>\n<div class='detailedContentContainer' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\n    <div *ngFor='let contentKey of contentKeys' class='detailedContent'>\n        {{contentKey}}\n    </div>\n</div>\n<span class='nextContent' (click)='displayCurrentContent(1,true)'></span>";
+    __webpack_exports__["default"] = "<span class='previousContent' (click)='displayCurrentContent(-1,true)'></span>\r\n<div class='detailedContentContainer' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\r\n    <div *ngFor='let contentKey of contentKeys' class='detailedContent'>\r\ndsa\r\n    </div>\r\n</div>\r\n<span class='nextContent' (click)='displayCurrentContent(1,true)'></span>";
     /***/
   },
 
@@ -358,7 +358,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       }, {
         key: "sliiiide",
         value: function sliiiide() {
-          if (this.carouselIndex === 5) this.carouselIndex = 0;else if (this.carouselIndex === -1) this.carouselIndex = 0;
+          if (this.carouselIndex === 5 || this.carouselIndex === -1) this.carouselIndex = 0;
           this.translateValue = "".concat(-(this.slidesContainer.nativeElement.getBoundingClientRect().width * this.carouselIndex), "px");
         }
       }]);

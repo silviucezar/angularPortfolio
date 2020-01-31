@@ -1,6 +1,11 @@
 <div class='skillsJobsModal' [ngClass]='{"active" : activeModal}'>
-    <ng-container #skills></ng-container>
-    <ng-container #jobs></ng-container>
+    <div class='skillsModalTabs'>
+        <a routerLink='portfolio/skills' class='skillsJobsToggle' (click)='activateModal()'>Skills</a>
+        <a routerLink='portfolio/jobs' class='skillsJobsToggle' (click)='activateModal()'>Jobs</a>
+        <span>Go Back</span>
+        <ng-container #skills></ng-container>
+        <ng-container #jobs></ng-container>
+    </div>
 </div>
 <div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
     <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
@@ -9,14 +14,17 @@
     <ng-container #about_me></ng-container>
     <a routerLink='portfolio/skills' class='skillsJobsToggle' (click)='activateModal()'>Skills</a>
     <a routerLink='portfolio/jobs' class='skillsJobsToggle' (click)='activateModal()'>Jobs</a>
-
     <ng-container #education></ng-container>
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
 </div>
 <div class="appGlobalMargin" #GlobalLeftMargin id='appGlobalMargin'>
-    <a [ngClass]='{"current" : category.url === currentUrlSubscription}' class='categoriesUrl'
-        *ngFor='let category of categories'
-        routerLink="{{'portfolio/' + category.url}}">{{category[currentLocale + '_Title']}}<br></a>
+    <ng-container *ngFor='let category of categories'>
+        <a [ngClass]='{"current" : category.url === currentUrlSubscription}' class='categoriesUrl'
+            *ngIf='(category.url !== "skills") && (category.url !== "jobs")'
+            routerLink="{{'portfolio/' + category.url}}">
+            {{category[currentLocale + '_Title']}}
+        </a>
+    </ng-container>
 </div>
 <app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter'></app-footer>
