@@ -26,9 +26,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   private categories: CategoryDetails[] = [];
   private currentLocale: string = 'en_US';
   private loadedCSS: Boolean = false;
-  private currentUrlSubscription: string = '';
-  private activeModal: boolean = true;
-
+  private currentUrl: string = '';
+  private previousUrl: string = '';
   constructor(
     private localeService: LocaleService,
     private initService: InitService,
@@ -46,7 +45,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe((currentUrlSubscription: UrlSubscription) => {
-      this.currentUrlSubscription = currentUrlSubscription.path;
+      this.previousUrl = this.currentUrl;
+      this.currentUrl = currentUrlSubscription.path;
     });
   }
 
@@ -62,6 +62,4 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() { this.initService.init(this.domRootElementRef); }
-
-  activateModal() { this.activeModal = true; }
 }

@@ -1,16 +1,16 @@
 a {
-  color          : white;
+  color: white;
   text-decoration: none;
 }
 
 .categoriesUrl {
-  display    : block;
-  width      : 90%;
-  height     : 95%;
-  text-align : center;
+  display: block;
+  width: 90%;
+  height: 95%;
+  text-align: center;
   line-height: 7.5vmin;
-  position   : relative;
-  left       : 5%;
+  position: relative;
+  left: 5%;
 }
 
 .current {
@@ -19,27 +19,27 @@ a {
 
 .categoriesUrl:before,
 .categoriesUrl:after {
-  content   : "";
-  position  : absolute;
-  display   : block;
-  width     : 100%;
-  height    : 85%;
-  top       : 0;
-  transform : scale(0);
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 85%;
+  top: 0;
+  transform: scale(0);
   transition: 0.5s;
-  left      : 0;
+  left: 0;
 }
 
 .categoriesUrl:before,
 .current:before {
-  border-top      : 2px solid #9ee8dc;
+  border-top: 2px solid #9ee8dc;
   transform-origin: top left;
 }
 
 .categoriesUrl:after,
 .current:after {
-  border-bottom   : 2px solid #9ee8dc;
-  right           : 0;
+  border-bottom: 2px solid #9ee8dc;
+  right: 0;
   transform-origin: bottom right;
 }
 
@@ -50,10 +50,10 @@ a {
 
 .current:before,
 .current:after {
-  border-top   : 2px solid #534aff;
+  border-top: 2px solid #534aff;
   border-bottom: 2px solid #534aff;
-  transform    : scale(1);
-  transition   : 0.5s;
+  transform: scale(1);
+  transition: 0.5s;
 }
 
 .appGlobalContent {
@@ -61,26 +61,25 @@ a {
 }
 
 .appGlobalMargin {
-  grid-area         : appGlobalMargin;
-  display           : grid;
+  grid-area: appGlobalMargin;
+  display: grid;
   grid-template-rows: repeat(6, 8vmin);
 }
 
 .appGlobalHeader {
-  grid-column          : 1;
-  grid-row             : 1;
-  margin               : 0;
-  display              : grid;
-  grid-template-rows   : 100%;
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 100%;
   grid-template-columns: 100%;
 }
 
 .appGlobalFooter {
-  display              : grid;
-  padding              : 5px;
-  grid-template-columns: repeat(4, 40px) auto;
-  grid-template-rows   : auto;
-  grid-gap             : 10px;
+  position: relative;
+  display: inline-block;
+  line-height: 30px;
+  text-align: center;
 }
 
 .skillsJobsModal {
@@ -88,34 +87,42 @@ a {
 }
 
 .skillsJobsToggle {
-  height     : 30px;
-  width      : 125px;
-  position   : relative;
-  display    : inline-block;
-  background : red;
+  height: 30px;
+  width: 125px;
+  position: relative;
+  display: inline-block;
   line-height: 30px;
-  text-align : center;
-  /* margin  : auto; */
+  text-align: center;
   grid-column: 2;
-  grid-row   : 1;
-  bottom     : 0;
+  grid-row: 1;
+  bottom: 0;
 }
 
 .skillsJobsModal.active {
-  position             : fixed;
-  display              : grid;
-  top                  : 0;
-  left                 : 0;
-  z-index              : 2;
-  width                : 100%;
-  height               : 100%;
-  background           : rgba(0, 0, 0, 0.9);
+  position: fixed;
+  display: grid;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
   grid-template-columns: 5% auto 5%;
-  grid-template-rows   : 5% auto 50px;
+  grid-template-rows: 25% auto 50px;
+}
+
+.modalTabsActiveRoute {
+  grid-column: 1;
+    background: #0B1E2F;
+    border: 5px double #1A4B6E;
+    border-bottom: none;
+    height: 33px;
 }
 
 .skillsModalTabs {
   grid-column: 2;
-  grid-row   : 2;
-  position   : relative;
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: 30px auto;
+  grid-template-columns: repeat(3, 125px) auto;
 }

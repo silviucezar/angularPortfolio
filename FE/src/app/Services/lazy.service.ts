@@ -47,7 +47,7 @@ export class LazyService {
         const module = this.componentsTemplate[key].module;
         loadedComponents.push(
           import(`../Components/Content/${path}/${path}.module`).then((m) => {
-            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[0];
+            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
             (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
             this.componentsTemplate[key].isLoaded = true;
           })

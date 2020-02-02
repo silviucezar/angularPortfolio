@@ -53,11 +53,16 @@ export class DataService {
     const templateKeys = Object.keys(this.componentsMetadata.components) as (keyof ComponentsData)[];
     const componentIndex = templateKeys.indexOf(dataToFetch as keyof ComponentsData);
     const currentLoadStatusIsInitial = this.isInitialLoad[locale];
-    if (
-      this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
-      this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
-      this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined
-    ) return this.componentsMetadata$.next(this.componentsMetadata);
+    try {
+      if (
+        this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
+        this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
+        this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined
+      ) return this.componentsMetadata$.next(this.componentsMetadata);
+    } catch(e) {
+      return;
+    }
+
 
     this.httpService.doGetRequest("getMetadata", {
       locale: locale,
@@ -65,6 +70,7 @@ export class DataService {
       isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale as 'ro_RO' | 'en_US']
     })
       .then((feData: ComponentsDataStructure) => {
+        console.log('fetched')
         this.componentsMetadata.dataToFetch = dataToFetch;
         const currentMetadata: ComponentsDataStructure = feData;
         if (currentLoadStatusIsInitial) {

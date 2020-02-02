@@ -1,15 +1,20 @@
-<ng-container *ngIf='finishedLoading'>
-    <div class='appContentSkills'>
-        <div class='skillContainer' *ngFor='let skill of skills'
-            (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'
-            (onSkillIndexChange)='onSkillIndexChange($event)'>
-            <div>
-                {{skill.substring(0,1)}}
+<app-carousel (onContentIndexChange)='displayCurrentSkill($event)' [carouselContent]='carouselContent' class="carousel" [slidesCount]='slidesCount'>
+    <ng-template #carouselContent>
+        <div class=' slides' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
+            <div *ngFor='let skill of objectKeys(metadata[locale])'>
+                dsa {{skill}}
             </div>
-            <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill' (load)='displayImage($event.target)' />
         </div>
-        <app-carousel class="skillsDetails" [contentKeys]='skills' [content]='metadata[locale]'
-            [carouselIndex]='currentSkillNumber' [ngClass]='isExpanded ? "expanded" : "contracted"'>
-        </app-carousel>
-    </div>
-</ng-container>
+        <div class="buttons">
+            <div class='button' *ngFor='let skill of  objectKeys(metadata[locale])'
+                (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'
+                (onSkillIndexChange)='onSkillIndexChange($event)'>
+                <div>
+                    {{skill.substring(0,1)}}
+                </div>
+                <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill'
+                    (load)='displayImage($event.target)' />
+            </div>
+        </div>
+    </ng-template>
+</app-carousel>

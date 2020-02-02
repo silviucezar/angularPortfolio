@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageLogic {
 
-  constructor() { }
+  constructor(
+    renderer?: Renderer2
+  ) { }
 
   objectKeys(obj: any): string[] {
     return Object.keys(obj);

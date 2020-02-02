@@ -1,15 +1,44 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum nunc quam, nec volutpat odio consectetur rutrum.
-Sed vulputate libero a malesuada facilisis. Aliquam in ligula dui. Mauris sit amet tortor at sem tincidunt scelerisque.
-Mauris at lacus eget nunc convallis sodales. Donec consectetur, libero sed maximus efficitur, justo orci dignissim
-risus, ac vestibulum sapien enim ac sapien. Maecenas cursus non libero vel tincidunt. Quisque tempor pulvinar leo, at
-tincidunt erat viverra ultricies. Cras aliquet urna accumsan, dignissim enim id, volutpat turpis. Ut iaculis enim augue,
-sit amet vestibulum justo interdum dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-inceptos himenaeos.
-
-Duis ex libero, ullamcorper sit amet magna nec, imperdiet pellentesque sem. Nulla vitae turpis sit amet eros
-pellentesque malesuada et quis purus. Quisque interdum sapien ipsum, ac rhoncus tortor congue eu. Integer elementum
-gravida auctor. Nunc ornare consectetur porta. Sed tempor risus non tortor sodales cursus. Donec posuere convallis est.
-Praesent est diam, ornare quis nulla ac, condimentum elementum nisi. Pellentesque consectetur sollicitudin enim, sed
-placerat purus sollicitudin nec. Morbi justo neque, placerat sed rhoncus eu, mattis at ex. Vivamus vestibulum eros et
-lobortis dictum. Vestibulum in turpis nec dui fermentum vestibulum. Nullam tempor ipsum quis ipsum blandit convallis.
-Nam id enim mattis, fermentum felis sed, congue odio. Ut nec sollicitudin nisl.
+<app-carousel (onContentIndexChange)='displayCurrentJob($event)' [carouselContent]='carouselContent'
+    [slidesCount]='slidesCount' class="carousel">
+    <ng-template #carouselContent>
+        <div class='slides' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
+            <div *ngFor='let job of objectKeys(metadata[locale])' style='overflow-y: auto'>
+                <div class='jobIntro'>
+                    <img alt='{{job.substring(0,1)}}' src='../../../assets/electronic_arts.png' [ngClass]='"img" + job'
+                        (load)='displayImage($event.target)' class='intro-img' />
+                    <span>{{metadata[locale][job].company}}</span>
+                    <i>{{metadata[locale][job].shortDescription}}</i>
+                </div>
+                <ul class="jobs" *ngFor='let role of objectKeys(metadata[locale][job].roles)'>
+                    <li style="font-size:20px">
+                        {{metadata[locale][job].roles[role].role}}
+                    </li>
+                    <li>
+                        {{metadata[locale][job].roles[role].period}}
+                    </li>
+                    <li style="margin:10px 0 10px 0;font-size: 16px;">
+                        {{metadata[locale][job].roles[role].responsabilities.title}}
+                    </li>
+                    <li>
+                        {{metadata[locale][job].roles[role].responsabilities.description}}
+                    </li>
+                    <li style="margin:10px 0 10px 0;font-size: 16px;">
+                        {{metadata[locale][job].roles[role].wins.title}}
+                    </li>
+                    <li>
+                        {{metadata[locale][job].roles[role].wins.description}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class='button' *ngFor='let job of  objectKeys(metadata[locale])'
+                (click)='displayCurrentJob(metadata[locale][job].job_no)' (onJobIndexChange)='onJobIndexChange($event)'>
+                <div>
+                    {{job.substring(0,1)}}
+                </div>
+                <img [src]='metadata[locale][job].img_0' [ngClass]='"img" + job' (load)='displayImage($event.target)' />
+            </div>
+        </div>
+    </ng-template>
+</app-carousel>
