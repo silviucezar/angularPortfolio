@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DataService } from 'src/app/Services/data.service';
 import { ComponentsMetadata, Lang } from 'src/app/Interfaces/ComponentsMetadata';
 import { PageLogic } from 'src/app/Services/page.logic.service';
@@ -8,19 +8,17 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
   templateUrl: './jobs.component.html',
   styleUrls: ['./jobs.component.scss'],
   host: {
-    style: 'display: grid'
+    class: 'modalComponent'
   }
 })
 export class JobsComponent extends PageLogic implements OnInit {
 
   private locale!: keyof Lang;
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private translateValue: string = '0px';
   private slidesCount: number = 0;
 
   constructor(
-    private dataService: DataService,
-    private rootElement: ElementRef
+    private dataService: DataService
   ) {
     super();
     this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
@@ -32,12 +30,8 @@ export class JobsComponent extends PageLogic implements OnInit {
   }
 
   ngOnInit() { }
-  displayCurrentJob(jobIndex: number) {
-    this.translateValue = `${-((this.rootElement.nativeElement.getBoundingClientRect().width * 0.89) * jobIndex)}px`;
-  }
 
   displayImage(image: HTMLImageElement) {
     image.classList.add('fadeIn');
-    image.previousElementSibling!.remove();
   }
 }

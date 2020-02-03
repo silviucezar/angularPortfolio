@@ -21,10 +21,10 @@ class ExpressApp {
     initServedApp() { this.app.listen(8080, () => this.initMetadataApi()) };
 
     initDeployedApp() {
-        this.app.use(Express.static('FE')).listen(process.env.PORT);
+        this.app.use(Express.static('client')).listen(process.env.PORT);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
             apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
-            apiReq.sendFile(`${__dirname}/FE/index.html`);
+            apiReq.sendFile(`${__dirname}/client/index.html`);
             this.initMetadataApi();
         });
     }

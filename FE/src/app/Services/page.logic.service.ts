@@ -11,6 +11,6 @@ export class PageLogic {
   ) { }
 
   objectKeys(obj: any): string[] {
-    return Object.keys(obj);
+    try { return Object.keys(obj) } catch (e) { return [] };
   }
 }

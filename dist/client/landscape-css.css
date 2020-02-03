@@ -1,0 +1,55 @@
+body {
+  font-size: 14px;
+}
+
+#appGlobalGrid,
+.appGlobalHeaderContainer {
+  grid-template-columns: 80fr 20fr;
+}
+
+.appGlobalHeaderContainerData {
+  grid-template-columns: 1px 100fr;
+  grid-column: 1;
+}
+
+.appGlobalHeaderContainerImage {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template: auto calc(12vw + 30px) auto/auto calc(12vw + 30px) auto;
+}
+
+.appGlobalHeaderContainerImage div:nth-child(2) {
+  display: grid;
+  grid-template: auto calc(12vw + 20px) auto/auto calc(12vw + 20px) auto;
+}
+
+.appGlobalContentMain {
+  font-size: 14px;
+}
+
+.appContentSkills {
+  grid-template-rows: 5vmax auto;
+  display: grid;
+  grid-template-columns: repeat(11, 5vmax);
+  -webkit-box-pack: center;
+          justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.extended .appGlobalHeaderMainContainer {
+  height: calc(28vh + 125px);
+}
+
+.slide {
+  grid-template-rows: 225px auto;
+  grid-template-columns: 100%;
+  display: grid;
+}
+
+.jobIntro {
+  display: grid;
+  grid-template-rows: 46px 179px;
+  grid-template-columns: 100px auto;
+}

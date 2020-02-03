@@ -3,7 +3,7 @@ export const JOBS_RO_RO = {
         company: 'REI Development Services',
         shortDescription: 'REI Development Services is a young and modern company, established in 2016, providing high standard services, that has a great experience concerning customer care, software/game development and many other services related to the gambling industry. ',
         aboutUrl: 'https://www.linkedin.com/company/r.e.i.-development-services-s.r.l./about/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'rei.jpg',
         roles: {
             first: {
                 period: 'September 2019 - Activ',
@@ -16,7 +16,7 @@ export const JOBS_RO_RO = {
                         'Crearea documentatiei si a rezumatului tehnic pentru taskurile curente'
                     ]
                 },
-                description: 'In afara de responsive design, UI si logica FE, la nevoie, dezvolt noi elemente de Back End pentru aplicatiile BO ceea ce-mi consolideaza cunostiintele PHP',
+                notes: 'In afara de responsive design, UI si logica FE, la nevoie, dezvolt noi elemente de Back End pentru aplicatiile BO ceea ce-mi consolideaza cunostiintele PHP',
                 wins: {
                     title: 'Realizari',
                     description: [
@@ -35,7 +35,7 @@ export const JOBS_RO_RO = {
         company: 'IdTotal Active',
         shortDescription: 'IDTotal is a tech company specialized in providing logistics, audit, and merchandising services using experienced staff located throughout Romania, but also in the Republic of Moldova, Bulgaria and Serbia.',
         aboutUrl: 'https://www.idtotal.com/about-us/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'idtotal.jpg',
         roles: {
             first: {
                 period: 'February 2019 - August 2019',
@@ -65,10 +65,10 @@ export const JOBS_RO_RO = {
         }
     },
     electronicArtsRomania: {
-        company: 'Electronic Arts',
+        company: 'Electronic Arts Romania',
         shortDescription: 'Electronic Arts Inc. is a leading global interactive entertainment software company. EA delivers games, content and online services for Internet-connected consoles, personal computers, mobile phones and tablets.',
         aboutUrl: 'https://www.linkedin.com/company/electronic-arts/about/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'ea.jpg',
         roles: {
             first: {
                 period: 'November 2015 - February 2019',
@@ -134,7 +134,9 @@ export const JOBS_RO_RO = {
                 role: 'Compliance Test Specialist',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: 'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
+                    description: [
+                        'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
+                    ]
                 }
             },
             third: {
@@ -142,7 +144,9 @@ export const JOBS_RO_RO = {
                 role: 'Compliance Tester',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: 'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
+                    description: [
+                        'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
+                    ]
                 }
             }
         }
@@ -154,7 +158,7 @@ export const JOBS_EN_US = {
         company: 'REI Development Services',
         shortDescription: 'REI Development Services is a young and modern company, established in 2016, providing high standard services, that has a great experience concerning customer care, software/game development and many other services related to the gambling industry. ',
         aboutUrl: 'https://www.linkedin.com/company/r.e.i.-development-services-s.r.l./about/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'rei.jpg',
         roles: {
             first: {
                 period: 'September 2019 - Ongoing',
@@ -167,7 +171,7 @@ export const JOBS_EN_US = {
                         'Create documentation and tech brief for newly requested features'
                     ]
                 },
-                description: 'Besides responsive design, UI and FE logic, when needed I develop new Back End features for the BO applications which builds up my PHP knowledge as a whole.',
+                notes: 'Besides responsive design, UI and FE logic, when needed I develop new Back End features for the BO applications which builds up my PHP knowledge as a whole.',
                 wins: {
                     title: "Wins",
                     description: [
@@ -186,7 +190,7 @@ export const JOBS_EN_US = {
         company: 'IDTotal Active',
         shortDescription: 'IDTotal is a tech company specialized in providing logistics, audit, and merchandising services using experienced staff located throughout Romania, but also in the Republic of Moldova, Bulgaria and Serbia.',
         aboutUrl: 'https://www.idtotal.com/about-us/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'idtotal.jpg',
         roles: {
             first: {
                 period: 'February 2019 - August 2019',
@@ -221,7 +225,7 @@ export const JOBS_EN_US = {
         company: 'Electronic Arts Romania',
         shortDescription: 'Electronic Arts Inc. is a leading global interactive entertainment software company. EA delivers games, content and online services for Internet-connected consoles, personal computers, mobile phones and tablets.',
         aboutUrl: 'https://www.linkedin.com/company/electronic-arts/about/',
-        img_0: '../../../assets/icons/electronic_arts.png',
+        img_0: 'ea.jpg',
         roles: {
             first: {
                 period: 'November 2015 - February 2019',
@@ -287,7 +291,9 @@ export const JOBS_EN_US = {
                 role: 'Compliance Test Specialist',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: 'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
+                    description: [
+                        'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
+                    ]
                 }
             },
             third: {
@@ -295,7 +301,9 @@ export const JOBS_EN_US = {
                 role: 'Compliance Tester',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: 'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
+                    description: [
+                        'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
+                    ]
                 }
             }
         }

@@ -1,20 +1,41 @@
-<app-carousel (onContentIndexChange)='displayCurrentSkill($event)' [carouselContent]='carouselContent' class="carousel" [slidesCount]='slidesCount'>
-    <ng-template #carouselContent>
-        <div class=' slides' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
-            <div *ngFor='let skill of objectKeys(metadata[locale])'>
-                dsa {{skill}}
+<app-carousel [slidesCount]='slidesCount' class="carousel">
+    <div *ngFor='let skillCategory of objectKeys(metadata[locale])' style='overflow-y: auto;padding:10px'>
+        <div class='intro'>
+            <div class='intro-img'>
+                {{skillCategory.substring(0,1)}}
             </div>
+            <img [src]='"./app/assets/" + metadata[locale][skillCategory].img_0' [ngClass]='"img" + skillCategory'
+                (load)='displayImage($event.target)' class='intro-img' />
+            <span class='name'>{{skillCategory}}</span>
         </div>
-        <div class="buttons">
-            <div class='button' *ngFor='let skill of  objectKeys(metadata[locale])'
-                (click)='displayCurrentSkill(metadata[locale][skill].skill_no)'
-                (onSkillIndexChange)='onSkillIndexChange($event)'>
-                <div>
-                    {{skill.substring(0,1)}}
-                </div>
-                <img [src]='metadata[locale][skill].img_0' [ngClass]='"img" + skill'
-                    (load)='displayImage($event.target)' />
+        <ng-container  *ngIf='skillCategory !== "otherSkills"'>
+            <div class='content' *ngFor='let skill of objectKeys(metadata[locale][skillCategory].skill)'>
+                    <div style="font-size:20px">
+                        {{metadata[locale][skillCategory].skill[skill].title}}
+                    </div>
+                    <div style="font-size:20px" *ngIf='skill === "angular"'>
+                        <img [src]='"./app/assets/" + metadata[locale][skillCategory].skill[skill].img'
+                            [ngClass]='"img" + skillCategory' (load)='displayImage($event.target)' class='intro-img' />
+                    </div>
+                    <div *ngFor='let skillDescription of metadata[locale][skillCategory].skill[skill].description'>
+                        {{skillDescription}}
+                    </div>
             </div>
-        </div>
-    </ng-template>
+            <div style='font-size:16px;margin: 0 0 10px 10px;'>
+                {{metadata[locale][skillCategory].knowledgeSummary.title}}
+            </div>
+            <span *ngFor='let knowledgeSummary of metadata[locale][skillCategory].knowledgeSummary.description'>
+                &#8226;{{knowledgeSummary}}
+            </span>
+        </ng-container>
+
+        <ng-container *ngIf='skillCategory === "otherSkills"'>
+            <div style='font-size:16px;margin: 0 0 10px 10px;'>
+                {{ metadata[locale][skillCategory].title}}
+            </div>
+            <div *ngFor='let otherSkillsDescription of metadata[locale][skillCategory].description'>
+                &#8226; {{otherSkillsDescription}}
+            </div>
+        </ng-container>
+    </div>
 </app-carousel>

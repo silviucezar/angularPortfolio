@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -8,13 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ElementRef
 
 export class CarouselComponent implements OnInit {
 
-  @Input() private carouselContent?: TemplateRef<HTMLDivElement>;
   @Input() private slidesCount!: number;
-  @Output() private onContentIndexChange = new EventEmitter();
 
   private slideIndex: number = 0;
+  private translateValue: string = '0px';
 
-  constructor() { }
+  constructor(
+    private rootElement: ElementRef
+  ) { }
 
   ngOnInit() { }
 
@@ -29,6 +30,7 @@ export class CarouselComponent implements OnInit {
       default:
         this.slideIndex = this.slideIndex + indexQuantifier;
     }
-    this.onContentIndexChange.emit(this.slideIndex);
+    console.log(this.rootElement)
+    this.translateValue = `${-(this.rootElement.nativeElement.querySelector('.slides').getBoundingClientRect().width * this.slideIndex)}px`;
   }
 }

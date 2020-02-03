@@ -8,7 +8,7 @@
 }
 
 .loader {
-    background-image: url('../../assets/icons/loadingcomponent.png');
+    background-image: url(../../assets/loadingcomponent.png);
     transition: 1s;
     width: 30px;
     opacity: 0;
@@ -35,7 +35,7 @@
 .en_US:after,
 .ro_RO:after {
     content         : '';
-    background-image: url('../../assets/icons/en_US.png');
+    background-image: url(../../assets/en_US.png);
     content: "";
     position: absolute;
     display: block;
@@ -47,16 +47,16 @@
 }
 
 .ro_RO:before {
-    background-image: url('../../assets/icons/ro_RO.png');
+    background-image: url(../../assets/ro_RO.png);
 }
 
 .en_US:after {
-    background-image: url('../../assets/icons/ro_RO.png');
+    background-image: url(../../assets/ro_RO.png);
     animation       : .2s popInENAnimation ease-out
 }
 
 .ro_RO:after {
-    background-image: url('../../assets/icons/en_US.png');
+    background-image: url(../../assets/en_US.png);
     animation       : .2s popInROAnimation ease-out
 }
 

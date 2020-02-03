@@ -8,14 +8,13 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
   host: {
-    style: 'display: grid'
+    class: 'modalComponent'
   }
 })
 export class SkillsComponent extends PageLogic implements OnInit {
 
   private locale!: keyof Lang;
   private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private translateValue: string = '0px';
   private slidesCount:number = 0;
 
   constructor(
@@ -33,13 +32,8 @@ export class SkillsComponent extends PageLogic implements OnInit {
   }
 
   ngOnInit() { }
-  displayCurrentSkill(skillIndex: number) {
-    this.translateValue = `${-((this.rootElement.nativeElement.getBoundingClientRect().width * 0.89) * skillIndex)}px`;
-    console.log(skillIndex,this.translateValue)
-  }
 
   displayImage(image: HTMLImageElement) {
     image.classList.add('fadeIn');
-    image.previousElementSibling!.remove();
   }
 }

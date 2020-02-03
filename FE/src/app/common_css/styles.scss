@@ -120,12 +120,21 @@ body {
   grid-template-rows: 100%;
 }
 
+.modalComponent {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  position: relative  ;
+  width: 100%;
+  height: 100%;
+}
+
 .inactiveModalGrid {
   display: none;
 }
 
 .carousel {
-  grid-row: 1 / span 2;
+  grid-row: 1/span 2;
   background: #0b1e2f;
   transition: 0.5s;
   grid-template-columns: 5% auto 5%;
@@ -134,13 +143,19 @@ body {
   grid-template-rows: auto 40px;
   border: 5px double #1a4b6e;
   width: 98.5%;
+  height: 100%;
+  position: absolute;
 }
 
 .carousel .slides {
   display: grid;
-  grid-template-columns: repeat(5, 100%);
   grid-template-rows: 100%;
   transition: 0.5s;
+  position: absolute;
+  height: 100%;
+  grid-column: 2/2;
+  grid-template-columns: repeat(10,100%);
+  overflow: initial;
 }
 
 .carousel .buttons {
@@ -166,6 +181,67 @@ body {
   position: relative;
   grid-row: 1;
   height: 30px;
+}
+
+.carousel .intro-img {
+  top: 10px;
+  display: block;
+  opacity: 0;
+  position: relative;
+  width: 100px;
+  border-radius: 10px;
+  border: 3px solid #1a4b6e;
+  height: 100px;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.carousel div.intro-img {
+  opacity: 1;
+  background: lightblue;
+  line-height: 100px;
+  text-align: center;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #2C7CB7;
+  font-weight: bold;
+}
+
+.carousel img.fadeIn {
+  transition: 0.5s;
+  opacity: 1 !important;
+}
+
+.carousel .name {
+  grid-column: 2 / span 3;
+  grid-row: 1;
+  margin-top: 10px;
+  font-size: 28px;
+  margin-bottom:5px
+}
+
+i {
+  grid-row: 2;
+  margin-top: 10px;
+  color: lightgrey;
+  font-size: 16px;
+  height: auto;
+  grid-column: 1 / span2;
+}
+
+.carousel .intro {
+  display: grid;
+  grid-template-rows: 120px 75%;
+  grid-template-columns: 120px;
+  max-height: 300px;
+}
+
+.carousel .content {
+  padding: 0;
+}
+
+.carousel div {
+  margin-bottom:10px
 }
 
 @keyframes spiiiin {
