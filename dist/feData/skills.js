@@ -6,7 +6,6 @@ exports.SKILLS_RO_RO = {
         skill: {
             angular: {
                 title: 'Angular',
-                img: 'diploma.jpg',
                 description: [
                     'Acest site a fost dezvoltat in Angular si va servi ca si portfoliu pentru proiecte viitoare.',
                     'Am incheiat cursul Angular sustinut de -anchorstar-Academia Programatorilor-anchorend-.',
@@ -112,7 +111,6 @@ exports.SKILLS_EN_US = {
         skill: {
             angular: {
                 title: 'Angular',
-                img: 'diploma.jpg',
                 description: [
                     'Developed the current website which will serve as portfolio for future projects.',
                     'Followed the Angular course taught by -anchorstar-Academia Programatorilor-anchorend-.',

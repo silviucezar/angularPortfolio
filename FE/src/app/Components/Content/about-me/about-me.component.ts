@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/Services/data.service';
 import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+import { PageLogic } from 'src/app/Services/page.logic.service';
 
 @Component({
   selector: 'app-about-me',
@@ -11,18 +12,12 @@ import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata'
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  private locale!: keyof Lang;
-  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private finishedLoading: Boolean = false;
+  private metadata!: ComponentsMetadata;
 
   constructor(
-    private dataService: DataService
+    private pageLogic: PageLogic
   ) {
-    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.finishedLoading = true;
-      this.locale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.locale] = componentsMetadata.components.about_me[this.locale];
-    });
+    this.pageLogic.subscribeToComponentsMetadata('about_me').subscribe((componentMetadata: ComponentsMetadata) => { this.metadata = componentMetadata; console.log(this.metadata) });
   }
 
   ngOnInit() { }

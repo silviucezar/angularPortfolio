@@ -20,7 +20,6 @@ export class SkillsComponent implements OnInit {
   ) {
     this.pageLogic.subscribeToComponentsMetadata('skills').subscribe((componentMetadata: ComponentsMetadata) => {
       this.metadata = componentMetadata;
-      console.log(this.metadata)
       this.slidesCount = this.objectKeys(this.metadata).length;
       this.pageLogic.setSkillsLoadingState();
     });

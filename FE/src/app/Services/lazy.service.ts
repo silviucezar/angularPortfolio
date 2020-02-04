@@ -58,15 +58,24 @@ export class LazyService {
   }
 
   componentsToLoad(middleComponent: string): string[] {
-    const componentsTemplateKeys = Object.keys(this.componentsTemplate);
-    return componentsTemplateKeys.filter((componentName, index) => {
-      if (
-        (componentName === middleComponent ||
-          componentsTemplateKeys.indexOf(middleComponent) === index - 1 ||
-          componentsTemplateKeys.indexOf(middleComponent) === index + 1) &&
-        this.componentsTemplate[componentName as keyof ComponentsData].isLoaded === false
-      ) return componentName;
-    });
+    let metadataToReturn: string[] = [];
+    switch (middleComponent) {
+      case 'about_me':
+      case 'education':
+      case 'references':
+        metadataToReturn = ['about_me', 'education','references'];
+        break;
+      case 'skills':
+        metadataToReturn = ['skills'];
+        break;
+      case 'jobs':
+        metadataToReturn = ['skills'];
+        break;
+      case 'leave_message':
+        metadataToReturn = ['references', 'leave_message'];
+        break;
+    }
+    return metadataToReturn;
   }
 
   setContainerRefs(containerRefs: ContainerRefs) {

@@ -31,16 +31,16 @@ class DBQuries {
                     prefix VARCHAR(100) NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('about_me_skills','${JSON.stringify(aboutMe_1.ABOUT_ME_RO_RO)}','ro_RO','about_me_ro_RO'),
-                    ('about_me_skills','${JSON.stringify(aboutMe_1.ABOUT_ME_EN_US)}','en_US','about_me_en_US'),
-                    ('about_me_skills_jobs','${JSON.stringify(skills_1.SKILLS_RO_RO)}','ro_RO','skills_ro_RO'),
-                    ('about_me_skills_jobs','${JSON.stringify(skills_1.SKILLS_EN_US)}','en_US','skills_en_US'),
-                    ('skills_jobs_education','${JSON.stringify(jobs_1.JOBS_RO_RO)}','ro_RO','jobs_ro_RO'),
-                    ('skills_jobs_education','${JSON.stringify(jobs_1.JOBS_EN_US)}','en_US','jobs_en_US'),
-                    ('jobs_education_references','${JSON.stringify(education_1.EDUCATION_RO_RO)}','ro_RO','education_ro_RO'),
-                    ('jobs_education_references','${JSON.stringify(education_1.EDUCATION_EN_US)}','en_US','education_en_US'),
-                    ('education_references_leave_message','${JSON.stringify(references_1.REFERENCES_RO_RO)}','ro_RO','references_ro_RO'),
-                    ('education_references_leave_message','${JSON.stringify(references_1.REFERENCES_EN_US)}','en_US','references_en_US'),
+                    ('about_me_education_references','${JSON.stringify(aboutMe_1.ABOUT_ME_RO_RO)}','ro_RO','about_me_ro_RO'),
+                    ('about_me_education_references','${JSON.stringify(aboutMe_1.ABOUT_ME_EN_US)}','en_US','about_me_en_US'),
+                    ('skills','${JSON.stringify(skills_1.SKILLS_RO_RO)}','ro_RO','skills_ro_RO'),
+                    ('skills','${JSON.stringify(skills_1.SKILLS_EN_US)}','en_US','skills_en_US'),
+                    ('jobs','${JSON.stringify(jobs_1.JOBS_RO_RO)}','ro_RO','jobs_ro_RO'),
+                    ('jobs','${JSON.stringify(jobs_1.JOBS_EN_US)}','en_US','jobs_en_US'),
+                    ('about_me_education_references','${JSON.stringify(education_1.EDUCATION_RO_RO)}','ro_RO','education_ro_RO'),
+                    ('about_me_education_references','${JSON.stringify(education_1.EDUCATION_EN_US)}','en_US','education_en_US'),
+                    ('about_me_education_references','${JSON.stringify(references_1.REFERENCES_RO_RO)}','ro_RO','references_ro_RO'),
+                    ('about_me_education_references','${JSON.stringify(references_1.REFERENCES_EN_US)}','en_US','references_en_US'),
                     ('references_leave_message','${JSON.stringify(leaveMessage_1.LEAVE_MESSAGE_RO_RO)}','ro_RO','leave_message_ro_RO'),
                     ('references_leave_message','${JSON.stringify(leaveMessage_1.LEAVE_MESSAGE_EN_US)}','en_US','leave_message_en_US')
                 `
@@ -58,6 +58,7 @@ class DBQuries {
                 `
             ]
         ];
+        ;
     }
 }
 exports.DBQuries = DBQuries;

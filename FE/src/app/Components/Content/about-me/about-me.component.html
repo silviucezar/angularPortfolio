@@ -1,4 +1,8 @@
-<p>{{finishedLoading ? metadata[locale].about_me_intro_part_one : ''}}</p>
-<p>{{finishedLoading ? metadata[locale].about_me_intro_part_two : ''}}</p>
-<p>{{finishedLoading ? metadata[locale].about_me_current_goal : ''}}</p>
-<p>{{finishedLoading ? metadata[locale].about_me_hobbies : ''}}</p>
+<p>{{metadata !== undefined ? metadata.intro : ''}}</p>
+<p>{{metadata !== undefined ? metadata.current_goal : ''}}</p>
+<p>{{metadata !== undefined ? metadata.hobbies : ''}}</p>
+<div *ngIf='metadata !== undefined' style='text-align:center'>
+    <span *ngFor='let knowledge of metadata.generalKnowledge'>
+        &#8226;{{knowledge}}
+    </span>
+</div>

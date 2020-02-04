@@ -54,7 +54,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.previousUrl = this.currentUrl;
       this.currentUrl = currentUrlSubscription.path;
     });
-
   }
 
   ngOnInit() {
