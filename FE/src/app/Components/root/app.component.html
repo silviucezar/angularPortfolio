@@ -1,12 +1,17 @@
-<div class='skillsJobsModal' [ngClass]='{"active" : (currentUrl === "skills" || currentUrl === "jobs")}'>
+<div class='skillsJobsModal'
+    [ngClass]='{"active" : (currentUrl === "skills" && skillsState) || (currentUrl === "jobs" && jobsState)}'>
     <div class='skillsModalTabs'>
-        <a routerLink='portfolio/skills' class='skillsJobsToggle' style='grid-column:1' [ngClass]='{"modalTabsActiveRoute" : currentUrl === "skills"}'>Skills</a>
-        <a routerLink='portfolio/jobs' class='skillsJobsToggle' style='grid-column:2' [ngClass]='{"modalTabsActiveRoute" : currentUrl === "jobs"}'>Jobs</a>
-        <a [routerLink]='"portfolio/" + previousUrl' class='skillsJobsToggle' style='grid-column:3'>Go Back</a>
-        <div [ngClass]='{"activeModalGrid": currentUrl === "skills","inactiveModalGrid": currentUrl !== "skills" }'>
+        <a routerLink='portfolio/skills' class='skillsJobsToggle' style='grid-column:1'
+            [ngClass]='{"modalTabsActiveRoute" : currentUrl === "skills"}'>Skills</a>
+        <a routerLink='portfolio/jobs' class='skillsJobsToggle' style='grid-column:2'
+            [ngClass]='{"modalTabsActiveRoute" : currentUrl === "jobs"}'>Jobs</a>
+        <a [routerLink]='"portfolio/" + previousUrl' class='skillsJobsToggle' class='closeBtn modalBtn'></a>
+        <div
+            [ngClass]='{"activeModalGrid": currentUrl === "skills","inactiveModalGrid": currentUrl !== "skills" && skillsState }'>
             <ng-container #skills></ng-container>
         </div>
-        <div [ngClass]='{"activeModalGrid": currentUrl === "jobs","inactiveModalGrid": currentUrl !== "jobs" }'>
+        <div
+            [ngClass]='{"activeModalGrid": currentUrl === "jobs","inactiveModalGrid": currentUrl !== "jobs" && jobsState }'>
             <ng-container #jobs></ng-container>
         </div>
     </div>
@@ -14,7 +19,7 @@
 <div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
     <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
 </div>
-<div class="appGlobalContent" #GlobalContainer>
+<div class="appGlobalContent">
     <ng-container #about_me></ng-container>
     <a routerLink='portfolio/skills' class='skillsJobsToggle'>Skills</a>
     <a routerLink='portfolio/jobs' class='skillsJobsToggle'>Jobs</a>
@@ -22,7 +27,7 @@
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
 </div>
-<div class="appGlobalMargin" #GlobalLeftMargin id='appGlobalMargin'>
+<div class="appGlobalMargin" id='appGlobalMargin'>
     <ng-container *ngFor='let category of categories'>
         <a [ngClass]='{"current" : category.url === currentUrl}' class='categoriesUrl'
             *ngIf='(category.url !== "skills") && (category.url !== "jobs")'

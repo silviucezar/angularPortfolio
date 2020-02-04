@@ -1,10 +1,6 @@
-.toggleLocaleStyle {
-    position: absolute;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    left: 60px;
-    top: 15px;
+.icon {
+    cursor:pointer;
+    position:relative
 }
 
 .loader {
@@ -13,9 +9,64 @@
     width: 30px;
     opacity: 0;
     height: 30px;
+}
+
+.toggleLocaleStyle {
+    position: relative;
+    width: 30px;    
+    height: 30px;
+}
+
+.contactIcon {
+    width: 30px;
+    height: 30px;
+    background-image: url(../../assets/contact.png);
+    border-radius:50%;
+    z-index: 3;
+    background-size: cover;
+}
+
+.contactContainer {
+    background: white;
     position: absolute;
-    display: block;
-    margin: 15px 0 0 15px;
+    left: 145px;
+    top: 10px;
+    width: 0;
+    opacity:0;
+    height:38px;
+    z-index: 2;
+    padding: 5px 0 5px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: auto;
+    grid-gap: 5px;
+    transition:.5s;
+
+}
+
+.contactIcon.closeBtn ~ .contactContainer {
+    width:150px;
+    opacity:1;
+    border-radius: 15px
+}
+
+.phone {
+    background-image: url(../../assets/phone.png);
+}
+
+.linkedin {
+    background-image: url(../../assets/li.png);
+}
+
+.downloadcv {
+    background-image: url(../../assets/dlcv.png);
+}
+
+.commonButtonClass {
+    width:30px;
+    height:30px;
+    background-size: cover;
+    border-radius: 50%;
 }
 
 .active {

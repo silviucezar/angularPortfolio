@@ -1,5 +1,7 @@
+import { Lang } from './ComponentsMetadata';
+
 export interface Locale {
-    locale: string;
+    locale: keyof Lang;
     categoriesTitle: LocaleCategory
 }
 

@@ -1,7 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnChanges, Input, SimpleChanges } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { trigger, style, transition, animate } from '@angular/animations';
+import { Lang } from 'src/app/Interfaces/ComponentsMetadata';
 import { DataService } from 'src/app/Services/data.service';
+import { PageLogic } from 'src/app/Services/page.logic.service';
+import { HeaderTemplate } from 'src/app/Interfaces/FrontEndData';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,35 +15,18 @@ import { DataService } from 'src/app/Services/data.service';
     ])
   ]
 })
-export class HeaderComponent implements OnInit, AfterViewInit, OnChanges {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
-  private currentLocale!: keyof Lang;
-  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private loadingHeader: Boolean = true;
+  private metadata: HeaderTemplate = {};
   constructor(
-    private dataService: DataService
+    private pageLogic: PageLogic
   ) {
-    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.loadingHeader = false;
-      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.currentLocale] = componentsMetadata.header[this.currentLocale];
+    this.pageLogic.subscribeToHeaderAndFooterMetadata('header').subscribe((componentMetadata: any) => {
+      this.metadata = componentMetadata;
     });
   }
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes.hasOwnProperty('headerMetadata') &&
-      changes.headerMetadata.previousValue !== undefined &&
-      changes.headerMetadata.isFirstChange
-    ) this.loadingHeader = false;
-  }
-
-  ObjectKeys(obj: object): any {
-    return Object.keys(obj);
-  }
+  ngAfterViewInit() { }
 }

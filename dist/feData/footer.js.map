@@ -1,1 +1,1 @@
-{"version":3,"file":"footer.js","sourceRoot":"","sources":["../../BE/src/feData/footer.ts"],"names":[],"mappings":";;AAAa,QAAA,YAAY,GAAG;IACxB,0BAA0B,EAAE,gBAAgB;IAC5C,qBAAqB,EAAE,aAAa;CACvC,CAAA;AAEY,QAAA,YAAY,GAAG;IACxB,0BAA0B,EAAE,eAAe;IAC3C,qBAAqB,EAAE,eAAe;CACzC,CAAA"}
+{"version":3,"file":"footer.js","sourceRoot":"","sources":["../../BE/src/feData/footer.ts"],"names":[],"mappings":";;AAAa,QAAA,YAAY,GAAG;IACxB,QAAQ,EAAE,cAAc;IACxB,SAAS,EAAE,mFAAmF;CACjG,CAAA;AAEY,QAAA,YAAY,GAAG;IACxB,QAAQ,EAAE,cAAc;IACxB,SAAS,EAAE,mFAAmF;CACjG,CAAA"}

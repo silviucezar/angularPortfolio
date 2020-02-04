@@ -86,12 +86,12 @@ exports.SKILLS_RO_RO = {
             }
         },
         knowledgeSummary: {
-            title: 'Aquired Knowledge',
+            title: 'Cunostinte Dobandite',
             description: ['Server/db connection and communication.', 'CRUD', 'TRANSACTIONS', 'JOINS']
         }
     },
-    Other_Skills: {
-        title: 'Altele & Development Lifecycle',
+    otherSkills: {
+        title: 'Altele',
         img_0: 'other.jpg',
         description: [
             'GitHub, GitLab - CI/DI',
@@ -197,7 +197,7 @@ exports.SKILLS_EN_US = {
         }
     },
     otherSkills: {
-        title: 'Other & Development Lifecycle',
+        title: 'Other',
         img_0: 'other.jpg',
         description: [
             'GitHub, GitLab - CI/DI',

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/Services/data.service';
 import { ComponentsMetadata, Lang } from 'src/app/Interfaces/ComponentsMetadata';
 import { PageLogic } from 'src/app/Services/page.logic.service';
@@ -11,27 +11,28 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
     class: 'modalComponent'
   }
 })
-export class JobsComponent extends PageLogic implements OnInit {
+export class JobsComponent implements OnInit {
 
-  private locale!: keyof Lang;
-  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
+  private metadata!: ComponentsMetadata;
   private slidesCount: number = 0;
-
   constructor(
-    private dataService: DataService
+    private pageLogic: PageLogic
   ) {
-    super();
-    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.locale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.locale] = componentsMetadata.components.jobs[this.locale];
-      this.slidesCount = this.objectKeys(this.metadata[this.locale]).length;
-      console.log(this.metadata)
+    this.pageLogic.subscribeToComponentsMetadata('jobs').subscribe((componentMetadata: ComponentsMetadata) => {
+      this.metadata = componentMetadata;
+      this.slidesCount = this.objectKeys(this.metadata).length;
+      this.pageLogic.setJobsLoadingState();
     });
   }
+
 
   ngOnInit() { }
 
   displayImage(image: HTMLImageElement) {
     image.classList.add('fadeIn');
+  }
+
+  objectKeys(object: ComponentsMetadata): string[] {
+    try { return Object.keys(object); } catch (e) { return []; };
   }
 }

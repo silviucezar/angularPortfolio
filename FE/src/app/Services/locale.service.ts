@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Locale } from '../Interfaces/Locale';
+import { Lang } from '../Interfaces/ComponentsMetadata';
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +48,10 @@ export class LocaleService {
 
   getCurrentLocale(): BehaviorSubject<Locale> { return this.currentLocale$ };
 
-  setCurrentLocale(): string {
+  setCurrentLocale(locale:keyof Lang) : keyof Lang{
     const currentLocaleValue = this.currentLocale$.value;
-    currentLocaleValue.locale = currentLocaleValue.locale === 'ro_RO' ? 'en_US' : 'ro_RO';
+    currentLocaleValue.locale = locale;
     this.currentLocale$.next(currentLocaleValue)
-    return currentLocaleValue.locale;
+    return locale;
   };
 }

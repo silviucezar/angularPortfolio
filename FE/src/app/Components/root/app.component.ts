@@ -4,6 +4,8 @@ import { InitService } from '../../Services/init.service';
 import { LocaleService } from '../../Services/locale.service';
 import { UrlListenerService } from 'src/app/Services/url-listener.service';
 import { UrlSubscription } from 'src/app/Interfaces/UrlSubscription';
+import { PageLogic } from 'src/app/Services/page.logic.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -25,17 +27,21 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private categories: CategoryDetails[] = [];
   private currentLocale: string = 'en_US';
-  private loadedCSS: Boolean = false;
   private currentUrl: string = '';
   private previousUrl: string = '';
+  public skillss: boolean = false;
+  private skillsState: boolean = false;
+  private jobsState: boolean = false;
   constructor(
     private localeService: LocaleService,
     private initService: InitService,
     private domRootElementRef: ElementRef,
-    private urlListenerService: UrlListenerService
-
+    private urlListenerService: UrlListenerService,
+    private pageLogic: PageLogic
   ) {
+
     this.urlListenerService.start();
+
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
       this.categories = [];
       for (const localeValueProps in localeValue.categoriesTitle) {
@@ -48,6 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.previousUrl = this.currentUrl;
       this.currentUrl = currentUrlSubscription.path;
     });
+
   }
 
   ngOnInit() {
@@ -59,7 +66,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       references: this.references,
       leave_message: this.leave_message
     });
+    this.pageLogic.skillsState$.pipe(take(1)).subscribe((state: boolean) => this.skillsState = state);
+    this.pageLogic.jobsState$.pipe(take(1)).subscribe((state: boolean) => this.jobsState = state);
+    console.log('app', this.jobsState, this.skillsState)
   }
 
-  ngAfterViewInit() { this.initService.init(this.domRootElementRef); }
+  ngAfterViewInit() {
+    this.initService.init(this.domRootElementRef);
+  }
 }
