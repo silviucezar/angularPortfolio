@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
       this.categories = [];
       for (const localeValueProps in localeValue.categoriesTitle) {
-        this.categories.push(localeValue.categoriesTitle[localeValueProps as keyof LocaleCategory] as CategoryDetails)
+        this.categories.push(localeValue.categoriesTitle[localeValueProps as keyof LocaleCategory] as CategoryDetails);
       }
       this.currentLocale = localeValue.locale;
     });

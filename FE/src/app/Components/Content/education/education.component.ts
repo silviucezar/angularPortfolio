@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/Services/data.service';
-import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+import { ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+import { PageLogic } from 'src/app/Services/page.logic.service';
 
 @Component({
   selector: 'app-education',
@@ -9,20 +9,12 @@ import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata'
 })
 export class EducationComponent implements OnInit {
 
-  private currentLocale!: keyof Lang;
-  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private loading: Boolean = true;
-
+  private metadata!:ComponentsMetadata;
   constructor(
-    private dataService: DataService
+    private pageLogic: PageLogic
   ) {
-    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.loading = false;
-      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.currentLocale] = componentsMetadata.components.education[this.currentLocale];
-    });
-  }
-  ngOnInit() {
-  }
+    this.pageLogic.subscribeToComponentsMetadata('education').subscribe((componentMetadata: ComponentsMetadata) => this.metadata = componentMetadata);
 
+  }
+  ngOnInit() { }
 }

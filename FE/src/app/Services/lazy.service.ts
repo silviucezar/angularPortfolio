@@ -42,34 +42,37 @@ export class LazyService {
       const currentComponentsToLoad = this.componentsToLoad(currentUrl);
       const loadedComponents = [];
       for (const componentName of currentComponentsToLoad) {
-        const path: string = this.componentsTemplate[componentName as keyof ComponentsData].path;
-        const key: keyof ComponentsData = componentName as keyof ComponentsData;
-        const module = this.componentsTemplate[key].module;
-        loadedComponents.push(
-          import(`../Components/Content/${path}/${path}.module`).then((m) => {
-            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
-            (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
-            this.componentsTemplate[key].isLoaded = true;
-          })
-        );
+        if (this.componentsTemplate[componentName as keyof ComponentsTemplate].isLoaded !== true) {
+          console.log('here')
+          const path: string = this.componentsTemplate[componentName as keyof ComponentsData].path;
+          const key: keyof ComponentsData = componentName as keyof ComponentsData;
+          const module = this.componentsTemplate[key].module;
+          loadedComponents.push(
+            import(`../Components/Content/${path}/${path}.module`).then((m) => {
+              const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
+              (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
+              this.componentsTemplate[key].isLoaded = true;
+            })
+          );
+        };
       }
       Promise.all(loadedComponents).then(() => resolve());
-    })
+    });
   }
 
-  componentsToLoad(middleComponent: string): string[] {
+  componentsToLoad(middleComponent: string): any[] {
     let metadataToReturn: string[] = [];
     switch (middleComponent) {
       case 'about_me':
       case 'education':
       case 'references':
-        metadataToReturn = ['about_me', 'education','references'];
+        metadataToReturn = ['about_me', 'education', 'references'];
         break;
       case 'skills':
         metadataToReturn = ['skills'];
         break;
       case 'jobs':
-        metadataToReturn = ['skills'];
+        metadataToReturn = ['jobs'];
         break;
       case 'leave_message':
         metadataToReturn = ['references', 'leave_message'];

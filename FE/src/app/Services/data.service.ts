@@ -6,6 +6,7 @@ import { ComponentsMetadata, ComponentsData, Lang } from '../Interfaces/Componen
 import { Locale } from '../Interfaces/Locale';
 import { LazyService } from './lazy.service';
 import { ComponentsDataStructure, ComponentsTemplate } from '../Interfaces/FrontEndData';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,8 +23,8 @@ export class DataService {
       leave_message: { ro_RO: undefined, en_US: undefined }
     },
     footer: { ro_RO: undefined, en_US: undefined },
-    dataToFetch: '',
-    currentLocale: ''
+    dataToFetch: 'about_me',
+    locale: 'en_US'
   };
 
   private componentsMetadata$ = new Subject<ComponentsMetadata>();
@@ -38,42 +39,49 @@ export class DataService {
       private localeService: LocaleService,
       private lazyService: LazyService
     ) {
-    this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => {
-      this.componentsMetadata.currentLocale = localeValue.locale;
-    })
+    this.localeService.getCurrentLocale().subscribe((localeValue: Locale) => this.componentsMetadata.locale = localeValue.locale);
   }
 
-  setCurrentRouteDataUsingLang(locale: string) {
-    this.componentsMetadata.currentLocale = locale;
-    this.setCurrentRouteDataUsingUrl(this.componentsMetadata.dataToFetch);
-  }
-
-  setCurrentRouteDataUsingUrl(dataToFetch: string) {
-    const locale = this.componentsMetadata.currentLocale as keyof Lang;
-    const templateKeys = Object.keys(this.componentsMetadata.components) as (keyof ComponentsData)[];
-    const componentIndex = templateKeys.indexOf(dataToFetch as keyof ComponentsData);
-    const currentLoadStatusIsInitial = this.isInitialLoad[locale];
-    try {
-      if (
-        this.componentsMetadata.components[templateKeys[componentIndex - 1 === -1 ? 0 : componentIndex - 1]][locale] !== undefined &&
-        this.componentsMetadata.components[templateKeys[componentIndex]][locale] !== undefined &&
-        this.componentsMetadata.components[templateKeys[componentIndex + 1 === templateKeys.length ? componentIndex : componentIndex + 1]][locale] !== undefined
-      ) return this.componentsMetadata$.next(this.componentsMetadata);
-    } catch(e) {
-      return;
+  isMetadataAvailable(metadata?: keyof ComponentsData): boolean {
+    const metadataLoadStatus: boolean[] = [];
+    const locale = this.componentsMetadata.locale;
+    switch (metadata || this.componentsMetadata.dataToFetch) {
+      case 'about_me':
+      case 'education':
+      case 'references':
+        metadataLoadStatus.push(this.componentsMetadata.components.about_me[locale] !== undefined);
+        metadataLoadStatus.push(this.componentsMetadata.components.education[locale] !== undefined);
+        metadataLoadStatus.push(this.componentsMetadata.components.references[locale] !== undefined);
+        break;
+      case 'skills':
+        metadataLoadStatus.push(this.componentsMetadata.components.skills[locale] !== undefined);
+        break;
+      case 'jobs':
+        metadataLoadStatus.push(this.componentsMetadata.components.jobs[locale] !== undefined);
+        break;
+      case 'leave_message':
+        metadataLoadStatus.push(this.componentsMetadata.components.references[locale] !== undefined);
+        metadataLoadStatus.push(this.componentsMetadata.components.leave_message[locale] !== undefined);
+        break;
     }
+    return metadataLoadStatus.indexOf(false) === -1;
+  }
 
+
+  setRouteMetadata(dataToFetch?: keyof ComponentsData) {
+    const data = dataToFetch || this.componentsMetadata.dataToFetch;
+    const locale = this.componentsMetadata.locale;
+    if (this.isMetadataAvailable(dataToFetch)) return;
 
     this.httpService.doGetRequest("getMetadata", {
       locale: locale,
-      dataToFetch: dataToFetch,
-      isInitialLoad: this.isInitialLoad[this.componentsMetadata.currentLocale as 'ro_RO' | 'en_US']
+      dataToFetch: data,
+      isInitialLoad: this.isInitialLoad[locale]
     })
       .then((feData: ComponentsDataStructure) => {
-        console.log(feData)
-        this.componentsMetadata.dataToFetch = dataToFetch;
+        this.componentsMetadata.dataToFetch = dataToFetch || this.componentsMetadata.dataToFetch;
         const currentMetadata: ComponentsDataStructure = feData;
-        if (currentLoadStatusIsInitial) {
+        if (this.isInitialLoad[locale]) {
           this.componentsMetadata.header[locale] = currentMetadata.headerData;
           this.componentsMetadata.footer[locale] = currentMetadata.footerData;
           this.isInitialLoad[locale] = false;
@@ -84,9 +92,7 @@ export class DataService {
             (this.componentsMetadata.components[key][locale] as ComponentsTemplate) = currentMetadata.componentsData[key] as unknown as ComponentsTemplate;
           }
         }
-        this.lazyService.load(dataToFetch).then(() => {
-          this.componentsMetadata$.next(this.componentsMetadata)
-        });
+        this.lazyService.load(data).then(() => this.componentsMetadata$.next(this.componentsMetadata));
       })
       .catch(e => {
         console.log(e)

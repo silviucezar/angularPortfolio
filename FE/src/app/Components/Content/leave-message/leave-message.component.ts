@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
 import { DataService } from 'src/app/Services/data.service';
+import { PageLogic } from 'src/app/Services/page.logic.service';
 
 @Component({
   selector: 'app-leave-message',
@@ -9,20 +10,13 @@ import { DataService } from 'src/app/Services/data.service';
 })
 export class LeaveMessageComponent implements OnInit {
 
-  private currentLocale!: keyof Lang;
-  private metadata: Lang = { ro_RO: undefined, en_US: undefined }
-  private loading: Boolean = true;
-
+  private metadata!:ComponentsMetadata;
   constructor(
-    private dataService: DataService
+    private pageLogic: PageLogic
   ) {
-    this.dataService.getRoutesMetadata().subscribe((componentsMetadata: ComponentsMetadata) => {
-      this.loading = false;
-      this.currentLocale = componentsMetadata.currentLocale as 'ro_RO' | 'en_US';
-      this.metadata[this.currentLocale] = componentsMetadata.components.leave_message[this.currentLocale];
-    });
-  }
-  ngOnInit() {
-  }
+    this.pageLogic.subscribeToComponentsMetadata('leave_message').subscribe((componentMetadata: ComponentsMetadata) => this.metadata = componentMetadata);
 
+  }
+  ngOnInit() { }
+  
 }

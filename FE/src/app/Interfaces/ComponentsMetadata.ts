@@ -5,8 +5,8 @@ export interface ComponentsMetadata {
     header: Lang;
     components: ComponentsData;
     footer: Lang;
-    dataToFetch: string;
-    currentLocale: string;
+    dataToFetch: keyof ComponentsData;
+    locale: keyof Lang;
 }
 
 export interface ComponentsData {

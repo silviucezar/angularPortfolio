@@ -18,22 +18,20 @@ export class FooterComponent implements OnInit {
 
   constructor(
     private locale: LocaleService,
-    private pageLogic :PageLogic
-    ) {
+    private pageLogic: PageLogic,
+    private dataService:DataService
+  ) {
     this.locale.getCurrentLocale().subscribe((localeValue: Locale) => { this.currentLocale = localeValue.locale as keyof Lang });
-    this.pageLogic.loadingMetadata$.subscribe((state:boolean)=>{
-      this.loadingMetadata = state;
-    });
+    this.pageLogic.loadingMetadata$.subscribe((state: boolean) => this.loadingMetadata = state);
   }
 
-  ngOnInit() {
-    console.log(this.currentLocale);
-  }
+  ngOnInit() { }
 
   toggleLanguage() {
-    this.currentLocale = (this.currentLocale === 'ro_RO' ? 'en_US' : 'ro_RO');
-    console.log(this.currentLocale)
-    this.pageLogic.toggleLanguage(this.locale.setCurrentLocale(this.currentLocale));
+    this.currentLocale = this.currentLocale === 'ro_RO' ? 'en_US' : 'ro_RO';
+    this.locale.setCurrentLocale(this.currentLocale);
+    this.dataService.setRouteMetadata();
   }
+
   toggleContact() { this.isContactActive = !this.isContactActive; }
 }

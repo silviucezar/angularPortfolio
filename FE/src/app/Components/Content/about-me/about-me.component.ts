@@ -17,7 +17,7 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   constructor(
     private pageLogic: PageLogic
   ) {
-    this.pageLogic.subscribeToComponentsMetadata('about_me').subscribe((componentMetadata: ComponentsMetadata) => { this.metadata = componentMetadata; console.log(this.metadata) });
+    // this.pageLogic.subscribeToComponentsMetadata('about_me').subscribe((componentMetadata: ComponentsMetadata) => { this.metadata = componentMetadata; console.log(this.metadata) });
   }
 
   ngOnInit() { }

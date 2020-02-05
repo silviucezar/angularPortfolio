@@ -1,4 +1,6 @@
+import { ComponentsData } from './ComponentsMetadata';
+
 export interface UrlSubscription {
-    dataToFetch: string;
+    dataToFetch: keyof ComponentsData;
     path: string;
 }

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { UrlSubscription } from '../Interfaces/UrlSubscription';
 import { DataService } from './data.service';
 import { LazyService } from './lazy.service';
-import { ContainerRefs } from '../Interfaces/ComponentsMetadata';
+import { ContainerRefs, ComponentsData } from '../Interfaces/ComponentsMetadata';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +27,11 @@ export class UrlListenerService {
   start() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
       const localUrlSubscription: UrlSubscription = {
-        dataToFetch: event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me',
+        dataToFetch: (event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me') as keyof ComponentsData,
         path: event.url !== "/" ? event.url.replace("/portfolio/", "") : 'about-me'
       }
       this.urlSubscriptionBehaviorSubject$.next(localUrlSubscription);
-      this.dataService.setCurrentRouteDataUsingUrl(localUrlSubscription.dataToFetch);
+      this.dataService.setRouteMetadata(localUrlSubscription.dataToFetch);
     });
   }
 }
