@@ -257,6 +257,23 @@ i {
   bottom: 0;
 }
 
+.skillsJobsMainPage {
+  height: 40px;
+  width: 40%;
+  position: relative;
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+  grid-column: 2;
+  grid-row: 1;
+  bottom: 0;
+  background: #1a4b6e;
+  margin-right: 15px;
+  max-width: 150px;
+  border: 2px solid #1C5D99;
+  border-radius: 15px;
+}
+ 
 .skillsJobsModal.active {
   pointer-events: initial;
   position: fixed;

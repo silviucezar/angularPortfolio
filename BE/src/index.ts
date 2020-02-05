@@ -66,7 +66,6 @@ class ExpressApp {
     }
 }
 
-
 process.env.PORT ? (() => {
     const config = {
         cert: fs.readFileSync((process.env.CERT as string), 'utf8'),
@@ -74,4 +73,3 @@ process.env.PORT ? (() => {
     };
     https.createServer(config, new ExpressApp(Express()).app);
 })() : http.createServer(new ExpressApp(Express()).app);
-
