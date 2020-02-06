@@ -41,20 +41,18 @@ export class InitService {
 
   constructor(
     @Inject(DOCUMENT) private _document: Document,
-    private lazyService:LazyService
+    private lazyService: LazyService
   ) { }
 
-  init(domRootElementRef: ElementRef,containerRefs:ContainerRefs) {
+  init(domRootElementRef: ElementRef, containerRefs: ContainerRefs) {
     this.lazyService.setContainerRefs(containerRefs);
     this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
     this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
     this.enableCurrentOrientationCSS(domRootElementRef)
-      .then(() => { 
-        this.lazyService.load().then(()=>{
-          this.toggleGlobalLoading();
-          this.setScrollEvent();
-          this.setResizeEvent(domRootElementRef);
-        });
+      .then(() => {
+        this.toggleGlobalLoading();
+        this.setScrollEvent();
+        this.setResizeEvent(domRootElementRef);
       });
   }
 

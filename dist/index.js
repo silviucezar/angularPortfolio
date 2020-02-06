@@ -36,10 +36,10 @@ class ExpressApp {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;
-            console.log(dataToFetch);
-            const tables = dataToFetch === 'header_footer' ?
+            const tables = dataToFetch === 'initial' ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
+                    { Table: 'menu_translations', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
                     { Table: 'footer_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] }
                 ] :
                 [
@@ -47,20 +47,21 @@ class ExpressApp {
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result) => {
-                dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
+                dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
             })
                 .catch(() => this.db.selectTables(tables)).then((result) => {
-                dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
+                dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
             });
         });
     }
     sendComponentMetadata(data, apiRes) {
         apiRes.end(data[0][0].text);
     }
-    sendHeaderFooterMetadata(data, apiRes) {
+    sendInitialMetadata(data, apiRes) {
         const headerMetadata = JSON.parse(data[0][0].text.toString());
-        const footerMetadata = JSON.parse(data[1][0].text.toString());
-        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata }));
+        const menuMetadata = data[1][0].text.toString().split(",");
+        const footerMetadata = JSON.parse(data[2][0].text.toString());
+        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata, menuMetadata }));
     }
 }
 process.env.PORT ? (() => {

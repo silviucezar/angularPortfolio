@@ -1,8 +1,8 @@
-<p>{{metadata?.intro}}</p>
-<p>{{metadata?.current_goal}}</p>
-<p>{{metadata?.hobbies}}</p>
+<p>{{metadata[locale]?.intro}}</p>
+<p>{{metadata[locale]?.current_goal}}</p>
+<p>{{metadata[locale]?.hobbies}}</p>
 <div>
-    <span *ngFor='let knowledge of metadata?.generalKnowledge'>
+    <span *ngFor='let knowledge of metadata[locale]?.generalKnowledge'>
         &#8226;{{knowledge}}
     </span>
 </div>

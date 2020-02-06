@@ -8,7 +8,6 @@ export interface LangTemplate {
 export interface Lang<T> {
     ro_RO: T | undefined;
     en_US: T | undefined;
-    locale: 'ro_RO' | 'en_US' | undefined;
 }
 
 export interface HeaderTemplate {
@@ -29,8 +28,9 @@ export interface FooterTemplate {
     intro_footer_settings: any;
 }
 
-export interface HeaderFooterMetadata {
+export interface InitialMetadata {
     headerMetadata? : HeaderTemplate;
+    menuMetadata? : string[];
     footerMetadata? : FooterTemplate;
 } 
 
@@ -50,7 +50,7 @@ export interface ComponentsTemplate {
     education: Education;
     references: References;
     leave_message: LeaveMessage;
-    header_footer: HeaderFooterMetadata;
+    initial: InitialMetadata;
 }
 
 export interface Skills {}
@@ -92,7 +92,5 @@ export interface CategoryDetails {
 
 export interface LocaleTranslations {
     locale : keyof LangTemplate;
-    translations : string[];
-    keys: LocaleCategory;
     currentUrl:string;
 }

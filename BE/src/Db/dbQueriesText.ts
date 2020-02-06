@@ -26,6 +26,28 @@ export class DBQuries {
                 `
             ],
             [
+                `CREATE TABLE menu_translations(
+                    locale VARCHAR(10) NOT NULL PRIMARY KEY,
+                    text VARCHAR(255) NOT NULL
+                )`,
+                `INSERT INTO menu_translations VALUES
+                ('ro_RO','Despre Mine,Aptitudini,Joburi,Educatie,Referinte,Feedback'),
+                ('en_US','About Me,"Skills,Jobs,"Education,References,Feedback')
+                `
+            ],
+            [
+                `CREATE TABLE footer_data (
+                    string_key VARCHAR(50) NOT NULL,
+                    text TEXT NOT NULL,
+                    locale VARCHAR(10) NOT NULL,
+                    prefix VARCHAR(100) NOT NULL PRIMARY KEY
+                )`,
+                `INSERT INTO footer_data VALUES
+                ('footer','${JSON.stringify(FOOTER_RO_RO)}','ro_RO','footer_ro_RO'),
+                ('footer','${JSON.stringify(FOOTER_EN_US)}','en_US','footer_en_US')
+                `
+            ],
+            [
                 `CREATE TABLE component_data (
                     text TEXT NOT NULL,
                     prefix VARCHAR(100) NOT NULL PRIMARY KEY
@@ -44,19 +66,7 @@ export class DBQuries {
                     ('${JSON.stringify(LEAVE_MESSAGE_RO_RO)}','leave_message_ro_RO'),
                     ('${JSON.stringify(LEAVE_MESSAGE_EN_US)}','leave_message_en_US')
                 `
-            ],
-            [
-                `CREATE TABLE footer_data (
-                    string_key VARCHAR(50) NOT NULL,
-                    text TEXT NOT NULL,
-                    locale VARCHAR(10) NOT NULL,
-                    prefix VARCHAR(100) NOT NULL PRIMARY KEY
-                )`,
-                `INSERT INTO footer_data VALUES
-                ('footer','${JSON.stringify(FOOTER_RO_RO)}','ro_RO','footer_ro_RO'),
-                ('footer','${JSON.stringify(FOOTER_EN_US)}','en_US','footer_en_US')
-                `
             ]
-        ];;
+        ];
     }
 }

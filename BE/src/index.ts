@@ -34,10 +34,10 @@ class ExpressApp {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
-            console.log(dataToFetch)
-            const tables: SelectQuery[] = dataToFetch === 'header_footer' ?
+            const tables: SelectQuery[] = dataToFetch === 'initial' ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
+                    { Table: 'menu_translations', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
                     { Table: 'footer_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] }
                 ] :
                 [
@@ -45,10 +45,10 @@ class ExpressApp {
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
+                    dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
                 })
                 .catch(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
+                    dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
                 });
         });
     }
@@ -57,10 +57,11 @@ class ExpressApp {
         apiRes.end(data[0][0].text);
     }
 
-    sendHeaderFooterMetadata(data: RowDataPacket[][], apiRes: Response) {
+    sendInitialMetadata(data: RowDataPacket[][], apiRes: Response) {
         const headerMetadata: HeaderTemplate = JSON.parse(data[0][0].text.toString()) as HeaderTemplate;
-        const footerMetadata: FooterTemplate = JSON.parse(data[1][0].text.toString()) as FooterTemplate;
-        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata }));
+        const menuMetadata: string[] = data[1][0].text.toString().split(",");
+        const footerMetadata: FooterTemplate = JSON.parse(data[2][0].text.toString()) as FooterTemplate;
+        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata, menuMetadata }));
     }
 }
 

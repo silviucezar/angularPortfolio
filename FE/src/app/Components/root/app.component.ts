@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, AfterViewInit } from '@angular/core';
-import { CategoryDetails, HeaderTemplate, Lang, FooterTemplate, HeaderFooterMetadata, LangTemplate, Locale, LocaleTranslations } from '../../Interfaces/interfaces';
+import { HeaderTemplate, Lang, FooterTemplate, LangTemplate, LocaleTranslations, InitialMetadata } from '../../Interfaces/interfaces';
 import { InitService } from '../../Services/init.service';
-import { UrlSubscription } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -23,21 +21,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('references', { read: ViewContainerRef, static: true }) references!: ViewContainerRef;
   @ViewChild('leave_message', { read: ViewContainerRef, static: true }) leave_message!: ViewContainerRef;
 
-  private translations!: LocaleTranslations | undefined;
+  private currentUrl!: string | undefined;
   private locale: keyof LangTemplate = 'en_US';
-  private headerMetadata: Lang<HeaderTemplate> = { ro_RO: undefined, en_US: undefined, locale: undefined };
-  private footerMetadata: Lang<FooterTemplate> = { ro_RO: undefined, en_US: undefined, locale: undefined };
+  private headerMetadata: Lang<HeaderTemplate> = { ro_RO: undefined, en_US: undefined };
+  private menuMetadata: Lang<string[]> = { ro_RO: undefined, en_US: undefined };
+  private footerMetadata: Lang<FooterTemplate> = { ro_RO: undefined, en_US: undefined };
   constructor(
     private initService: InitService,
     private domRootElementRef: ElementRef,
     private pageLogic: PageLogic
   ) {
     this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
-      this.translations = localeTranslations;
-      this.locale = localeTranslations!.locale;
-      if (this.headerMetadata[this.translations!.locale] !== undefined) return;
-      this.pageLogic.fetchHeaderFooterMetadata().then((data: HeaderFooterMetadata) => {
+      this.currentUrl = localeTranslations!.currentUrl;
+      console.log(this.currentUrl)
+      if (this.headerMetadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
+      this.pageLogic.fetchInitialMetadata().then((data: InitialMetadata) => {
+        this.locale = localeTranslations!.locale;
         this.headerMetadata[this.locale] = data.headerMetadata;
+        this.menuMetadata[this.locale] = data.menuMetadata;
         this.footerMetadata[this.locale] = data.footerMetadata;
       });
     });
@@ -62,9 +63,5 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
-  }
-
-  getCurrentUrl() {
-
   }
 }

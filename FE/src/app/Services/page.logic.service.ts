@@ -1,57 +1,40 @@
 import { Injectable } from '@angular/core';
 // import { DataService } from './data.service';
-import { Lang, LangTemplate, ComponentsTemplate, HeaderFooterMetadata, LocaleTranslations, LocaleCategory, CategoryDetails, UrlSubscription } from '../Interfaces/interfaces';
+import { Lang, LangTemplate, ComponentsTemplate, InitialMetadata, LocaleTranslations, LocaleCategory, CategoryDetails, UrlSubscription } from '../Interfaces/interfaces';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { LocaleService } from './locale.service';
 import { Locale } from '../Interfaces/interfaces';
 import { DataService } from './data.service';
 import { UrlListenerService } from './url-listener.service';
+import { LazyService } from './lazy.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PageLogic implements ExistingMetadata {
+export class PageLogic {
 
   public skillsState$ = new Subject<boolean>();
   public jobsState$ = new Subject<boolean>();
   public loadingMetadata$ = new Subject<boolean>();
   public currentLocaleTranslations$: BehaviorSubject<LocaleTranslations | undefined> = new BehaviorSubject<LocaleTranslations | undefined>(undefined);
   private locale: keyof LangTemplate = 'en_US';
+
   constructor(
     private dataService: DataService,
-    private localeService: LocaleService,
     private urlListenerService: UrlListenerService,
-
+    private lazyService: LazyService
   ) {
     this.urlListenerService.start();
-    this.localeService.currentLocale$.subscribe((currentLocale: Locale) => {
-      const localeTranslations: LocaleTranslations = {
-        locale: currentLocale.locale,
-        translations: (() => {
-          const trasnlationsTempArr: string[] = [];
-          for (let keys of Object.keys(currentLocale.categoriesTitle)) {
-            trasnlationsTempArr.push((currentLocale.categoriesTitle[keys as keyof LocaleCategory] as CategoryDetails)[`${currentLocale.locale}_Title` as 'ro_RO_Title' | 'en_US_Title']);
-          }
-          return trasnlationsTempArr;
-        })(),
-        keys: currentLocale.categoriesTitle,
-        currentUrl: this.urlListenerService.getCurrentUrl()
-      }
-      console.log(localeTranslations)
-      this.locale = localeTranslations.locale;
-      this.currentLocaleTranslations$.next(localeTranslations);
-    });
+    this.updateMetadataParams();
+    this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe((urlSubscription: UrlSubscription) => this.updateMetadataParams());
   }
 
   fetchComponentsMetadata<K extends keyof ComponentsTemplate>(metadata: K): Promise<ComponentsTemplate[K]> {
     return this.dataService.fetchRouteMetadata(metadata, this.locale);
   }
 
-  fetchHeaderFooterMetadata(): Promise<HeaderFooterMetadata> {
-    return this.dataService.fetchRouteMetadata('header_footer', this.locale);
+  fetchInitialMetadata(): Promise<InitialMetadata> {
+    return this.dataService.fetchRouteMetadata('initial', this.locale);
   }
-
-  updateLocale(locale: keyof LangTemplate) { this.localeService.setCurrentLocale(locale); }
 
   setSkillsLoadingState() {
     this.skillsState$.next(true);
@@ -60,8 +43,14 @@ export class PageLogic implements ExistingMetadata {
   setJobsLoadingState() {
     this.jobsState$.next(true);
   }
-}
 
-class ExistingMetadata {
-  constructor() { }
+  updateMetadataParams(locale?: keyof LangTemplate) {
+    const localeTranslations: LocaleTranslations = {
+      locale: locale || this.locale || 'en_US',
+      currentUrl: this.urlListenerService.getCurrentUrl()
+    }
+    // this.lazyService.load(this.urlListenerService.getCurrentUrl()).then(()=>)
+    this.locale = localeTranslations.locale;
+    this.currentLocaleTranslations$.next(localeTranslations);
+  };
 }

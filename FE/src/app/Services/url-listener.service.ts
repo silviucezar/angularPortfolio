@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UrlSubscription } from '../Interfaces/interfaces';
 import { ComponentsTemplate } from '../Interfaces/interfaces';
+import { LazyService } from './lazy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UrlListenerService {
   public urlSubscriptionBehaviorSubject$ = new Subject<UrlSubscription>();
   private currentUrl:string = 'about-me';
   constructor(
-    private router: Router
+    private router: Router,
+    private lazyService:LazyService
   ) { }
 
   start() {
@@ -24,6 +26,7 @@ export class UrlListenerService {
       }
       this.currentUrl = localUrlSubscription.path;
       this.urlSubscriptionBehaviorSubject$.next(localUrlSubscription);
+      this.lazyService.load(localUrlSubscription.dataToFetch);
     });
   }
 

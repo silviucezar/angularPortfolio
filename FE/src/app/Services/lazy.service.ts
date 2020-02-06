@@ -37,26 +37,21 @@ export class LazyService {
     private c: Compiler
   ) { }
 
-  load(currentUrl?: string): Promise<any> {
+  load(currentUrl: string) {
     return new Promise((resolve) => {
       const currentComponentsToLoad = this.componentsToLoad(currentUrl || 'about_me');
-      const loadedComponents = [];
       for (const componentName of currentComponentsToLoad) {
         if (this.componentsTemplate[componentName as keyof ComponentsTemplate].isLoaded !== true) {
-          console.log('here')
           const path: string = this.componentsTemplate[componentName as keyof ComponentsTemplate].path;
           const key: keyof ComponentsTemplate = componentName as keyof ComponentsTemplate;
           const module = this.componentsTemplate[key].module;
-          loadedComponents.push(
-            import(`../Components/Content/${path}/${path}.module`).then((m) => {
-              const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
-              (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
-              this.componentsTemplate[key].isLoaded = true;
-            })
-          );
+          import(`../Components/Content/${path}/${path}.module`).then((m) => {
+            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
+            (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
+            this.componentsTemplate[key].isLoaded = true;
+          });
         };
       }
-      Promise.all(loadedComponents).then(() => resolve());
     });
   }
 

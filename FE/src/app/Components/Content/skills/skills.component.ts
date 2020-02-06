@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild, TemplateRef, ElementRef, Output, 
 // import { DataService } from 'src/app/Services/data.service';
 // import { ComponentsMetadata, Lang, ComponentsData } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
+import { LocaleTranslations, Skills, LangTemplate, Lang } from 'src/app/Interfaces/interfaces';
 
 @Component({
   selector: 'app-skills',
@@ -13,16 +14,20 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
 })
 export class SkillsComponent implements OnInit {
 
-  // private metadata!: ComponentsMetadata;
+  private metadata: Lang<Skills> = { ro_RO: undefined, en_US: undefined };
+  private locale: keyof LangTemplate = 'en_US';
   private slidesCount: number = 0;
   constructor(
     private pageLogic: PageLogic
   ) {
-    // this.pageLogic.subscribeToComponentsMetadata('skills').subscribe((componentMetadata: ComponentsMetadata) => {
-    //   this.metadata = componentMetadata;
-    //   this.slidesCount = this.objectKeys(this.metadata).length;
-    //   this.pageLogic.setSkillsLoadingState();
-    // });
+    this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
+      if (this.metadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
+      this.pageLogic.fetchComponentsMetadata('skills').then((metadata: Skills) => {
+        this.locale = localeTranslations!.locale;
+        this.metadata[this.locale] = metadata;
+        this.slidesCount = this.objectKeys(this.metadata).length;
+      });
+    });
   }
 
 
@@ -32,7 +37,7 @@ export class SkillsComponent implements OnInit {
     image.classList.add('fadeIn');
   }
 
-  // objectKeys(object: ComponentsMetadata): string[] {
-  //   try { return Object.keys(object); } catch (e) { return []; };
-  // }
+  objectKeys(object: Skills): string[] {
+    try { return Object.keys(object); } catch (e) { return []; };
+  }
 }

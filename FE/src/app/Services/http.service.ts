@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
+import { BehaviorSubject } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +9,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 export class HttpService {
 
+  public activeRequestsCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   constructor(
     private http: HttpClient
   ) { }
 
   doGetRequest<T>(url: string, body: any) {
+    this.activeRequestsCount$.next(this.activeRequestsCount$.value + 1);
     return this.http.get<T>(`${location.origin}/api/${url}`, {
       params: body
-    }).toPromise();
+    }).pipe(finalize(() => this.activeRequestsCount$.next(this.activeRequestsCount$.value - 1))).toPromise();
   }
 }
