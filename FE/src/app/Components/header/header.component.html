@@ -7,37 +7,37 @@
         <div class='appGlobalHeaderContainerDataText name'>
             <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
             <div class='appHeaderRowContent' *ngIf='!loadingHeader' [@fadeInOut]>
-                {{metadata.intro_header_first_name}}
-                {{metadata.intro_header_last_name}}
+                {{metadata?.intro_header_first_name}}
+                {{metadata?.intro_header_last_name}}
             </div>
         </div>
         <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
             <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
-            <div *ngIf='!loadingHeader' [@fadeInOut]>{{metadata.intro_header_current_role}}</div>
+            <div *ngIf='!loadingHeader' [@fadeInOut]>{{metadata?.intro_header_current_role}}</div>
         </div>
         <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
             <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
             <div *ngIf='!loadingHeader' [@fadeInOut]>
-                {{metadata.intro_header_phone_no}}
-            </div>
-        </div>
-        <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
-            <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
-            <div *ngIf='!loadingHeader' [@fadeInOut]>
-                {{metadata.intro_header_email}}
+                {{metadata?.intro_header_phone_no}}
             </div>
         </div>
         <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
             <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
             <div *ngIf='!loadingHeader' [@fadeInOut]>
-                {{metadata.intro_header_birth_date}}:
-                {{metadata.intro_header_birth_date}}
+                {{metadata?.intro_header_email}}
             </div>
         </div>
         <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
             <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
             <div *ngIf='!loadingHeader' [@fadeInOut]>
-                {{metadata.intro_header_age}}
+                {{metadata?.intro_header_birth_date}}:
+                {{metadata?.intro_header_birth_date}}
+            </div>
+        </div>
+        <div class="contractedHeaderHiddenData appGlobalHeaderContainerDataText">
+            <app-header-text-loader *ngIf='loadingHeader' [@fadeInOut]></app-header-text-loader>
+            <div *ngIf='!loadingHeader' [@fadeInOut]>
+                {{metadata?.intro_header_age}}
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { trigger, style, transition, animate } from '@angular/animations';
-import { Lang } from 'src/app/Interfaces/ComponentsMetadata';
-import { DataService } from 'src/app/Services/data.service';
+import { Lang } from 'src/app/Interfaces/interfaces';
+// import { DataService } from 'src/app/Services/data.service';
 import { PageLogic } from 'src/app/Services/page.logic.service';
-import { HeaderTemplate } from 'src/app/Interfaces/FrontEndData';
+import { HeaderTemplate } from 'src/app/Interfaces/interfaces';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,13 +17,10 @@ import { HeaderTemplate } from 'src/app/Interfaces/FrontEndData';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
 
-  private metadata: HeaderTemplate = {};
-  constructor(
-    private pageLogic: PageLogic
-  ) {
-    this.pageLogic.subscribeToHeaderAndFooterMetadata('header').subscribe((componentMetadata: any) => {
-      this.metadata = componentMetadata;
-    });
+  @Input() metadata: HeaderTemplate | undefined = undefined;
+
+  constructor() {
+
   }
 
   ngOnInit() { }

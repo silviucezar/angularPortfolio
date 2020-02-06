@@ -26,7 +26,6 @@ class DBFlow extends dbQueriesLogic_1.DBQueriesLogic {
             this.pool.getConnection((err, connection) => {
                 if (err)
                     console.log(err);
-                console.log(connection);
                 Promise.all(this.initQuery(connection, action, tables))
                     .then((result) => {
                     this.endConnection(connection);

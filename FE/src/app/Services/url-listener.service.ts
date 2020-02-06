@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { UrlSubscription } from '../Interfaces/UrlSubscription';
-import { DataService } from './data.service';
-import { LazyService } from './lazy.service';
-import { ContainerRefs, ComponentsData } from '../Interfaces/ComponentsMetadata';
+import { UrlSubscription } from '../Interfaces/interfaces';
+import { ComponentsTemplate } from '../Interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +11,23 @@ import { ContainerRefs, ComponentsData } from '../Interfaces/ComponentsMetadata'
 
 export class UrlListenerService {
   public urlSubscriptionBehaviorSubject$ = new Subject<UrlSubscription>();
-
+  private currentUrl:string = 'about-me';
   constructor(
-    private router: Router,
-    private dataService: DataService,
-    private lazyService: LazyService
+    private router: Router
   ) { }
-
-  syncLazyLoadWithUrlListening(containerRefs: ContainerRefs) {
-    this.lazyService.setContainerRefs(containerRefs);
-  }
 
   start() {
     this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
       const localUrlSubscription: UrlSubscription = {
-        dataToFetch: (event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me') as keyof ComponentsData,
+        dataToFetch: (event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me') as keyof ComponentsTemplate,
         path: event.url !== "/" ? event.url.replace("/portfolio/", "") : 'about-me'
       }
+      this.currentUrl = localUrlSubscription.path;
       this.urlSubscriptionBehaviorSubject$.next(localUrlSubscription);
-      this.dataService.setRouteMetadata(localUrlSubscription.dataToFetch);
     });
+  }
+
+  getCurrentUrl() :string {
+    return this.currentUrl;
   }
 }

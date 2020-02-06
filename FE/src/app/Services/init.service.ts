@@ -1,5 +1,7 @@
 import { Injectable, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { LazyService } from './lazy.service';
+import { ContainerRefs } from '../Interfaces/interfaces';
 
 interface ViewportOrientation {
   activeOrientation: string;
@@ -38,19 +40,21 @@ export class InitService {
 
 
   constructor(
-    @Inject(DOCUMENT) private _document: Document
+    @Inject(DOCUMENT) private _document: Document,
+    private lazyService:LazyService
   ) { }
 
-  init(domRootElementRef: ElementRef) {
+  init(domRootElementRef: ElementRef,containerRefs:ContainerRefs) {
+    this.lazyService.setContainerRefs(containerRefs);
     this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
     this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
     this.enableCurrentOrientationCSS(domRootElementRef)
-      .then(() => {
-        this.setScrollEvent();
-        this.setResizeEvent(domRootElementRef);
-      })
-      .catch(() => {
-        //load error here (usually most probably because internet connection)
+      .then(() => { 
+        this.lazyService.load().then(()=>{
+          this.toggleGlobalLoading();
+          this.setScrollEvent();
+          this.setResizeEvent(domRootElementRef);
+        });
       });
   }
 
@@ -62,6 +66,7 @@ export class InitService {
         this.toggleGlobalLoading(true);
       }
     }
+
     this.enableCurrentOrientationCSS(domRootElementRef).then(() => { return });
   }
 
@@ -77,7 +82,6 @@ export class InitService {
         this.viewport.CSS[activeOrientation].element.disabled = false;
         this.viewport.CSS[activeOrientation].element.addEventListener('load', () => {
           this.viewport.CSS[activeOrientation].loaded = true;
-          this.toggleGlobalLoading();
           onSuccesfullCSSLoad(true);
         });
         this.viewport.CSS[activeOrientation].element.addEventListener('error', () => {

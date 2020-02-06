@@ -22,7 +22,6 @@ export class DBFlow extends DBQueriesLogic {
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err: MysqlError, connection: PoolConnection) => {
                 if (err) console.log(err);
-                console.log(connection)
                 Promise.all(this.initQuery(connection, action, tables))
                     .then((result) => {
                         this.endConnection(connection);

@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { DataService } from 'src/app/Services/data.service';
-import { Lang, ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+// import { DataService } from 'src/app/Services/data.service';
+// import { Lang, ComponentsMetadata } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
+import { ComponentsTemplate, AboutMe } from 'src/app/Interfaces/interfaces';
 
 @Component({
   selector: 'app-about-me',
@@ -12,12 +13,12 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
 export class AboutMeComponent implements OnInit, AfterViewInit {
   title = 'FE';
 
-  private metadata!: ComponentsMetadata;
+  private metadata: AboutMe | undefined = undefined;
 
   constructor(
     private pageLogic: PageLogic
   ) {
-    // this.pageLogic.subscribeToComponentsMetadata('about_me').subscribe((componentMetadata: ComponentsMetadata) => { this.metadata = componentMetadata; console.log(this.metadata) });
+    this.pageLogic.fetchComponentsMetadata('about_me').then((metadata:AboutMe)=> this.metadata = metadata);
   }
 
   ngOnInit() { }

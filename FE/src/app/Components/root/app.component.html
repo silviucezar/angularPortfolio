@@ -1,4 +1,4 @@
-<div class='skillsJobsModal'
+<!-- <!-- <div class='skillsJobsModal'
     [ngClass]='{"active" : (currentUrl === "skills" && skillsState) || (currentUrl === "jobs" && jobsState)}'>
     <div class='skillsModalTabs'>
         <a routerLink='portfolio/skills' class='skillsJobsToggle' style='grid-column:1'
@@ -15,25 +15,35 @@
             <ng-container #jobs></ng-container>
         </div>
     </div>
-</div>
+</div> -->
 <div class='appGlobalHeaderMainContainer' style='grid-area:appGlobalHeaderMainContainer'>
-    <app-header class='appGlobalHeader' #appGlobalHeader></app-header>
+    <app-header class='appGlobalHeader' [metadata]='headerMetadata[locale]'></app-header>
 </div>
 <div class="appGlobalContent">
     <ng-container #about_me></ng-container>
-    <a routerLink='portfolio/skills' class='skillsJobsToggle'>Skills</a>
-    <a routerLink='portfolio/jobs' class='skillsJobsToggle'>Jobs</a>
+    <a routerLink='portfolio/skills' class='skillsJobsToggle'>{{translations.translations[2]}}</a>
+    <a routerLink='portfolio/jobs' class='skillsJobsToggle'>{{translations.translations[3]}}</a>
     <ng-container #education></ng-container>
     <ng-container #references></ng-container>
     <ng-container #leave_message></ng-container>
 </div>
 <div class="appGlobalMargin" id='appGlobalMargin'>
-    <ng-container *ngFor='let category of categories'>
-        <a [ngClass]='{"current" : category.url === currentUrl}' class='categoriesUrl'
-            *ngIf='(category.url !== "skills") && (category.url !== "jobs")'
-            routerLink="{{'portfolio/' + category.url}}">
-            {{category[currentLocale + '_Title']}}
-        </a>
-    </ng-container>
+    <a [ngClass]='{"current" : translations.keys.about_me.url === translations.currentUrl}'
+        routerLink="{{'portfolio/about-me'}}" class='categoriesUrl'>
+        {{translations.translations[0]}}
+    </a>
+    <a [ngClass]='{"current" : translations.keys.education.url === translations.currentUrl}'
+        routerLink="{{'portfolio/education'}}" class='categoriesUrl'>
+        {{translations.translations[3]}}
+    </a>
+    <a [ngClass]='{"current" : translations.keys.references.url === translations.currentUrl}'
+        routerLink="{{'portfolio/references'}}" class='categoriesUrl'>
+        {{translations.translations[4]}}
+    </a>
+    <a [ngClass]='{"current" : translations.keys.leave_message.url === translations.currentUrl}'
+        routerLink="{{'portfolio/leave-message'}}" class='categoriesUrl'>
+        {{translations.translations[5]}}
+    </a>
 </div>
-<app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter'></app-footer>
+<app-footer class="appGlobalFooter" style='grid-area:appGlobalFooter' [metadata]='footerMetadata[locale]'
+    [locale]='locale'></app-footer>

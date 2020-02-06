@@ -27,24 +27,22 @@ export class DBQuries {
             ],
             [
                 `CREATE TABLE component_data (
-                    string_key VARCHAR(50) NOT NULL,
                     text TEXT NOT NULL,
-                    locale VARCHAR(10) NOT NULL,
                     prefix VARCHAR(100) NOT NULL PRIMARY KEY
                 )`,
                 `INSERT INTO component_data VALUES
-                    ('about_me_education_references','${JSON.stringify(ABOUT_ME_RO_RO)}','ro_RO','about_me_ro_RO'),
-                    ('about_me_education_references','${JSON.stringify(ABOUT_ME_EN_US)}','en_US','about_me_en_US'),
-                    ('skills','${JSON.stringify(SKILLS_RO_RO)}','ro_RO','skills_ro_RO'),
-                    ('skills','${JSON.stringify(SKILLS_EN_US)}','en_US','skills_en_US'),
-                    ('jobs','${JSON.stringify(JOBS_RO_RO)}','ro_RO','jobs_ro_RO'),
-                    ('jobs','${JSON.stringify(JOBS_EN_US)}','en_US','jobs_en_US'),
-                    ('about_me_education_references','${JSON.stringify(EDUCATION_RO_RO)}','ro_RO','education_ro_RO'),
-                    ('about_me_education_references','${JSON.stringify(EDUCATION_EN_US)}','en_US','education_en_US'),
-                    ('about_me_education_references','${JSON.stringify(REFERENCES_RO_RO)}','ro_RO','references_ro_RO'),
-                    ('about_me_education_references','${JSON.stringify(REFERENCES_EN_US)}','en_US','references_en_US'),
-                    ('references_leave_message','${JSON.stringify(LEAVE_MESSAGE_RO_RO)}','ro_RO','leave_message_ro_RO'),
-                    ('references_leave_message','${JSON.stringify(LEAVE_MESSAGE_EN_US)}','en_US','leave_message_en_US')
+                    ('${JSON.stringify(ABOUT_ME_RO_RO)}','about_me_ro_RO'),
+                    ('${JSON.stringify(ABOUT_ME_EN_US)}','about_me_en_US'),
+                    ('${JSON.stringify(SKILLS_RO_RO)}','skills_ro_RO'),
+                    ('${JSON.stringify(SKILLS_EN_US)}','skills_en_US'),
+                    ('${JSON.stringify(JOBS_RO_RO)}','jobs_ro_RO'),
+                    ('${JSON.stringify(JOBS_EN_US)}','jobs_en_US'),
+                    ('${JSON.stringify(EDUCATION_RO_RO)}','education_ro_RO'),
+                    ('${JSON.stringify(EDUCATION_EN_US)}','education_en_US'),
+                    ('${JSON.stringify(REFERENCES_RO_RO)}','references_ro_RO'),
+                    ('${JSON.stringify(REFERENCES_EN_US)}','references_en_US'),
+                    ('${JSON.stringify(LEAVE_MESSAGE_RO_RO)}','leave_message_ro_RO'),
+                    ('${JSON.stringify(LEAVE_MESSAGE_EN_US)}','leave_message_en_US')
                 `
             ],
             [

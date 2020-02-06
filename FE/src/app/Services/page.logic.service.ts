@@ -1,48 +1,57 @@
 import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
-import { ComponentsMetadata, Lang, ComponentsData } from '../Interfaces/ComponentsMetadata';
-import { Subject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { FooterTemplate, HeaderTemplate } from '../Interfaces/FrontEndData';
+// import { DataService } from './data.service';
+import { Lang, LangTemplate, ComponentsTemplate, HeaderFooterMetadata, LocaleTranslations, LocaleCategory, CategoryDetails, UrlSubscription } from '../Interfaces/interfaces';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { LocaleService } from './locale.service';
-import { Locale } from '../Interfaces/Locale';
+import { Locale } from '../Interfaces/interfaces';
+import { DataService } from './data.service';
+import { UrlListenerService } from './url-listener.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PageLogic {
+export class PageLogic implements ExistingMetadata {
 
   public skillsState$ = new Subject<boolean>();
   public jobsState$ = new Subject<boolean>();
   public loadingMetadata$ = new Subject<boolean>();
-  private locale: keyof Lang = 'en_US';
-
+  public currentLocaleTranslations$: BehaviorSubject<LocaleTranslations | undefined> = new BehaviorSubject<LocaleTranslations | undefined>(undefined);
+  private locale: keyof LangTemplate = 'en_US';
   constructor(
     private dataService: DataService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private urlListenerService: UrlListenerService,
+
   ) {
-    this.localeService.getCurrentLocale().subscribe((currentLocale: Locale) => this.locale = currentLocale.locale);
+    this.urlListenerService.start();
+    this.localeService.currentLocale$.subscribe((currentLocale: Locale) => {
+      const localeTranslations: LocaleTranslations = {
+        locale: currentLocale.locale,
+        translations: (() => {
+          const trasnlationsTempArr: string[] = [];
+          for (let keys of Object.keys(currentLocale.categoriesTitle)) {
+            trasnlationsTempArr.push((currentLocale.categoriesTitle[keys as keyof LocaleCategory] as CategoryDetails)[`${currentLocale.locale}_Title` as 'ro_RO_Title' | 'en_US_Title']);
+          }
+          return trasnlationsTempArr;
+        })(),
+        keys: currentLocale.categoriesTitle,
+        currentUrl: this.urlListenerService.getCurrentUrl()
+      }
+      console.log(localeTranslations)
+      this.locale = localeTranslations.locale;
+      this.currentLocaleTranslations$.next(localeTranslations);
+    });
   }
 
-  objectKeys(obj: any): string[] {
-    try { return Object.keys(obj) } catch (e) { return [] };
+  fetchComponentsMetadata<K extends keyof ComponentsTemplate>(metadata: K): Promise<ComponentsTemplate[K]> {
+    return this.dataService.fetchRouteMetadata(metadata, this.locale);
   }
 
-  subscribeToComponentsMetadata(metadata: keyof ComponentsData): Observable<ComponentsMetadata> {
-    this.loadingMetadata$.next(true);
-    return this.dataService.getRoutesMetadata()
-      .pipe(
-        map((componentsMetadata: any) => { console.log('once'); this.loadingMetadata$.next(false); return componentsMetadata.components[metadata][this.locale] })
-      );
+  fetchHeaderFooterMetadata(): Promise<HeaderFooterMetadata> {
+    return this.dataService.fetchRouteMetadata('header_footer', this.locale);
   }
 
-  subscribeToHeaderAndFooterMetadata(metadata: 'header' | 'footer'): Observable<HeaderTemplate | FooterTemplate> {
-    this.loadingMetadata$.next(true);
-    return this.dataService.getRoutesMetadata()
-      .pipe(
-        map((componentsMetadata: any) => { this.loadingMetadata$.next(false); return componentsMetadata[metadata][this.locale] })
-      );
-  }
+  updateLocale(locale: keyof LangTemplate) { this.localeService.setCurrentLocale(locale); }
 
   setSkillsLoadingState() {
     this.skillsState$.next(true);
@@ -51,4 +60,8 @@ export class PageLogic {
   setJobsLoadingState() {
     this.jobsState$.next(true);
   }
+}
+
+class ExistingMetadata {
+  constructor() { }
 }

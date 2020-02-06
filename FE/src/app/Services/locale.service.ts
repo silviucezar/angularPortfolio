@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Locale } from '../Interfaces/Locale';
-import { Lang } from '../Interfaces/ComponentsMetadata';
-import { DataService } from './data.service';
+import { Locale, LangTemplate } from '../Interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocaleService {
 
-  private currentLocale$ = new BehaviorSubject<Locale>({
+  public currentLocale$ = new BehaviorSubject<Locale>({
     locale: 'en_US',
     categoriesTitle: {
       about_me: {
@@ -47,12 +45,11 @@ export class LocaleService {
 
   constructor() { }
 
-  getCurrentLocale(): BehaviorSubject<Locale> { return this.currentLocale$ };
 
-  setCurrentLocale(locale: keyof Lang): keyof Lang {
+  setCurrentLocale(locale: keyof LangTemplate) {
+    console.log(locale)
     const currentLocaleValue = this.currentLocale$.value;
     currentLocaleValue.locale = locale;
     this.currentLocale$.next(currentLocaleValue);
-    return locale;
   };
 }

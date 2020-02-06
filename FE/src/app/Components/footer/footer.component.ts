@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocaleService } from '../../Services/locale.service';
-import { DataService } from 'src/app/Services/data.service';
-import { Locale } from 'src/app/Interfaces/Locale';
+import { Locale, FooterTemplate, LangTemplate } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
-import { Lang } from 'src/app/Interfaces/ComponentsMetadata';
+import { Lang } from 'src/app/Interfaces/interfaces';
 
 @Component({
   selector: 'app-footer',
@@ -12,25 +11,22 @@ import { Lang } from 'src/app/Interfaces/ComponentsMetadata';
 })
 export class FooterComponent implements OnInit {
 
-  private currentLocale: keyof Lang = 'en_US';
+  @Input() metadata: FooterTemplate | undefined = undefined;
+  @Input() locale: keyof LangTemplate | undefined = undefined;
   private isContactActive: boolean = false;
   private loadingMetadata: any = true;
 
   constructor(
-    private locale: LocaleService,
-    private pageLogic: PageLogic,
-    private dataService:DataService
+    private pageLogic: PageLogic
   ) {
-    this.locale.getCurrentLocale().subscribe((localeValue: Locale) => { this.currentLocale = localeValue.locale as keyof Lang });
-    this.pageLogic.loadingMetadata$.subscribe((state: boolean) => this.loadingMetadata = state);
+    // this.pageLogic.loadingMetadata$.subscribe((state: boolean) => this.loadingMetadata = state);
   }
 
   ngOnInit() { }
 
   toggleLanguage() {
-    this.currentLocale = this.currentLocale === 'ro_RO' ? 'en_US' : 'ro_RO';
-    this.locale.setCurrentLocale(this.currentLocale);
-    this.dataService.setRouteMetadata();
+    console.log(this.locale)
+    this.pageLogic.updateLocale(this.locale === 'ro_RO' ? 'en_US': 'ro_RO');
   }
 
   toggleContact() { this.isContactActive = !this.isContactActive; }

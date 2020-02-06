@@ -1,7 +1,7 @@
 <app-dynamic-component-loader class='loader' [ngClass]='{"active" : loadingMetadata}'>
 </app-dynamic-component-loader>
 <div class='toggleLocaleStyle' (click)='toggleLanguage()'>
-    <div class='localeImage icon' [ngClass]='currentLocale'></div>
+    <div class='localeImage icon' [ngClass]='locale'></div>
 </div>
 <div class='contactIcon' [ngClass]='{"closeBtn" : isContactActive}' (click)='toggleContact()'></div>
 <div class='contactContainer icon'>

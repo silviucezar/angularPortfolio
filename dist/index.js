@@ -36,34 +36,31 @@ class ExpressApp {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch = apiReq.query.dataToFetch;
             const locale = apiReq.query.locale;
-            const tables = apiReq.query.isInitialLoad ?
+            console.log(dataToFetch);
+            const tables = dataToFetch === 'header_footer' ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
-                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
                     { Table: 'footer_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] }
                 ] :
                 [
-                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
+                    { Table: 'component_data', Columns: 'text', Where: `WHERE  prefix=?`, Params: [`${dataToFetch}_${locale}`] }
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result) => {
-                this.sendDataToFrontEnd(result, apiRes, locale);
+                dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
             })
                 .catch(() => this.db.selectTables(tables)).then((result) => {
-                this.sendDataToFrontEnd(result, apiRes, locale);
+                dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
             });
         });
     }
-    sendDataToFrontEnd(data, apiRes, locale) {
-        const feData = {
-            headerData: JSON.parse(data[0][0].text.toString()),
-            componentsData: {},
-            footerData: JSON.parse(data[2][0].text.toString())
-        };
-        for (const componentData of data[1]) {
-            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`, 'gi'), ''))] = JSON.parse(componentData.text);
-        }
-        apiRes.end(JSON.stringify(feData));
+    sendComponentMetadata(data, apiRes) {
+        apiRes.end(data[0][0].text);
+    }
+    sendHeaderFooterMetadata(data, apiRes) {
+        const headerMetadata = JSON.parse(data[0][0].text.toString());
+        const footerMetadata = JSON.parse(data[1][0].text.toString());
+        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata }));
     }
 }
 process.env.PORT ? (() => {

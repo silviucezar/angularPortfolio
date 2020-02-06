@@ -1,8 +1,8 @@
-<p>{{metadata !== undefined ? metadata.intro : ''}}</p>
-<p>{{metadata !== undefined ? metadata.current_goal : ''}}</p>
-<p>{{metadata !== undefined ? metadata.hobbies : ''}}</p>
-<div *ngIf='metadata !== undefined' style='text-align:center'>
-    <span *ngFor='let knowledge of metadata.generalKnowledge'>
+<p>{{metadata?.intro}}</p>
+<p>{{metadata?.current_goal}}</p>
+<p>{{metadata?.hobbies}}</p>
+<div>
+    <span *ngFor='let knowledge of metadata?.generalKnowledge'>
         &#8226;{{knowledge}}
     </span>
 </div>

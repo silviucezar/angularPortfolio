@@ -1,7 +1,7 @@
 import Express, { Application, Request, Response, NextFunction } from 'express';
 import { DB } from "./Db/dbMain";
 import { SelectQuery } from './Interfaces/MainDBInterface';
-import { RowDataPacket, FrontEndData, ComponentsTemplate } from './Interfaces/FrontEndData';
+import { RowDataPacket, FrontEndData, ComponentsTemplate, FooterTemplate, HeaderTemplate } from './Interfaces/FrontEndData';
 import * as fs from 'fs';
 import * as https from 'https';
 import * as http from 'http';
@@ -34,35 +34,33 @@ class ExpressApp {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
-            const tables: SelectQuery[] = apiReq.query.isInitialLoad ?
+            console.log(dataToFetch)
+            const tables: SelectQuery[] = dataToFetch === 'header_footer' ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
-                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
                     { Table: 'footer_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] }
                 ] :
                 [
-                    { Table: 'component_data', Columns: 'text,prefix', Where: `WHERE  locale=? AND string_key LIKE ?`, Params: [locale, `%${dataToFetch}%`] },
+                    { Table: 'component_data', Columns: 'text', Where: `WHERE  prefix=?`, Params: [`${dataToFetch}_${locale}`] }
                 ];
             this.db.createTables()
                 .then(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    this.sendDataToFrontEnd(result, apiRes, locale);
+                    dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
                 })
                 .catch(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
-                    this.sendDataToFrontEnd(result, apiRes, locale);
+                    dataToFetch === 'header_footer' ? this.sendHeaderFooterMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
                 });
         });
     }
 
-    sendDataToFrontEnd(data: RowDataPacket[][], apiRes: Response, locale: string) {
-        const feData: FrontEndData = {
-            headerData: JSON.parse(data[0][0].text.toString()),
-            componentsData: {},
-            footerData: JSON.parse(data[2][0].text.toString())
-        };
-        for (const componentData of data[1]) {
-            feData.componentsData[(componentData.prefix.replace(new RegExp(`_${locale}`, 'gi'), '')) as keyof ComponentsTemplate] = JSON.parse((componentData.text as any));
-        }
-        apiRes.end(JSON.stringify(feData));
+    sendComponentMetadata(data: RowDataPacket[][], apiRes: Response) {
+        apiRes.end(data[0][0].text);
+    }
+
+    sendHeaderFooterMetadata(data: RowDataPacket[][], apiRes: Response) {
+        const headerMetadata: HeaderTemplate = JSON.parse(data[0][0].text.toString()) as HeaderTemplate;
+        const footerMetadata: FooterTemplate = JSON.parse(data[1][0].text.toString()) as FooterTemplate;
+        apiRes.end(JSON.stringify({ headerMetadata, footerMetadata }));
     }
 }
 

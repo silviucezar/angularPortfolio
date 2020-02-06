@@ -1,5 +1,5 @@
 import { Injectable, ComponentFactoryResolver, Compiler, ViewContainerRef } from '@angular/core';
-import { ContainerRefs, ComponentsData } from '../Interfaces/ComponentsMetadata';
+import { ContainerRefs } from '../Interfaces/interfaces';
 
 interface ComponentsTemplate {
   about_me: TemplateDetails;
@@ -37,15 +37,15 @@ export class LazyService {
     private c: Compiler
   ) { }
 
-  load(currentUrl: string): Promise<any> {
+  load(currentUrl?: string): Promise<any> {
     return new Promise((resolve) => {
-      const currentComponentsToLoad = this.componentsToLoad(currentUrl);
+      const currentComponentsToLoad = this.componentsToLoad(currentUrl || 'about_me');
       const loadedComponents = [];
       for (const componentName of currentComponentsToLoad) {
         if (this.componentsTemplate[componentName as keyof ComponentsTemplate].isLoaded !== true) {
           console.log('here')
-          const path: string = this.componentsTemplate[componentName as keyof ComponentsData].path;
-          const key: keyof ComponentsData = componentName as keyof ComponentsData;
+          const path: string = this.componentsTemplate[componentName as keyof ComponentsTemplate].path;
+          const key: keyof ComponentsTemplate = componentName as keyof ComponentsTemplate;
           const module = this.componentsTemplate[key].module;
           loadedComponents.push(
             import(`../Components/Content/${path}/${path}.module`).then((m) => {

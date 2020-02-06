@@ -9,7 +9,7 @@ export interface FrontEndData {
     footerData?: FooterTemplate
 }
 
-interface HeaderTemplate {
+export interface HeaderTemplate {
     image?: string;
     intro_header_first_name?: string;
     intro_header_current_role?: string;
@@ -29,7 +29,7 @@ export interface ComponentsTemplate {
     references?: any;
     leave_message?: any;
 }
-interface FooterTemplate {
+export interface FooterTemplate {
     intro_footer_fetching_data?: string;
     intro_footer_settings?: string;
 }

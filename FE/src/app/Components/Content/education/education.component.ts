@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentsMetadata } from 'src/app/Interfaces/ComponentsMetadata';
+// import { ComponentsMetadata } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
 })
 export class EducationComponent implements OnInit {
 
-  private metadata!:ComponentsMetadata;
+  // private metadata!:ComponentsMetadata;
   constructor(
     private pageLogic: PageLogic
   ) {
-    this.pageLogic.subscribeToComponentsMetadata('education').subscribe((componentMetadata: ComponentsMetadata) => this.metadata = componentMetadata);
+    // this.pageLogic.subscribeToComponentsMetadata('education').subscribe((componentMetadata: ComponentsMetadata) => this.metadata = componentMetadata);
 
   }
   ngOnInit() { }

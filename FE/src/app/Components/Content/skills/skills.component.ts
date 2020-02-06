@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef, ElementRef, Output, EventEmitter } from '@angular/core';
-import { DataService } from 'src/app/Services/data.service';
-import { ComponentsMetadata, Lang, ComponentsData } from 'src/app/Interfaces/ComponentsMetadata';
+// import { DataService } from 'src/app/Services/data.service';
+// import { ComponentsMetadata, Lang, ComponentsData } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 
 @Component({
@@ -13,16 +13,16 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
 })
 export class SkillsComponent implements OnInit {
 
-  private metadata!: ComponentsMetadata;
+  // private metadata!: ComponentsMetadata;
   private slidesCount: number = 0;
   constructor(
     private pageLogic: PageLogic
   ) {
-    this.pageLogic.subscribeToComponentsMetadata('skills').subscribe((componentMetadata: ComponentsMetadata) => {
-      this.metadata = componentMetadata;
-      this.slidesCount = this.objectKeys(this.metadata).length;
-      this.pageLogic.setSkillsLoadingState();
-    });
+    // this.pageLogic.subscribeToComponentsMetadata('skills').subscribe((componentMetadata: ComponentsMetadata) => {
+    //   this.metadata = componentMetadata;
+    //   this.slidesCount = this.objectKeys(this.metadata).length;
+    //   this.pageLogic.setSkillsLoadingState();
+    // });
   }
 
 
@@ -32,7 +32,7 @@ export class SkillsComponent implements OnInit {
     image.classList.add('fadeIn');
   }
 
-  objectKeys(object: ComponentsMetadata): string[] {
-    try { return Object.keys(object); } catch (e) { return []; };
-  }
+  // objectKeys(object: ComponentsMetadata): string[] {
+  //   try { return Object.keys(object); } catch (e) { return []; };
+  // }
 }
