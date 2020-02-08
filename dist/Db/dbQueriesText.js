@@ -30,7 +30,7 @@ class DBQuries {
                 )`,
                 `INSERT INTO menu_translations VALUES
                 ('ro_RO','Despre Mine,Aptitudini,Joburi,Educatie,Referinte,Feedback'),
-                ('en_US','About Me,"Skills,Jobs,"Education,References,Feedback')
+                ('en_US','About Me,Skills,Jobs,Education,References,Feedback')
                 `
             ],
             [

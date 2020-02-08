@@ -1,36 +1,36 @@
-<!-- <app-carousel [slidesCount]='slidesCount' class="carousel">
-    <div *ngFor='let skillCategory of objectKeys(metadata)' style='overflow-y: auto;padding:10px'>
+<app-carousel [slidesCount]='slidesCount' class="carousel">
+    <div *ngFor='let skillCategory of pageLogic.objectKeys(metadata[locale])' style='overflow-y: auto;padding:10px'>
         <div class='intro'>
             <div class='intro-img'>
                 {{skillCategory.substring(0,1)}}
             </div>
-            <img [src]='"./app/assets/" + metadata[skillCategory].img_0' [ngClass]='"img" + skillCategory'
+            <img [src]='"./app/assets/" + metadata[locale][skillCategory].img_0' [ngClass]='"img" + skillCategory'
                 (load)='displayImage($event.target)' class='intro-img' />
-            <span class='name'>{{skillCategory !== "otherSkills" ? skillCategory : metadata.otherSkills.title}}</span>
+            <span class='name'>{{skillCategory !== "otherSkills" ? skillCategory : metadata[locale].otherSkills.title}}</span>
         </div>
         <ng-container *ngIf='skillCategory !== "otherSkills"'>
-            <div class='content' *ngFor='let skill of objectKeys(metadata[skillCategory].skill)'>
+            <div class='content' *ngFor='let skill of pageLogic.objectKeys(metadata[locale][skillCategory].skill)'>
                 <div style="font-size:20px">
-                    {{metadata[skillCategory].skill[skill].title}}
+                    {{metadata[locale][skillCategory].skill[skill].title}}
                 </div>
-                <div *ngFor='let skillDescription of metadata[skillCategory].skill[skill].description'>
+                <div *ngFor='let skillDescription of metadata[locale][skillCategory].skill[skill].description'>
                     {{skillDescription}}
                 </div>
             </div>
             <div style='font-size:16px;margin: 0 0 10px 10px;'>
-                {{metadata[skillCategory].knowledgeSummary.title}}
+                {{metadata[locale][skillCategory].knowledgeSummary.title}}
             </div>
-            <span *ngFor='let knowledgeSummary of metadata[skillCategory].knowledgeSummary.description'>
+            <span *ngFor='let knowledgeSummary of metadata[locale][skillCategory].knowledgeSummary.description'>
                 &#8226;{{knowledgeSummary}}
             </span>
         </ng-container>
         <ng-container *ngIf='skillCategory === "otherSkills"'>
             <div style='font-size:16px;margin: 0 0 10px 10px;'>
-                {{ metadata[skillCategory].title}}
+                {{ metadata[locale][skillCategory].title}}
             </div>
-            <div *ngFor='let otherSkillsDescription of metadata[skillCategory].description'>
+            <div *ngFor='let otherSkillsDescription of metadata[locale][skillCategory].description'>
                 &#8226;{{otherSkillsDescription}}
             </div>
         </ng-container>
     </div>
-</app-carousel> -->
+</app-carousel>

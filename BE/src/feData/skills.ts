@@ -1,21 +1,4 @@
 export const SKILLS_RO_RO = {
-    Typescript: {
-        img_0: 'ts.jpg',
-        skill: {
-            angular: {
-                title: 'Angular',
-                description: [
-                    'Acest site a fost dezvoltat in Angular si va servi ca si portfoliu pentru proiecte viitoare.',
-                    'Am incheiat cursul Angular sustinut de -anchorstar-Academia Programatorilor-anchorend-.',
-                    'Acest website a fost dezvoltat complet in Typescript (BackEnd si FrontEnd).'
-                ]
-            },
-        },
-        knowledgeSummary: {
-            title: 'Cunostinte dobandite',
-            description: ['Components Lifecycle', 'Resolvers/Guards', 'Routes', 'Observables/Subscribers', 'Modules', 'Lazy Load', 'Directives', 'Templates & Containers', 'Child/Parent Communication', 'Node @types', 'Classes', 'Type Annotation', 'Variable Protection', 'Interfaces']
-        }
-    },
     Javascript: {
         img_0: 'js.jpg',
         skill: {
@@ -34,7 +17,24 @@ export const SKILLS_RO_RO = {
         },
         knowledgeSummary: {
             title: 'Cunostinte dobandite',
-            description: ['Variable Scope/Closures', 'OOP principles', 'AJAX (Promises)', 'MVC', 'Cookies', 'Storage']
+            description: ['Expertisa vasta cu AJAX si async/await/promises', 'Closures/Scope', 'OOP Principles', 'Design patterns - MVC', 'REST APIs', 'Classes/Objects', 'functii anonime/auto invocate']
+        }
+    },
+    Typescript: {
+        img_0: 'ts.jpg',
+        skill: {
+            angular: {
+                title: 'Angular',
+                description: [
+                    'Am incheiat cursul Angular sustinut de -anchorstar-Academia Programatorilor-anchorend-.',
+                    'Acest site a fost dezvoltat in Angular si va servi ca si portfoliu pentru proiecte viitoare.',
+                    'Acest website a fost dezvoltat complet in Typescript (BackEnd si FrontEnd).'
+                ]
+            },
+        },
+        knowledgeSummary: {
+            title: 'Cunostinte dobandite',
+            description: ['Components Lifecycle', 'Resolvers/Guards', 'Routes', 'Observables/Subscribers', 'Modules', 'Lazy Load', 'Directives', 'Templates & Containers', 'Child/Parent Communication', 'Node @types', 'Classes', 'Type Annotation', 'Variable Protection', 'Interfaces']
         }
     },
     NodeJS: {
@@ -78,50 +78,35 @@ export const SKILLS_RO_RO = {
                 title: 'MySQL',
                 description: [
                     'Folosit pentru automatizarea rapoartelor zilnice pentru un fost angajat.',
-                    'Principala baza de date folosita la locul de munca actual.'
+                    'Principala baza de date folosita la locul de munca actual.',
+                    'Actuala baza de date pentru site - hostingul neavand suport pentru postgres.'
                 ]
             }
         },
         knowledgeSummary: {
             title: 'Cunostinte Dobandite',
-            description: ['Server/db connection and communication.', 'CRUD', 'TRANSACTIONS', 'JOINS']
+            description: ['Server/db connection and communication.','Pooling', 'CRUD', 'TRANSACTIONS', 'JOINS']
         }
     },
     otherSkills: {
         title: 'Altele',
         img_0: 'other.jpg',
         description: [
-            'GitHub, GitLab - CI/DI',
-            'Perforce',
+            'Version Control - GIT',
+            'DevOps - CI/CD',
+            'Intermediate PHP',
+            'Google Scripts',
+            'Agile',
             'Microsoft SQL Server Management Tool',
             'JIRA/Confluence',
             'DevSuite - TechExcel DevTest/DevTrack',
             'Hansoft',
-            'Office Suite (and Basic VBA)',
-            'Google Scripts',
-            'PHP'
+            'Office Suite (si Basic VBA)'
         ]
     }
 };
 
 export const SKILLS_EN_US = {
-    Typescript: {
-        img_0: 'ts.jpg',
-        skill: {
-            angular: {
-                title: 'Angular',
-                description: [
-                    'Developed the current website which will serve as portfolio for future projects.',
-                    'Followed the Angular course taught by -anchorstar-Academia Programatorilor-anchorend-.',
-                    'Both BackEnd and FrontEnd of this website were developed using Typescript and NodeJS.'
-                ]
-            }
-        },
-        knowledgeSummary: {
-            title: 'Acquired Knowledge',
-            description: ['Components Lifecycle', 'Resolvers/Guards', 'Routes', 'Observables/Subscribers', 'Modules', 'Lazy Load', 'Directives', 'Templates & Containers', 'Child/Parent Communication', 'Node @types', 'Classes', 'Type Annotation', 'Variable Protection', 'Interfaces']
-        }
-    },
     Javascript: {
         img_0: 'js.jpg',
         skill: {
@@ -140,21 +125,38 @@ export const SKILLS_EN_US = {
         },
         knowledgeSummary: {
             title: 'Acquired Knowledge',
-            description: ['Variable Scope/Closures', 'OOP principles', 'AJAX (Promises)', 'MVC', 'Cookies', 'Storage']
+            description: ['Extensive AJAX and async/await/promises expertise', 'Closures/Scope', 'OOP Principles', 'Design patterns - MVC', 'REST APIs', 'Classes/Objects', 'Self calling/anonymous functions']
+        }
+    },
+    Typescript: {
+        img_0: 'ts.jpg',
+        skill: {
+            angular: {
+                title: 'Angular',
+                description: [
+                    'Followed the Angular course taught by -anchorstar-Academia Programatorilor-anchorend-.',
+                    'Developed my website which will serve as portfolio for future projects.',
+                    'Both BackEnd and FrontEnd of this website were developed using Typescript and NodeJS.'
+                ]
+            }
+        },
+        knowledgeSummary: {
+            title: 'Acquired Knowledge',
+            description: ['Components Lifecycle', 'Resolvers/Guards', 'Routes', 'Observables/Subscribers', 'Modules', 'Lazy Load', 'Directives', 'Templates & Containers', 'Child/Parent Communication', 'Node @types', 'Classes', 'Type Annotation', 'Variable Protection', 'Interfaces']
         }
     },
     NodeJS: {
         img_0: 'njs.jpg',
         skill: {
             express: {
-                title: 'ExpressJS',
+                title: 'Express',
                 description: [
-                    'Main framework used to develop personal projects to develop BackEnd on previous jobs.',
+                    'Main framework used to develop Back End for both personal projects and job related ones.',
                     'Currently used together with TypeScript.'
                 ]
             },
             electron: {
-                title: 'ElectronJS',
+                title: 'Electron',
                 description: [
                     'Used it to develop applications and scripts for previous employees.'
                 ]
@@ -168,7 +170,7 @@ export const SKILLS_EN_US = {
         },
         knowledgeSummary: {
             title: 'Acquired Knowledge',
-            description: ['Rest API', 'Requests/Response', 'Querystrings', 'Http(s)', 'Filesystem', 'Querystrings', 'Environment Variables']
+            description: ['Rest API', 'Requests/Response', 'Http(s)', 'Filesystem', 'Environment Variables', 'Modules', 'NPM']
         }
     },
     Databases: {
@@ -184,28 +186,30 @@ export const SKILLS_EN_US = {
                 title: 'MySQL',
                 description: [
                     'Used it to automated daily audit reports for a previous employee.',
-                    'Main database used at current job.'
+                    'Main database used at current job.',
+                    'Current database used for the website as the hosting provider does not support postgres.'
                 ]
             }
         },
         knowledgeSummary: {
             title: 'Aquired Knowledge',
-            description: ['Server/db connection and communication.', 'CRUD', 'TRANSACTIONS', 'JOINS']
+            description: ['Server/db connection and communication', 'Pooling', 'CRUD', 'TRANSACTIONS', 'JOINS']
         }
     },
     otherSkills: {
         title: 'Other',
         img_0: 'other.jpg',
         description: [
-            'GitHub, GitLab - CI/DI',
-            'Perforce',
+            'Version Control - GIT',
+            'DevOps - CI/CD',
+            'Intermediate PHP',
+            'Google Scripts',
+            'Agile',
             'Microsoft SQL Server Management Tool',
             'JIRA/Confluence',
             'DevSuite - TechExcel DevTest/DevTrack',
             'Hansoft',
-            'Office Suite (and Basic VBA)',
-            'Google Scripts',
-            'PHP'
+            'Office Suite (and Basic VBA)'
         ]
     }
 };

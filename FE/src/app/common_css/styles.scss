@@ -238,13 +238,6 @@ i {
   grid-template-rows: 100%;
 }
 
-.skillsJobsModal {
-  opacity:0;
-  transition:.5s;
-  pointer-events:none;
-  position: fixed;
-}
-
 .skillsJobsToggle {
   height: 30px;
   width: 125px;
@@ -273,7 +266,13 @@ i {
   border: 2px solid #1C5D99;
   border-radius: 15px;
 }
- 
+
+.skillsJobsModal {
+  opacity:0;
+  pointer-events:none;
+  position: fixed;
+}
+
 .skillsJobsModal.active {
   pointer-events: initial;
   position: fixed;
@@ -286,7 +285,8 @@ i {
   background: rgba(0, 0, 0, 0.9);
   grid-template-columns: 20px auto 20px;
   grid-template-rows: 25% auto 50px;
-  opacity:1
+  opacity:1;
+  transition:.5s;
 }
 
 .modalTabsActiveRoute {

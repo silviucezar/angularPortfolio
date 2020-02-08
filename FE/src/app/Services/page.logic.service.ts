@@ -1,31 +1,27 @@
 import { Injectable } from '@angular/core';
-// import { DataService } from './data.service';
-import { Lang, LangTemplate, ComponentsTemplate, InitialMetadata, LocaleTranslations, LocaleCategory, CategoryDetails, UrlSubscription } from '../Interfaces/interfaces';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { Locale } from '../Interfaces/interfaces';
+import { LangTemplate, ComponentsTemplate, InitialMetadata, LocaleTranslations } from '../Interfaces/interfaces';
+import { BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
 import { UrlListenerService } from './url-listener.service';
-import { LazyService } from './lazy.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageLogic {
 
-  public skillsState$ = new Subject<boolean>();
-  public jobsState$ = new Subject<boolean>();
-  public loadingMetadata$ = new Subject<boolean>();
+  public skillsState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public jobsState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public currentLocaleTranslations$: BehaviorSubject<LocaleTranslations | undefined> = new BehaviorSubject<LocaleTranslations | undefined>(undefined);
   private locale: keyof LangTemplate = 'en_US';
+  private previousUrl: string = 'about-me';
 
   constructor(
     private dataService: DataService,
-    private urlListenerService: UrlListenerService,
-    private lazyService: LazyService
+    private urlListenerService: UrlListenerService
   ) {
     this.urlListenerService.start();
     this.updateMetadataParams();
-    this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe((urlSubscription: UrlSubscription) => this.updateMetadataParams());
+    this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe(() => this.updateMetadataParams());
   }
 
   fetchComponentsMetadata<K extends keyof ComponentsTemplate>(metadata: K): Promise<ComponentsTemplate[K]> {
@@ -36,12 +32,8 @@ export class PageLogic {
     return this.dataService.fetchRouteMetadata('initial', this.locale);
   }
 
-  setSkillsLoadingState() {
-    this.skillsState$.next(true);
-  }
-
-  setJobsLoadingState() {
-    this.jobsState$.next(true);
+  objectKeys(object: JSON): string[] {
+    try { return Object.keys(object); } catch (e) { return []; };
   }
 
   updateMetadataParams(locale?: keyof LangTemplate) {
@@ -49,8 +41,26 @@ export class PageLogic {
       locale: locale || this.locale || 'en_US',
       currentUrl: this.urlListenerService.getCurrentUrl()
     }
-    // this.lazyService.load(this.urlListenerService.getCurrentUrl()).then(()=>)
     this.locale = localeTranslations.locale;
     this.currentLocaleTranslations$.next(localeTranslations);
   };
+
+  setPreviousUrl(previousUrl: string) {
+    this.previousUrl = previousUrl;
+  }
+
+  closeSkillsJobsModal() {
+    console.log('triggere')
+    this.skillsState$.next(false);
+    this.jobsState$.next(false);
+  }
+
+  hideModalSibling(sibling: string) {
+    (this[`${sibling}State$` as 'skillsState$' | 'jobsState$']).next(false);
+    (this[`${sibling === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$']).next(true);
+  }
+
+  setModalTabsState(tab:string) {
+    this[`${tab === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$'].next(true);
+  }
 }

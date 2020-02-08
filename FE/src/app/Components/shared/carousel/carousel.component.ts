@@ -30,7 +30,6 @@ export class CarouselComponent implements OnInit {
       default:
         this.slideIndex = this.slideIndex + indexQuantifier;
     }
-    console.log(this.rootElement)
     this.translateValue = `${-(this.rootElement.nativeElement.querySelector('.slides').getBoundingClientRect().width * this.slideIndex)}px`;
   }
 }

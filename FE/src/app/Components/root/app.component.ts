@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private currentUrl!: string | undefined;
   private locale: keyof LangTemplate = 'en_US';
+  private skillsState: boolean = false;
+  private jobsState: boolean = false;
   private headerMetadata: Lang<HeaderTemplate> = { ro_RO: undefined, en_US: undefined };
   private menuMetadata: Lang<string[]> = { ro_RO: undefined, en_US: undefined };
   private footerMetadata: Lang<FooterTemplate> = { ro_RO: undefined, en_US: undefined };
@@ -33,7 +35,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ) {
     this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
       this.currentUrl = localeTranslations!.currentUrl;
-      console.log(this.currentUrl)
       if (this.headerMetadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
       this.pageLogic.fetchInitialMetadata().then((data: InitialMetadata) => {
         this.locale = localeTranslations!.locale;
@@ -45,9 +46,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // this.pageLogic.skillsState$.pipe(take(1)).subscribe((state: boolean) => this.skillsState = state);
-    // this.pageLogic.jobsState$.pipe(take(1)).subscribe((state: boolean) => this.jobsState = state);
-    // console.log('app', this.jobsState, this.skillsState)
   }
 
   ngAfterViewInit() {
@@ -59,9 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       references: this.references,
       leave_message: this.leave_message
     });
-  }
-
-  objectKeys(obj: any): string[] {
-    return Object.keys(obj);
+    this.pageLogic.skillsState$.subscribe((state: boolean) => this.skillsState = state);
+    this.pageLogic.jobsState$.subscribe((state: boolean) => this.jobsState = state);
   }
 }

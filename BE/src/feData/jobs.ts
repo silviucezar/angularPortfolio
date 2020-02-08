@@ -11,17 +11,17 @@ export const JOBS_RO_RO = {
                 responsabilities: {
                     title: 'Responsabilitati',
                     description: [
-                        'Responsabil de dezvoltarea site-ului -anchorstart-casino777.be-anchorend- si aplicatiile Back Office afiliate utilizand Javascript nativ si AngularJS(BO) pe baza cererilor managementului si a mockupurilor.',
-                        'Partiparea in calluri zilnice cu echipa din Anglia pentru a discuta progresul/provocarile/data de livrarea a taskurilor curent',
-                        'Crearea documentatiei si a rezumatului tehnic pentru taskurile curente'
+                        'Responsabil de dezvoltarea site-ului -anchorstart-casino777.be-anchorend- si aplicatiile Back Office afiliate utilizand Javascript nativ, JQuery, PHP, MySQL si AngularJS(BO) pe baza cererilor managementului si a mockupurilor.',
+                        'Partiparea in calluri zilnice cu echipa din Anglia pentru a discuta progresul, data de livrate si provocarile taskurilor curente.',
+                        'Crearea documentatiei si a rezumatului tehnic pentru functionalitati noi si cele deja existente.'
                     ]
                 },
-                notes: 'In afara de responsive design, UI si logica FE, la nevoie, dezvolt noi elemente de Back End pentru aplicatiile BO ceea ce-mi consolideaza cunostiintele PHP',
                 wins: {
                     title: 'Realizari',
                     description: [
-                        'Studiul si lucrul cu canvas pentru a creea animatii programatice precum bari de incarcare/progres, functionalitate de scroll intr-o poza sau efecte de stralucire si ninsoare ce ma vor ajuta sa creez experiente mai complexe si mai placute la ochi, care, in mod normal ar fi fost foarte ineficient construite doar cu HTML/CSS/JS.',
-                        'Am avut ocazia de a lucra mai mult cu SQL. Dat fiind ca am ca scop sa ajung Fullstack NodeJS Typescript dev, consider ca este esential sa-mi rafinez aceste cunostinte.'
+                        'Folosind Canvas, an creat animatii noi mai complexe si mai puternice ce pot fura ochii.',
+                        'Am adaugat functionalitati noi (BackEnd si FrontEnd) intr-o o aplicatie back office ce se ocupa de modificarea sectiunilor dinamice din website.',
+                        'Am creat un standard dupa care ar trebui sa se scrie documentatia.'
                     ]
                 },
                 technologies: {
@@ -43,18 +43,19 @@ export const JOBS_RO_RO = {
                 responsabilities: {
                     title: 'Responsabilitati',
                     description: [
-                        'Dezvoltare continua a unei aplicatii de inventariere pe baza cerintelor clientilor cu ajutorul urmatoarelor tehnologii:',
-                        'Crearea de scripturi Google Sheets pentru nevoile interne ale companiei precum rapoarte automatizate.'
+                        'Dezvoltarea unei aplicatii de inventar ce se bazeaza puternic pe REST API pe baza cererilor clientilor folosind Electron, Express si AngularJS intr-un sablon MVC.',
+                        'Crearea de macrouri Google Sheets pentru a automatiza taskurile consumatoare de timp precum rapoartele.'
                     ]
                 },
                 wins: {
                     title: 'Realizari',
                     description: [
-                        ' official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
+                        'Am implementat sistemul de comunicare dintre aplicatie si Google Sheets pentru ca managerii sa poate accesa usor cele mai recente date de inventar.',
+                        'Fiind in principiu singurul care lucra cu Google Scripts, ofeream suport intr-un mod activ colegilor si ii ajutam de fiecare data cand era cazul.'
                     ]
                 },
                 technologies: {
-                    title: 'Technologies',
+                    title: 'Tehnologii',
                     description: [
                         'FrontEnd – AngularJs, Bootstrap',
                         'BackEnd – NodeJs – Express pentru routing, SqLite pentru baza de date',
@@ -74,79 +75,54 @@ export const JOBS_RO_RO = {
                 period: 'November 2015 - February 2019',
                 role: 'Compliance and Certification Analyst',
                 responsabilities: {
-                    title: 'Responsabilities - In addition to the Junior role',
+                    title: 'Responsabilitati',
                     description: [
-                        'Core duties involved assisting the Project Lead and Manager in the Project Test Plan creation based on milestones, sprints and applicability of test cases against feature delivery.',
-                        'In an Agile environment, I was creating and assigning tasks for myself and for my other analysts based on priority and dev milestones.',
-                        'Using Perforce, white box testing against secondary branches to confirm their integration in mainline. This covered confirmation/regression testing, adhoc around the newly implemented features and logging any high risk compliace issue.',
-                        'In charge of creating and updating Compliance test cases based on publisher requirements and company legal and customer needs.',
-                        'Based on these testcases, by acting as the bridge between different parties through various communication channels I was providing them with design reviews and risk assessments so that they can take into consideration possible legal and tech limitation',
-                        'Provide the test team with mentorship, support, task priority and insight on the product implementations and specific behaviours.',
-                        'Certification - Lead audit testing efforts on projects before being pushed to live on company distribution platform or before being sent to another 1st Party publisher for a final review and raise awareness of any issue that might occur.',
-                        'Optional - whenever time afforded, I was developing a tool to automate testcases which involved reading files contents to ensure their data and information validity (i.e. User Agreement files or build xmls).'
+                        'Ca si parte din leadership, lucram activ cu  Project Managerii si echipa de Development pentru a asigura o aliniere clara si pentru a planifica/imparti testarea intr-un mediu Agile.',
+                        'Testare White box pe branchuri de dev cu toolul de version control Perforce pentru a confirma ca numai codul lipsit de buguri ajunge in brachul principal.',
+                        'Responsabil cu creerea test cases-urilor bazate pe condiitile impuse de 1st Party Publishers, legale si interne.',
+                        'Detinerea unei expertize vaste ale test case-urilor si antecedentele acestora pentru acorda atat testarii cat si dezvoltarii informatii valide si sfaturi.',
+                        'Deplasarea in sediul din Canada in stadii incipiente ale proiectelor pentru a asigura o comunicare concisa si intelegerea feature-urilor si impactul acestora intre diferite departamente.',
+                        'Certification (un an) - Supervizarea auditelor interne pentru proiecte inainte de a ajunge live pe platformele companiei platform sau inainte de a fi trimise catre 1st Party Publishers pentru un review final.'
                     ]
                 },
                 wins: {
-                    title: 'Wins',
+                    title: 'Realizari',
                     description: [
-                        'Successfully drove discussion between 3 company stakeholders – development team, legal team and our department.',
-                        'Using Electron to develop the afore mentioned tool, I gained hands on Javascript and Node experience and had the oportunity to put my skills to proffesional use, consolidating essential skills which will later prove of great use.',
-                        'Traveled to Canada multiple times to assist the development team during the pre-production phase with feature reviews and business impact. This helped me fine tune my soft skills as a whole, enabling me to easily approach stakeholders whenever necessary.',
-                        'Had the oportunity to grow in a fast paced environment and witness multiple products lifecycles (from pre prod to launch and patches).'
+                        'Am purtat si facilitat cu success comunicarea dintre diferite departament pentru a consolida retalii bazate pe incredere si transparenta.',
+                        'Calatorind in sediu din Canada, am intarit legaturile de incredere deja existente in departamentul nostru si am prezentat o imagine clara a responsabilitatilor noastre intr-un mediu multicultural.',
+                        'Folosind Electron, am automatizat anumite test case-uri bazate pe documente legale cum ar fi EULA, crescand performanta echipei pe taskurile consumatoare de timp.',
+                        'Cu un ochi ager si o mentalitate de a preveni, nu de a actiona, eram intr-o continua atentie pentru a observa potentiale buguri ce ar fi putut pica submisiile la 1st Party, evitand posible resubmisii si salvand timp si bani.'
                     ]
                 },
                 technologies: {
-                    title: 'Technologies',
+                    title: 'Tehnologii',
                     description: [
-                        'FrontEnd - AngularJs, Bootstrap',
-                        'BackEnd - NodeJs – Express for routing, SqLite for database',
-                        'Desktop - Node’s Electron module to deploy as a desktop application'
+                        'Microsoft SQL Server Management Tool',
+                        'JIRA/Confluence',
+                        'DevSuite - TechExcel DevTest/DevTrack',
+                        'Hansoft',
+                        'Office Suite (and Basic VBA)'
                     ]
-                },
-                second: {
-                    period: 'February 2019 - August 2019',
-                    role: 'Junior Compliance Analyst',
-                    responsabilities: {
-                        title: 'Responsabilities',
-                        description: [
-                            'Continuous development of an inventory application based on external clients needs using the following technologies:',
-                            'Creation Google Sheets Scripts for company internal needs such as automated reports.'
-                        ]
-                    },
-                    wins: {
-                        title: 'Wins',
-                        description: [
-                            'First official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
-                        ]
-                    },
-                    technologies: {
-                        title: 'Technologies',
-                        description: [
-                            'FrontEnd – AngularJs, Bootstrap',
-                            'BackEnd – NodeJs – Express for routing, SqLite for database',
-                            'Desktop – Node’s Electron module to deploy as a desktop application'
-                        ]
-                    }
                 }
             },
             second: {
                 period: 'October 2014 - October 2015',
                 role: 'Compliance Test Specialist',
                 responsabilities: {
-                    title: 'Responsabilities',
-                    description: [
-                        'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
-                    ]
-                }
+                    title: 'Responsabilitati',
+                    description: ['In afara task-urilor zilnice de a testa produsul, submitarea buguri si adresarea celor deja existente care aveau nevoie de informatie extra sau regresie/testare de confirmare, am coordonat echipa de testare pe baza coverage-ului, am trimis rapoarte saptamanale si am trainuit angajatii noi.']
+                },
+                wins: {
+                    title: 'Realizari',
+                    description: ['Am creat o cultura interna bazata pe prietenie, crescand productivitatea ca si echipa.']
+                },
             },
             third: {
                 period: 'April 2014 - September 2014',
                 role: 'Compliance Tester',
                 responsabilities: {
-                    title: 'Responsabilities',
-                    description: [
-                        'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
-                    ]
+                    title: 'Responsabilitati',
+                    description: ['Bazandu-ma pe test case-uri de compliance, submitam buguri si le adresam pe cele deja existente, asigurandu-ma ca produsul de care eram responsabil respecta o serie de cerinte legale, interne si impuse de 1st Party Publishers.']
                 }
             }
         }
@@ -166,17 +142,18 @@ export const JOBS_EN_US = {
                 responsabilities: {
                     title: 'Responsabilities',
                     description: [
-                        'In charge of the development of the -anchorstart-casino777.be-anchorend- website and its affiliated Back Office apps using native Javascript, JQuery and AngularJS (for BO) based on management requests and mockups.',
-                        'Take part in daily calls with the England team to discusss current tasks progress/challenges/feature delivery date',
-                        'Create documentation and tech brief for newly requested features'
+                        'In charge of the Front End Development of the https://www.casino777.be/ website and its affiliated BO apps using native Javascript, PHP, MySQL and AngularJS in small quantities.',
+                        'Take part in daily calls with the England team to discuss current features progress, challenges and delivery date.',
+                        'Create documentation and technical briefs for newly requested features.'
                     ]
                 },
                 notes: 'Besides responsive design, UI and FE logic, when needed I develop new Back End features for the BO applications which builds up my PHP knowledge as a whole.',
                 wins: {
                     title: "Wins",
                     description: [
-                        'Had the oportunity to study and work with canvas to create powerful programmatic animations such as loading/progress bars, scroll functionality inside a picture or glowing and snowfall effects which will help me towards creating more complex and eye catching experiences which otherwise would be extremely inneficient with HTML/CSS/JS alone.',
-                        'Had the oportunity to dwelve more into SQL querying. As my long term goal is to become a Fullstack NodeJS Typescript dev, this is an essential skill that I need to fine tune.'
+                        'Worked with Canvas to create powerful programmatic animations creating more complex and eye catching experiences.',
+                        'Added new functionality (both Front End and Back End)  to a back office application to manage certain dynamic sections of the website.',
+                        'Created a standard by which a feature documentation should be written.'
                     ]
                 },
                 technologies: {
@@ -198,14 +175,16 @@ export const JOBS_EN_US = {
                 responsabilities: {
                     title: 'Responsabilities',
                     description: [
-                        'Continuous development of an inventory application based on external clients needs using the following technologies:',
-                        'Creation Google Sheets Scripts for company internal needs such as automated reports.'
+                        'Development of a heavily driven REST API inventory application based on external clients needs using Electron, Express and AngularJS in a MVC pattern.',
+                        'Creation of Google Sheets Macros to automate time consuming tasks such as reports.'
                     ]
                 },
                 wins: {
                     title: 'Wins',
                     description: [
-                        'First official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
+                        'Implemented the communication system between the application and Google Sheets so that managers could easily access the latest inventory data.',
+                        'Being mostly the only one working with Google Scripts, I was actively sharing the knowledge with colleagues and helped them whenever necessary.'
+
                     ]
                 },
                 technologies: {
@@ -218,9 +197,7 @@ export const JOBS_EN_US = {
                 }
             }
         }
-
     },
-
     electronicArtsRomania: {
         company: 'Electronic Arts Romania',
         shortDescription: 'Electronic Arts Inc. is a leading global interactive entertainment software company. EA delivers games, content and online services for Internet-connected consoles, personal computers, mobile phones and tablets.',
@@ -231,59 +208,34 @@ export const JOBS_EN_US = {
                 period: 'November 2015 - February 2019',
                 role: 'Compliance and Certification Analyst',
                 responsabilities: {
-                    title: 'Responsabilities - In addition to the Junior role',
+                    title: 'Responsabilities',
                     description: [
-                        'Core duties involved assisting the Project Lead and Manager in the Project Test Plan creation based on milestones, sprints and applicability of test cases against feature delivery.',
-                        'In an Agile environment, I was creating and assigning tasks for myself and for my other analysts based on priority and dev milestones.',
-                        'Using Perforce, white box testing against secondary branches to confirm their integration in mainline. This covered confirmation/regression testing, adhoc around the newly implemented features and logging any high risk compliace issue.',
-                        'In charge of creating and updating Compliance test cases based on publisher requirements and company legal and customer needs.',
-                        'Based on these testcases, by acting as the bridge between different parties through various communication channels I was providing them with design reviews and risk assessments so that they can take into consideration possible legal and tech limitation',
-                        'Provide the test team with mentorship, support, task priority and insight on the product implementations and specific behaviours.',
-                        'Certification - Lead audit testing efforts on projects before being pushed to live on company distribution platform or before being sent to another 1st Party publisher for a final review and raise awareness of any issue that might occur.',
-                        'Optional - whenever time afforded, I was developing a tool to automate testcases which involved reading files contents to ensure their data and information validity (i.e. User Agreement files or build xmls).'
+                        'As part of leadership, I was actively working with Project Managers and the Development Team to ensure alignment and plan/assign testing in an Agile environment.',
+                        'White box testing on dev branches using Perforce version control tool to confirm only bug free code reached in the mainline branch.',
+                        'In charge of creating test cases based on 1st Party Publishers, Legal and Internal requirements to ensure audit first passes and possible copyright issues.',
+                        'Have an extensive know-how of requirements and their antecedence in order to provide both the testing and development teams with valid information and advice.',
+                        'Travel to Canada in early stages of projects to ensure clear communication and feature understanding between stakeholders.',
+                        'Certification (one year) - Lead internal audit efforts for projects before being pushed to live on company distribution platform or before being sent to another 1st Party Publishers for a final review.'
                     ]
                 },
                 wins: {
                     title: 'Wins',
                     description: [
-                        'Successfully drove discussion between 3 company stakeholders – development team, legal team and our department.',
-                        'Using Electron to develop the afore mentioned tool, I gained hands on Javascript and Node experience and had the oportunity to put my skills to proffesional use, consolidating essential skills which will later prove of great use.',
-                        'Traveled to Canada multiple times to assist the development team during the pre-production phase with feature reviews and business impact. This helped me fine tune my soft skills as a whole, enabling me to easily approach stakeholders whenever necessary.',
-                        'Had the oportunity to grow in a fast paced environment and witness multiple products lifecycles (from pre prod to launch and patches).'
+                        'Successfully drove discussions between multiple parties and consolidated strong relationships based on confidence and transparency.',
+                        'By traveling to Canada, I cemented an already existing trust in our department and provided clear understanding of our responsibilities in a multicultural environment.',
+                        'Using Electron, I automated certain test cases that were based on legal documents such as EULA, increasing team performance on otherwise time consuming tasks.',
+                        'With a keen eye and a prevent than act mentality, I was actively watching for potential audit failing issues to reach 1st Party, avoiding several resubmissions saving cost and time.'
                     ]
                 },
                 technologies: {
                     title: 'Technologies',
                     description: [
-                        'FrontEnd - AngularJs, Bootstrap',
-                        'BackEnd - NodeJs – Express for routing, SqLite for database',
-                        'Desktop - Node’s Electron module to deploy as a desktop application'
+                        'Microsoft SQL Server Management Tool',
+                        'JIRA/Confluence',
+                        'DevSuite - TechExcel DevTest/DevTrack',
+                        'Hansoft',
+                        'Office Suite (and Basic VBA)'
                     ]
-                },
-                second: {
-                    period: 'February 2019 - August 2019',
-                    role: 'Junior Compliance Analyst',
-                    responsabilities: {
-                        title: 'Responsabilities',
-                        description: [
-                            'Continuous development of an inventory application based on external clients needs using the following technologies:',
-                            'Creation Google Sheets Scripts for company internal needs such as automated reports.'
-                        ]
-                    },
-                    wins: {
-                        title: 'Wins',
-                        description: [
-                            'First official interraction with the development industry from which I had the oportunity to apply the MVC design pattern to a proffessional scale with technologies I wish to focus on.'
-                        ]
-                    },
-                    technologies: {
-                        title: 'Technologies',
-                        description: [
-                            'FrontEnd – AngularJs, Bootstrap',
-                            'BackEnd – NodeJs – Express for routing, SqLite for database',
-                            'Desktop – Node’s Electron module to deploy as a desktop application'
-                        ]
-                    }
                 }
             },
             second: {
@@ -291,19 +243,19 @@ export const JOBS_EN_US = {
                 role: 'Compliance Test Specialist',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: [
-                        'Besides daily tasks of testing the product, logging issues and addressing the ones that were sent back by development partners, I coordinated the team in respect to weekly requested coverage, provided weekly testing reports and trained newly hired employees. I was also holding the lead role in his absence.'
-                    ]
-                }
+                    description: ['Besides daily tasks of testing the product, logging issues and addressing the ones in need  of extra info or regression/confirmation testing, I coordinated the team in respect to weekly requested coverage, provided  testing reports and trained the new employees.']
+                },
+                wins: {
+                    title: 'Wins',
+                    description: ['Created an internal culture based on friendship, increasing productivity as a team.']
+                },
             },
             third: {
                 period: 'April 2014 - September 2014',
                 role: 'Compliance Tester',
                 responsabilities: {
                     title: 'Responsabilities',
-                    description: [
-                        'By logging issues and addressing the already existing ones, I was ensuring the product I was assigned on respected a series of legal, company and platform requirements.'
-                    ]
+                    description: ['Based on compliance test cases, I was logging issues and addressed the already existing ones, ensuring the product I was assigned on respected a series of legal, company and platform requirements.']
                 }
             }
         }

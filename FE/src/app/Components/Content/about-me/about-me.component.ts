@@ -20,11 +20,16 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
     private pageLogic: PageLogic
   ) {
     this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
-      if (this.metadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
+      if (this.metadata[localeTranslations!.locale] !== undefined) {
+        this.locale = localeTranslations!.locale;
+        this.pageLogic.closeSkillsJobsModal();
+      } else {
         this.pageLogic.fetchComponentsMetadata('about_me').then((metadata: AboutMe) => {
           this.locale = localeTranslations!.locale;
           this.metadata[this.locale] = metadata;
+          this.pageLogic.closeSkillsJobsModal();
         });
+      }
     });
   }
 

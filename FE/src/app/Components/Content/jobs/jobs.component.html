@@ -1,46 +1,46 @@
-<!-- <app-carousel [slidesCount]='slidesCount' class="carousel">
-    <div *ngFor='let job of objectKeys(metadata)' style='overflow-y: auto'>
+<app-carousel [slidesCount]='slidesCount' class="carousel">
+    <div *ngFor='let job of pageLogic.objectKeys(metadata[locale])' style='overflow-y: auto'>
         <div class='intro'>
             <div class='intro-img'>
                 {{job.substring(0,1)}}
             </div>
-            <img [src]='"./app/assets/" + metadata[job].img_0' [ngClass]='"img" + job'
+            <img [src]='"./app/assets/" + metadata[locale][job].img_0' [ngClass]='"img" + job'
                 (load)='displayImage($event.target)' class='intro-img' />
-            <span class='name'>{{metadata[job].company}}</span>
-            <i>{{metadata[job].shortDescription}}</i>
+            <span class='name'>{{metadata[locale][job].company}}</span>
+            <i>{{metadata[locale][job].shortDescription}}</i>
         </div>
-        <div class='content' *ngFor='let role of objectKeys(metadata[job].roles)'>
+        <div class='content' *ngFor='let role of pageLogic.objectKeys(metadata[locale][job].roles)'>
             <div style="font-size:20px">
-                {{metadata[job].roles[role].role}}
+                {{metadata[locale][job].roles[role].role}}
             </div>
             <div>
-                {{metadata[job].roles[role].period}}
+                {{metadata[locale][job].roles[role].period}}
             </div>
             <div style='margin-left:10px;font-size: 16px;'>
-                {{metadata[job].roles[role].responsabilities.title}}
+                {{metadata[locale][job].roles[role].responsabilities.title}}
             </div>
-            <div *ngFor='let responsability of metadata[job].roles[role].responsabilities.description'>
+            <div *ngFor='let responsability of metadata[locale][job].roles[role].responsabilities.description'>
                 {{responsability}}
             </div>
-            <div *ngIf='metadata[job].roles[role].responsabilities.notes'>
-                {{metadata[job].roles[role].responsabilities.notes}}
+            <div *ngIf='metadata[locale][job].roles[role].responsabilities.notes'>
+                {{metadata[locale][job].roles[role].responsabilities.notes}}
             </div>
-            <div *ngIf='metadata[job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>
-                {{metadata[job].roles[role].wins.title}}
+            <div *ngIf='metadata[locale][job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>
+                {{metadata[locale][job].roles[role].wins.title}}
             </div>
-            <ng-container *ngIf='metadata[job].roles[role].wins'>
-                <div *ngFor='let win of metadata[job].roles[role].wins.description'>
+            <ng-container *ngIf='metadata[locale][job].roles[role].wins'>
+                <div *ngFor='let win of metadata[locale][job].roles[role].wins.description'>
                     {{win}}
                 </div>
             </ng-container>
-            <div *ngIf='metadata[job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>
-                {{metadata[job].roles[role].technologies.title}}
+            <div *ngIf='metadata[locale][job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>
+                {{metadata[locale][job].roles[role].technologies.title}}
             </div>
-            <div *ngIf='metadata[job].roles[role].technologies'>
-                <span *ngFor='let technology of metadata[job].roles[role].technologies.description'>
+            <div *ngIf='metadata[locale][job].roles[role].technologies'>
+                <span *ngFor='let technology of metadata[locale][job].roles[role].technologies.description'>
                     {{technology}}
                 </span>
             </div>
         </div>
     </div>
-</app-carousel> -->
+</app-carousel>
