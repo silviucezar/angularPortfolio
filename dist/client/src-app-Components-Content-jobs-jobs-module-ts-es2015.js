@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<app-carousel [slidesCount]='slidesCount' class=\"carousel\">\r\n    <div *ngFor='let job of objectKeys(metadata[locale])' style='overflow-y: auto'>\r\n        <div class='intro'>\r\n            <div class='intro-img'>\r\n                {{job.substring(0,1)}}\r\n            </div>\r\n            <img [src]='\"./app/assets/\" + metadata[locale][job].img_0' [ngClass]='\"img\" + job'\r\n                (load)='displayImage($event.target)' class='intro-img' />\r\n            <span class='name'>{{metadata[locale][job].company}}</span>\r\n            <i>{{metadata[locale][job].shortDescription}}</i>\r\n        </div>\r\n        <div class='content' *ngFor='let role of objectKeys(metadata[locale][job].roles)'>\r\n            <div style=\"font-size:20px\">\r\n                {{metadata[locale][job].roles[role].role}}\r\n            </div>\r\n            <div>\r\n                {{metadata[locale][job].roles[role].period}}\r\n            </div>\r\n            <div style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].responsabilities.title}}\r\n            </div>\r\n            <div *ngFor='let responsability of metadata[locale][job].roles[role].responsabilities.description'>\r\n                {{responsability}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].responsabilities.notes'>\r\n                {{metadata[locale][job].roles[role].responsabilities.notes}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].wins.title}}\r\n            </div>\r\n            <ng-container *ngIf='metadata[locale][job].roles[role].wins'>\r\n                <div *ngFor='let win of metadata[locale][job].roles[role].wins.description'>\r\n                    {{win}}\r\n                </div>\r\n            </ng-container>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].technologies.title}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies'>\r\n                <span *ngFor='let technology of metadata[locale][job].roles[role].technologies.description'>\r\n                    {{technology}}\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</app-carousel>");
+/* harmony default export */ __webpack_exports__["default"] = ("<app-carousel class=\"carousel\" data-slide-index ='0'>\r\n    <div *ngFor='let job of pageLogic.objectKeys(metadata[locale])' class='slideContainer'>\r\n        <div class='intro'>\r\n            <div class='intro-img'>\r\n                {{job.substring(0,1)}}\r\n            </div>\r\n            <img [src]='\"./app/assets/\" + metadata[locale][job].img_0' [ngClass]='\"img\" + job'\r\n                (load)='displayImage($event.target)' class='intro-img' />\r\n            <span class='name'>{{metadata[locale][job].company}}</span>\r\n            <i>{{metadata[locale][job].shortDescription}}</i>\r\n        </div>\r\n        <div class='content' *ngFor='let role of pageLogic.objectKeys(metadata[locale][job].roles)'>\r\n            <div style=\"font-size:20px\">\r\n                {{metadata[locale][job].roles[role].role}}\r\n            </div>\r\n            <div>\r\n                {{metadata[locale][job].roles[role].period}}\r\n            </div>\r\n            <div style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].responsabilities.title}}\r\n            </div>\r\n            <div *ngFor='let responsability of metadata[locale][job].roles[role].responsabilities.description'>\r\n                {{responsability}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].responsabilities.notes'>\r\n                {{metadata[locale][job].roles[role].responsabilities.notes}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].wins.title}}\r\n            </div>\r\n            <ng-container *ngIf='metadata[locale][job].roles[role].wins'>\r\n                <div *ngFor='let win of metadata[locale][job].roles[role].wins.description'>\r\n                    {{win}}\r\n                </div>\r\n            </ng-container>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].technologies.title}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies'>\r\n                <span *ngFor='let technology of metadata[locale][job].roles[role].technologies.description'>\r\n                    {{technology}}\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</app-carousel>");
 
 /***/ }),
 
@@ -38,23 +38,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JobsComponent", function() { return JobsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/data.service */ "./src/app/Services/data.service.ts");
-/* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
+/* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 
 
+// import { DataService } from 'src/app/Services/data.service';
+// import { ComponentsMetadata, Lang } from 'src/app/Interfaces/interfaces';
 
 
-let JobsComponent = class JobsComponent extends src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__["PageLogic"] {
-    constructor(dataService) {
-        super();
-        this.dataService = dataService;
+let JobsComponent = class JobsComponent {
+    constructor(pageLogic) {
+        this.pageLogic = pageLogic;
         this.metadata = { ro_RO: undefined, en_US: undefined };
-        this.slidesCount = 0;
-        this.dataService.getRoutesMetadata().subscribe((componentsMetadata) => {
-            this.locale = componentsMetadata.currentLocale;
-            this.metadata[this.locale] = componentsMetadata.components.jobs[this.locale];
-            this.slidesCount = this.objectKeys(this.metadata[this.locale]).length;
-            console.log(this.metadata);
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])((localeTranslations) => localeTranslations.currentUrl === 'jobs'))
+            .subscribe((localeTranslations) => {
+            if (this.metadata[localeTranslations.locale] !== undefined) {
+                this.locale = localeTranslations.locale;
+                this.pageLogic.hideModalSibling('skills');
+            }
+            else {
+                this.pageLogic.fetchComponentsMetadata('jobs').then((metadata) => {
+                    this.locale = localeTranslations.locale;
+                    this.metadata[this.locale] = metadata;
+                    this.pageLogic.hideModalSibling('skills');
+                });
+            }
         });
     }
     ngOnInit() { }
@@ -63,7 +72,7 @@ let JobsComponent = class JobsComponent extends src_app_Services_page_logic_serv
     }
 };
 JobsComponent.ctorParameters = () => [
-    { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] }
+    { type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"] }
 ];
 JobsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

@@ -72,8 +72,8 @@ body {
 }
 
 .contracted .appGlobalHeaderContainerImage {
-    grid-column: 2;
-    grid-template: auto 60px auto/auto 60px auto;
+  grid-column: 2;
+  grid-template: auto 60px auto/auto 60px auto;
 }
 
 .contracted .appGlobalHeaderContainerImage div:nth-child(2) {
@@ -86,11 +86,12 @@ body {
 }
 
 .extended .appGlobalHeaderContainerDataText.name {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .contracted .appGlobalHeaderContainerDataText.name {
   font-size: 1.3rem;
+  line-height: 2rem;
 }
 
 .appHeaderRowContent {
@@ -109,7 +110,7 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 100%;
-  position: relative  ;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -119,7 +120,7 @@ body {
 }
 
 .carousel {
-  grid-row: 1/span 2;
+  grid-row: 1 / span 2;
   background: #0b1e2f;
   transition: 0.5s;
   grid-template-columns: 5% auto 5%;
@@ -139,8 +140,13 @@ body {
   position: absolute;
   height: 100%;
   grid-column: 2/2;
-  grid-template-columns: repeat(10,100%);
+  grid-template-columns: repeat(10, 100%);
   overflow: initial;
+}
+
+.carousel .slideContainer {
+  overflow-y: auto;
+  padding: 10px;
 }
 
 .carousel .buttons {
@@ -188,7 +194,7 @@ body {
   text-align: center;
   font-size: 3rem;
   text-transform: uppercase;
-  color: #2C7CB7;
+  color: #2c7cb7;
   font-weight: bold;
 }
 
@@ -202,7 +208,7 @@ body {
   grid-row: 1;
   margin-top: 10px;
   font-size: 28px;
-  margin-bottom:5px
+  margin-bottom: 5px;
 }
 
 i {
@@ -226,11 +232,11 @@ i {
 }
 
 .carousel div {
-  margin-bottom:10px
+  margin-bottom: 10px;
 }
 
 .closeBtn {
-  background-image: url(../assets/close.png)!important;
+  background-image: url(../assets/close.png) !important;
   border-radius: 50%;
 }
 
@@ -263,13 +269,13 @@ i {
   background: #1a4b6e;
   margin-right: 15px;
   max-width: 150px;
-  border: 2px solid #1C5D99;
+  border: 2px solid #1c5d99;
   border-radius: 15px;
 }
 
 .skillsJobsModal {
-  opacity:0;
-  pointer-events:none;
+  opacity: 0;
+  pointer-events: none;
   position: fixed;
 }
 
@@ -285,16 +291,16 @@ i {
   background: rgba(0, 0, 0, 0.9);
   grid-template-columns: 20px auto 20px;
   grid-template-rows: 25% auto 50px;
-  opacity:1;
-  transition:.5s;
+  opacity: 1;
+  transition: 0.5s;
 }
 
 .modalTabsActiveRoute {
   grid-column: 1;
-    background: #0B1E2F;
-    border: 5px double #1A4B6E;
-    border-bottom: none;
-    height: 33px;
+  background: #0b1e2f;
+  border: 5px double #1a4b6e;
+  border-bottom: none;
+  height: 33px;
 }
 
 .skillsModalTabs {
@@ -304,6 +310,27 @@ i {
   grid-template-rows: 30px auto;
   grid-template-columns: repeat(3, 125px) auto;
   position: relative;
+}
+
+.fadeMeIn {
+  opacity: 0;
+}
+
+.fadedIn {
+  animation: 0.5s fadeContentIn;
+  position: relative;
+  opacity:1
+}
+
+@keyframes fadeContentIn {
+  from {
+    top: 10px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @keyframes spiiiin {

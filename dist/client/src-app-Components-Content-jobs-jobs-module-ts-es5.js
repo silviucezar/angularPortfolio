@@ -4,16 +4,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["src-app-Components-Content-jobs-jobs-module-ts"], {
   /***/
   "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/jobs/jobs.component.html":
@@ -31,7 +21,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-carousel [slidesCount]='slidesCount' class=\"carousel\">\r\n    <div *ngFor='let job of objectKeys(metadata[locale])' style='overflow-y: auto'>\r\n        <div class='intro'>\r\n            <div class='intro-img'>\r\n                {{job.substring(0,1)}}\r\n            </div>\r\n            <img [src]='\"./app/assets/\" + metadata[locale][job].img_0' [ngClass]='\"img\" + job'\r\n                (load)='displayImage($event.target)' class='intro-img' />\r\n            <span class='name'>{{metadata[locale][job].company}}</span>\r\n            <i>{{metadata[locale][job].shortDescription}}</i>\r\n        </div>\r\n        <div class='content' *ngFor='let role of objectKeys(metadata[locale][job].roles)'>\r\n            <div style=\"font-size:20px\">\r\n                {{metadata[locale][job].roles[role].role}}\r\n            </div>\r\n            <div>\r\n                {{metadata[locale][job].roles[role].period}}\r\n            </div>\r\n            <div style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].responsabilities.title}}\r\n            </div>\r\n            <div *ngFor='let responsability of metadata[locale][job].roles[role].responsabilities.description'>\r\n                {{responsability}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].responsabilities.notes'>\r\n                {{metadata[locale][job].roles[role].responsabilities.notes}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].wins.title}}\r\n            </div>\r\n            <ng-container *ngIf='metadata[locale][job].roles[role].wins'>\r\n                <div *ngFor='let win of metadata[locale][job].roles[role].wins.description'>\r\n                    {{win}}\r\n                </div>\r\n            </ng-container>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].technologies.title}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies'>\r\n                <span *ngFor='let technology of metadata[locale][job].roles[role].technologies.description'>\r\n                    {{technology}}\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</app-carousel>";
+    __webpack_exports__["default"] = "<app-carousel class=\"carousel\" data-slide-index ='0'>\r\n    <div *ngFor='let job of pageLogic.objectKeys(metadata[locale])' class='slideContainer'>\r\n        <div class='intro'>\r\n            <div class='intro-img'>\r\n                {{job.substring(0,1)}}\r\n            </div>\r\n            <img [src]='\"./app/assets/\" + metadata[locale][job].img_0' [ngClass]='\"img\" + job'\r\n                (load)='displayImage($event.target)' class='intro-img' />\r\n            <span class='name'>{{metadata[locale][job].company}}</span>\r\n            <i>{{metadata[locale][job].shortDescription}}</i>\r\n        </div>\r\n        <div class='content' *ngFor='let role of pageLogic.objectKeys(metadata[locale][job].roles)'>\r\n            <div style=\"font-size:20px\">\r\n                {{metadata[locale][job].roles[role].role}}\r\n            </div>\r\n            <div>\r\n                {{metadata[locale][job].roles[role].period}}\r\n            </div>\r\n            <div style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].responsabilities.title}}\r\n            </div>\r\n            <div *ngFor='let responsability of metadata[locale][job].roles[role].responsabilities.description'>\r\n                {{responsability}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].responsabilities.notes'>\r\n                {{metadata[locale][job].roles[role].responsabilities.notes}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].wins' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].wins.title}}\r\n            </div>\r\n            <ng-container *ngIf='metadata[locale][job].roles[role].wins'>\r\n                <div *ngFor='let win of metadata[locale][job].roles[role].wins.description'>\r\n                    {{win}}\r\n                </div>\r\n            </ng-container>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies' style='margin-left:10px;font-size: 16px;'>\r\n                {{metadata[locale][job].roles[role].technologies.title}}\r\n            </div>\r\n            <div *ngIf='metadata[locale][job].roles[role].technologies'>\r\n                <span *ngFor='let technology of metadata[locale][job].roles[role].technologies.description'>\r\n                    {{technology}}\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</app-carousel>";
     /***/
   },
 
@@ -89,42 +79,48 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     /* harmony import */
 
 
-    var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! src/app/Services/data.service */
-    "./src/app/Services/data.service.ts");
+    var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/Services/page.logic.service */
+    "./src/app/Services/page.logic.service.ts");
     /* harmony import */
 
 
-    var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! src/app/Services/page.logic.service */
-    "./src/app/Services/page.logic.service.ts");
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js"); // import { DataService } from 'src/app/Services/data.service';
+    // import { ComponentsMetadata, Lang } from 'src/app/Interfaces/interfaces';
+
 
     var JobsComponent =
     /*#__PURE__*/
-    function (_src_app_Services_pag) {
-      _inherits(JobsComponent, _src_app_Services_pag);
-
-      function JobsComponent(dataService) {
-        var _this;
+    function () {
+      function JobsComponent(pageLogic) {
+        var _this = this;
 
         _classCallCheck(this, JobsComponent);
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(JobsComponent).call(this));
-        _this.dataService = dataService;
-        _this.metadata = {
+        this.pageLogic = pageLogic;
+        this.metadata = {
           ro_RO: undefined,
           en_US: undefined
         };
-        _this.slidesCount = 0;
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (localeTranslations) {
+          return localeTranslations.currentUrl === 'jobs';
+        })).subscribe(function (localeTranslations) {
+          if (_this.metadata[localeTranslations.locale] !== undefined) {
+            _this.locale = localeTranslations.locale;
 
-        _this.dataService.getRoutesMetadata().subscribe(function (componentsMetadata) {
-          _this.locale = componentsMetadata.currentLocale;
-          _this.metadata[_this.locale] = componentsMetadata.components.jobs[_this.locale];
-          _this.slidesCount = _this.objectKeys(_this.metadata[_this.locale]).length;
-          console.log(_this.metadata);
+            _this.pageLogic.hideModalSibling('skills');
+          } else {
+            _this.pageLogic.fetchComponentsMetadata('jobs').then(function (metadata) {
+              _this.locale = localeTranslations.locale;
+              _this.metadata[_this.locale] = metadata;
+
+              _this.pageLogic.hideModalSibling('skills');
+            });
+          }
         });
-
-        return _this;
       }
 
       _createClass(JobsComponent, [{
@@ -138,11 +134,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       }]);
 
       return JobsComponent;
-    }(src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_3__["PageLogic"]);
+    }();
 
     JobsComponent.ctorParameters = function () {
       return [{
-        type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]
+        type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"]
       }];
     };
 

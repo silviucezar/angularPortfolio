@@ -1,5 +1,5 @@
-<app-carousel [slidesCount]='slidesCount' class="carousel">
-    <div *ngFor='let job of pageLogic.objectKeys(metadata[locale])' style='overflow-y: auto'>
+<app-carousel class="carousel" data-slide-index ='0'>
+    <div *ngFor='let job of pageLogic.objectKeys(metadata[locale])' class='slideContainer'>
         <div class='intro'>
             <div class='intro-img'>
                 {{job.substring(0,1)}}

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, Inject, ElementRef } from '@angular/core';
 import { LangTemplate, ComponentsTemplate, InitialMetadata, LocaleTranslations } from '../Interfaces/interfaces';
 import { BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
 import { UrlListenerService } from './url-listener.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class PageLogic {
 
   constructor(
     private dataService: DataService,
-    private urlListenerService: UrlListenerService
+    private urlListenerService: UrlListenerService,
+    @Inject(DOCUMENT) private _document: Document
   ) {
     this.urlListenerService.start();
     this.updateMetadataParams();
@@ -50,7 +52,6 @@ export class PageLogic {
   }
 
   closeSkillsJobsModal() {
-    console.log('triggere')
     this.skillsState$.next(false);
     this.jobsState$.next(false);
   }
@@ -60,7 +61,22 @@ export class PageLogic {
     (this[`${sibling === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$']).next(true);
   }
 
-  setModalTabsState(tab:string) {
+  setModalTabsState(tab: string) {
     this[`${tab === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$'].next(true);
+  }
+
+  fadeInContent() {
+    setTimeout(() => {
+      const contentContainer = this._document.querySelector('.appGlobalContent')!;
+      console.log(contentContainer.querySelectorAll('.fadeMeIn'))
+      contentContainer.querySelectorAll('.fadeMeIn:not(.fadedIn)').forEach((element: Element, index: number) => {
+        console.log(element, element.getBoundingClientRect().bottom, contentContainer.getBoundingClientRect().bottom)
+        if (element.getBoundingClientRect().bottom < contentContainer.getBoundingClientRect().bottom) {
+          setTimeout(() => {
+            element.classList.add('fadedIn');
+          }, 50 * index);
+        }
+      });
+    }, 200);
   }
 }

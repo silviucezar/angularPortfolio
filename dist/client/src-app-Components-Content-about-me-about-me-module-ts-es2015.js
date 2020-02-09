@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>{{finishedLoading ? metadata[locale].about_me_intro_part_one : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_intro_part_two : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_current_goal : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_hobbies : ''}}</p>");
+/* harmony default export */ __webpack_exports__["default"] = ("<p class='fadeMeIn'>{{metadata[locale]?.intro}}</p>\r\n<p class='fadeMeIn'>{{metadata[locale]?.current_goal}}</p>\r\n<p class='fadeMeIn'>{{metadata[locale]?.hobbies}}</p>");
 
 /***/ }),
 
@@ -38,32 +38,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutMeComponent", function() { return AboutMeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/data.service */ "./src/app/Services/data.service.ts");
+/* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
 
 
 
 let AboutMeComponent = class AboutMeComponent {
-    constructor(dataService) {
-        this.dataService = dataService;
+    constructor(pageLogic) {
+        this.pageLogic = pageLogic;
         this.title = 'FE';
         this.metadata = { ro_RO: undefined, en_US: undefined };
-        this.finishedLoading = false;
-        this.dataService.getRoutesMetadata().subscribe((componentsMetadata) => {
-            this.finishedLoading = true;
-            this.locale = componentsMetadata.currentLocale;
-            this.metadata[this.locale] = componentsMetadata.components.about_me[this.locale];
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations) => {
+            if (this.metadata[localeTranslations.locale] !== undefined) {
+                this.locale = localeTranslations.locale;
+                this.pageLogic.closeSkillsJobsModal();
+            }
+            else {
+                this.pageLogic.fetchComponentsMetadata('about_me').then((metadata) => {
+                    this.locale = localeTranslations.locale;
+                    this.metadata[this.locale] = metadata;
+                    this.pageLogic.closeSkillsJobsModal();
+                });
+            }
         });
     }
     ngOnInit() { }
     ngAfterViewInit() { }
 };
 AboutMeComponent.ctorParameters = () => [
-    { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] }
+    { type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"] }
 ];
 AboutMeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-about-me',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./about-me.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/about-me/about-me.component.html")).default,
+        host: {
+            style: 'position:relative'
+        },
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./about-me.component.scss */ "./src/app/Components/Content/about-me/about-me.component.scss")).default]
     })
 ], AboutMeComponent);

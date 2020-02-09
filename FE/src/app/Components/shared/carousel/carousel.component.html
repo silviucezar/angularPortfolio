@@ -1,5 +1,5 @@
-<span class='previousContent' (click)='displayCurrentContent(-1)'></span>
-<div class='slides' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}' #slidesContainer>
+<span class='previousContent' (click)='triggerSlides(-1)'></span>
+<div class='slides' [ngStyle]='{"transform": "translateX(" + translateValue + ")"}'>
     <ng-content></ng-content>
 </div>
-<span class='nextContent' (click)='displayCurrentContent(1)'></span>
+<span class='nextContent' (click)='triggerSlides(1)'></span>

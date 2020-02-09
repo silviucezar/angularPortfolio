@@ -15,7 +15,6 @@ export class SkillsComponent implements OnInit {
 
   private metadata: Lang<Skills> = { ro_RO: undefined, en_US: undefined };
   private locale: keyof LangTemplate = 'en_US';
-  private slidesCount: number = 0;
   constructor(
     private pageLogic: PageLogic
   ) {
@@ -28,7 +27,7 @@ export class SkillsComponent implements OnInit {
         this.pageLogic.fetchComponentsMetadata('skills').then((metadata: Skills) => {
           this.locale = localeTranslations!.locale;
           this.metadata[this.locale] = metadata;
-          this.slidesCount = this.pageLogic.objectKeys(this.metadata[this.locale] as JSON).length;
+          console.log(this.metadata[this.locale])
           this.pageLogic.hideModalSibling('jobs');
         });
       }

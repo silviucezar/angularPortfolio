@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>{{metadata.sectionTitle}}</h2>");
+/* harmony default export */ __webpack_exports__["default"] = ("<p *ngFor='let reference of metadata[locale]?.references' class='fadeMeIn'>\r\n    {{reference}}\r\n</p>");
 
 /***/ }),
 
@@ -38,22 +38,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReferencesComponent", function() { return ReferencesComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
+
 
 
 let ReferencesComponent = class ReferencesComponent {
-    constructor(viewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
+    constructor(pageLogic) {
+        this.pageLogic = pageLogic;
+        this.metadata = { ro_RO: undefined, en_US: undefined };
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations) => {
+            if (this.metadata[localeTranslations.locale] !== undefined)
+                return this.locale = localeTranslations.locale;
+            this.pageLogic.fetchComponentsMetadata('references').then((metadata) => {
+                this.locale = localeTranslations.locale;
+                this.metadata[this.locale] = metadata;
+            });
+        });
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
 };
 ReferencesComponent.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"] }
+    { type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"] }
 ];
 ReferencesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-references',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./references.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/references/references.component.html")).default,
+        host: {
+            style: 'position:relative'
+        },
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./references.component.scss */ "./src/app/Components/Content/references/references.component.scss")).default]
     })
 ], ReferencesComponent);

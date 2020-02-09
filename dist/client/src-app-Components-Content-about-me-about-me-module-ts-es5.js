@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<p>{{finishedLoading ? metadata[locale].about_me_intro_part_one : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_intro_part_two : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_current_goal : ''}}</p>\r\n<p>{{finishedLoading ? metadata[locale].about_me_hobbies : ''}}</p>";
+    __webpack_exports__["default"] = "<p class='fadeMeIn'>{{metadata[locale]?.intro}}</p>\r\n<p class='fadeMeIn'>{{metadata[locale]?.current_goal}}</p>\r\n<p class='fadeMeIn'>{{metadata[locale]?.hobbies}}</p>";
     /***/
   },
 
@@ -79,29 +79,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! src/app/Services/data.service */
-    "./src/app/Services/data.service.ts");
+    var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/Services/page.logic.service */
+    "./src/app/Services/page.logic.service.ts");
 
     var AboutMeComponent =
     /*#__PURE__*/
     function () {
-      function AboutMeComponent(dataService) {
+      function AboutMeComponent(pageLogic) {
         var _this = this;
 
         _classCallCheck(this, AboutMeComponent);
 
-        this.dataService = dataService;
+        this.pageLogic = pageLogic;
         this.title = 'FE';
         this.metadata = {
           ro_RO: undefined,
           en_US: undefined
         };
-        this.finishedLoading = false;
-        this.dataService.getRoutesMetadata().subscribe(function (componentsMetadata) {
-          _this.finishedLoading = true;
-          _this.locale = componentsMetadata.currentLocale;
-          _this.metadata[_this.locale] = componentsMetadata.components.about_me[_this.locale];
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe(function (localeTranslations) {
+          if (_this.metadata[localeTranslations.locale] !== undefined) {
+            _this.locale = localeTranslations.locale;
+
+            _this.pageLogic.closeSkillsJobsModal();
+          } else {
+            _this.pageLogic.fetchComponentsMetadata('about_me').then(function (metadata) {
+              _this.locale = localeTranslations.locale;
+              _this.metadata[_this.locale] = metadata;
+
+              _this.pageLogic.closeSkillsJobsModal();
+            });
+          }
         });
       }
 
@@ -118,7 +127,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     AboutMeComponent.ctorParameters = function () {
       return [{
-        type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]
+        type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"]
       }];
     };
 
@@ -127,6 +136,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./about-me.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/about-me/about-me.component.html")).default,
+      host: {
+        style: 'position:relative'
+      },
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./about-me.component.scss */
       "./src/app/Components/Content/about-me/about-me.component.scss")).default]

@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 import { Education, Lang, LangTemplate, LocaleTranslations } from 'src/app/Interfaces/interfaces';
 
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.scss']
+  styleUrls: ['./education.component.scss'],
+  host : {
+    class : 'education'
+  }
 })
 export class EducationComponent implements OnInit {
 

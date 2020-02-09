@@ -1,12 +1,13 @@
-<app-carousel [slidesCount]='slidesCount' class="carousel">
-    <div *ngFor='let skillCategory of pageLogic.objectKeys(metadata[locale])' style='overflow-y: auto;padding:10px'>
+<app-carousel class="carousel" data-slide-index='0'>
+    <div *ngFor='let skillCategory of pageLogic.objectKeys(metadata[locale])' class='slideContainer'>
         <div class='intro'>
             <div class='intro-img'>
                 {{skillCategory.substring(0,1)}}
             </div>
             <img [src]='"./app/assets/" + metadata[locale][skillCategory].img_0' [ngClass]='"img" + skillCategory'
                 (load)='displayImage($event.target)' class='intro-img' />
-            <span class='name'>{{skillCategory !== "otherSkills" ? skillCategory : metadata[locale].otherSkills.title}}</span>
+            <span
+                class='name'>{{skillCategory !== "otherSkills" ? skillCategory : metadata[locale].otherSkills.title}}</span>
         </div>
         <ng-container *ngIf='skillCategory !== "otherSkills"'>
             <div class='content' *ngFor='let skill of pageLogic.objectKeys(metadata[locale][skillCategory].skill)'>

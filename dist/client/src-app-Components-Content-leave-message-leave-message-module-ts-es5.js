@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<h2>{{metadata.sectionTitle}}</h2>";
+    __webpack_exports__["default"] = "<textarea id='feedback'></textarea>\r\n<label for='feedback'>{{metadata[locale].writeFeedback}}</label>\r\n<span>{{metadata[locale].sendFeedback}}</span>";
     /***/
   },
 
@@ -79,28 +79,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! src/app/Services/data.service */
-    "./src/app/Services/data.service.ts");
+    var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/Services/page.logic.service */
+    "./src/app/Services/page.logic.service.ts");
 
     var LeaveMessageComponent =
     /*#__PURE__*/
     function () {
-      function LeaveMessageComponent(dataService) {
+      function LeaveMessageComponent(pageLogic) {
         var _this = this;
 
         _classCallCheck(this, LeaveMessageComponent);
 
-        this.dataService = dataService;
+        this.pageLogic = pageLogic;
         this.metadata = {
           ro_RO: undefined,
           en_US: undefined
         };
-        this.loading = true;
-        this.dataService.getRoutesMetadata().subscribe(function (componentsMetadata) {
-          _this.loading = false;
-          _this.currentLocale = componentsMetadata.currentLocale;
-          _this.metadata[_this.currentLocale] = componentsMetadata.components.leave_message[_this.currentLocale];
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe(function (localeTranslations) {
+          if (_this.metadata[localeTranslations.locale] !== undefined) return _this.locale = localeTranslations.locale;
+
+          _this.pageLogic.fetchComponentsMetadata('leave_message').then(function (metadata) {
+            _this.locale = localeTranslations.locale;
+            _this.metadata[_this.locale] = metadata;
+          });
         });
       }
 
@@ -114,7 +117,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     LeaveMessageComponent.ctorParameters = function () {
       return [{
-        type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]
+        type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"]
       }];
     };
 
@@ -123,6 +126,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./leave-message.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/leave-message/leave-message.component.html")).default,
+      host: {
+        style: 'position:relative',
+        class: 'fadeMeIn'
+      },
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./leave-message.component.scss */
       "./src/app/Components/Content/leave-message/leave-message.component.scss")).default]

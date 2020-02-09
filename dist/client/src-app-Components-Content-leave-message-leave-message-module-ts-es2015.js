@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>{{metadata.sectionTitle}}</h2>");
+/* harmony default export */ __webpack_exports__["default"] = ("<textarea id='feedback'></textarea>\r\n<label for='feedback'>{{metadata[locale].writeFeedback}}</label>\r\n<span>{{metadata[locale].sendFeedback}}</span>");
 
 /***/ }),
 
@@ -38,31 +38,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LeaveMessageComponent", function() { return LeaveMessageComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/data.service */ "./src/app/Services/data.service.ts");
+/* harmony import */ var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/page.logic.service */ "./src/app/Services/page.logic.service.ts");
 
 
 
 let LeaveMessageComponent = class LeaveMessageComponent {
-    constructor(dataService) {
-        this.dataService = dataService;
+    constructor(pageLogic) {
+        this.pageLogic = pageLogic;
         this.metadata = { ro_RO: undefined, en_US: undefined };
-        this.loading = true;
-        this.dataService.getRoutesMetadata().subscribe((componentsMetadata) => {
-            this.loading = false;
-            this.currentLocale = componentsMetadata.currentLocale;
-            this.metadata[this.currentLocale] = componentsMetadata.components.leave_message[this.currentLocale];
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations) => {
+            if (this.metadata[localeTranslations.locale] !== undefined)
+                return this.locale = localeTranslations.locale;
+            this.pageLogic.fetchComponentsMetadata('leave_message').then((metadata) => {
+                this.locale = localeTranslations.locale;
+                this.metadata[this.locale] = metadata;
+            });
         });
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
 };
 LeaveMessageComponent.ctorParameters = () => [
-    { type: src_app_Services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"] }
+    { type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"] }
 ];
 LeaveMessageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-leave-message',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./leave-message.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/leave-message/leave-message.component.html")).default,
+        host: {
+            style: 'position:relative',
+            class: 'fadeMeIn'
+        },
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./leave-message.component.scss */ "./src/app/Components/Content/leave-message/leave-message.component.scss")).default]
     })
 ], LeaveMessageComponent);

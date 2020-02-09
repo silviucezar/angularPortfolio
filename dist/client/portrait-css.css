@@ -42,26 +42,17 @@ body {
   height: 110vw;
 }
 
-.skillContainer:nth-child(1) {
-  grid-column: 1;
+.skillsDetails {
+  grid-column: 1/span 5;
 }
 
-.skillContainer:nth-child(2) {
-  grid-column: 2;
-}
-
-.skillContainer:nth-child(3) {
+.modalBtn {
   grid-column: 3;
 }
 
-.skillContainer:nth-child(4) {
-  grid-column: 4;
-}
-
-.skillContainer:nth-child(5) {
-  grid-column: 5;
-}
-
-.skillsDetails {
-  grid-column: 1/span 5;
+.education .container {
+  display: grid;
+  position: relative;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3, auto);
 }

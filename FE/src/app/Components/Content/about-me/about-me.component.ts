@@ -1,13 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-// import { DataService } from 'src/app/Services/data.service';
-// import { Lang, ComponentsMetadata } from 'src/app/Interfaces/interfaces';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { PageLogic } from 'src/app/Services/page.logic.service';
-import { ComponentsTemplate, AboutMe, LangTemplate, LocaleTranslations, Lang } from 'src/app/Interfaces/interfaces';
+import { AboutMe, LangTemplate, LocaleTranslations, Lang } from 'src/app/Interfaces/interfaces';
 
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
-  styleUrls: ['./about-me.component.scss']
+  styleUrls: ['./about-me.component.scss'],
+  host: {
+    style: 'position:relative'
+  }
 
 })
 export class AboutMeComponent implements OnInit, AfterViewInit {

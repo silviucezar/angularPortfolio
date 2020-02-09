@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<h2>{{metadata.sectionTitle}}</h2>";
+    __webpack_exports__["default"] = "<p *ngFor='let reference of metadata[locale]?.references' class='fadeMeIn'>\r\n    {{reference}}\r\n</p>";
     /***/
   },
 
@@ -76,14 +76,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/Services/page.logic.service */
+    "./src/app/Services/page.logic.service.ts");
 
     var ReferencesComponent =
     /*#__PURE__*/
     function () {
-      function ReferencesComponent(viewContainerRef) {
+      function ReferencesComponent(pageLogic) {
+        var _this = this;
+
         _classCallCheck(this, ReferencesComponent);
 
-        this.viewContainerRef = viewContainerRef;
+        this.pageLogic = pageLogic;
+        this.metadata = {
+          ro_RO: undefined,
+          en_US: undefined
+        };
+        this.locale = 'en_US';
+        this.pageLogic.currentLocaleTranslations$.subscribe(function (localeTranslations) {
+          if (_this.metadata[localeTranslations.locale] !== undefined) return _this.locale = localeTranslations.locale;
+
+          _this.pageLogic.fetchComponentsMetadata('references').then(function (metadata) {
+            _this.locale = localeTranslations.locale;
+            _this.metadata[_this.locale] = metadata;
+          });
+        });
       }
 
       _createClass(ReferencesComponent, [{
@@ -96,7 +117,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     ReferencesComponent.ctorParameters = function () {
       return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]
+        type: src_app_Services_page_logic_service__WEBPACK_IMPORTED_MODULE_2__["PageLogic"]
       }];
     };
 
@@ -105,6 +126,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! raw-loader!./references.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/references/references.component.html")).default,
+      host: {
+        style: 'position:relative'
+      },
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./references.component.scss */
       "./src/app/Components/Content/references/references.component.scss")).default]

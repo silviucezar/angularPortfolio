@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { InitService } from 'src/app/Services/init.service';
 
 @Component({
   selector: 'app-carousel',
@@ -8,28 +9,13 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 export class CarouselComponent implements OnInit {
 
-  @Input() private slidesCount!: number;
-
-  private slideIndex: number = 0;
-  private translateValue: string = '0px';
-
   constructor(
-    private rootElement: ElementRef
+    private initService:InitService
   ) { }
 
   ngOnInit() { }
 
-  displayCurrentContent(indexQuantifier: number) {
-    switch (true) {
-      case this.slideIndex + indexQuantifier === this.slidesCount:
-        this.slideIndex = 0;
-        break;
-      case this.slideIndex + indexQuantifier === -1:
-        this.slideIndex = this.slidesCount;
-        break;
-      default:
-        this.slideIndex = this.slideIndex + indexQuantifier;
-    }
-    this.translateValue = `${-(this.rootElement.nativeElement.querySelector('.slides').getBoundingClientRect().width * this.slideIndex)}px`;
+  triggerSlides(indexQuantifier: number) {
+    this.initService.displaySlidesContent(indexQuantifier);
   }
 }

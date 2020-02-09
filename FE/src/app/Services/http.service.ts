@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { PageLogic } from './page.logic.service';
 
 @Injectable({
   providedIn: 'root'

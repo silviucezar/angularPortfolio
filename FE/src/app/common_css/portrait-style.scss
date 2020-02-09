@@ -53,6 +53,9 @@ body {
   grid-column:3
 }
 
-// .skillsDetails.expanded {
-//   height: 40vmax
-// }
+.education .container {
+  display:grid;
+  position: relative;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3,auto);
+}

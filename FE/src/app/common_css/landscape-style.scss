@@ -78,3 +78,12 @@ body {
 .appGlobalHeaderContainerData {
   position: relative;
 }
+
+.education .container {
+  display: grid;
+  position: relative;
+  grid-template-columns:repeat(2,50%);
+  grid-template-rows: repeat(2, 50%);
+  width: 100%;
+  max-width: 850px;
+}

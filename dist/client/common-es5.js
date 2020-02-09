@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<span class='previousContent' (click)='displayCurrentContent(-1)'></span>\r\n<div class='slides' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}' #slidesContainer>\r\n    <ng-content></ng-content>\r\n</div>\r\n<span class='nextContent' (click)='displayCurrentContent(1)'></span>";
+    __webpack_exports__["default"] = "<span class='previousContent' (click)='triggerSlides(-1)'></span>\r\n<div class='slides' [ngStyle]='{\"transform\": \"translateX(\" + translateValue + \")\"}'>\r\n    <ng-content></ng-content>\r\n</div>\r\n<span class='nextContent' (click)='triggerSlides(1)'></span>";
     /***/
   },
 
@@ -76,39 +76,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var src_app_Services_init_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! src/app/Services/init.service */
+    "./src/app/Services/init.service.ts");
 
     var CarouselComponent =
     /*#__PURE__*/
     function () {
-      function CarouselComponent(rootElement) {
+      function CarouselComponent(initService) {
         _classCallCheck(this, CarouselComponent);
 
-        this.rootElement = rootElement;
-        this.slideIndex = 0;
-        this.translateValue = '0px';
+        this.initService = initService;
       }
 
       _createClass(CarouselComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {}
       }, {
-        key: "displayCurrentContent",
-        value: function displayCurrentContent(indexQuantifier) {
-          switch (true) {
-            case this.slideIndex + indexQuantifier === this.slidesCount:
-              this.slideIndex = 0;
-              break;
-
-            case this.slideIndex + indexQuantifier === -1:
-              this.slideIndex = this.slidesCount;
-              break;
-
-            default:
-              this.slideIndex = this.slideIndex + indexQuantifier;
-          }
-
-          console.log(this.rootElement);
-          this.translateValue = "".concat(-(this.rootElement.nativeElement.querySelector('.slides').getBoundingClientRect().width * this.slideIndex), "px");
+        key: "triggerSlides",
+        value: function triggerSlides(indexQuantifier) {
+          this.initService.displaySlidesContent(indexQuantifier);
         }
       }]);
 
@@ -117,11 +107,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     CarouselComponent.ctorParameters = function () {
       return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+        type: src_app_Services_init_service__WEBPACK_IMPORTED_MODULE_2__["InitService"]
       }];
     };
 
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], CarouselComponent.prototype, "slidesCount", void 0);
     CarouselComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-carousel',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -187,73 +176,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]],
       exports: [_carousel_component__WEBPACK_IMPORTED_MODULE_3__["CarouselComponent"]]
     })], CarouselModule);
-    /***/
-  },
-
-  /***/
-  "./src/app/Services/page.logic.service.ts":
-  /*!************************************************!*\
-    !*** ./src/app/Services/page.logic.service.ts ***!
-    \************************************************/
-
-  /*! exports provided: PageLogic */
-
-  /***/
-  function srcAppServicesPageLogicServiceTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PageLogic", function () {
-      return PageLogic;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/fesm2015/core.js");
-
-    var PageLogic =
-    /*#__PURE__*/
-    function () {
-      function PageLogic(renderer) {
-        _classCallCheck(this, PageLogic);
-      }
-
-      _createClass(PageLogic, [{
-        key: "objectKeys",
-        value: function objectKeys(obj) {
-          try {
-            return Object.keys(obj);
-          } catch (e) {
-            return [];
-          }
-
-          ;
-        }
-      }]);
-
-      return PageLogic;
-    }();
-
-    PageLogic.ctorParameters = function () {
-      return [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"]
-      }];
-    };
-
-    PageLogic = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-      providedIn: 'root'
-    })], PageLogic);
     /***/
   }
 }]);
