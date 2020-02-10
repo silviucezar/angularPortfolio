@@ -1,7 +1,7 @@
 <h1 class="appGlobalHeaderContainer">
     <div class="appGlobalHeaderContainerImage">
-        <div></div>
-        <div><span></span></div>
+        <div class='rotateDiv' [ngClass]='{"inactive" : metadata}'></div>
+        <div><img [src]='"./app/assets/" + metadata?.intro_header_image' alt='I'/></div>
     </div>
     <div class="appGlobalHeaderContainerData">
         <div class='appGlobalHeaderContainerDataText name'>

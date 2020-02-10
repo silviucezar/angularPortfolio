@@ -3,42 +3,49 @@
 }
 
 .appGlobalHeaderContainer {
-  z-index    : 1;
-  display    : grid;
+  z-index: 1;
+  display: grid;
   font-weight: normal;
-  margin     : 0
+  margin: 0;
 }
 
 .appGlobalHeaderContainerImage div {
   grid-column: 2;
-  grid-row   : 2;
+  grid-row: 2;
 }
 
 .appGlobalHeaderContainerImage div:nth-child(1) {
-  border-radius    : 50%;
-  background       : linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);
+  border-radius: 50%;
+  background: linear-gradient(deepskyblue, dodgerblue, dodgerblue, dodgerblue, deepskyblue);
   -webkit-animation: 2s spiiiin linear infinite;
-  animation        : 2s spiiiin linear infinite;
+  animation: 2s spiiiin linear infinite;
 }
 
-.appGlobalHeaderContainerImage div:nth-child(2) span {
-  background   : deepskyblue;
-  grid-row     : 2;
-  grid-column  : 2;
-  z-index      : 1;
+.appGlobalHeaderContainerImage div:nth-child(1).inactive {
+  opacity:0;
+  pointer-events: none;
+  transition:.5s
+}
+
+.appGlobalHeaderContainerImage div:nth-child(2) img {
+  width: 100%;
+  background: deepskyblue;
+  grid-row: 2;
+  grid-column: 2;
+  z-index: 1;
   border-radius: 50%;
 }
 
 .appGlobalHeaderContainerData {
-  display    : grid;
-  text-align : right;
+  display: grid;
+  text-align: right;
   font-family: "open sans";
   align-items: center;
-  font-size  : .85rem;
+  font-size: 0.85rem;
 }
 
 .appGlobalHeaderContainerDataText {
   grid-column: 2;
-  width      : 100%;
-  height     : 50%;
+  width: 100%;
+  height: 50%;
 }

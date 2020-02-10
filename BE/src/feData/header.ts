@@ -1,5 +1,5 @@
 export const HEADER_RO_RO = {
-    intro_header_image: 'https://misfitinteractive.com/wp-content/uploads/2018/01/banner-portfolio.jpg',
+    intro_header_image: 'profile.jpg',
     intro_header_first_name: 'Silviu-Cezar',
     intro_header_last_name: 'Cimpoeru',
     intro_header_current_role: 'Front End Developer @ REI Development Services',
