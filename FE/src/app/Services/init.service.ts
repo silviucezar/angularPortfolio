@@ -110,7 +110,11 @@ export class InitService {
     let touchStartY: number;
     let touchStartX: number;
     let containerScrollTop: number;
-    window.onwheel = (event: WheelEvent) => triggerPageScrollOrTouchEvent<WheelEvent>(event);
+    window.onwheel = (event: WheelEvent) => {
+      containerScrollTop = globalContentContainer.scrollTop;
+      console.log(containerScrollTop)
+      triggerPageScrollOrTouchEvent<WheelEvent>(event);
+    }
 
     if (window.ontouchmove === null) {
       window.ontouchstart = (event: TouchEvent) => {
@@ -125,7 +129,6 @@ export class InitService {
       if (self.pageLogic.skillsState$.value || self.pageLogic.jobsState$.value) {
         if (event instanceof TouchEvent) {
           const carousel = self._document.querySelector(".carousel");
-          console.log(event)
           if (event.changedTouches[0].clientY > carousel!.getBoundingClientRect().top && !(event.target as any).className.match(/((previous|next)content)|closeBtn/)) {
             if (event.changedTouches[0].clientX <= touchStartX) {
               self.displaySlidesContent(1);
@@ -135,6 +138,7 @@ export class InitService {
           }
         }
       } else {
+        console.log(containerScrollTop)
         if (containerScrollTop && containerScrollTop !== 0) return;
         self._document.querySelector("#appGlobalGrid")!.className = ((): string => {
           if (event instanceof WheelEvent) {
@@ -186,7 +190,6 @@ export class InitService {
         slideIndex = slideIndex + indexQuantifier;
     }
     carousel.setAttribute('data-slide-index', slideIndex.toString());
-    console.log(slidesContainer.getBoundingClientRect())
     slidesContainer.style.transform = `translateX(${-(slidesContainer.getBoundingClientRect().width * slideIndex)}px)`;
   }
 }

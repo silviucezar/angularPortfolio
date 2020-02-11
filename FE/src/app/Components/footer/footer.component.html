@@ -5,7 +5,7 @@
 </div>
 <div class='contactIcon' [ngClass]='{"closeBtn" : isContactActive}' (click)='toggleContact()'></div>
 <div class='contactContainer icon'>
-    <a class='phone commonButtonClass icon'></a>
-    <a class='linkedin commonButtonClass icon'></a>
+    <a class='phone commonButtonClass icon' href='tel:{{metadata?.phone_no}}'></a>
+    <a class='linkedin commonButtonClass icon' target='_blank' [href]='metadata?.linked_in'></a>
     <a class='downloadcv commonButtonClass icon'></a>
 </div>

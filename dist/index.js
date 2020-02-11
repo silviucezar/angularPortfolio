@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,23 +24,24 @@ const dbMain_1 = require("./Db/dbMain");
 const fs = __importStar(require("fs"));
 const https = __importStar(require("https"));
 const http = __importStar(require("http"));
+const bodyParser = __importStar(require("body-parser"));
 class ExpressApp {
     constructor(app) {
         this.app = app;
         this.db = new dbMain_1.DB();
         process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp();
     }
-    initServedApp() { this.app.listen(8080, () => this.initMetadataApi()); }
+    initServedApp() { this.app.listen(8080, () => this.initAPI()); }
     ;
     initDeployedApp() {
         this.app.use(express_1.default.static('client')).listen(process.env.PORT);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes, apiReq) => {
             apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/client/index.html`);
-            this.initMetadataApi();
+            this.initAPI();
         });
     }
-    initMetadataApi() {
+    initAPI() {
         this.app.get('/api/getMetadata', (apiReq, apiRes) => {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch = apiReq.query.dataToFetch;
@@ -53,6 +63,13 @@ class ExpressApp {
                 dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
             });
         });
+        this.app.post('/api/sendFeedback', bodyParser.json(), (apiReq, apiRes) => __awaiter(this, void 0, void 0, function* () {
+            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
+            yield this.db.insertIntoTables([
+                { Table: 'feedback', Columns: 'message', RowData: `?`, Params: [apiReq.body.feedback] }
+            ]);
+            apiRes.end(JSON.stringify({ status: 'success' }));
+        }));
     }
     sendComponentMetadata(data, apiRes) {
         apiRes.end(data[0][0].text);

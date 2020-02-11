@@ -9,6 +9,8 @@ class DB extends dbFlow_1.DBFlow {
     createTables() { return this.start('create'); }
     selectTables(tables) { return this.start('select', tables); }
     ;
+    insertIntoTables(tables) { return this.start('insert', tables); }
+    ;
 }
 exports.DB = DB;
 //# sourceMappingURL=dbMain.js.map

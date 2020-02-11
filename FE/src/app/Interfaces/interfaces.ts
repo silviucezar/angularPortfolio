@@ -26,6 +26,8 @@ export interface HeaderTemplate {
 export interface FooterTemplate {
     intro_footer_fetching_data: any;
     intro_footer_settings: any;
+    phone_no:string;
+    linked_in:string;
 }
 
 export interface InitialMetadata {

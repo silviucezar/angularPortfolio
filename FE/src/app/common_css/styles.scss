@@ -41,7 +41,6 @@ body {
 .appGlobalContent {
   display: block;
   mask-image: linear-gradient(transparent, black, black, black, black, black, black, black, black, black, transparent);
-  overflow-y: scroll;
   padding: 0 10px 40px 10px;
 }
 
@@ -92,6 +91,10 @@ body {
 .contracted .appGlobalHeaderContainerDataText.name {
   font-size: 1.3rem;
   line-height: 2rem;
+}
+
+.contracted .appGlobalContent {
+  overflow-y: scroll!important;
 }
 
 .appHeaderRowContent {
@@ -254,7 +257,21 @@ i {
   grid-column: 2;
   grid-row: 1;
   bottom: 0;
+  color: #CAF5FE!important;
+  background: #2387BA;
 }
+
+.skillsJobsToggle:nth-child(1) {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 2px solid #2A80AA;
+}
+
+.skillsJobsToggle:nth-child(2) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 
 .skillsJobsMainPage {
   height: 40px;

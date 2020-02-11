@@ -26,6 +26,10 @@ export class PageLogic {
     this.urlListenerService.urlSubscriptionBehaviorSubject$.subscribe(() => this.updateMetadataParams());
   }
 
+  sendFeedback(feedback: string): Promise<Object> {
+    return this.dataService.sendFeedback(feedback);
+  }
+
   fetchComponentsMetadata<K extends keyof ComponentsTemplate>(metadata: K): Promise<ComponentsTemplate[K]> {
     return this.dataService.fetchRouteMetadata(metadata, this.locale);
   }
@@ -68,10 +72,8 @@ export class PageLogic {
   fadeInContent() {
     setTimeout(() => {
       const contentContainer = this._document.querySelector('.appGlobalContent')!;
-      console.log(contentContainer.querySelectorAll('.fadeMeIn'))
       contentContainer.querySelectorAll('.fadeMeIn:not(.fadedIn)').forEach((element: Element, index: number) => {
-        console.log(element, element.getBoundingClientRect().bottom, contentContainer.getBoundingClientRect().bottom)
-        if (element.getBoundingClientRect().bottom < contentContainer.getBoundingClientRect().bottom) {
+        if (element.getBoundingClientRect().bottom - 100 < contentContainer.getBoundingClientRect().bottom) {
           setTimeout(() => {
             element.classList.add('fadedIn');
           }, 50 * index);

@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.headerMetadata[this.locale] = data.headerMetadata;
         this.menuMetadata[this.locale] = data.menuMetadata;
         this.footerMetadata[this.locale] = data.footerMetadata;
+        console.log(this.footerMetadata)
       });
     });
   }

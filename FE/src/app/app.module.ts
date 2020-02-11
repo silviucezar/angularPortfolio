@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './Components/footer/footer.component';
 import { DynamicComponentLoaderComponent } from './Components/Loaders/dynamic-component-loader.component';
 import { HeaderTextLoaderComponent } from './Components/Loaders/header-text-loader.component';
-import { CarouselComponent } from './Components/shared/carousel/carousel.component';
 
 const AppRoutes: Routes = [
   {

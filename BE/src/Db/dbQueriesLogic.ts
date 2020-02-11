@@ -1,6 +1,6 @@
 import { MysqlError, PoolConnection } from 'mysql';
 import { DBQuries } from './dbQueriesText';
-import { SelectQuery } from '../Interfaces/MainDBInterface';
+import { Query } from '../Interfaces/MainDBInterface';
 
 export class DBQueriesLogic {
 
@@ -10,12 +10,14 @@ export class DBQueriesLogic {
         this.queryArrays = new DBQuries().createAndInsert;
     }
 
-    initQuery(connection: PoolConnection, action: string, tables?: SelectQuery[]): Promise<any>[] {
+    initQuery(connection: PoolConnection, action: string, queryDescription?: Query[]): Promise<any>[] {
         switch (action) {
             case 'create':
                 return this.startCreatingTables(connection);
             case 'select':
-                return this.startSelectingTables(connection, tables)
+                return this.startSelectingTables(connection, queryDescription);
+            case 'insert':
+                return this.startInsertingIntoTables(connection, queryDescription);
             default:
                 return [new Promise((resolve, reject) => { reject() })];
         }
@@ -41,7 +43,7 @@ export class DBQueriesLogic {
         return promiseArr;
     }
 
-    startSelectingTables(connection: PoolConnection, tables: SelectQuery[] | undefined): Promise<any>[] {
+    startSelectingTables(connection: PoolConnection, tables: Query[] | undefined): Promise<any>[] {
         const promiseArr: Promise<any>[] = [];
         for (const q of tables!) {
             promiseArr.push(
@@ -50,6 +52,25 @@ export class DBQueriesLogic {
                         if (beginErr) rejectTableSelection(beginErr); else {
                             const params = q.Params;
                             connection.query(`SELECT ${q.Columns} FROM ${q.Table} ${q.Where ? q.Where : ""}`, params, (queryErr, data) => {
+                                if (queryErr) rejectTableSelection(queryErr); else resolveTableSelection(data);
+                            });
+                        }
+                    });
+                })
+            );
+        }
+        return promiseArr;
+    }
+
+    startInsertingIntoTables(connection: PoolConnection, tables: Query[] | undefined): Promise<any>[] {
+        const promiseArr: Promise<any>[] = [];
+        for (const q of tables!) {
+            promiseArr.push(
+                new Promise((resolveTableSelection, rejectTableSelection) => {
+                    connection.query('BEGIN', (beginErr: MysqlError) => {
+                        if (beginErr) rejectTableSelection(beginErr); else {
+                            const params = q.Params;
+                            connection.query(`INSERT INTO ${q.Table} (${q.Columns}) VALUES(${q.RowData})`, params, (queryErr, data) => {
                                 if (queryErr) rejectTableSelection(queryErr); else resolveTableSelection(data);
                             });
                         }

@@ -21,12 +21,12 @@ class DBFlow extends dbQueriesLogic_1.DBQueriesLogic {
             database: process.env.DB || this.localDbConfig.DB
         });
     }
-    start(action, tables) {
+    start(action, queryDescription) {
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err, connection) => {
                 if (err)
                     console.log(err);
-                Promise.all(this.initQuery(connection, action, tables))
+                Promise.all(this.initQuery(connection, action, queryDescription))
                     .then((result) => {
                     this.endConnection(connection);
                     resolve(result);

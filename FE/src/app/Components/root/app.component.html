@@ -20,7 +20,7 @@
     <ng-container #about_me></ng-container>
     <div class='fadeMeIn'>
         <a routerLink='portfolio/skills' class='skillsJobsToggle'
-            (click)='pageLogic.setPreviousUrl(currentUrl)'>{{menuMetadata[locale] ? menuMetadata[locale][1] : ''}}</a>
+            (click)='pageLogic.setPreviousUrl(currentUrl)' style>{{menuMetadata[locale] ? menuMetadata[locale][1] : ''}}</a>
         <a routerLink='portfolio/jobs' class='skillsJobsToggle'
             (click)='pageLogic.setPreviousUrl(currentUrl)'>{{menuMetadata[locale] ? menuMetadata[locale][2] : ''}}</a>
     </div>

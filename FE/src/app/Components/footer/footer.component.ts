@@ -12,10 +12,10 @@ import { InitService } from 'src/app/Services/init.service';
 export class FooterComponent implements OnInit {
 
   @Input() metadata: FooterTemplate | undefined = undefined;
-  @Input() locale: keyof LangTemplate | undefined = undefined;
+  @Input() locale!: keyof LangTemplate;
   private isContactActive: boolean = false;
   private loadingMetadata: boolean = true;
-
+  private telHRef:string = '';
   constructor(
     private pageLogic: PageLogic,
     private http: HttpService,
@@ -30,7 +30,9 @@ export class FooterComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    // this.telHRef = this.metadata!.phone_no
+  }
 
   toggleLanguage() {
     this.locale = this.locale === 'ro_RO' ? 'en_US' : 'ro_RO'

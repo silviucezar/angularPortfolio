@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 import { Lang, LeaveMessage, LangTemplate, LocaleTranslations, References } from 'src/app/Interfaces/interfaces';
+import { NgForm, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-leave-message',
@@ -13,6 +14,7 @@ import { Lang, LeaveMessage, LangTemplate, LocaleTranslations, References } from
 })
 export class LeaveMessageComponent implements OnInit {
 
+  private displayThanks: boolean = false;
   private metadata: Lang<LeaveMessage> = { ro_RO: undefined, en_US: undefined };
   private locale: keyof LangTemplate = 'en_US';
   constructor(
@@ -28,4 +30,11 @@ export class LeaveMessageComponent implements OnInit {
   }
   ngOnInit() { }
 
+  async sendFeedback(feedback: string) {
+    this.displayThanks = true;
+    console.log( this.metadata[this.locale])
+    await this.pageLogic.sendFeedback(feedback);
+    setTimeout(() => { this.displayThanks = false; }, 2000);
+
+  }
 }

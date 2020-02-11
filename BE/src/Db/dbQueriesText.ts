@@ -66,6 +66,12 @@ export class DBQuries {
                     ('${JSON.stringify(LEAVE_MESSAGE_RO_RO)}','leave_message_ro_RO'),
                     ('${JSON.stringify(LEAVE_MESSAGE_EN_US)}','leave_message_en_US')
                 `
+            ],
+            [
+                `CREATE TABLE feedback (
+                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+                    message TEXT
+                )`
             ]
         ];
     }

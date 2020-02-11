@@ -5,12 +5,14 @@ class DBQueriesLogic {
     constructor() {
         this.queryArrays = new dbQueriesText_1.DBQuries().createAndInsert;
     }
-    initQuery(connection, action, tables) {
+    initQuery(connection, action, queryDescription) {
         switch (action) {
             case 'create':
                 return this.startCreatingTables(connection);
             case 'select':
-                return this.startSelectingTables(connection, tables);
+                return this.startSelectingTables(connection, queryDescription);
+            case 'insert':
+                return this.startInsertingIntoTables(connection, queryDescription);
             default:
                 return [new Promise((resolve, reject) => { reject(); })];
         }
@@ -47,6 +49,27 @@ class DBQueriesLogic {
                     else {
                         const params = q.Params;
                         connection.query(`SELECT ${q.Columns} FROM ${q.Table} ${q.Where ? q.Where : ""}`, params, (queryErr, data) => {
+                            if (queryErr)
+                                rejectTableSelection(queryErr);
+                            else
+                                resolveTableSelection(data);
+                        });
+                    }
+                });
+            }));
+        }
+        return promiseArr;
+    }
+    startInsertingIntoTables(connection, tables) {
+        const promiseArr = [];
+        for (const q of tables) {
+            promiseArr.push(new Promise((resolveTableSelection, rejectTableSelection) => {
+                connection.query('BEGIN', (beginErr) => {
+                    if (beginErr)
+                        rejectTableSelection(beginErr);
+                    else {
+                        const params = q.Params;
+                        connection.query(`INSERT INTO ${q.Table} (${q.Columns}) VALUES(${q.RowData})`, params, (queryErr, data) => {
                             if (queryErr)
                                 rejectTableSelection(queryErr);
                             else

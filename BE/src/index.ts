@@ -1,40 +1,41 @@
 import Express, { Application, Request, Response, NextFunction } from 'express';
 import { DB } from "./Db/dbMain";
-import { SelectQuery } from './Interfaces/MainDBInterface';
-import { RowDataPacket, FrontEndData, ComponentsTemplate, FooterTemplate, HeaderTemplate } from './Interfaces/FrontEndData';
+import { Query } from './Interfaces/MainDBInterface';
+import { RowDataPacket, FooterTemplate, HeaderTemplate } from './Interfaces/FrontEndData';
 import * as fs from 'fs';
 import * as https from 'https';
 import * as http from 'http';
+import * as bodyParser from 'body-parser'
 
 class ExpressApp {
 
     private db = new DB();
 
     constructor(
-        public app: Application
+        public app: Application,
     ) {
 
         process.env.DEPLOYED ? this.initDeployedApp() : this.initServedApp();
     }
 
 
-    initServedApp() { this.app.listen(8080, () => this.initMetadataApi()) };
+    initServedApp() { this.app.listen(8080, () => this.initAPI()) };
 
     initDeployedApp() {
         this.app.use(Express.static('client')).listen(process.env.PORT);
         this.app.get(/\/portfolio\/(about-me|skills|jobs|education|references|leave-message)/, (apiRes: Request, apiReq: Response) => {
             apiRes.header(`Access-Control-Allow-Origin : ${process.env.ORIGIN}`);
             apiReq.sendFile(`${__dirname}/client/index.html`);
-            this.initMetadataApi();
+            this.initAPI();
         });
     }
 
-    initMetadataApi() {
+    initAPI() {
         this.app.get('/api/getMetadata', (apiReq: Request, apiRes: Response) => {
             apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
             const dataToFetch: string = apiReq.query.dataToFetch;
             const locale: string = apiReq.query.locale;
-            const tables: SelectQuery[] = dataToFetch === 'initial' ?
+            const tables: Query[] = dataToFetch === 'initial' ?
                 [
                     { Table: 'header_data', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
                     { Table: 'menu_translations', Columns: 'text', Where: `WHERE locale=?`, Params: [locale] },
@@ -50,6 +51,14 @@ class ExpressApp {
                 .catch(() => this.db.selectTables(tables)).then((result: RowDataPacket[][]) => {
                     dataToFetch === 'initial' ? this.sendInitialMetadata(result, apiRes) : this.sendComponentMetadata(result, apiRes);
                 });
+        });
+
+        this.app.post('/api/sendFeedback', bodyParser.json(), async (apiReq: Request, apiRes: Response) => {
+            apiRes.header("Access-Control-Allow-Origin", (process.env.DEPLOYED || 'http://localhost:4200'));
+            await this.db.insertIntoTables([
+                { Table: 'feedback', Columns: 'message', RowData: `?`, Params: [apiReq.body.feedback] }
+            ]);
+            apiRes.end(JSON.stringify({ status: 'success' }));
         });
     }
 

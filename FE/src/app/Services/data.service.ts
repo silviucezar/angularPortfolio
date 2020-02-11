@@ -19,4 +19,10 @@ export class DataService {
       dataToFetch: dataToFetch
     });
   }
+
+  sendFeedback(feedback: string): Promise<Object> {
+    return this.httpService.doPostRequest('sendFeedback', {
+      feedback: feedback
+    });
+  }
 }

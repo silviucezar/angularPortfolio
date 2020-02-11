@@ -1,6 +1,6 @@
 import { Pool, createPool, MysqlError, PoolConnection } from 'mysql';
 import { DBQueriesLogic } from './dbQueriesLogic';
-import { SelectQuery } from '../Interfaces/MainDBInterface';
+import { Query } from '../Interfaces/MainDBInterface';
 import * as fs from 'fs';
 
 
@@ -18,11 +18,11 @@ export class DBFlow extends DBQueriesLogic {
     constructor() {
         super();
     }
-    start(action: string, tables?: SelectQuery[]): Promise<any> {
+    start(action: string, queryDescription?: Query[]): Promise<any> {
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err: MysqlError, connection: PoolConnection) => {
                 if (err) console.log(err);
-                Promise.all(this.initQuery(connection, action, tables))
+                Promise.all(this.initQuery(connection, action, queryDescription))
                     .then((result) => {
                         this.endConnection(connection);
                         resolve(result);

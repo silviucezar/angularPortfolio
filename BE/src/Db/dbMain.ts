@@ -1,6 +1,6 @@
 // import { createConnection, Connection, MysqlError } from 'mysql';
 import { DBFlow } from './dbFlow';
-import { SelectQuery } from '../Interfaces/MainDBInterface';
+import { Query } from '../Interfaces/MainDBInterface';
 
 export class DB extends DBFlow {
 
@@ -10,5 +10,7 @@ export class DB extends DBFlow {
 
     createTables(): Promise<any> { return this.start('create'); }
 
-    selectTables(tables: SelectQuery[]) { return this.start('select', tables); };
+    selectTables(tables: Query[]) { return this.start('select', tables); };
+
+    insertIntoTables(tables: Query[]) { return this.start('insert', tables); };
 }

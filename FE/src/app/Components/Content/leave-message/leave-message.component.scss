@@ -1,0 +1,66 @@
+textarea {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    display: block;
+    height: 65%;
+    resize: none;
+    top: 15%;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+}
+
+form {
+    height:25%;
+    min-height: 225px;
+}
+
+label {
+    max-width: 700px;
+    margin: auto;
+    display: block;
+    resize: none;
+    top: -48%;
+    position: relative;
+    color: grey;
+    padding-left: 10px;
+    font-size: 16px;
+    font-style: italic;
+    pointer-events: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+textarea:focus ~ label,
+textarea:valid ~ label {
+    top:-60%;
+    color:white;
+    padding-left:5px;
+    font-size: 15px;
+}
+
+button {
+    bottom: -10%;
+    right: 0;
+    width: 100%;
+    display: block;
+    resize: none;
+    top: 11%;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    height: 35px;
+    max-width: 275px;
+    border: none;
+    border-radius: 5px;
+    color: #CAF5FE;
+    font-size: 17px;
+    background:#2387BA;
+    transition:1s
+}
+
+.thanks {
+    background:limegreen;
+    color:white
+}

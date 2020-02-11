@@ -1,3 +1,6 @@
-<textarea id='feedback'></textarea>
-<label for='feedback'>{{metadata[locale].writeFeedback}}</label>
-<span>{{metadata[locale].sendFeedback}}</span>
+<form #ngForm='ngForm' (ngSubmit)='sendFeedback(ngForm.value.feedback)' method='post' action='send_feedback'>
+    <textarea required ngModel name='feedback'></textarea>
+    <label for='feedback'>{{metadata[locale].writeFeedback}}</label>
+    <button [ngClass]='{"thanks" : displayThanks}'
+        [disabled]='displayThanks'>{{displayThanks === true ? metadata[locale].thankYou : metadata[locale].sendFeedback}}</button>
+</form>

@@ -58,6 +58,7 @@ a {
 
 .appGlobalContent {
   grid-area: appGlobalContent;
+  overflow: hidden;
 }
 
 .appGlobalMargin {
@@ -81,8 +82,8 @@ a {
   line-height: 30px;
   text-align: center;
   z-index: 4;
-  display:grid;
-  padding:15px;
-  grid-template-columns: repeat(3,30px) auto;
-  grid-gap:15px;
+  display: grid;
+  padding: 15px;
+  grid-template-columns: repeat(3, 30px) auto;
+  grid-gap: 15px;
 }

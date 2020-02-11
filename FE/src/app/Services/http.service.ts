@@ -22,4 +22,8 @@ export class HttpService {
       params: body
     }).pipe(finalize(() => this.activeRequestsCount$.next(this.activeRequestsCount$.value - 1))).toPromise();
   }
+
+  doPostRequest(url: string, postBody: any): Promise<Object> {
+    return this.http.post(`${location.origin}/api/${url}`, postBody).toPromise();
+  }
 }
