@@ -42,7 +42,6 @@ body {
   -webkit-mask-image: linear-gradient(transparent, black, black, black, black, black, black, black, black, black, transparent);
           mask-image: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), color-stop(black), to(transparent));
           mask-image: linear-gradient(transparent, black, black, black, black, black, black, black, black, black, transparent);
-  overflow-y: scroll;
   padding: 0 10px 40px 10px;
 }
 
@@ -93,6 +92,10 @@ body {
 .contracted .appGlobalHeaderContainerDataText.name {
   font-size: 1.3rem;
   line-height: 2rem;
+}
+
+.contracted .appGlobalContent {
+  overflow-y: scroll !important;
 }
 
 .appHeaderRowContent {
@@ -251,7 +254,7 @@ i {
 
 .skillsJobsToggle {
   height: 30px;
-  width: 125px;
+  width: 110px;
   position: relative;
   display: inline-block;
   line-height: 30px;
@@ -259,6 +262,22 @@ i {
   grid-column: 2;
   grid-row: 1;
   bottom: 0;
+}
+
+.skillsJobsToggle.contentButton {
+  color: #caf5fe !important;
+  background: #2387ba;
+}
+
+.skillsJobsToggle.contentButton:nth-child(1) {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 2px solid #2a80aa;
+}
+
+.skillsJobsToggle.contentButton:nth-child(2) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .skillsJobsMainPage {
@@ -282,6 +301,10 @@ i {
   opacity: 0;
   pointer-events: none;
   position: fixed;
+}
+
+.skillsJobsModal .skillsJobsToggle {
+  width: 100%;
 }
 
 .skillsJobsModal.active {
@@ -314,7 +337,7 @@ i {
   grid-row: 2;
   display: grid;
   grid-template-rows: 30px auto;
-  grid-template-columns: repeat(3, 125px) auto;
+  grid-template-columns: repeat(3, minmax(33%, 125px));
   position: relative;
 }
 
@@ -327,6 +350,17 @@ i {
           animation: 0.5s fadeContentIn;
   position: relative;
   opacity: 1;
+}
+
+.modalBtn {
+  grid-column: 3;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  width: 25px;
+  right: 0;
+  height: 30px;
+  position: absolute;
+  background-size: contain;
 }
 
 @-webkit-keyframes fadeContentIn {

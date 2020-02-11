@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<p *ngFor='let reference of metadata[locale]?.references' class='fadeMeIn'>\r\n    {{reference}}\r\n</p>";
+    __webpack_exports__["default"] = "<p class='fadeMeIn'>{{ metadata[locale]?.references[0]}}</p>\r\n<p class='fadeMeIn'>{{ metadata[locale]?.references[1]}}</p>\r\n<p class='fadeMeIn'>{{ metadata[locale]?.references[2]}}</p>\r\n<p class='fadeMeIn'>{{ metadata[locale]?.references[3]}}</p>";
     /***/
   },
 
@@ -127,7 +127,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       /*! raw-loader!./references.component.html */
       "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/references/references.component.html")).default,
       host: {
-        style: 'position:relative'
+        style: 'position:relative',
+        id: "references"
       },
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./references.component.scss */

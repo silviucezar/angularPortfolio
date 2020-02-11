@@ -61,17 +61,6 @@ body {
   right: 0 !important;
 }
 
-.modalBtn {
-  grid-column: 4;
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  width: 25px;
-  right: 20px;
-  height: 30px;
-  position: absolute;
-  background-size: contain;
-}
-
 .appGlobalHeaderContainerDataText,
 .appGlobalHeaderContainerData {
   position: relative;
@@ -84,4 +73,9 @@ body {
   grid-template-rows: repeat(2, 50%);
   width: 100%;
   max-width: 850px;
+  height: 100%;
+}
+
+.education p {
+  margin: auto;
 }

@@ -73,7 +73,8 @@ AboutMeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         selector: 'app-about-me',
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./about-me.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/Content/about-me/about-me.component.html")).default,
         host: {
-            style: 'position:relative'
+            style: 'position:relative',
+            id: "about_me"
         },
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./about-me.component.scss */ "./src/app/Components/Content/about-me/about-me.component.scss")).default]
     })
