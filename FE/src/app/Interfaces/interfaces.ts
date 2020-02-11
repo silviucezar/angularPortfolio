@@ -22,19 +22,18 @@ export interface HeaderTemplate {
     intro_header_about_me?: any;
 }
 
-
 export interface FooterTemplate {
     intro_footer_fetching_data: any;
     intro_footer_settings: any;
-    phone_no:string;
-    linked_in:string;
+    phone_no: string;
+    linked_in: string;
 }
 
 export interface InitialMetadata {
-    headerMetadata? : HeaderTemplate;
-    menuMetadata? : string[];
-    footerMetadata? : FooterTemplate;
-} 
+    headerMetadata?: HeaderTemplate;
+    menuMetadata?: string[];
+    footerMetadata?: FooterTemplate;
+}
 
 export interface ContainerRefs {
     about_me: ViewContainerRef;
@@ -55,11 +54,11 @@ export interface ComponentsTemplate {
     initial: InitialMetadata;
 }
 
-export interface Skills {}
-export interface Jobs {}
-export interface Education {}
-export interface References {}
-export interface LeaveMessage {}
+export interface Skills { }
+export interface Jobs { }
+export interface Education { }
+export interface References { }
+export interface LeaveMessage { }
 
 export interface AboutMe {
     intro?: string;
@@ -93,6 +92,40 @@ export interface CategoryDetails {
 }
 
 export interface LocaleTranslations {
-    locale : keyof LangTemplate;
-    currentUrl:string;
+    locale: keyof LangTemplate;
+    currentUrl: string;
 }
+
+export interface Viewport {
+    activeOrientation: string;
+    inactiveOrientation: string;
+    CSS: {
+        portrait: {
+            loaded: boolean,
+            element: HTMLLinkElement
+        };
+        landscape: {
+            loaded: boolean,
+            element: HTMLLinkElement
+        };
+    };
+    contentComponentsPosition?: ContentComponentsPosition
+}
+
+export interface ContentComponentsPosition {
+    about_me: ComponentPosition;
+    education: ComponentPosition;
+    references: ComponentPosition;
+    leave_message: ComponentPosition;
+}
+
+export interface ComponentPosition {
+    component: HTMLElement;
+    url: string;
+}
+
+
+export interface RequestDetails {
+    activeRequestCount : number,
+    url:string;
+  }

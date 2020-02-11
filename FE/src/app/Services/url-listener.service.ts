@@ -12,10 +12,11 @@ import { LazyService } from './lazy.service';
 
 export class UrlListenerService {
   public urlSubscriptionBehaviorSubject$ = new Subject<UrlSubscription>();
-  private currentUrl:string = 'about-me';
+  public currentUrl: string = 'about-me';
+  public currentCompoentKey: string = 'about_me';
   constructor(
     private router: Router,
-    private lazyService:LazyService
+    private lazyService: LazyService
   ) { }
 
   start() {
@@ -25,12 +26,9 @@ export class UrlListenerService {
         path: event.url !== "/" ? event.url.replace("/portfolio/", "") : 'about-me'
       }
       this.currentUrl = localUrlSubscription.path;
+      this.currentCompoentKey = localUrlSubscription.dataToFetch;
       this.urlSubscriptionBehaviorSubject$.next(localUrlSubscription);
       this.lazyService.load(localUrlSubscription.dataToFetch);
     });
-  }
-
-  getCurrentUrl() :string {
-    return this.currentUrl;
   }
 }

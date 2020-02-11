@@ -7,7 +7,8 @@ import { PageLogic } from 'src/app/Services/page.logic.service';
   templateUrl: './references.component.html',
   styleUrls: ['./references.component.scss'],
   host: {
-    style: 'position:relative'
+    style: 'position:relative',
+    id : "references"
   }
 })
 export class ReferencesComponent implements OnInit {

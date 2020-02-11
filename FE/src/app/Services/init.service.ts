@@ -1,30 +1,19 @@
-import { Injectable, ElementRef, Inject, ɵSWITCH_ELEMENT_REF_FACTORY__POST_R3__ } from '@angular/core';
+import { Injectable, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { LazyService } from './lazy.service';
-import { ContainerRefs } from '../Interfaces/interfaces';
+import { ContainerRefs, Viewport, UrlSubscription, ContentComponentsPosition } from '../Interfaces/interfaces';
 import { PageLogic } from './page.logic.service';
-
-interface ViewportOrientation {
-  activeOrientation: string;
-  inactiveOrientation: string;
-  CSS: {
-    portrait: {
-      loaded: boolean,
-      element: HTMLLinkElement
-    };
-    landscape: {
-      loaded: boolean,
-      element: HTMLLinkElement
-    };
-  }
-}
+import { UrlListenerService } from './url-listener.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InitService {
 
-  private viewport: ViewportOrientation = {
+  private urlSubscription!: UrlSubscription;
+  private scrollInit: boolean = true;
+  private viewport: Viewport = {
     activeOrientation: '',
     inactiveOrientation: '',
     CSS: {
@@ -39,10 +28,13 @@ export class InitService {
     }
   };
 
+  public currentUrl$: BehaviorSubject<string> = new BehaviorSubject<string>('about-me');
+
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private lazyService: LazyService,
-    private pageLogic: PageLogic
+    private pageLogic: PageLogic,
+    private urlListener: UrlListenerService
   ) { }
 
   init(domRootElementRef: ElementRef, containerRefs: ContainerRefs) {
@@ -51,7 +43,6 @@ export class InitService {
     this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
     this.enableCurrentOrientationCSS(domRootElementRef)
       .then(() => {
-        this.setScrollEvent();
         this.setResizeEvent(domRootElementRef);
       });
   }
@@ -62,10 +53,14 @@ export class InitService {
       this.viewport.activeOrientation = screen.orientation.type.replace(/-([a-z]+)/gi, '');
       this.viewport.inactiveOrientation = this.viewport.activeOrientation === 'portrait' ? 'landscape' : 'portrait';
       if (this.viewport.CSS[this.viewport.activeOrientation as 'portrait' | 'landscape'].loaded === false) {
+        this.setContentComponentsPosition();
         this.removeGlobalLoading();
       }
     }
-    this.enableCurrentOrientationCSS(domRootElementRef).then(()=> this.removeGlobalLoading());
+    this.enableCurrentOrientationCSS(domRootElementRef).then(() => {
+      this.removeGlobalLoading();
+      this.setContentComponentsPosition();
+    });
   }
 
   enableCurrentOrientationCSS(domRootElementRef: ElementRef, count?: number): Promise<void> {
@@ -105,15 +100,39 @@ export class InitService {
   }
 
   setScrollEvent() {
+    this.scrollInit = false;
     const globalContentContainer = this._document.querySelector(".appGlobalContent")!;
     const self = this;
     let touchStartY: number;
     let touchStartX: number;
     let containerScrollTop: number;
+    this.setContentComponentsPosition();
+
+    try {
+      globalContentContainer.scrollTo({
+        top: this.viewport.contentComponentsPosition![this.urlListener.currentCompoentKey as keyof ContentComponentsPosition].component.offsetTop - 500,
+        behavior: "auto"
+      });
+    } catch (e) { };
+
+    this.urlListener.urlSubscriptionBehaviorSubject$.subscribe((urlSubscription: UrlSubscription) => {
+      if (urlSubscription.dataToFetch.match(/skills|jobs/)) return;
+      this.urlSubscription = urlSubscription;
+      setTimeout(() => {
+        globalContentContainer.scrollTo({
+          top: urlSubscription.dataToFetch === 'about_me' ? 0 : this.viewport.contentComponentsPosition![urlSubscription.dataToFetch as 'about_me'].component.offsetTop - 200,
+          behavior: "smooth"
+        });
+        setTimeout(() => {
+          self.pageLogic.fadeInContent();
+        }, 200);
+      }, self._document.querySelector("#appGlobalGrid")!.className === 'contracted' ? 0 : 100);
+      self._document.querySelector("#appGlobalGrid")!.className = 'contracted';
+    });
+
     window.onwheel = (event: WheelEvent) => {
       containerScrollTop = globalContentContainer.scrollTop;
-      console.log(containerScrollTop)
-      triggerPageScrollOrTouchEvent<WheelEvent>(event);
+      triggerContentScroll<WheelEvent>(event);
     }
 
     if (window.ontouchmove === null) {
@@ -122,10 +141,12 @@ export class InitService {
         touchStartX = event.touches[0].clientX;
         containerScrollTop = globalContentContainer.scrollTop;
       }
-      window.ontouchend = (event: TouchEvent) => triggerPageScrollOrTouchEvent<TouchEvent>(event);
+      window.ontouchend = (event: TouchEvent) => triggerContentScroll<TouchEvent>(event);
     }
 
-    function triggerPageScrollOrTouchEvent<T>(event: T) {
+    function triggerContentScroll<T>(event: T) {
+      self.setContentComponentsPosition();
+      self.pageLogic.fadeInContent();
       if (self.pageLogic.skillsState$.value || self.pageLogic.jobsState$.value) {
         if (event instanceof TouchEvent) {
           const carousel = self._document.querySelector(".carousel");
@@ -138,7 +159,6 @@ export class InitService {
           }
         }
       } else {
-        console.log(containerScrollTop)
         if (containerScrollTop && containerScrollTop !== 0) return;
         self._document.querySelector("#appGlobalGrid")!.className = ((): string => {
           if (event instanceof WheelEvent) {
@@ -150,7 +170,6 @@ export class InitService {
           }
         })();
       }
-      self.pageLogic.fadeInContent();
     }
   }
 
@@ -168,10 +187,11 @@ export class InitService {
     (this._document.querySelector("#appGlobalLoader") as HTMLDivElement).classList.add('active');
   }
 
-  removeGlobalLoading() {
-    setTimeout(()=>{
+  removeGlobalLoading(initScroll?: boolean) {
+    setTimeout(() => {
       (this._document.querySelector("#appGlobalLoader") as HTMLDivElement).classList.remove('active');
-    },500);
+    }, 500);
+    if (this.scrollInit && initScroll) this.setScrollEvent();
   }
 
   displaySlidesContent(indexQuantifier: number) {
@@ -191,5 +211,26 @@ export class InitService {
     }
     carousel.setAttribute('data-slide-index', slideIndex.toString());
     slidesContainer.style.transform = `translateX(${-(slidesContainer.getBoundingClientRect().width * slideIndex)}px)`;
+  }
+
+  setContentComponentsPosition() {
+    this.viewport.contentComponentsPosition = {
+      about_me: {
+        url: 'about-me',
+        component: this._document.querySelector("#about_me") as HTMLElement
+      },
+      education: {
+        url: 'education',
+        component: this._document.querySelector("#education") as HTMLElement
+      },
+      references: {
+        url: 'references',
+        component: this._document.querySelector("#references") as HTMLElement
+      },
+      leave_message: {
+        url: 'leave_message',
+        component: this._document.querySelector("#leave_message") as HTMLElement
+      }
+    }
   }
 }

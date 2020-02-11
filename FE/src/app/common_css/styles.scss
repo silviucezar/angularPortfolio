@@ -94,7 +94,7 @@ body {
 }
 
 .contracted .appGlobalContent {
-  overflow-y: scroll!important;
+  overflow-y: scroll !important;
 }
 
 .appHeaderRowContent {
@@ -249,7 +249,7 @@ i {
 
 .skillsJobsToggle {
   height: 30px;
-  width: 125px;
+  width: 110px;
   position: relative;
   display: inline-block;
   line-height: 30px;
@@ -257,21 +257,23 @@ i {
   grid-column: 2;
   grid-row: 1;
   bottom: 0;
-  color: #CAF5FE!important;
-  background: #2387BA;
 }
 
-.skillsJobsToggle:nth-child(1) {
+.skillsJobsToggle.contentButton {
+  color: #caf5fe !important;
+  background: #2387ba;
+}
+
+.skillsJobsToggle.contentButton:nth-child(1) {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  border-right: 2px solid #2A80AA;
+  border-right: 2px solid #2a80aa;
 }
 
-.skillsJobsToggle:nth-child(2) {
+.skillsJobsToggle.contentButton:nth-child(2) {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-
 
 .skillsJobsMainPage {
   height: 40px;
@@ -294,6 +296,10 @@ i {
   opacity: 0;
   pointer-events: none;
   position: fixed;
+}
+
+.skillsJobsModal .skillsJobsToggle {
+  width: 100%;
 }
 
 .skillsJobsModal.active {
@@ -325,7 +331,7 @@ i {
   grid-row: 2;
   display: grid;
   grid-template-rows: 30px auto;
-  grid-template-columns: repeat(3, 125px) auto;
+  grid-template-columns: repeat(3, minmax(33%,125px));
   position: relative;
 }
 
@@ -336,7 +342,18 @@ i {
 .fadedIn {
   animation: 0.5s fadeContentIn;
   position: relative;
-  opacity:1
+  opacity: 1;
+}
+
+.modalBtn {
+  grid-column: 3;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  width: 25px;
+  right: 0;
+  height: 30px;
+  position: absolute;
+  background-size: contain;
 }
 
 @keyframes fadeContentIn {

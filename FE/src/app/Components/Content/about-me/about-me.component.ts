@@ -7,7 +7,8 @@ import { AboutMe, LangTemplate, LocaleTranslations, Lang } from 'src/app/Interfa
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
   host: {
-    style: 'position:relative'
+    style: 'position:relative',
+    id : "about_me"
   }
 
 })

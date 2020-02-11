@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FooterTemplate, LangTemplate } from 'src/app/Interfaces/interfaces';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { FooterTemplate, LangTemplate, RequestDetails } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 import { HttpService } from 'src/app/Services/http.service';
 import { InitService } from 'src/app/Services/init.service';
@@ -15,23 +15,26 @@ export class FooterComponent implements OnInit {
   @Input() locale!: keyof LangTemplate;
   private isContactActive: boolean = false;
   private loadingMetadata: boolean = true;
-  private telHRef:string = '';
+
   constructor(
     private pageLogic: PageLogic,
     private http: HttpService,
-    private initService:InitService
+    private initService: InitService
   ) {
-    this.http.activeRequestsCount$.subscribe((activeRequests: number) => {
-      this.loadingMetadata = Boolean(activeRequests);
-      if (activeRequests === 0) {
-        this.initService.removeGlobalLoading()
+    this.http.activeRequestsCount$.subscribe((requestDetails: RequestDetails) => {
+      this.loadingMetadata = Boolean(requestDetails.activeRequestCount);
+      if (requestDetails.activeRequestCount === 0) {
+        this.initService.removeGlobalLoading(true);
         this.pageLogic.fadeInContent();
-      } ;
+        console.log(requestDetails.url)
+        if (!requestDetails.url.match(/skills|jobs|initial/)) {
+          this.pageLogic.resetSkillsJobsModal();
+        }
+      };
     });
   }
 
-  ngOnInit() { 
-    // this.telHRef = this.metadata!.phone_no
+  ngOnInit() {
   }
 
   toggleLanguage() {

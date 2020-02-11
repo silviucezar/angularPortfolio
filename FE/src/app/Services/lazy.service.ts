@@ -38,21 +38,19 @@ export class LazyService {
   ) { }
 
   load(currentUrl: string) {
-    return new Promise((resolve) => {
-      const currentComponentsToLoad = this.componentsToLoad(currentUrl || 'about_me');
-      for (const componentName of currentComponentsToLoad) {
-        if (this.componentsTemplate[componentName as keyof ComponentsTemplate].isLoaded !== true) {
-          const path: string = this.componentsTemplate[componentName as keyof ComponentsTemplate].path;
-          const key: keyof ComponentsTemplate = componentName as keyof ComponentsTemplate;
-          const module = this.componentsTemplate[key].module;
-          import(`../Components/Content/${path}/${path}.module`).then((m) => {
-            const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
-            (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
-            this.componentsTemplate[key].isLoaded = true;
-          });
-        };
-      }
-    });
+    const currentComponentsToLoad = this.componentsToLoad(currentUrl || 'about_me');
+    for (const componentName of currentComponentsToLoad) {
+      if (this.componentsTemplate[componentName as keyof ComponentsTemplate].isLoaded !== true) {
+        const path: string = this.componentsTemplate[componentName as keyof ComponentsTemplate].path;
+        const key: keyof ComponentsTemplate = componentName as keyof ComponentsTemplate;
+        const module = this.componentsTemplate[key].module;
+        import(`../Components/Content/${path}/${path}.module`).then((m) => {
+          const moduleInstance = this.c.compileModuleAndAllComponentsSync(m[module]).componentFactories[path.match(/skills|jobs/) ? 1 : 0];
+          (this.componentsTemplate[key].containerRef as ViewContainerRef).createComponent(moduleInstance);
+          this.componentsTemplate[key].isLoaded = true;
+        });
+      };
+    }
   }
 
   componentsToLoad(middleComponent: string): any[] {

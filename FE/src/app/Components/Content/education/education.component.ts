@@ -7,7 +7,8 @@ import { Education, Lang, LangTemplate, LocaleTranslations } from 'src/app/Inter
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss'],
   host : {
-    class : 'education'
+    class : 'education',
+    id : "education"
   }
 })
 export class EducationComponent implements OnInit {

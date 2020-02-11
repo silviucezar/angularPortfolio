@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private pageLogic: PageLogic
   ) {
     this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
+      console.log(this.currentUrl)
       this.currentUrl = localeTranslations!.currentUrl;
       if (this.headerMetadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
       this.pageLogic.fetchInitialMetadata().then((data: InitialMetadata) => {

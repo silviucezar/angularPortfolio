@@ -9,7 +9,8 @@ import { NgForm, FormGroup } from '@angular/forms';
   styleUrls: ['./leave-message.component.scss'],
   host: {
     style: 'position:relative',
-    class: 'fadeMeIn'
+    class: 'fadeMeIn',
+    id : "leave_message"
   }
 })
 export class LeaveMessageComponent implements OnInit {

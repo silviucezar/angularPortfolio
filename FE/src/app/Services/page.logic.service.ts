@@ -45,7 +45,7 @@ export class PageLogic {
   updateMetadataParams(locale?: keyof LangTemplate) {
     const localeTranslations: LocaleTranslations = {
       locale: locale || this.locale || 'en_US',
-      currentUrl: this.urlListenerService.getCurrentUrl()
+      currentUrl: this.urlListenerService.currentUrl
     }
     this.locale = localeTranslations.locale;
     this.currentLocaleTranslations$.next(localeTranslations);
@@ -69,14 +69,19 @@ export class PageLogic {
     this[`${tab === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$'].next(true);
   }
 
+  resetSkillsJobsModal() {
+    this.skillsState$.next(false);
+    this.jobsState$.next(false);
+  }
+
   fadeInContent() {
     setTimeout(() => {
       const contentContainer = this._document.querySelector('.appGlobalContent')!;
       contentContainer.querySelectorAll('.fadeMeIn:not(.fadedIn)').forEach((element: Element, index: number) => {
-        if (element.getBoundingClientRect().bottom - 100 < contentContainer.getBoundingClientRect().bottom) {
+        if (element.getBoundingClientRect().top < contentContainer.getBoundingClientRect().bottom) {
           setTimeout(() => {
             element.classList.add('fadedIn');
-          }, 50 * index);
+          }, 75 * index);
         }
       });
     }, 200);
