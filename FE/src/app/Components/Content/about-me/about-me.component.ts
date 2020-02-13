@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 import { AboutMe, LangTemplate, LocaleTranslations, Lang } from 'src/app/Interfaces/interfaces';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-about-me',
@@ -21,15 +22,17 @@ export class AboutMeComponent implements OnInit, AfterViewInit {
   constructor(
     private pageLogic: PageLogic
   ) {
-    this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
+    this.pageLogic.currentLocaleTranslations$.pipe(filter((localeTranslations) => !localeTranslations!.currentUrl.match(/skills|jobs/)))
+    .subscribe((localeTranslations: LocaleTranslations | undefined) => {
+      console.log(localeTranslations!.currentUrl)
       if (this.metadata[localeTranslations!.locale] !== undefined) {
         this.locale = localeTranslations!.locale;
-        this.pageLogic.closeSkillsJobsModal();
+        this.pageLogic.modalState$.next(false);
       } else {
         this.pageLogic.fetchComponentsMetadata('about_me').then((metadata: AboutMe) => {
           this.locale = localeTranslations!.locale;
           this.metadata[this.locale] = metadata;
-          this.pageLogic.closeSkillsJobsModal();
+          this.pageLogic.modalState$.next(false);
         });
       }
     });

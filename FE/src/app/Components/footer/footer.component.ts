@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FooterTemplate, LangTemplate, RequestDetails } from 'src/app/Interfaces/interfaces';
 import { PageLogic } from 'src/app/Services/page.logic.service';
 import { HttpService } from 'src/app/Services/http.service';
@@ -11,8 +11,9 @@ import { InitService } from 'src/app/Services/init.service';
 })
 export class FooterComponent implements OnInit {
 
-  @Input() metadata: FooterTemplate | undefined = undefined;
-  @Input() locale!: keyof LangTemplate;
+  @Input() private metadata: FooterTemplate | undefined = undefined;
+  @Input() private locale!: keyof LangTemplate;
+  @Output() private onModalStateChange:EventEmitter<boolean> = new EventEmitter<boolean>();
   private isContactActive: boolean = false;
   private loadingMetadata: boolean = true;
 
@@ -26,9 +27,8 @@ export class FooterComponent implements OnInit {
       if (requestDetails.activeRequestCount === 0) {
         this.initService.removeGlobalLoading(true);
         this.pageLogic.fadeInContent();
-        console.log(requestDetails.url)
-        if (!requestDetails.url.match(/skills|jobs|initial/)) {
-          this.pageLogic.resetSkillsJobsModal();
+        if (requestDetails.url.match(/skills|jobs|initial/)) {
+         this.pageLogic.modalState$.next(true);
         }
       };
     });

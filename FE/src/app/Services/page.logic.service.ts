@@ -10,11 +10,10 @@ import { DOCUMENT } from '@angular/common';
 })
 export class PageLogic {
 
-  public skillsState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public jobsState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public currentLocaleTranslations$: BehaviorSubject<LocaleTranslations | undefined> = new BehaviorSubject<LocaleTranslations | undefined>(undefined);
+  public modalState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   private locale: keyof LangTemplate = 'en_US';
-  private previousUrl: string = 'about-me';
 
   constructor(
     private dataService: DataService,
@@ -51,27 +50,9 @@ export class PageLogic {
     this.currentLocaleTranslations$.next(localeTranslations);
   };
 
-  setPreviousUrl(previousUrl: string) {
-    this.previousUrl = previousUrl;
-  }
-
-  closeSkillsJobsModal() {
-    this.skillsState$.next(false);
-    this.jobsState$.next(false);
-  }
-
-  hideModalSibling(sibling: string) {
-    (this[`${sibling}State$` as 'skillsState$' | 'jobsState$']).next(false);
-    (this[`${sibling === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$']).next(true);
-  }
-
-  setModalTabsState(tab: string) {
-    this[`${tab === 'skills' ? 'jobs' : 'skills'}State$` as 'skillsState$' | 'jobsState$'].next(true);
-  }
-
-  resetSkillsJobsModal() {
-    this.skillsState$.next(false);
-    this.jobsState$.next(false);
+  toggleHeader() {
+    this._document.querySelector("#appGlobalGrid")!.classList.toggle('contracted');
+    this.fadeInContent();
   }
 
   fadeInContent() {

@@ -24,12 +24,13 @@ export class JobsComponent implements OnInit {
     .subscribe((localeTranslations: LocaleTranslations | undefined) => {
       if (this.metadata[localeTranslations!.locale] !== undefined) {
         this.locale = localeTranslations!.locale;
-        this.pageLogic.hideModalSibling('skills');
+        this.pageLogic.modalState$.next(true);
+        console.log(this.pageLogic.modalState$.value)
       } else {
         this.pageLogic.fetchComponentsMetadata('jobs').then((metadata: Jobs) => {
           this.locale = localeTranslations!.locale;
           this.metadata[this.locale] = metadata;
-          this.pageLogic.hideModalSibling('skills');
+          this.pageLogic.modalState$.next(true);
         });
       } 
     });

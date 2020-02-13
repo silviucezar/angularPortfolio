@@ -22,9 +22,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('leave_message', { read: ViewContainerRef, static: true }) leave_message!: ViewContainerRef;
 
   private currentUrl!: string | undefined;
+  private previousUrl: string = 'about-me';
   private locale: keyof LangTemplate = 'en_US';
-  private skillsState: boolean = false;
-  private jobsState: boolean = false;
+  private modalState: boolean = false;
   private headerMetadata: Lang<HeaderTemplate> = { ro_RO: undefined, en_US: undefined };
   private menuMetadata: Lang<string[]> = { ro_RO: undefined, en_US: undefined };
   private footerMetadata: Lang<FooterTemplate> = { ro_RO: undefined, en_US: undefined };
@@ -33,22 +33,29 @@ export class AppComponent implements OnInit, AfterViewInit {
     private domRootElementRef: ElementRef,
     private pageLogic: PageLogic
   ) {
+    this.pageLogic.modalState$.subscribe((modalState: boolean) => {
+      this.modalState = modalState
+      console.log(this.modalState)
+    });
     this.pageLogic.currentLocaleTranslations$.subscribe((localeTranslations: LocaleTranslations | undefined) => {
-      console.log(this.currentUrl)
-      this.currentUrl = localeTranslations!.currentUrl;
+      if (localeTranslations!.currentUrl.match(/skills|jobs/)) {
+        this.previousUrl = localeTranslations!.currentUrl;
+
+        this.currentUrl = this.previousUrl;
+      } else {
+        this.currentUrl = localeTranslations!.currentUrl;
+      }
       if (this.headerMetadata[localeTranslations!.locale] !== undefined) return this.locale = localeTranslations!.locale;
       this.pageLogic.fetchInitialMetadata().then((data: InitialMetadata) => {
         this.locale = localeTranslations!.locale;
         this.headerMetadata[this.locale] = data.headerMetadata;
         this.menuMetadata[this.locale] = data.menuMetadata;
         this.footerMetadata[this.locale] = data.footerMetadata;
-        console.log(this.footerMetadata)
       });
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.initService.init(this.domRootElementRef, {
@@ -59,7 +66,5 @@ export class AppComponent implements OnInit, AfterViewInit {
       references: this.references,
       leave_message: this.leave_message
     });
-    this.pageLogic.skillsState$.subscribe((state: boolean) => this.skillsState = state);
-    this.pageLogic.jobsState$.subscribe((state: boolean) => this.jobsState = state);
   }
 }

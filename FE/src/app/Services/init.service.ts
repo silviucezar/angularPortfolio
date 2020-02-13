@@ -11,7 +11,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InitService {
 
-  private urlSubscription!: UrlSubscription;
   private scrollInit: boolean = true;
   private viewport: Viewport = {
     activeOrientation: '',
@@ -103,11 +102,8 @@ export class InitService {
     this.scrollInit = false;
     const globalContentContainer = this._document.querySelector(".appGlobalContent")!;
     const self = this;
-    let touchStartY: number;
-    let touchStartX: number;
-    let containerScrollTop: number;
     this.setContentComponentsPosition();
-
+    let previousLocalUrl: string = ''
     try {
       globalContentContainer.scrollTo({
         top: this.viewport.contentComponentsPosition![this.urlListener.currentCompoentKey as keyof ContentComponentsPosition].component.offsetTop - 500,
@@ -116,61 +112,24 @@ export class InitService {
     } catch (e) { };
 
     this.urlListener.urlSubscriptionBehaviorSubject$.subscribe((urlSubscription: UrlSubscription) => {
-      if (urlSubscription.dataToFetch.match(/skills|jobs/)) return;
-      this.urlSubscription = urlSubscription;
-      setTimeout(() => {
+      if (previousLocalUrl.match(/skills|jobs/)) {
+        previousLocalUrl = urlSubscription.path;
+      } else {
+        if (urlSubscription.dataToFetch.match(/skills|jobs/)) return;
+        previousLocalUrl = urlSubscription.path;
         globalContentContainer.scrollTo({
-          top: urlSubscription.dataToFetch === 'about_me' ? 0 : this.viewport.contentComponentsPosition![urlSubscription.dataToFetch as 'about_me'].component.offsetTop - 200,
+          top: urlSubscription.dataToFetch === 'about_me' ? 0 : this.viewport.contentComponentsPosition![urlSubscription.dataToFetch as 'about_me'].component.offsetTop - 500,
           behavior: "smooth"
         });
         setTimeout(() => {
           self.pageLogic.fadeInContent();
         }, 200);
-      }, self._document.querySelector("#appGlobalGrid")!.className === 'contracted' ? 0 : 100);
-      self._document.querySelector("#appGlobalGrid")!.className = 'contracted';
+      }
     });
 
-    window.onwheel = (event: WheelEvent) => {
-      containerScrollTop = globalContentContainer.scrollTop;
-      triggerContentScroll<WheelEvent>(event);
-    }
-
-    if (window.ontouchmove === null) {
-      window.ontouchstart = (event: TouchEvent) => {
-        touchStartY = event.touches[0].clientY;
-        touchStartX = event.touches[0].clientX;
-        containerScrollTop = globalContentContainer.scrollTop;
-      }
-      window.ontouchend = (event: TouchEvent) => triggerContentScroll<TouchEvent>(event);
-    }
-
-    function triggerContentScroll<T>(event: T) {
-      self.setContentComponentsPosition();
+    globalContentContainer.addEventListener('scroll', (e) => {
       self.pageLogic.fadeInContent();
-      if (self.pageLogic.skillsState$.value || self.pageLogic.jobsState$.value) {
-        if (event instanceof TouchEvent) {
-          const carousel = self._document.querySelector(".carousel");
-          if (event.changedTouches[0].clientY > carousel!.getBoundingClientRect().top && !(event.target as any).className.match(/((previous|next)content)|closeBtn/)) {
-            if (event.changedTouches[0].clientX <= touchStartX) {
-              self.displaySlidesContent(1);
-            } else {
-              self.displaySlidesContent(-1);
-            }
-          }
-        }
-      } else {
-        if (containerScrollTop && containerScrollTop !== 0) return;
-        self._document.querySelector("#appGlobalGrid")!.className = ((): string => {
-          if (event instanceof WheelEvent) {
-            return event.deltaY > 0 ? 'contracted' : "extended";
-          } else if (event instanceof TouchEvent) {
-            return touchStartY > event.changedTouches[0].clientY ? 'contracted' : "extended";
-          } else {
-            return '';
-          }
-        })();
-      }
-    }
+    });
   }
 
   setResizeEvent(root: ElementRef) {

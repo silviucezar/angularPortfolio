@@ -58,7 +58,7 @@ a {
 
 .appGlobalContent {
   grid-area: appGlobalContent;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .appGlobalMargin {

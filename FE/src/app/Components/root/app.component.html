@@ -1,14 +1,14 @@
-<div class='skillsJobsModal' [ngClass]='{"active" : (skillsState) || (jobsState)}'>
+<div class='skillsJobsModal' [ngClass]='{"active" : modalState && (currentUrl === "skills" || currentUrl === "jobs")}'>
     <div class='skillsModalTabs'>
         <a routerLink='portfolio/skills' class='skillsJobsToggle' style='grid-column:1'
             [ngClass]='{"modalTabsActiveRoute" : currentUrl === "skills"}'>{{locale === 'ro_RO' ? 'Aptitudini' : 'Skills'}}</a>
         <a routerLink='portfolio/jobs' class='skillsJobsToggle' style='grid-column:2'
             [ngClass]='{"modalTabsActiveRoute" : currentUrl === "jobs"}'>{{locale === 'ro_RO' ? 'Joburi' : 'Jobs'}}</a>
-        <a [routerLink]='"portfolio/" + pageLogic.previousUrl' class='skillsJobsToggle' class='closeBtn modalBtn'></a>
-        <div [ngClass]='{"activeModalGrid": skillsState,"inactiveModalGrid": !skillsState }'>
+        <a [routerLink]='"portfolio/" + previousUrl' class='skillsJobsToggle' class='closeBtn modalBtn'></a>
+        <div style="display:none" [ngClass]='{"activeModalGrid": modalState && currentUrl === "skills" }'>
             <ng-container #skills></ng-container>
         </div>
-        <div [ngClass]='{"activeModalGrid": jobsState,"inactiveModalGrid": !jobsState }'>
+        <div style="display:none" [ngClass]='{"activeModalGrid": modalState && currentUrl === "jobs" }'>
             <ng-container #jobs></ng-container>
         </div>
     </div>
@@ -19,10 +19,10 @@
 <div class="appGlobalContent" #appGlobalContent>
     <ng-container #about_me></ng-container>
     <div class='fadeMeIn'>
-        <a routerLink='portfolio/skills' class='skillsJobsToggle contentButton'
-            (click)='pageLogic.setPreviousUrl(currentUrl)' style>{{menuMetadata[locale] ? menuMetadata[locale][1] : ''}}</a>
-        <a routerLink='portfolio/jobs' class='skillsJobsToggle contentButton'
-            (click)='pageLogic.setPreviousUrl(currentUrl)'>{{menuMetadata[locale] ? menuMetadata[locale][2] : ''}}</a>
+        <a routerLink='portfolio/skills'
+            class='skillsJobsToggle contentButton'>{{menuMetadata[locale] ? menuMetadata[locale][1] : ''}}</a>
+        <a routerLink='portfolio/jobs'
+            class='skillsJobsToggle contentButton'>{{menuMetadata[locale] ? menuMetadata[locale][2] : ''}}</a>
     </div>
     <ng-container #education></ng-container>
     <ng-container #references></ng-container>

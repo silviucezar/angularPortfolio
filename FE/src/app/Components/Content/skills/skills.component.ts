@@ -22,13 +22,12 @@ export class SkillsComponent implements OnInit {
     .subscribe((localeTranslations: LocaleTranslations | undefined) => {
       if (this.metadata[localeTranslations!.locale] !== undefined) {
         this.locale = localeTranslations!.locale;
-        this.pageLogic.hideModalSibling('jobs');
+        this.pageLogic.modalState$.next(true);
       } else {
         this.pageLogic.fetchComponentsMetadata('skills').then((metadata: Skills) => {
           this.locale = localeTranslations!.locale;
           this.metadata[this.locale] = metadata;
-          console.log(this.metadata[this.locale])
-          this.pageLogic.hideModalSibling('jobs');
+          this.pageLogic.modalState$.next(true);
         });
       }
     });

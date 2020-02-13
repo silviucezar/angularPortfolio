@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UrlSubscription } from '../Interfaces/interfaces';
@@ -20,7 +20,7 @@ export class UrlListenerService {
   ) { }
 
   start() {
-    this.router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe(event => {
+    this.router.events.pipe(filter((event): event is NavigationStart => event instanceof NavigationStart)).subscribe(event => {
       const localUrlSubscription: UrlSubscription = {
         dataToFetch: (event.url !== "/" ? event.url.replace("/portfolio/", '').replace('-', '_') : 'about_me') as keyof ComponentsTemplate,
         path: event.url !== "/" ? event.url.replace("/portfolio/", "") : 'about-me'
